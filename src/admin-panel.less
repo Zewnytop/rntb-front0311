@@ -11,33 +11,94 @@
     grid-template-rows: 10% 90%;
 
     .admin-panel-left-logo {
-      border: 1px solid red;
+      padding-top: 2vh;
+      //border: 1px solid red;
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: center;
+      height: 100%;
 
-      p {
+      span {
+        align-self: center;
         color: #FFFFFF;
-        text-align: center;
         font-style: normal;
         font-weight: bold;
         font-size: 40px;
-        margin: 0;
+        margin-top: 1vh;
         padding: 0;
+        flex: 1 0 auto;
+      }
+
+      .admin-panel-left-logo-hr {
+        align-self: center;
+        flex: 0 0 auto;
+        background-color: #FFFFFF;
+        width: 80%;
+        height: 2px;
       }
     }
+
+    //hr {
+    //  border: none; /* Убираем границу */
+    //  background-color: #FFFFFF; /* Цвет линии */
+    //  color: #FFFFFF; /* Цвет линии для IE6-7 */
+    //  height: 2px; /* Толщина линии */
+    //}
 
     .admin-panel-left-menu {
       width: 100%;
       display: grid;
-      grid-template-rows: repeat(6, 1fr);
+      grid-template-rows: repeat(6, 7vh);
+      grid-row-gap: 3vh;
+      text-align: center;
+
+      button {
+        border-radius: 36px;
+        background-color: #7d4247;
+        color: #FFFFFF;
+        padding: 8px;
+        text-align: center;
+        border: 2px solid #ffffff;
+        font-family: Monsterrat;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5vh 2px;
+        cursor: pointer;
+        width: 50%;
+        transition-duration: 0.4s;
+      }
+      button:hover {
+        background-color: #A0575D;
+      }
+
 
     }
   }
 
-  .admin-panel-center{
+  .admin-panel-center {
     background-color: #f8f8f8;
     width: 100%;
+    display: grid;
+    grid-template-rows: 6% 94%;
+
+    .admin-panel-center-top {
+      background-color: #DADADA;
+      display: grid;
+      grid-template-columns: 93% 7%;
+
+
+      .cabinet-profile {
+        //border: 1px solid red;
+        display: flex;
+        align-items: center;
+
+        div, img {
+          max-width: 100%;
+          object-fit: contain;
+        }
+      }
+
+    }
   }
 
 }
