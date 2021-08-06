@@ -1,32 +1,43 @@
 @import "color";
 
-.app-menu{
-    background: url("/assets/images/MenuBackground.png");
-    width: 1920px;
-    height: 720px;
+.app-menu {
+  background: url("/assets/images/menuBackground.png") no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 600px;
 
-  .navbar{
+  .container {
+    padding-top: 35px;
+  }
 
+  .navbar {
     height: 120px;
     background: @burgundy;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.28);
     border-radius: 10px;
+
+    display: flex;
+
   }
-  .logo-title{
+
+  .logo-title {
     display: flex;
     align-items: center;
     flex-direction: row;
-    margin-top: 150px;
+    margin-top: 95px;
+    padding-left: 0.521vw;
     filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.45));
 
-    .logo{
-      background: url("/assets/images/RNTBlogo.svg");
+    .logo {
+      background: url("/assets/images/RNTBlogo.svg") no-repeat;
+      //width: 7.71vw;
       width: 147.83px;
       height: 250px;
-      margin-right: 100px;
+      margin-right: 5.21vw;
     }
-    .title{
-      width: 793px;
+
+    .title {
+      width: 41.3vw;
       height: 255px;
       font-style: normal;
       font-weight: bold;
@@ -34,6 +45,121 @@
       line-height: 85px;
       text-align: center;
       color: @whitemilk;
+    }
+  }
+}
+
+//Ирбис
+.irbis {
+  background: @grey;
+  height: 360px;
+
+  .irbis-title {
+    margin-left: 13px;
+    padding-top: 26px;
+
+    .irbis-title-span {
+      font-size: 30px;
+      line-height: 37px;
+    }
+
+    .irbis-title-bands-first {
+      width: 13.03vw;
+      border: 1px solid #7D4247;
+      margin-left: 0px;
+      margin-top: 5px;
+    }
+
+    .irbis-title-bands-second {
+      width: 7.82vw;
+      border: 1px solid #7D4247;
+      margin-left: 0px;
+      margin-top: 20px;
+    }
+  }
+
+  .irbis-sections {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    width: 66.41vw;
+    height: 120px;
+    border-bottom: 2px solid #7D4247;
+    margin-left: 13px;
+    margin-top: 88px;
+
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+
+    .irbis-sections-one {
+      display: flex;
+      align-items: center;
+
+      .img {
+        background: url("/assets/images/section-one.svg") no-repeat center;
+        width: 44.64px;
+        height: 35px;
+        margin-right: 10px;
+      }
+
+      .text {
+        width: 182px;
+      }
+    }
+
+    .irbis-sections-two {
+      display: flex;
+      align-items: center;
+
+      .img {
+        background: url("/assets/images/sectino-two.svg") no-repeat center;
+        width: 45px;
+        height: 35px;
+        margin-right: 10px;
+      }
+
+      .text {
+        width: 213px;
+      }
+    }
+
+    .irbis-sections-three {
+      display: flex;
+      align-items: center;
+
+      .img {
+        background: url("/assets/images/section-three.svg") no-repeat center;
+        width: 31px;
+        height: 35px;
+        margin-right: 10px;
+      }
+
+      .text {
+        width: 203px;
+      }
+    }
+
+    .irbis-sections-four {
+      display: flex;
+      align-items: center;
+
+      .img {
+        background: url("/assets/images/section-four.svg") no-repeat center;
+        width: 34px;
+        height: 35px;
+        margin-right: 10px;
+      }
+
+      .text {
+        width: 236px;
+      }
+    }
+
+    .irbis-sections-hr {
+      height: 80px;
+      border: 1px solid #7D4247;
+      margin-top: 15px;
     }
   }
 }
