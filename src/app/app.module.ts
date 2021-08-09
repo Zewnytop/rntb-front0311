@@ -6,13 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { MenuComponent } from './menu-navbar/menu.component';
 import { FooterComponent } from './footer/footer.component';
+import { GeneralComponent } from './general/general.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminPanelComponent,
     MenuComponent,
-    FooterComponent
+    FooterComponent,
+    GeneralComponent
   ],
   imports: [
     BrowserModule,
