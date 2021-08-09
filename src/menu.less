@@ -11,12 +11,38 @@
   }
 
   .navbar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
     height: 120px;
     background: @burgundy;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.28);
     border-radius: 10px;
 
     display: flex;
+    .search{
+      display: flex;
+      .search-img{
+        background: url("assets/images/search.svg") no-repeat center;
+        width: 20px;
+        height: 20px;
+        z-index: 2;
+      }
+      .search-input{
+        width: 240px;
+        height: 40px;
+        background: #FFFFFF;
+        border-radius: 30px;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 23px;
+        line-height: 27px;
+        text-align: center;
+        z-index: 1;
+      }
+    }
+
     .languages{
       font-weight: bold;
       font-size: 18px;
