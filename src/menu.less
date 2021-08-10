@@ -3,7 +3,7 @@
 .app-menu {
   background: url("/assets/images/menuBackground.png") no-repeat;
   background-size: cover;
-  width: 100vw;
+  width: 100%;
   height: 600px;
 
   .container {
@@ -21,25 +21,49 @@
     border-radius: 10px;
 
     display: flex;
+
+    .navbar-ul{
+      display: flex;
+      list-style: none;
+      padding-left: 0px;
+
+      .navbar-li{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 25px;
+        color: @white;
+        padding-right: 40px;
+        .navbar-li-dropdown{
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+
+          margin-top: 45px;
+          padding: 15px 10px;
+
+          background-color: @burgundy;
+          min-width: 160px;
+          width: auto;
+          z-index: 10;
+        }
+      }
+    }
     .search{
       display: flex;
-      .search-img{
-        background: url("assets/images/search.svg") no-repeat center;
-        width: 20px;
-        height: 20px;
-        z-index: 2;
-      }
       .search-input{
         width: 240px;
         height: 40px;
-        background: #FFFFFF;
-        border-radius: 30px;
+
         font-style: normal;
         font-weight: normal;
         font-size: 23px;
-        line-height: 27px;
         text-align: center;
-        z-index: 1;
+        background: url("assets/images/search-input.svg") no-repeat center;
+        border-width: 0px;
+      }
+      ::placeholder{
+        color: @black;
+        padding-left: 20px;
       }
     }
 
@@ -47,7 +71,13 @@
       font-weight: bold;
       font-size: 18px;
       line-height: 22px;
-
+      color: @white;
+      .eng{
+        padding-top: 8px;
+      }
+      .kz{
+        padding-top: 8px;
+      }
     }
   }
 
@@ -126,6 +156,7 @@
     .irbis-sections-one {
       display: flex;
       align-items: center;
+      text-decoration: none;
 
       .img {
         background: url("/assets/images/section-one.svg") no-repeat center;
@@ -136,12 +167,14 @@
 
       .text {
         width: 182px;
+        color: @black;
       }
     }
 
     .irbis-sections-two {
       display: flex;
       align-items: center;
+      text-decoration: none;
 
       .img {
         background: url("/assets/images/sectino-two.svg") no-repeat center;
@@ -152,6 +185,7 @@
 
       .text {
         width: 213px;
+        color: @black;
       }
     }
 
