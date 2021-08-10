@@ -1,7 +1,9 @@
 @import "color";
 
 .footer {
-  height: 440px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: auto;
   width: 100%;
   background: @burgundy;
   display: flex;
@@ -19,9 +21,10 @@
       justify-content: space-between;
 
       .wrapper-hr-90 {
-        margin-top: 80px;
-        height: 200px;
-        border: 0.25px solid @whitemilk;
+        margin-top: 43px;
+        margin-bottom: 76px auto;
+        height: auto;
+        border: 0.2px solid @whitemilk;
       }
 
       .info {
@@ -126,12 +129,15 @@
           display: flex;
           align-items: center;
           margin-bottom: 5px;
-          margin-top: 30px;
+          margin-top: 15px;
           font-size: 14px;
           line-height: 22px;
           font-style: normal;
           color: #f8f8f8;
 
+        .link-ul {
+        padding: 0px;
+        }
 
 
           .article-first-img {
@@ -146,7 +152,6 @@
             list-style: none;
 
             .elem-span {
-              cursor: pointer;
               display: inline-block;
               align-items: center;
               margin-top: 10px;
@@ -159,6 +164,8 @@
 
           .link-li:before {
             content: url("/assets/images/Vector.svg");
+            margin-right: 12.6px;
+            cursor: pointer;
           }
         }
       }
