@@ -8,6 +8,7 @@ import { MenuComponent } from './menu-navbar/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { GeneralComponent } from './general/general.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { AdminEditMenuComponent } from './admin-edit-menu/admin-edit-menu.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ContactsComponent } from './contacts/contacts.component';
     MenuComponent,
     FooterComponent,
     GeneralComponent,
-    ContactsComponent
+    ContactsComponent,
+    AdminEditMenuComponent,
   ],
   imports: [
     BrowserModule,
