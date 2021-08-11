@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { GeneralComponent } from './general/general.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AdminEditMenuComponent } from './admin-edit-menu/admin-edit-menu.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AdminEditMenuComponent } from './admin-edit-menu/admin-edit-menu.compon
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
