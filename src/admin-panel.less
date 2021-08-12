@@ -61,7 +61,7 @@
         border: 2px solid #ffffff;
         font-family: Monsterrat;
         display: inline-block;
-        font-size: 16px;
+        font-size: 15px;
         margin: 5vh 2px;
         cursor: pointer;
         width: 50%;
@@ -76,12 +76,23 @@
           transition-duration: 0.2s;
           color: #2b1c1c;
         }
-
       }
+
       button:hover {
         background-color: #A0575D;
       }
 
+      .admin-panel-left-menu-return-link {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        span {
+          margin-bottom: 25px;
+          font-size: 14px;
+          color: @white;
+          text-decoration: none;
+        }
+      }
 
     }
   }
@@ -94,22 +105,33 @@
 
     .admin-panel-center-top {
       background-color: #DADADA;
-      display: grid;
-      grid-template-columns: 93% 7%;
-
+      display: flex;
+      justify-content: flex-end;
 
       .cabinet-profile {
         //border: 1px solid red;
         display: flex;
         align-items: center;
 
+        button, input[type="submit"], input[type="reset"] {
+          background: none;
+          color: inherit;
+          border: none;
+          padding: 0;
+          font: inherit;
+          cursor: pointer;
+          outline: inherit;
+        }
+
         div, img {
           max-width: 100%;
           object-fit: contain;
+          margin-right: 6px;
         }
       }
 
     }
+
     .admin-panel-center-content {
       background-color: #eeeeee;
     }
