@@ -53,8 +53,7 @@
           flex-direction: column;
           position: absolute;
 
-          margin-top: 45px;
-          padding: 15px 10px;
+          padding: 50px 15px 10px;
 
           background-color: @burgundy;
           min-width: 160px;
@@ -72,17 +71,21 @@
       display: flex;
 
       .search-input {
-        width: 240px;
+        width: 12.5vw;
         height: 40px;
+        border-radius: 30px;
+        background: @white;
 
         font-style: normal;
         font-weight: normal;
         font-size: 23px;
         text-align: center;
-        background: url("assets/images/search-input.svg") no-repeat center;
+        //background: url("assets/images/search-input.svg") no-repeat center;
         border-width: 0px;
       }
-
+      :focus-visible{
+        outline: none;
+      }
       ::placeholder {
         color: @black;
         padding-left: 20px;
@@ -90,17 +93,31 @@
     }
 
     .languages {
+      display: flex;
+      flex-direction: column;
       font-weight: bold;
       font-size: 18px;
       line-height: 22px;
       color: @white;
 
+      .ru{
+        text-decoration: none;
+        color: @white;
+      }
       .eng {
         padding-top: 8px;
+        text-decoration: none;
+        color: @white;
       }
 
       .kz {
         padding-top: 8px;
+        text-decoration: none;
+        color: @white;
+      }
+      a:hover {
+        transition-duration: 0.2s;
+        color: #2b1c1c;
       }
     }
   }
