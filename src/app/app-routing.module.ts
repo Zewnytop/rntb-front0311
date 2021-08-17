@@ -8,6 +8,7 @@ import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
 import {GeneralComponent} from "./general/general.component";
 import {ContactsComponent} from "./contacts/contacts.component";
 import {AdminEditMenuComponent} from "./admin-edit-menu/admin-edit-menu.component";
+import {MapComponent} from "./map/map.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       {path: 'menu-navbar', component: MenuComponent},
       {path: 'footer', component: FooterComponent},
       {path: 'contacts', component: ContactsComponent},
+      {path: 'map', component: MapComponent},
       // {path: '**', redirectTo: '/'},
     ]
   },
