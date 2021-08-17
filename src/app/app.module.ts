@@ -10,6 +10,7 @@ import { GeneralComponent } from './general/general.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AdminEditMenuComponent } from './admin-edit-menu/admin-edit-menu.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     GeneralComponent,
     ContactsComponent,
     AdminEditMenuComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
