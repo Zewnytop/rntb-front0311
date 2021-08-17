@@ -11,6 +11,7 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { AdminEditMenuComponent } from './admin-edit-menu/admin-edit-menu.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { MapComponent } from './map/map.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MapComponent } from './map/map.component';
     ContactsComponent,
     AdminEditMenuComponent,
     MapComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,

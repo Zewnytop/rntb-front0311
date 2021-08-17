@@ -9,6 +9,7 @@ import {GeneralComponent} from "./general/general.component";
 import {ContactsComponent} from "./contacts/contacts.component";
 import {AdminEditMenuComponent} from "./admin-edit-menu/admin-edit-menu.component";
 import {MapComponent} from "./map/map.component";
+import {GalleryComponent} from "./gallery/gallery.component";
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       {path: 'footer', component: FooterComponent},
       {path: 'contacts', component: ContactsComponent},
       {path: 'map', component: MapComponent},
+      {path: 'gallery', component: GalleryComponent},
       // {path: '**', redirectTo: '/'},
     ]
   },
