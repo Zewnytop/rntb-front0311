@@ -12,7 +12,7 @@
 
   .navbar {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 
     height: 120px;
@@ -30,17 +30,29 @@
       display: flex;
       list-style: none;
       padding-left: 0px;
+      padding-right: 1.3vw;
 
       .navbar-li {
+
         font-style: normal;
         font-weight: normal;
         font-size: 25px;
         color: @white;
-        padding-right: 40px;
+        padding-right: 1.56vw;
 
-        a {
+        .li-a {
           color: @white;
           text-decoration: none;
+          display: flex;
+          align-items: center;
+
+          .li-svg {
+            background: url("/assets/images/dropdown.svg") center no-repeat;
+            width: 15px;
+            height: 9px;
+            margin-left: 5px;
+            margin-top: 2px;
+          }
         }
 
         a:hover {
@@ -69,6 +81,7 @@
 
     .search {
       display: flex;
+      padding-right: 1.3vw;
 
       .search-input {
         width: 12.5vw;
@@ -83,9 +96,11 @@
         //background: url("assets/images/search-input.svg") no-repeat center;
         border-width: 0px;
       }
-      :focus-visible{
+
+      :focus-visible {
         outline: none;
       }
+
       ::placeholder {
         color: @black;
         padding-left: 20px;
@@ -100,10 +115,11 @@
       line-height: 22px;
       color: @white;
 
-      .ru{
+      .ru {
         text-decoration: none;
         color: @white;
       }
+
       .eng {
         padding-top: 8px;
         text-decoration: none;
@@ -115,6 +131,7 @@
         text-decoration: none;
         color: @white;
       }
+
       a:hover {
         transition-duration: 0.2s;
         color: #2b1c1c;
