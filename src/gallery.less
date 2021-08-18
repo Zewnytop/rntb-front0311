@@ -1,12 +1,63 @@
 .gallery{
 
   .gallery-title{
+    display: flex;
+    flex-direction: column;
 
-    .title{
+    .title-first{
+      display: flex;
+      align-items: center;
 
+      .title-hr{
+        width: 18.23vw;
+        height: 0px;
+        border: 1px solid @burgundy;
+      }
+      .title{
+        font-style: normal;
+        font-weight: bold;
+        font-size: 26px;
+      }
     }
     .small-title{
+      width: 27.553vw;
+      margin: 20px auto 40px;
 
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      color: @burgundy;
     }
   }
+
+  .gallery-carousel{
+    display: flex;
+    justify-content: space-between;
+    width: 66.41vw;
+    margin: auto;
+
+    .carousel-block{
+      width: 195px;
+      height: 300px;
+      background-color: @grey;
+    }
+  }
+  .carousel-circle{
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    .carousel-button{
+      width: 20px;
+      height: 20px;
+      border-radius: 100px;
+      background: #C4C4C4;
+    }
+  }
+  .carousel-hr{
+    width: 13.021vw;
+    height: 0px;
+    border: 1px solid @burgundy;
+  }
+  margin-bottom: 200px;
 }
