@@ -2,29 +2,21 @@
   <div class="admin-panel-left">
 
     <div class="admin-panel-left-logo">
-      <span>РНТБ</span>
+      <span routerLink="/login">РНТБ</span>
       <div class="admin-panel-left-logo-hr"></div>
     </div>
 
 
     <div class="admin-panel-left-menu">
       <div>
-        <button><a routerLink="./admin-edit-menu">Меню</a></button>
-      </div>
-      <div>
-        <button><a>Выставка</a></button>
-      </div>
-      <div>
-        <button><a>Новости</a></button>
-      </div>
-      <div>
-        <button><a>Контакты</a></button>
-      </div>
-      <div>
-        <button><a>Филиалы</a></button>
-      </div>
-      <div>
-        <button><a>Статьи</a></button>
+        <ul class="left-menu-ul">
+          <li routerLink="./admin-edit-menu"><a>Меню</a></li>
+          <li><a>Выставка</a></li>
+          <li><a>Новости</a></li>
+          <li><a>Контакты</a></li>
+          <li><a>Филиалы</a></li>
+          <li><a>Статьи</a></li>
+        </ul>
       </div>
       <div class="admin-panel-left-menu-return-link">
         <span routerLink="/">Вернуться на сайт</span>
@@ -35,16 +27,18 @@
     <div class="admin-panel-center-top">
       <div></div>
       <div class="cabinet-profile">
-        <div>
-          <button>
+        <ul>
+          <li>
             <img src="assets/admin-panel-cabinet.svg">
-          </button>
-        </div>
-        <div>
-          <button>
+          </li>
+          <li>
             <img src="assets/admin-panel-cabinet-knopka.svg">
-          </button>
-        </div>
+            <div class="navbar-li-dropdown">
+              <a class="dropdown-a">Редактировать</a>
+              <a class="dropdown-a">Выйти</a>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="admin-panel-center-content">

@@ -1,14 +1,23 @@
 .admin-panel-global {
   height: 100%;
   width: 100%;
-  display: grid;
-  grid-template-columns: 16% 84%;
-
+  display: flex;
+  flex-direction: row;
+  font-size: 0.875rem;
 
   .admin-panel-left {
     background-color: #7d4247;
+    width: 19.3875rem;
     display: grid;
     grid-template-rows: 10% 90%;
+    flex-shrink: 0;
+    height: 100%;
+
+    @media only screen and (min-width: 1200px) and (max-width: 1350px) {
+      .admin-panel-left {
+        width: 13.375rem;
+      }
+    }
 
     .admin-panel-left-logo {
       padding-top: 2vh;
@@ -19,6 +28,7 @@
       height: 100%;
 
       span {
+        cursor: pointer;
         align-self: center;
         color: #FFFFFF;
         font-style: normal;
@@ -46,51 +56,50 @@
     //}
 
     .admin-panel-left-menu {
+      height: 100%;
       width: 100%;
-      display: grid;
-      grid-template-rows: repeat(6, 7vh);
-      grid-row-gap: 3vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       text-align: center;
 
-      button {
-        border-radius: 36px;
-        background-color: #7d4247;
-        color: #FFFFFF;
-        padding: 8px;
-        text-align: center;
-        border: 2px solid #ffffff;
-        font-family: Monsterrat;
-        display: inline-block;
-        font-size: 15px;
-        margin: 5vh 2px;
-        cursor: pointer;
-        width: 50%;
-        transition-duration: 0.2s;
+      .left-menu-ul {
+        display: flex;
+        flex-direction: column;
+        padding: 2px 0px;
 
-        a {
-          color: @white;
-          text-decoration: none;
+        li {
+          display: flex;
+          flex-direction: column;
+          line-height: 1.7;
+          cursor: pointer;
+          padding: 0.611rem 1.25rem;
+          align-items: flex-start;
+
+
+          a {
+            color: #dadae7;
+            text-decoration: none;
+            display: inline-block;
+          }
         }
 
-        a:hover {
-          transition-duration: 0.2s;
-          color: #2b1c1c;
-        }
-      }
+        li:hover {
+          background-color: #984949;
 
-      button:hover {
-        background-color: #A0575D;
+          a {
+            color: #fff;
+          }
+        }
       }
 
       .admin-panel-left-menu-return-link {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
+        margin-bottom: 25px;
         span {
-          margin-bottom: 25px;
           font-size: 14px;
           color: @white;
           text-decoration: none;
+          cursor: pointer;
         }
       }
 
@@ -104,36 +113,77 @@
     grid-template-rows: 6% 94%;
 
     .admin-panel-center-top {
-      background-color: #DADADA;
+      background-color: #ffffff;
       display: flex;
       justify-content: flex-end;
+      -webkit-box-shadow: 0px 14px 16px -5px rgba(34, 60, 80, 0.17);
+      -moz-box-shadow: 0px 14px 16px -5px rgba(34, 60, 80, 0.17);
+      box-shadow: 0px 14px 16px -5px rgba(34, 60, 80, 0.17);
 
       .cabinet-profile {
         //border: 1px solid red;
         display: flex;
         align-items: center;
 
-        button, input[type="submit"], input[type="reset"] {
-          background: none;
-          color: inherit;
-          border: none;
+        ul {
+          list-style: none;
           padding: 0;
-          font: inherit;
-          cursor: pointer;
-          outline: inherit;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          li {
+            position: relative;
+            display: inline-block;
+            padding: 14px;
+            cursor: pointer;
+
+            .navbar-li-dropdown {
+              display: none;
+              flex-direction: column;
+              position: absolute;
+              right: 0;
+              margin: 14px 0px;
+              background-color: #fff;
+              min-width: 160px;
+              width: auto;
+              z-index: 1;
+              -webkit-box-shadow: 0px 14px 16px -5px rgba(34, 60, 80, 0.17);
+              -moz-box-shadow: 0px 14px 16px -5px rgba(34, 60, 80, 0.17);
+              box-shadow: 0px 14px 16px -5px rgba(34, 60, 80, 0.17);
+              cursor: pointer;
+
+              a {
+                float: none;
+                color: #1d1d1d;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+              }
+            }
+          }
+
+          li:hover .navbar-li-dropdown {
+            display: flex;
+
+            a:hover {
+              color: #984949;
+            }
+          }
+
+          div, img {
+            max-width: 100%;
+            object-fit: contain;
+            margin-right: 6px;
+          }
         }
 
-        div, img {
-          max-width: 100%;
-          object-fit: contain;
-          margin-right: 6px;
-        }
       }
-
     }
 
     .admin-panel-center-content {
-      background-color: #eeeeee;
+
     }
   }
 
