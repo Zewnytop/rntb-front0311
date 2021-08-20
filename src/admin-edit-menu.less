@@ -1,91 +1,77 @@
-.admin-edit-menu-block {
-  margin: 2.5vw 0 0 2.5vw;
-  width: 90%;
-  height: 80%;
-  background-color: white;
-  -webkit-box-shadow: 0px 0px 16px -5px rgba(34, 60, 80, 0.17);
-  -moz-box-shadow: 0px 0px 16px -5px rgba(34, 60, 80, 0.17);
-  box-shadow: 0px 0px 16px -5px rgba(34, 60, 80, 0.17);
 
-  .admin-edit-menu-block > div > span {
+.admin-edit-menu-choice {
+  display: flex;
+  flex-direction: row;
+
+  div {
+    padding-right: 2vw;
   }
+}
 
-  .admin-edit-menu-choice {
-    display: flex;
-    flex-direction: row;
+.admin-edit-menu-table {
+  width: 100%;
+  border: none;
+  margin-bottom: 20px;
+  padding-top: 5px;
+}
 
-    div {
-      padding-right: 2vw;
-    }
-  }
+.admin-edit-menu-table thead th {
+  font-weight: bold;
+  text-align: left;
+  border: none;
+  padding: 10px 15px;
+  background: #d8d8d8;
+  font-size: 14px;
+}
 
-  .admin-edit-menu-table {
+.admin-edit-menu-table thead tr th:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.admin-edit-menu-table thead tr th:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.admin-edit-menu-table tbody td {
+  text-align: left;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+.admin-edit-menu-table tbody tr:nth-child(even) {
+  background: #e5e5e5;
+}
+
+.admin-edit-menu-table tbody tr td:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.admin-edit-menu-table tbody tr td:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.admin-edit-menu-table {
+  .admin-edit-menu-edit-button {
     width: 100%;
-    border: none;
-    margin-bottom: 20px;
-    padding-top: 5px;
-  }
+    display: flex;
+    justify-content: center;
 
-  .admin-edit-menu-table thead th {
-    font-weight: bold;
-    text-align: left;
-    border: none;
-    padding: 10px 15px;
-    background: #d8d8d8;
-    font-size: 14px;
-  }
+    button {
+      margin-right: 13px;
+    }
 
-  .admin-edit-menu-table thead tr th:first-child {
-    border-radius: 8px 0 0 8px;
-  }
-
-  .admin-edit-menu-table thead tr th:last-child {
-    border-radius: 0 8px 8px 0;
-  }
-
-  .admin-edit-menu-table tbody td {
-    text-align: left;
-    border: none;
-    padding: 10px 15px;
-    font-size: 14px;
-    vertical-align: top;
-  }
-
-  .admin-edit-menu-table tbody tr:nth-child(even) {
-    background: #e5e5e5;
-  }
-
-  .admin-edit-menu-table tbody tr td:first-child {
-    border-radius: 8px 0 0 8px;
-  }
-
-  .admin-edit-menu-table tbody tr td:last-child {
-    border-radius: 0 8px 8px 0;
-  }
-
-  .admin-edit-menu-table {
-    .admin-edit-menu-edit-button {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-
-      button {
-        margin-right: 13px;
-      }
-
-      button, input[type="submit"], input[type="reset"] {
-        background: none;
-        color: inherit;
-        border: none;
-        padding: 0;
-        font: inherit;
-        cursor: pointer;
-        outline: inherit;
-      }
+    button, input[type="submit"], input[type="reset"] {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
     }
   }
-
-
 }
 
 

@@ -12,6 +12,7 @@ import { AdminEditMenuComponent } from './admin-edit-menu/admin-edit-menu.compon
 import {ReactiveFormsModule} from "@angular/forms";
 import { MapComponent } from './map/map.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { EditArticleComponent } from './edit-article/edit-article.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { GalleryComponent } from './gallery/gallery.component';
     AdminEditMenuComponent,
     MapComponent,
     GalleryComponent,
+    EditArticleComponent,
   ],
   imports: [
     BrowserModule,

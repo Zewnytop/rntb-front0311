@@ -1,0 +1,103 @@
+.edit-article {
+  .edit-article-head {
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+
+      li {
+        padding: 0px 25px 0px 0px;
+
+      }
+    }
+
+  }
+
+  .edit-article-space {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    height: 100%;
+
+    .edit-article-image {
+      div {
+        width: 300px;
+        height: 230px;
+        background-color: darkgray;
+      }
+
+    }
+
+    .edit-article-content {
+      width: 100%;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        li {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          line-height: 1.7;
+          cursor: pointer;
+          padding: 0.311rem 0;
+          margin-bottom: 10px;
+          -webkit-box-shadow: 0px 0px 11px -1px rgba(34, 60, 80, 0.2);
+          -moz-box-shadow: 0px 0px 11px -1px rgba(34, 60, 80, 0.2);
+          box-shadow: 0px 0px 11px -1px rgba(34, 60, 80, 0.2);
+
+        }
+      }
+    }
+
+    .article-table {
+      width: 100%;
+      border: none;
+      margin-bottom: 20px;
+
+      thead th {
+        font-weight: bold;
+        text-align: left;
+        border: none;
+        padding: 10px 15px;
+        background: #d8d8d8;
+        font-size: 14px;
+      }
+
+      thead tr th:first-child {
+        border-radius: 0px 0 0 0px;
+      }
+
+      thead tr th:last-child {
+        border-radius: 0 0px 0px 0;
+      }
+
+      tbody td {
+        text-align: left;
+        border: none;
+        padding: 10px 15px;
+        font-size: 14px;
+        vertical-align: top;
+      }
+
+      tbody tr:nth-child(even) {
+        background: #e5e5e5;
+      }
+
+      tbody tr td:first-child {
+        border-radius: 0px 0 0 0px;
+      }
+
+      tbody tr td:last-child {
+        border-radius: 0 0px 0px 0;
+      }
+    }
+  }
+}

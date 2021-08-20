@@ -10,6 +10,7 @@ import {ContactsComponent} from "./contacts/contacts.component";
 import {AdminEditMenuComponent} from "./admin-edit-menu/admin-edit-menu.component";
 import {MapComponent} from "./map/map.component";
 import {GalleryComponent} from "./gallery/gallery.component";
+import {EditArticleComponent} from "./edit-article/edit-article.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
   {
     path: 'login', component: AdminPanelComponent, children: [
       {path: 'admin-edit-menu', component: AdminEditMenuComponent},
+      {path: 'edit-article', component: EditArticleComponent},
 
     ]
   },

@@ -15,7 +15,7 @@
           <li><a>Новости</a></li>
           <li><a>Контакты</a></li>
           <li><a>Филиалы</a></li>
-          <li><a>Статьи</a></li>
+          <li routerLink="./edit-article"><a>Статьи</a></li>
         </ul>
       </div>
       <div class="admin-panel-left-menu-return-link">
@@ -42,7 +42,9 @@
       </div>
     </div>
     <div class="admin-panel-center-content">
-      <router-outlet></router-outlet>
+      <div class="admin-edit-menu-block">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
 </div>
