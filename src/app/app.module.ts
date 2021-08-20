@@ -9,10 +9,11 @@ import { FooterComponent } from './footer/footer.component';
 import { GeneralComponent } from './general/general.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { AdminEditMenuComponent } from './admin-edit-menu/admin-edit-menu.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MapComponent } from './map/map.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { EditArticleComponent } from './edit-article/edit-article.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CKEditorModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
