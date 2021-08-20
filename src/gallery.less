@@ -44,14 +44,23 @@
   }
   .carousel-circle{
     display: flex;
-    justify-content: center;
-    margin-top: 35px;
-    margin-bottom: 35px;
+    justify-content: space-between;
+    width: 4.17vw;
+
+    margin: 35px auto;
+
     .carousel-button{
       width: 20px;
       height: 20px;
       border-radius: 100px;
       background: #C4C4C4;
+      border-style: none;
+
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    .carousel-button:hover{
+      background-color: #585858 ;
     }
   }
   .carousel-hr{
