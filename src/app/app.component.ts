@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +6,6 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public Editor = ClassicEditor;
+
   title = 'rntb-front';
 }
