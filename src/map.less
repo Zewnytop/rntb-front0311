@@ -24,7 +24,8 @@
     margin-top: 20px;
   }
 }
-.map{
+
+.map {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
@@ -33,6 +34,22 @@
   .map-svg {
     width: 100% !important;
     height: 737px;
+
+    .cityname-tag {
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    .cityname-circle{
+      fill:#29A9FB;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    cityname-tag:hover {
+      background-color: #585858;
+    }
+    cityname-circle:hover {
+      background-color: #585858;
+    }
   }
 
   .map-svg-bands {
