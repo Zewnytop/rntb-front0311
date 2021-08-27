@@ -14,6 +14,7 @@ import { MapComponent } from './map/map.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import { AdminFileEditComponent } from './admin-file-edit/admin-file-edit.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
     MapComponent,
     GalleryComponent,
     EditArticleComponent,
+    AdminFileEditComponent,
   ],
   imports: [
     BrowserModule,
