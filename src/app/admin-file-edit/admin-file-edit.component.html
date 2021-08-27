@@ -1,3 +1,13 @@
+<div class="form-group">
+  <label for="file">Choose File</label>
+  <input type="file"
+         id="file"
+         (change)="getLog($event.target)">
+</div>
+<img [src]="cardImageBase64">
+
+<button (click)="getList()">sdgsdgsd</button>
+
 <table class="file-table">
   <tr class="table-tr">
     <th>Имя</th>
