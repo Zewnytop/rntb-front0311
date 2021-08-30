@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
+import {HttpClient, HttpEventType, HttpRequest, HttpResponse} from "@angular/common/http";
 import {FileService} from "../service/file.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-admin-file-edit',
@@ -9,48 +10,78 @@ import {FileService} from "../service/file.service";
 })
 export class AdminFileEditComponent implements OnInit {
 
+  selectedFiles?: FileList | null = null;
+  progressInfos: any[] = [];
+  message: string[] = [];
+
+  fileInfos?: Observable<any>;
+
   fileToUpload: File | null = null;
-  handleError:string = "";
+  handleError: string = "";
 
-  cardImageBase64: string | ArrayBuffer | null  = null;
+  f: any = null
 
-  constructor(private httpClient : HttpClient, private fileService: FileService) { }
+  cardImageBase64: string | ArrayBuffer | null = null;
+  returnI: string | ArrayBuffer | null = null;
+
+  constructor(private httpClient: HttpClient, private fileService: FileService) {
+  }
+
 
   ngOnInit(): void {
   }
 
-  getLog(e: EventTarget| null){;
-    console.log((e as HTMLInputElement).files![0]);
-    const file =  (e as HTMLInputElement).files![0]
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      console.log(reader);
-      this.cardImageBase64 = reader.result;
-    };
-    // const formData = new FormData();
-    // formData.append("thumbnail", file);
-    // console.log(formData);
+  selectFiles(event: Event): void {
+    this.message = [];
+    this.progressInfos = [];
+    this.selectedFiles = (event.target as HTMLInputElement).files;
   }
 
-  getList(){
-    this.fileService.getFiles().subscribe(data => {console.log(data)},error => {console.log(error)})
+  uploadFiles(): void {
+    this.message = [];
+
+    if (this.selectedFiles) {
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        this.test(i, this.selectedFiles[i]);
+      }
+    }
   }
 
-  test(){}
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files.item(0);
+  upload(idx: number, file: File): void {
+    this.progressInfos[idx] = {value: 0, fileName: file.name};
+
+    if (file) {
+      this.fileService.upload(file).subscribe(
+        (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            const msg = 'Uploaded the file successfully: ' + file.name;
+            this.message.push(msg);
+            // this.fileInfos = this.fileService.getFiles();
+          }
+        },
+        (err: any) => {
+          this.progressInfos[idx].value = 0;
+          const msg = 'Could not upload the file: ' + file.name;
+          this.message.push(msg);
+          // this.fileInfos = this.fileService.getFiles();
+        });
+    }
   }
 
-  uploadFileToActivity() {
-    this.postFile(this.fileToUpload!);
-  }
-
-  postFile(fileToUpload: File) {
-    const endpoint = 'your-destination-url';
+  test(idx: number, file: File): void {
+    const url = `/api/files/saveiamge`;
     const formData: FormData = new FormData();
-    formData.append('fileKey', fileToUpload, fileToUpload.name);
-    this.httpClient.post(endpoint, formData).subscribe(data => console.log(data));
+    formData.append('file', file);
+    formData.append('type', file.type);
+    formData.append('size', file.size.toString());
+    const req = new HttpRequest('POST', url, formData, {
+      reportProgress: true,
+      // responseType: 'json'
+    });
+    this.httpClient.request(req).subscribe(date => {
+      console.log(date)
+    });
   }
-
 }
