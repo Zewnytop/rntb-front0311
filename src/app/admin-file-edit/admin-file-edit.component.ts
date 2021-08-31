@@ -42,7 +42,7 @@ export class AdminFileEditComponent implements OnInit {
 
     if (this.selectedFiles) {
       for (let i = 0; i < this.selectedFiles.length; i++) {
-        this.test(i, this.selectedFiles[i]);
+        this.upload(i, this.selectedFiles[i]);
       }
     }
   }
@@ -53,8 +53,10 @@ export class AdminFileEditComponent implements OnInit {
     if (file) {
       this.fileService.upload(file).subscribe(
         (event: any) => {
+          console.log(event instanceof HttpResponse)
           if (event.type === HttpEventType.UploadProgress) {
             this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
+
           } else if (event instanceof HttpResponse) {
             const msg = 'Uploaded the file successfully: ' + file.name;
             this.message.push(msg);
@@ -83,5 +85,11 @@ export class AdminFileEditComponent implements OnInit {
     this.httpClient.request(req).subscribe(date => {
       console.log(date)
     });
+  }
+
+  img() {
+    this.httpClient.get<any>(`/api/files/image`).subscribe(d => {
+      this.cardImageBase64 = "data:image/jpeg;base64," + d.data;
+    })
   }
 }
