@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpEventType, HttpRequest, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpEventType, HttpParams, HttpRequest, HttpResponse} from "@angular/common/http";
 import {FileService} from "../service/file.service";
 import {Observable} from "rxjs";
+import {FileObject} from "../../site-object/file-object";
 
 @Component({
   selector: 'app-admin-file-edit',
@@ -13,6 +14,18 @@ export class AdminFileEditComponent implements OnInit {
   selectedFiles?: FileList | null = null;
   progressInfos: any[] = [];
   message: string[] = [];
+  private _listFiles: FileObject[] = [];
+
+
+  get listFiles(): FileObject[] {
+    return this._listFiles;
+  }
+
+
+
+  set listFiles(value: FileObject[]) {
+    this._listFiles = value;
+  }
 
   fileInfos?: Observable<any>;
 
@@ -29,6 +42,22 @@ export class AdminFileEditComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getListfiles();
+  }
+
+  getListfiles(): void {
+    this.fileService.getFiles().subscribe(data => {
+      console.log(data);
+      // data.result.forEach(file => this._listFiles.push({
+      //     id: file.id,
+      //     nameFile: file.nameFile,
+      //     typeFile: file.typeFile,
+      //     createdDate: file.createDate
+      //   })
+      // );
+      this.listFiles = data.result;
+      console.log(this._listFiles)
+    })
   }
 
   selectFiles(event: Event): void {
@@ -51,7 +80,7 @@ export class AdminFileEditComponent implements OnInit {
     this.progressInfos[idx] = {value: 0, fileName: file.name};
 
     if (file) {
-      this.fileService.upload(file).subscribe(
+      this.fileService.uploadFile(file).subscribe(
         (event: any) => {
           console.log(event instanceof HttpResponse)
           if (event.type === HttpEventType.UploadProgress) {
@@ -90,6 +119,22 @@ export class AdminFileEditComponent implements OnInit {
   img() {
     this.httpClient.get<any>(`/api/files/image`).subscribe(d => {
       this.cardImageBase64 = "data:image/jpeg;base64," + d.data;
+    })
+  }
+
+  del(): void {
+    let HttPar = new HttpParams()
+    HttPar.set("id", 123);
+    this.httpClient.delete(`/api/files/delete/` + 19).subscribe(data => {
+      console.log("dat")
+    }, (error => {
+      console.log(error)
+    }))
+  }
+
+  get() {
+    this.fileService.getFiles().subscribe(data => {
+      console.log(data)
     })
   }
 }

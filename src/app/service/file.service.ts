@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
-import {file} from "../../site-object/file-object";
+import {DataObject, FileObject} from "../../site-object/file-object";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -11,12 +11,12 @@ export class FileService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getFiles(): Observable<file> {
+  getFiles(): Observable<DataObject> {
     const url = `/api/files/list`;
-    return this.httpClient.get(url);
+    return this.httpClient.get<DataObject>(url);
   }
 
-  upload(file: File): Observable<HttpEvent<any>> {
+  uploadFile(file: File): Observable<HttpEvent<any>> {
     const url = `/api/files/saveiamge`;
     const formData: FormData = new FormData();
     formData.append('file', file);
@@ -29,11 +29,13 @@ export class FileService {
     return this.httpClient.request(req);
   }
 
-  saveFile(file: string | ArrayBuffer | null) {
-    // const url = `/api/files/list`;
-    console.log("post")
-    const text = "file";
-    this.httpClient.post(`/api/files/saveiamge`, text);
+  deleteFile(id: number): Observable<any> {
+    const url = `/api/files/delete/${id}`;
+    return this.httpClient.delete(url);
+  }
 
+  getFile(id: number): Observable<any> {
+    const url = `/api/files/get/${id}`;
+    return this.httpClient.get(url);
   }
 }
