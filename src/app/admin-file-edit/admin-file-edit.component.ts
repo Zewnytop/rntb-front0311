@@ -93,7 +93,7 @@ export class AdminFileEditComponent implements OnInit {
             this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
 
           } else if (event instanceof HttpResponse) {
-            const msg = 'Uploaded the file successfully: ' + file.name;
+            const msg = 'Файл успешно загружен: ' + file.name;
             this.listFiles.unshift({
               id: event.body.result.id,
               nameFile: event.body.result.nameFile,
@@ -110,7 +110,7 @@ export class AdminFileEditComponent implements OnInit {
         },
         (err: any) => {
           this.progressInfos[idx].value = 0;
-          const msg = 'Could not upload the file: ' + file.name;
+          const msg = 'Не удалось загрузить файл: ' + file.name;
           this.message.push(msg);
           // this.fileInfos = this.fileService.getFiles();
         });
@@ -126,8 +126,8 @@ export class AdminFileEditComponent implements OnInit {
   }
 
   previewImage(): string | undefined {
-    const regex1 = /image\/.*/;
-    if (this.typeFile?.match(regex1)) {
+    const regex = /image\/.*/;
+    if (this.typeFile?.match(regex)) {
       if (this.idFile !== null) {
         const url = `/api/files/get/${this.idFile}`;
         return url;
