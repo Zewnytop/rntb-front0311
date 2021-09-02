@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpEventType, HttpParams, HttpRequest, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpEventType, HttpResponse} from "@angular/common/http";
 import {FileService} from "../service/file.service";
-import {Observable} from "rxjs";
 import {FileObject} from "../../site-object/file-object";
+import {BrowserModule} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin-file-edit',
@@ -15,27 +15,33 @@ export class AdminFileEditComponent implements OnInit {
   progressInfos: any[] = [];
   message: string[] = [];
   private _listFiles: FileObject[] = [];
-
+  private _idFile: number | null = null;
+  private _typeFile: string | null = null;
 
   get listFiles(): FileObject[] {
     return this._listFiles;
   }
 
-
-
   set listFiles(value: FileObject[]) {
     this._listFiles = value;
   }
 
-  fileInfos?: Observable<any>;
 
-  fileToUpload: File | null = null;
-  handleError: string = "";
+  get idFile(): number | null {
+    return this._idFile;
+  }
 
-  f: any = null
+  set idFile(value: number | null) {
+    this._idFile = value;
+  }
 
-  cardImageBase64: string | ArrayBuffer | null = null;
-  returnI: string | ArrayBuffer | null = null;
+  get typeFile(): string | null {
+    return this._typeFile;
+  }
+
+  set typeFile(value: string | null) {
+    this._typeFile = value;
+  }
 
   constructor(private httpClient: HttpClient, private fileService: FileService) {
   }
@@ -48,14 +54,14 @@ export class AdminFileEditComponent implements OnInit {
   getListfiles(): void {
     this.fileService.getFiles().subscribe(data => {
       console.log(data);
-      // data.result.forEach(file => this._listFiles.push({
-      //     id: file.id,
-      //     nameFile: file.nameFile,
-      //     typeFile: file.typeFile,
-      //     createdDate: file.createDate
-      //   })
-      // );
-      this.listFiles = data.result;
+      data.result.forEach(file => this.listFiles.push({
+          id: file.id,
+          nameFile: file.nameFile,
+          typeFile: file.typeFile,
+          createdDate: file.createdDate
+        })
+      );
+      // this.listFiles = data.result;
       console.log(this._listFiles)
     })
   }
@@ -88,7 +94,17 @@ export class AdminFileEditComponent implements OnInit {
 
           } else if (event instanceof HttpResponse) {
             const msg = 'Uploaded the file successfully: ' + file.name;
+            this.listFiles.unshift({
+              id: event.body.result.id,
+              nameFile: event.body.result.nameFile,
+              typeFile: event.body.resulttypeFile,
+              createdDate: event.body.result.createdDate
+            })
+            // this.listFiles = [];
+            // this.getListfiles();
+            console.log(event.body.result)
             this.message.push(msg);
+
             // this.fileInfos = this.fileService.getFiles();
           }
         },
@@ -101,40 +117,24 @@ export class AdminFileEditComponent implements OnInit {
     }
   }
 
-  test(idx: number, file: File): void {
-    const url = `/api/files/saveiamge`;
-    const formData: FormData = new FormData();
-    formData.append('file', file);
-    formData.append('type', file.type);
-    formData.append('size', file.size.toString());
-    const req = new HttpRequest('POST', url, formData, {
-      reportProgress: true,
-      // responseType: 'json'
-    });
-    this.httpClient.request(req).subscribe(date => {
-      console.log(date)
-    });
-  }
-
-  img() {
-    this.httpClient.get<any>(`/api/files/image`).subscribe(d => {
-      this.cardImageBase64 = "data:image/jpeg;base64," + d.data;
+  deleteFile(id: number, index: number): void {
+    this.fileService.deleteFile(id).subscribe(data => {
+      this.listFiles.splice(index, 1);
+    }, error => {
+      console.log(error);
     })
   }
 
-  del(): void {
-    let HttPar = new HttpParams()
-    HttPar.set("id", 123);
-    this.httpClient.delete(`/api/files/delete/` + 19).subscribe(data => {
-      console.log("dat")
-    }, (error => {
-      console.log(error)
-    }))
+  previewFile(): string | undefined {
+    if (this.idFile !== null) {
+      const url = `/api/files/get/${this.idFile}`;
+      return url;
+    }
+    return
   }
 
-  get() {
-    this.fileService.getFiles().subscribe(data => {
-      console.log(data)
-    })
+  setIdAndTypeFile(id: number, type: string): void {
+    this.idFile = id;
+    this.typeFile = type;
   }
 }

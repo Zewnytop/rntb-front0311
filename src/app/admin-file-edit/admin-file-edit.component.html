@@ -38,41 +38,25 @@
   </ul>
 </div>
 
-<div class="card mt-3">
-  <div class="card-header">List of Files</div>
-  <ul
-    class="list-group list-group-flush"
-    *ngFor="let file of fileInfos | async"
-  >
-    <li class="list-group-item">
-      <a href="{{ file.url }}">{{ file.name }}</a>
-    </li>
-  </ul>
+<div *ngIf="idFile !== null">
+  <img [src]="previewFile()">
 </div>
-
-<div class="form-group">
-  <label for="file">Choose File</label>
-  <input type="file"
-         id="file">
-</div>
-<img src="/api/files/get/10">
-
-<button>sdgsdgsd</button>
-<button (click)="img()">получить</button>
-<button (click)="del()">Удалить</button>
-<button (click)="getListfiles()">получить</button>
 
 <table class="file-table">
   <tr class="table-tr">
     <th>Имя</th>
     <th>Дата</th>
     <th></th>
+    <th></th>
   </tr>
-  <tr class="table-tr" *ngFor="let file of listFiles">
+  <tr class="table-tr" *ngFor="let file of listFiles; let i = index">
     <td class="table-td">{{file.nameFile}}</td>
-    <td class="table-td">{{file.createdDate.format("MM/dd/yyyy")}}</td>
+    <td class="table-td">{{file.createdDate }}</td>
     <td class="table-td">
-      <button>удалить</button>
+      <button (click)="deleteFile(file.id, i)">удалить</button>
+    </td>
+    <td class="table-td">
+      <button (click)="setIdAndTypeFile(file.id, file.typeFile)">предпросмотр</button>
     </td>
   </tr>
 </table>

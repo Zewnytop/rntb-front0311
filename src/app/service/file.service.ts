@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
-import {DataObject, FileObject} from "../../site-object/file-object";
+import {DataObject} from "../../site-object/file-object";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -17,7 +17,7 @@ export class FileService {
   }
 
   uploadFile(file: File): Observable<HttpEvent<any>> {
-    const url = `/api/files/saveiamge`;
+    const url = `/api/files/savefile`;
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('type', file.type);
