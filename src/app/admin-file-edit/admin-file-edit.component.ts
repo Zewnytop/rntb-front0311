@@ -125,16 +125,27 @@ export class AdminFileEditComponent implements OnInit {
     })
   }
 
-  previewFile(): string | undefined {
-    if (this.idFile !== null) {
-      const url = `/api/files/get/${this.idFile}`;
-      return url;
+  previewImage(): string | undefined {
+    const regex1 = /image\/.*/;
+    if (this.typeFile?.match(regex1)) {
+      if (this.idFile !== null) {
+        const url = `/api/files/get/${this.idFile}`;
+        return url;
+      }
     }
     return
+  }
+
+  previewPDF() {
+    const url = `/api/files/get/${this.idFile}`;
+    window.open(url);
   }
 
   setIdAndTypeFile(id: number, type: string): void {
     this.idFile = id;
     this.typeFile = type;
+    if (type === "application/pdf") {
+      this.previewPDF();
+    }
   }
 }

@@ -38,8 +38,8 @@
   </ul>
 </div>
 
-<div *ngIf="idFile !== null">
-  <img [src]="previewFile()">
+<div *ngIf="idFile !== null && typeFile === 'image/jpeg'">
+  <img [src]="previewImage()">
 </div>
 
 <table class="file-table">
