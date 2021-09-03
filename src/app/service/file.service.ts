@@ -11,13 +11,13 @@ export class FileService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getFiles(): Observable<DataObject> {
-    const url = `/api/files/list`;
+  getFiles(branch: number): Observable<DataObject> {
+    const url = `/api/files/list/${branch}`;
     return this.httpClient.get<DataObject>(url);
   }
 
-  uploadFile(file: File): Observable<HttpEvent<any>> {
-    const url = `/api/files/savefile`;
+  uploadFile(file: File, user: number): Observable<HttpEvent<any>> {
+    const url = `/api/files/savefile/${user}`;
     const formData: FormData = new FormData();
     formData.append('file', file);
     formData.append('type', file.type);

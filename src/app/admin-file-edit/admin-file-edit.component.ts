@@ -54,7 +54,7 @@ export class AdminFileEditComponent implements OnInit {
   }
 
   getListfiles(): void {
-    this.fileService.getFiles().subscribe(data => {
+    this.fileService.getFiles(78).subscribe(data => {
       console.log(data);
       data.result.forEach(file => this.listFiles.push({
           id: file.id,
@@ -88,7 +88,7 @@ export class AdminFileEditComponent implements OnInit {
     this.progressInfos[idx] = {value: 0, fileName: file.name};
 
     if (file) {
-      this.fileService.uploadFile(file).subscribe(
+      this.fileService.uploadFile(file, 1).subscribe(
         (event: any) => {
           console.log(event instanceof HttpResponse)
           if (event.type === HttpEventType.UploadProgress) {
