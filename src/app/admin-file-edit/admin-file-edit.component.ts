@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpEventType, HttpResponse} from "@angular/common/http";
+import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {FileService} from "../service/file.service";
 import {FileObject} from "../../site-object/file-object";
 import {BrowserModule} from '@angular/platform-browser';
@@ -45,7 +45,7 @@ export class AdminFileEditComponent implements OnInit {
     this._typeFile = value;
   }
 
-  constructor(private httpClient: HttpClient, private fileService: FileService) {
+  constructor(private fileService: FileService) {
   }
 
 
