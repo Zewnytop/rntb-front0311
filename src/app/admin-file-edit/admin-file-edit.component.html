@@ -50,7 +50,7 @@
           <td>{{file.createdDate }}</td>
           <td>
             <div class="file-edit-button">
-              <button (click)="deleteFile(file.id, i)"><img src="assets/trash.svg"></button>
+              <button (click)="deleteFile(file.id, i)" [disabled]="edit" ><img [src]=" edit===false? 'assets/trash.svg': null "></button>
             </div>
           </td>
           <td>

@@ -18,6 +18,8 @@ export class AdminFileEditComponent implements OnInit {
   private _idFile: number | null = null;
   private _typeFile: string | null = null;
 
+  edit: boolean = false;
+
   get listFiles(): FileObject[] {
     return this._listFiles;
   }
@@ -118,9 +120,12 @@ export class AdminFileEditComponent implements OnInit {
   }
 
   deleteFile(id: number, index: number): void {
+      this.edit = true;
     this.fileService.deleteFile(id).subscribe(data => {
       this.listFiles.splice(index, 1);
+      this.edit = false;
     }, error => {
+      this.edit =false;
       console.log(error);
     })
   }
