@@ -97,7 +97,7 @@ export class AdminFileEditComponent implements OnInit {
             this.listFiles.unshift({
               id: event.body.result.id,
               nameFile: event.body.result.nameFile,
-              typeFile: event.body.resulttypeFile,
+              typeFile: event.body.result.typeFile,
               createdDate: event.body.result.createdDate
             })
             // this.listFiles = [];
