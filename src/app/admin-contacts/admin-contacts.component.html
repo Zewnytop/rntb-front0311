@@ -1,0 +1,98 @@
+<div class="admin-contacts">
+  <div class="admin-contacts-edit">
+    <div>
+      <span>Редактирование контактов</span>
+    </div>
+    <div class="admin-contacts-edit-choice">
+      <div>
+        <p>Выбрать из списка</p>
+      </div>
+      <div>
+        <form>
+          <p>
+            <select name="select" size="1">
+              <option disabled>Выбрать из списка</option>
+              <option selected value="none">Административный корпус</option>
+              <option value="none">Центр библиотечно-информационого обслуживани</option>
+              <option value="none">Центр Патентно-Информационной работы</option>
+              <option value="none">Центр по работе со специальными видами технической литературы и документаций</option>
+            </select>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <form>
+      <label for="title"><b>Заголовок:</b></label>
+      <input type="text" id="title" placeholder="Заголовок">
+    </form>
+    <form>
+      <label for="description"><b>Описание:</b></label>
+      <input type="text" id="description" placeholder="Описание">
+    </form>
+    <form>
+      <label for="description"><b>E-mail:</b></label>
+      <input type="text" id="description" placeholder="E-mail">
+    </form>
+  </div>
+  <br>
+
+  <div class="file-table">
+    <table>
+      <thead>
+      <tr>
+        <th>Должность</th>
+        <th>ФИО</th>
+        <th>Телефон</th>
+        <th>Редактировать</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Президент</td>
+        <td>Урмурзина Кама Газизовна</td>
+        <td>378-41-95</td>
+        <td>
+          <div class="admin-contact-edit-button">
+            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
+            <button><img src="assets/trash.svg"></button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Президент</td>
+        <td>Урмурзина Кама Газизовна</td>
+        <td>378-41-95</td>
+        <td>
+          <div class="admin-contact-edit-button">
+            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
+            <button><img src="assets/trash.svg"></button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <form class="contacts-input">
+            <input type="text" placeholder="Должность">
+          </form>
+        </td>
+        <td>
+          <form class="contacts-input">
+            <input type="text" placeholder="ФИО">
+          </form>
+        </td>
+        <td>
+          <form class="contacts-input">
+            <input type="text" placeholder="Телефон">
+          </form>
+        </td>
+        <td>
+          <div class="admin-contact-edit-button">
+            <button>Добавить контакт</button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

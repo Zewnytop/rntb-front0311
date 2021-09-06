@@ -17,6 +17,7 @@ import {AdminFileEditComponent} from './admin-file-edit/admin-file-edit.componen
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
+import { AdminContactsComponent } from './admin-contacts/admin-contacts.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {BrowserModule} from "@angular/platform-browser";
     GalleryComponent,
     EditArticleComponent,
     AdminFileEditComponent,
+    AdminContactsComponent,
   ],
   imports: [
     BrowserModule,
