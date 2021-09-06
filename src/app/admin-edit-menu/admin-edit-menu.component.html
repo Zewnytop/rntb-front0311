@@ -1,131 +1,48 @@
- <div>
-    <span>Редактирование меню</span>
-  </div>
-  <div class="admin-edit-menu-choice">
-    <div>
-      <p>Выбрать из списка</p>
-    </div>
-    <div>
-      <form>
-        <p>
-          <select name="select" size="1">
-            <option disabled>Выбрать из списка</option>
-            <option selected value="О Библиотеке">О Библиотеке</option>
-            <option value="Читателю">Читателю</option>
-            <option value="Ирбис">Ирбис</option>
-            <option value="Филиалы">Филиалы</option>
-          </select>
-        </p>
-      </form>
-    </div>
+<div>
+  <span>Редактирование меню</span>
+</div>
+<div class="admin-edit-menu-choice">
+  <div>
+    <p>Выбрать из списка</p>
   </div>
   <div>
-    <table class="admin-edit-menu-table">
-      <thead>
-      <tr>
-        <th>Вложения</th>
-        <th>Последнее изменение</th>
-        <th>Отображать</th>
-        <th>Редактировать</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>История РНТБ</td>
-        <td>11/08/2021</td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <input type="checkbox" name="c1" id="c1">
-            <label for="c1"></label>
-          </div>
-        </td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
-            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Научно-исследовательская деятельность</td>
-        <td>11/08/2021</td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <input type="checkbox" name="c1" id="c1">
-            <label for="c1"></label>
-          </div>
-        </td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
-            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Новости</td>
-        <td>11/08/2021</td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <input type="checkbox" name="c1" id="c1">
-            <label for="c1"></label>
-          </div>
-        </td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
-            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Сотрудничество</td>
-        <td>11/08/2021</td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <input type="checkbox" name="c1" id="c1">
-            <label for="c1"></label>
-          </div>
-        </td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
-            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Страница президента</td>
-        <td>11/08/2021</td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <input type="checkbox" name="c1" id="c1">
-            <label for="c1"></label>
-          </div>
-        </td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
-            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>Структура библиотеки</td>
-        <td>11/08/2021</td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <input type="checkbox" name="c1" id="c1">
-            <label for="c1"></label>
-          </div>
-        </td>
-        <td>
-          <div class="admin-edit-menu-edit-button">
-            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
-            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <form>
+      <p>
+        <select name="select" size="1" [(ngModel)]="idMainItemMenu" (ngModelChange)="getNestedItemsMenu(78)">
+          <option *ngFor="let mainItemMenu of listMainItemMenu; let i = index "
+                  [ngValue]="mainItemMenu.idItemMenu">{{mainItemMenu.nameRu}}</option>
+        </select>
+      </p>
+    </form>
   </div>
+</div>
+<div>
+  <table class="admin-edit-menu-table">
+    <thead>
+    <tr>
+      <th>Вложения</th>
+      <th>Последнее изменение</th>
+      <th>Отображать</th>
+      <th>Редактировать</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let nestedItemMenu of listNestedItemMenu; let i = index">
+        <td>{{nestedItemMenu.nameRu}}</td>
+        <td>{{nestedItemMenu.lastModifiedDate}}</td>
+        <td>
+          <div class="admin-edit-menu-edit-button">
+            <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c1">
+            <label for="c1"></label>
+          </div>
+        </td>
+        <td>
+          <div class="admin-edit-menu-edit-button">
+            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
+            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
