@@ -20,4 +20,9 @@ export class MenuService {
     const url = `/api/menu/nesteditems/${idBranch}/${idItemMenu}`;
     return this.httpClient.get<DataObject>(url);
   }
+
+  updateVisibleItemMenu(idBranch: number, listItemMenu: any[]): Observable<any> {
+    const url = `/api/menu/visible/${idBranch}`;
+    return this.httpClient.put(url, listItemMenu);
+  }
 }

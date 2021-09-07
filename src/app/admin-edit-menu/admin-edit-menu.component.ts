@@ -9,9 +9,11 @@ import {MenuObject, TypeMenuObject} from "../../site-object/menu-object";
 })
 export class AdminEditMenuComponent implements OnInit {
 
-  private _listMainItemMenu: MenuObject[] = []
-  private _listNestedItemMenu: MenuObject[] = []
-  private _idMainItemMenu: number | null = null
+  private _listMainItemMenu: MenuObject[] = [];
+  private _listNestedItemMenu: MenuObject[] = [];
+  private _mainItemMenu: MenuObject | null = null;
+
+  private _edit: boolean = false;
 
   get listMainItemMenu(): MenuObject[] {
     return this._listMainItemMenu;
@@ -29,12 +31,20 @@ export class AdminEditMenuComponent implements OnInit {
     this._listNestedItemMenu = value;
   }
 
-  get idMainItemMenu(): number | null {
-    return this._idMainItemMenu;
+  get mainItemMenu(): MenuObject | null {
+    return this._mainItemMenu;
   }
 
-  set idMainItemMenu(value: number | null) {
-    this._idMainItemMenu = value;
+  set mainItemMenu(value: MenuObject | null) {
+    this._mainItemMenu = value;
+  }
+
+  get edit(): boolean {
+    return this._edit;
+  }
+
+  set edit(value: boolean) {
+    this._edit = value;
   }
 
   constructor(private menuService: MenuService) {
@@ -64,6 +74,8 @@ export class AdminEditMenuComponent implements OnInit {
           description: menu.typeItemMenu.description
         }
       }))
+      this.mainItemMenu = this.listMainItemMenu[0];
+      this.getNestedItemsMenu(78);
     }, error => {
       console.log(error)
     });
@@ -71,7 +83,7 @@ export class AdminEditMenuComponent implements OnInit {
 
   getNestedItemsMenu(idBranch: number): void {
     this.listNestedItemMenu = [];
-    this.menuService.getNestedItemsMenu(idBranch, this.idMainItemMenu!).subscribe(data => {
+    this.menuService.getNestedItemsMenu(idBranch, this.mainItemMenu!.idItemMenu).subscribe(data => {
         data.result.forEach(menu => this.listNestedItemMenu.push({
           idItemMenuOnBranch: menu.idItemMenuOnBranch,
           idItemMenu: menu.idItemMenu,
@@ -96,4 +108,30 @@ export class AdminEditMenuComponent implements OnInit {
     );
   }
 
+  getMainItemMenuEdit(): MenuObject {
+    const index = this.listMainItemMenu.indexOf(this.mainItemMenu!);
+    return this.listMainItemMenu[index];
+  }
+
+  updateVisibleItemMenu(): any[] {
+    let listItemVisibleMenu = [];
+    const itemMenu = {id: this.mainItemMenu?.idItemMenuOnBranch, visible: this.mainItemMenu?.showItem};
+    listItemVisibleMenu.push(itemMenu);
+    this.listNestedItemMenu.forEach(itemMenu => listItemVisibleMenu.push({
+      id: itemMenu.idItemMenuOnBranch,
+      visible: itemMenu.showItem
+    }))
+    return listItemVisibleMenu;
+    // this.menuService.updateVisibleItemMenu(78, listItemVisibleMenu)
+  }
+
+  log() {
+    console.log(this.edit);
+    console.log(this.listNestedItemMenu);
+    console.log(this.listMainItemMenu);
+    console.log(this.mainItemMenu);
+    console.log(this.listMainItemMenu.indexOf(this.mainItemMenu!));
+
+    console.log(this.updateVisibleItemMenu())
+  }
 }
