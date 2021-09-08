@@ -1,12 +1,19 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {DataObject} from "../../site-object/data-object";
+import {MenuObject} from "../../site-object/menu-object";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
+
+  private _updatedMenuPoints: EventEmitter<DataObject> = new EventEmitter();
+
+  get updatedMenuPoints(): EventEmitter<DataObject> {
+    return this._updatedMenuPoints;
+  }
 
   constructor(private httpClient: HttpClient) {
   }

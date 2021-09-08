@@ -34,6 +34,7 @@
     <tr>
       <th>Вложения</th>
       <th>Последнее изменение</th>
+      <th>Тип пункта</th>
       <th>Отображать</th>
       <th>Редактировать</th>
     </tr>
@@ -43,6 +44,7 @@
       <ng-template [ngIf]="!edit" [ngIfElse]="editBlock">
         <td>{{nestedItemMenu.nameRu}}</td>
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
+        <td>{{nestedItemMenu.typeItemMenu.nameType}}</td>
         <td>
           <div class="admin-edit-menu-edit-button">
             <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c1">
@@ -59,6 +61,7 @@
       <ng-template #editBlock>
         <input type="text" [(ngModel)]="nestedItemMenu.nameRu">
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
+        <td>{{nestedItemMenu.typeItemMenu.nameType}}</td>
         <td>
           <div class="admin-edit-menu-edit-button">
             <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c2">
@@ -75,5 +78,5 @@
     </tr>
     </tbody>
   </table>
-  <button>Сохранить</button>
+  <button (click)="updateVisibleItemMenu()">Сохранить</button>
 </div>

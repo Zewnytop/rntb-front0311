@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {MenuService} from "../service/menu.service";
 import {MenuObject, TypeMenuObject} from "../../site-object/menu-object";
+import {DataObject} from "../../site-object/data-object";
 
 @Component({
   selector: 'app-admin-edit-menu',
@@ -52,9 +53,13 @@ export class AdminEditMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMainitemsMenu(78);
+    this.menuService.updatedMenuPoints.subscribe(r => {
+      this.test(r);
+    })
   }
 
   private getMainitemsMenu(idBranch: number): void {
+    this.listMainItemMenu = [];
     this.menuService.getMainitemsMenu(idBranch).subscribe(data => {
       data.result.forEach(menu => this.listMainItemMenu.push({
         idItemMenuOnBranch: menu.idItemMenuOnBranch,
@@ -113,16 +118,31 @@ export class AdminEditMenuComponent implements OnInit {
     return this.listMainItemMenu[index];
   }
 
-  updateVisibleItemMenu(): any[] {
+  updateVisibleItemMenu(): void {
     let listItemVisibleMenu = [];
-    const itemMenu = {id: this.mainItemMenu?.idItemMenuOnBranch, visible: this.mainItemMenu?.showItem};
+    const itemMenu = {id: this.mainItemMenu?.idItemMenuOnBranch, visible: this.mainItemMenu?.showItem, mainPoint: true};
     listItemVisibleMenu.push(itemMenu);
     this.listNestedItemMenu.forEach(itemMenu => listItemVisibleMenu.push({
       id: itemMenu.idItemMenuOnBranch,
-      visible: itemMenu.showItem
-    }))
-    return listItemVisibleMenu;
-    // this.menuService.updateVisibleItemMenu(78, listItemVisibleMenu)
+      visible: itemMenu.showItem,
+      mainPoint: false
+    }));
+    this.menuService.updateVisibleItemMenu(78, listItemVisibleMenu).subscribe(data => {
+      this.menuService.updatedMenuPoints.emit(data);
+    }, error => {
+      this.getNestedItemsMenu(78);
+      console.log(error);
+    });
+  }
+
+  test(d: DataObject): void {
+    for (let resultElement of d.result) {
+      this.listNestedItemMenu.forEach((value, index, array) => {
+        if (value.idItemMenu === resultElement.idItemMenu && value.idItemMenuOnBranch === resultElement.idItemMenuOnBranch) {
+          array[index] = resultElement;
+        }
+      })
+    }
   }
 
   log() {
@@ -130,8 +150,7 @@ export class AdminEditMenuComponent implements OnInit {
     console.log(this.listNestedItemMenu);
     console.log(this.listMainItemMenu);
     console.log(this.mainItemMenu);
-    console.log(this.listMainItemMenu.indexOf(this.mainItemMenu!));
-
+    console.log(this.listMainItemMenu.indexOf(this.listMainItemMenu[3]), "fdsfsdf");
     console.log(this.updateVisibleItemMenu())
   }
 }
