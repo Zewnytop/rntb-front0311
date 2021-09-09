@@ -191,13 +191,21 @@ export class AdminEditMenuComponent implements OnInit {
     }
   }
 
+  setTypeItemMenu(e: number, nestedItemMenu: MenuObject): void {
+    this.listTypeItemMenu.forEach((value, index, array) => {
+      if (e === value.id) {
+        nestedItemMenu.typeItemMenu = value;
+      }
+    })
+  }
+
   log() {
     // console.log(this.edit);
     console.log(this.listNestedItemMenu);
     console.log(this.listTypeItemMenu);
     console.log(this.listTypeItemMenu[0]);
     console.log((this.listNestedItemMenu[0].typeItemMenu));
-    console.log(this.listTypeItemMenu[0]  === this.listNestedItemMenu[0].typeItemMenu)
+    console.log(this.listTypeItemMenu[0] === this.listNestedItemMenu[0].typeItemMenu)
     // console.log(this.listMainItemMenu);
     // console.log(this.mainItemMenu);
     // console.log(this.listMainItemMenu.indexOf(this.listMainItemMenu[3]), "fdsfsdf");

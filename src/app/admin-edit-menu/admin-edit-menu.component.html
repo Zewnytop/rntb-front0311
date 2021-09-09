@@ -64,9 +64,9 @@
         <input type="text" [(ngModel)]="nestedItemMenu.nameRu">
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
         <td>
-          <select name="select" size="1" [(ngModel)]="nestedItemMenu.typeItemMenu">
+          <select name="select" size="1" [(ngModel)]="nestedItemMenu.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, nestedItemMenu)">
             <option *ngFor="let type of listTypeItemMenu; let i = index "
-                    [ngValue]="type">{{type.nameType}}</option>
+                    [ngValue]="type.id">{{type.nameType}}</option>
           </select>
         </td>
         <td>
