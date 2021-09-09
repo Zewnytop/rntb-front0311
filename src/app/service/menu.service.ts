@@ -23,8 +23,18 @@ export class MenuService {
     return this.httpClient.get<DataObject>(url);
   }
 
+  getMainitemMenu(idItemMenu: number): Observable<DataObject> {
+    const url = `/api/menu/mainitem/${idItemMenu}`;
+    return this.httpClient.get<DataObject>(url);
+  }
+
   getNestedItemsMenu(idBranch: number, idItemMenu: number): Observable<DataObject> {
     const url = `/api/menu/nesteditems/${idBranch}/${idItemMenu}`;
+    return this.httpClient.get<DataObject>(url);
+  }
+
+  getTypesItemMenu(): Observable<DataObject> {
+    const url = `/api/menu/type`;
     return this.httpClient.get<DataObject>(url);
   }
 

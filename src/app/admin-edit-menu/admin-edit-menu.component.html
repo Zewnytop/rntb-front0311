@@ -12,6 +12,7 @@
           <select name="select" size="1" [(ngModel)]="mainItemMenu" (ngModelChange)="getNestedItemsMenu(78)">
             <option *ngFor="let mainItemMenu of listMainItemMenu; let i = index "
                     [ngValue]="mainItemMenu">{{mainItemMenu.nameRu}}</option>
+
           </select>
           <input *ngIf="mainItemMenu !== null" type="checkbox" [(ngModel)]="getMainItemMenuEdit().showItem" name="a1">
           <label>Отображать</label>
@@ -24,6 +25,7 @@
         <input type="checkbox" [(ngModel)]="edit" name="edit">
         <label>Редактировать</label>
         <button (click)="log()">asdasd</button>
+        <button (click)="getMainItemMenu()">sssssssss</button>
       </p>
     </form>
   </div>
@@ -61,7 +63,12 @@
       <ng-template #editBlock>
         <input type="text" [(ngModel)]="nestedItemMenu.nameRu">
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
-        <td>{{nestedItemMenu.typeItemMenu.nameType}}</td>
+        <td>
+          <select name="select" size="1" [(ngModel)]="nestedItemMenu.typeItemMenu">
+            <option *ngFor="let type of listTypeItemMenu; let i = index "
+                    [ngValue]="type">{{type.nameType}}</option>
+          </select>
+        </td>
         <td>
           <div class="admin-edit-menu-edit-button">
             <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c2">
@@ -78,5 +85,6 @@
     </tr>
     </tbody>
   </table>
-  <button (click)="updateVisibleItemMenu()">Сохранить</button>
+  <button (click)="updateVisibleItemMenu()" *ngIf="!edit">Сохранить</button>
+  <button (click)="updateVisibleItemMenu()" *ngIf="edit">Сохранить для главного администратора</button>
 </div>

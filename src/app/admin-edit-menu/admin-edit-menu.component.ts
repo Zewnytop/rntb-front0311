@@ -12,6 +12,7 @@ export class AdminEditMenuComponent implements OnInit {
 
   private _listMainItemMenu: MenuObject[] = [];
   private _listNestedItemMenu: MenuObject[] = [];
+  private _listTypeItemMenu: TypeMenuObject[] = [];
   private _mainItemMenu: MenuObject | null = null;
 
   private _edit: boolean = false;
@@ -30,6 +31,14 @@ export class AdminEditMenuComponent implements OnInit {
 
   set listNestedItemMenu(value: MenuObject[]) {
     this._listNestedItemMenu = value;
+  }
+
+  get listTypeItemMenu(): TypeMenuObject[] {
+    return this._listTypeItemMenu;
+  }
+
+  set listTypeItemMenu(value: TypeMenuObject[]) {
+    this._listTypeItemMenu = value;
   }
 
   get mainItemMenu(): MenuObject | null {
@@ -53,9 +62,10 @@ export class AdminEditMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMainitemsMenu(78);
-    this.menuService.updatedMenuPoints.subscribe(r => {
-      this.test(r);
+    this.menuService.updatedMenuPoints.subscribe(data => {
+      this.updatedNestedItemMenu(data);
     })
+    this.getTypeItemMenu();
   }
 
   private getMainitemsMenu(idBranch: number): void {
@@ -118,6 +128,41 @@ export class AdminEditMenuComponent implements OnInit {
     return this.listMainItemMenu[index];
   }
 
+  getMainItemMenu(): void {
+    this.menuService.getMainitemMenu(this.mainItemMenu?.idItemMenuOnBranch!).subscribe(data => {
+        const itemMenu = data.result[0];
+        this.listMainItemMenu.forEach((value, index, array) => {
+          if (value.idItemMenu === itemMenu.idItemMenu && value.idItemMenuOnBranch === itemMenu.idItemMenuOnBranch) {
+            this.listMainItemMenu[index].showItem = itemMenu.showItem;
+            this.listMainItemMenu[index].nameRu = itemMenu.nameRu;
+            this.listMainItemMenu[index].nameKz = itemMenu.nameKz;
+            this.listMainItemMenu[index].nameEn = itemMenu.nameEn;
+            this.listMainItemMenu[index].typeItemMenu = itemMenu.typeItemMenu;
+            this.listMainItemMenu[index].description = itemMenu.typeItemMenu;
+            this.listMainItemMenu[index].indexNumber = itemMenu.indexNumber;
+            this.listMainItemMenu[index].lastModifiedDate = itemMenu.indexNumber;
+            this.listMainItemMenu[index].routeLink = itemMenu.routeLink;
+          }
+        });
+      },
+      error => {
+        console.log(error)
+      })
+  }
+
+  getTypeItemMenu(): void {
+    this.menuService.getTypesItemMenu().subscribe(data => {
+      data.result.forEach(type => this.listTypeItemMenu.push({
+        id: type.id,
+        nameType: type.nameType,
+        codeType: type.codeType,
+        description: type.description
+      }))
+    }, error => {
+      console.log(error)
+    });
+  }
+
   updateVisibleItemMenu(): void {
     let listItemVisibleMenu = [];
     const itemMenu = {id: this.mainItemMenu?.idItemMenuOnBranch, visible: this.mainItemMenu?.showItem, mainPoint: true};
@@ -127,6 +172,7 @@ export class AdminEditMenuComponent implements OnInit {
       visible: itemMenu.showItem,
       mainPoint: false
     }));
+    this.getMainItemMenu();
     this.menuService.updateVisibleItemMenu(78, listItemVisibleMenu).subscribe(data => {
       this.menuService.updatedMenuPoints.emit(data);
     }, error => {
@@ -135,7 +181,7 @@ export class AdminEditMenuComponent implements OnInit {
     });
   }
 
-  test(d: DataObject): void {
+  updatedNestedItemMenu(d: DataObject): void {
     for (let resultElement of d.result) {
       this.listNestedItemMenu.forEach((value, index, array) => {
         if (value.idItemMenu === resultElement.idItemMenu && value.idItemMenuOnBranch === resultElement.idItemMenuOnBranch) {
@@ -146,11 +192,15 @@ export class AdminEditMenuComponent implements OnInit {
   }
 
   log() {
-    console.log(this.edit);
+    // console.log(this.edit);
     console.log(this.listNestedItemMenu);
-    console.log(this.listMainItemMenu);
-    console.log(this.mainItemMenu);
-    console.log(this.listMainItemMenu.indexOf(this.listMainItemMenu[3]), "fdsfsdf");
-    console.log(this.updateVisibleItemMenu())
+    console.log(this.listTypeItemMenu);
+    console.log(this.listTypeItemMenu[0]);
+    console.log((this.listNestedItemMenu[0].typeItemMenu));
+    console.log(this.listTypeItemMenu[0]  === this.listNestedItemMenu[0].typeItemMenu)
+    // console.log(this.listMainItemMenu);
+    // console.log(this.mainItemMenu);
+    // console.log(this.listMainItemMenu.indexOf(this.listMainItemMenu[3]), "fdsfsdf");
+    // console.log(this.updateVisibleItemMenu())
   }
 }
