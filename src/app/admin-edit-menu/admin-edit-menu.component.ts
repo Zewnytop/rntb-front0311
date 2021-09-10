@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {MenuService} from "../service/menu.service";
 import {MenuObject, TypeMenuObject} from "../../site-object/menu-object";
+import {DataObject} from "../../site-object/data-object";
 
 @Component({
   selector: 'app-admin-edit-menu',
@@ -11,6 +12,7 @@ export class AdminEditMenuComponent implements OnInit {
 
   private _listMainItemMenu: MenuObject[] = [];
   private _listNestedItemMenu: MenuObject[] = [];
+  private _listTypeItemMenu: TypeMenuObject[] = [];
   private _mainItemMenu: MenuObject | null = null;
 
   private _edit: boolean = false;
@@ -29,6 +31,14 @@ export class AdminEditMenuComponent implements OnInit {
 
   set listNestedItemMenu(value: MenuObject[]) {
     this._listNestedItemMenu = value;
+  }
+
+  get listTypeItemMenu(): TypeMenuObject[] {
+    return this._listTypeItemMenu;
+  }
+
+  set listTypeItemMenu(value: TypeMenuObject[]) {
+    this._listTypeItemMenu = value;
   }
 
   get mainItemMenu(): MenuObject | null {
@@ -52,9 +62,14 @@ export class AdminEditMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMainitemsMenu(78);
+    this.menuService.updatedMenuPoints.subscribe(data => {
+      this.updatedNestedItemMenu(data);
+    })
+    this.getTypeItemMenu();
   }
 
   private getMainitemsMenu(idBranch: number): void {
+    this.listMainItemMenu = [];
     this.menuService.getMainitemsMenu(idBranch).subscribe(data => {
       data.result.forEach(menu => this.listMainItemMenu.push({
         idItemMenuOnBranch: menu.idItemMenuOnBranch,
@@ -82,6 +97,7 @@ export class AdminEditMenuComponent implements OnInit {
   }
 
   getNestedItemsMenu(idBranch: number): void {
+    this.getMainItemMenu();
     this.listNestedItemMenu = [];
     this.menuService.getNestedItemsMenu(idBranch, this.mainItemMenu!.idItemMenu).subscribe(data => {
         data.result.forEach(menu => this.listNestedItemMenu.push({
@@ -113,25 +129,122 @@ export class AdminEditMenuComponent implements OnInit {
     return this.listMainItemMenu[index];
   }
 
-  updateVisibleItemMenu(): any[] {
+  getMainItemMenu(): void {
+    this.menuService.getMainitemMenu(this.mainItemMenu?.idItemMenuOnBranch!).subscribe(data => {
+        const itemMenu = data.result[0];
+        this.listMainItemMenu.forEach((value, index, array) => {
+          if (value.idItemMenu === itemMenu.idItemMenu && value.idItemMenuOnBranch === itemMenu.idItemMenuOnBranch) {
+            this.listMainItemMenu[index].showItem = itemMenu.showItem;
+            this.listMainItemMenu[index].nameRu = itemMenu.nameRu;
+            this.listMainItemMenu[index].nameKz = itemMenu.nameKz;
+            this.listMainItemMenu[index].nameEn = itemMenu.nameEn;
+            this.listMainItemMenu[index].typeItemMenu = itemMenu.typeItemMenu;
+            this.listMainItemMenu[index].description = itemMenu.typeItemMenu;
+            this.listMainItemMenu[index].indexNumber = itemMenu.indexNumber;
+            this.listMainItemMenu[index].lastModifiedDate = itemMenu.indexNumber;
+            this.listMainItemMenu[index].routeLink = itemMenu.routeLink;
+          }
+        });
+      },
+      error => {
+        console.log(error)
+      })
+  }
+
+  getTypeItemMenu(): void {
+    this.menuService.getTypesItemMenu().subscribe(data => {
+      data.result.forEach(type => this.listTypeItemMenu.push({
+        id: type.id,
+        nameType: type.nameType,
+        codeType: type.codeType,
+        description: type.description
+      }))
+    }, error => {
+      console.log(error)
+    });
+  }
+
+  updateVisibleItemMenu(): void {
     let listItemVisibleMenu = [];
-    const itemMenu = {id: this.mainItemMenu?.idItemMenuOnBranch, visible: this.mainItemMenu?.showItem};
+    const itemMenu = {id: this.mainItemMenu?.idItemMenuOnBranch, visible: this.mainItemMenu?.showItem, mainPoint: true};
     listItemVisibleMenu.push(itemMenu);
     this.listNestedItemMenu.forEach(itemMenu => listItemVisibleMenu.push({
       id: itemMenu.idItemMenuOnBranch,
-      visible: itemMenu.showItem
-    }))
-    return listItemVisibleMenu;
-    // this.menuService.updateVisibleItemMenu(78, listItemVisibleMenu)
+      visible: itemMenu.showItem,
+      mainPoint: false
+    }));
+    this.getMainItemMenu();
+    this.menuService.updateVisibleItemMenu(78, listItemVisibleMenu).subscribe(data => {
+      this.menuService.updatedMenuPoints.emit(data);
+    }, error => {
+      this.getNestedItemsMenu(78);
+      console.log(error);
+    });
+  }
+
+  updateItemsMenuAdmin(): void {
+    let listItemsMenu = [];
+    const mainItemMenu = {
+      idItemMenuOnBranch: this.mainItemMenu?.idItemMenuOnBranch,
+      idItemMenu: this.mainItemMenu?.idItemMenu,
+      idTypeItemMenu: this.mainItemMenu?.typeItemMenu.id,
+      nameRu: this.mainItemMenu?.nameRu,
+      nameEn: this.mainItemMenu?.nameEn,
+      nameKz: this.mainItemMenu?.nameKz,
+      showItem: this.mainItemMenu?.showItem,
+      serialNumber: 0
+    };
+    listItemsMenu.push(mainItemMenu);
+    this.listNestedItemMenu.forEach(itemMenu => listItemsMenu.push({
+      idItemMenuOnBranch: itemMenu.idItemMenuOnBranch,
+      idItemMenu: itemMenu.idItemMenu,
+      idTypeItemMenu: itemMenu.typeItemMenu.id,
+      nameRu: itemMenu.nameRu,
+      nameEn: itemMenu.nameEn,
+      nameKz: itemMenu.nameKz,
+      showItem: itemMenu.showItem,
+      serialNumber: 0
+    }));
+    this.menuService.updateItemsMenu(78, listItemsMenu).subscribe(data => {
+      this.getMainItemMenu();
+      this.updatedNestedItemMenu(data);
+      this.edit = false;
+    }, error => {
+      this.getMainItemMenu();
+      this.getNestedItemsMenu(78);
+      this.edit = false;
+      console.log(error)
+    });
+  }
+
+  updatedNestedItemMenu(d: DataObject): void {
+    for (let resultElement of d.result) {
+      this.listNestedItemMenu.forEach((value, index, array) => {
+        if (value.idItemMenu === resultElement.idItemMenu && value.idItemMenuOnBranch === resultElement.idItemMenuOnBranch) {
+          array[index] = resultElement;
+        }
+      })
+    }
+  }
+
+  setTypeItemMenu(e: number, nestedItemMenu: MenuObject): void {
+    this.listTypeItemMenu.forEach((value, index, array) => {
+      if (e === value.id) {
+        nestedItemMenu.typeItemMenu = value;
+      }
+    })
   }
 
   log() {
-    console.log(this.edit);
+    // console.log(this.edit);
     console.log(this.listNestedItemMenu);
-    console.log(this.listMainItemMenu);
-    console.log(this.mainItemMenu);
-    console.log(this.listMainItemMenu.indexOf(this.mainItemMenu!));
-
-    console.log(this.updateVisibleItemMenu())
+    console.log(this.listTypeItemMenu);
+    console.log(this.listTypeItemMenu[0]);
+    console.log((this.listNestedItemMenu[0].typeItemMenu));
+    console.log(this.listTypeItemMenu[0] === this.listNestedItemMenu[0].typeItemMenu)
+    // console.log(this.listMainItemMenu);
+    // console.log(this.mainItemMenu);
+    // console.log(this.listMainItemMenu.indexOf(this.listMainItemMenu[3]), "fdsfsdf");
+    // console.log(this.updateVisibleItemMenu())
   }
 }

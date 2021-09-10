@@ -12,6 +12,7 @@
           <select name="select" size="1" [(ngModel)]="mainItemMenu" (ngModelChange)="getNestedItemsMenu(78)">
             <option *ngFor="let mainItemMenu of listMainItemMenu; let i = index "
                     [ngValue]="mainItemMenu">{{mainItemMenu.nameRu}}</option>
+
           </select>
           <input *ngIf="mainItemMenu !== null" type="checkbox" [(ngModel)]="getMainItemMenuEdit().showItem" name="a1">
           <label>Отображать</label>
@@ -21,10 +22,11 @@
           <input type="checkbox" [(ngModel)]="getMainItemMenuEdit().showItem" name="a1">
           <label>Отображать</label>
         </ng-template>
+        <input type="checkbox" [(ngModel)]="edit" name="edit">
+        <label>Редактировать</label>
+        <button (click)="log()">asdasd</button>
+        <button (click)="getMainItemMenu()">sssssssss</button>
       </p>
-      <input type="checkbox" [(ngModel)]="edit" name="edit">
-      <!--      <button (click)="edit=true" name="edit">Редакт</button>-->
-      <label>Редактировать</label>
     </form>
   </div>
 </div>
@@ -34,6 +36,7 @@
     <tr>
       <th>Вложения</th>
       <th>Последнее изменение</th>
+      <th>Тип пункта</th>
       <th>Отображать</th>
       <th>Редактировать</th>
     </tr>
@@ -43,9 +46,11 @@
       <ng-template [ngIf]="!edit" [ngIfElse]="editBlock">
         <td>{{nestedItemMenu.nameRu}}</td>
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
+        <td>{{nestedItemMenu.typeItemMenu.nameType}}</td>
         <td>
           <div class="edit-button">
             <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c1">
+            <label for="c1"></label>
           </div>
         </td>
         <td>
@@ -63,6 +68,12 @@
         </td>
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
         <td>
+          <select name="select" size="1" [(ngModel)]="nestedItemMenu.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, nestedItemMenu)">
+            <option *ngFor="let type of listTypeItemMenu; let i = index "
+                    [ngValue]="type.id">{{type.nameType}}</option>
+          </select>
+        </td>
+        <td>
           <div class="edit-button">
             <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c2">
           </div>
@@ -77,5 +88,6 @@
     </tr>
     </tbody>
   </table>
-  <button>Сохранить</button>
+  <button (click)="updateVisibleItemMenu()" *ngIf="!edit">Сохранить</button>
+  <button (click)="updateItemsMenuAdmin()" *ngIf="edit">Сохранить для главного администратора</button>
 </div>
