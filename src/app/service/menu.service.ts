@@ -38,8 +38,14 @@ export class MenuService {
     return this.httpClient.get<DataObject>(url);
   }
 
-  updateVisibleItemMenu(idBranch: number, listItemMenu: any[]): Observable<any> {
+  updateVisibleItemMenu(idBranch: number, listItemMenu: any[]): Observable<DataObject> {
     const url = `/api/menu/visible/${idBranch}`;
-    return this.httpClient.put(url, listItemMenu);
+    return this.httpClient.put<DataObject>(url, listItemMenu);
   }
+
+  updateItemsMenu(idBranch: number, listItemMenu: any[]): Observable<DataObject> {
+    const url = `/api/menu/updateitem/${idBranch}`;
+    return this.httpClient.put<DataObject>(url, listItemMenu);
+  }
+
 }

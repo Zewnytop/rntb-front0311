@@ -97,6 +97,7 @@ export class AdminEditMenuComponent implements OnInit {
   }
 
   getNestedItemsMenu(idBranch: number): void {
+    this.getMainItemMenu();
     this.listNestedItemMenu = [];
     this.menuService.getNestedItemsMenu(idBranch, this.mainItemMenu!.idItemMenu).subscribe(data => {
         data.result.forEach(menu => this.listNestedItemMenu.push({
@@ -178,6 +179,41 @@ export class AdminEditMenuComponent implements OnInit {
     }, error => {
       this.getNestedItemsMenu(78);
       console.log(error);
+    });
+  }
+
+  updateItemsMenuAdmin(): void {
+    let listItemsMenu = [];
+    const mainItemMenu = {
+      idItemMenuOnBranch: this.mainItemMenu?.idItemMenuOnBranch,
+      idItemMenu: this.mainItemMenu?.idItemMenu,
+      idTypeItemMenu: this.mainItemMenu?.typeItemMenu.id,
+      nameRu: this.mainItemMenu?.nameRu,
+      nameEn: this.mainItemMenu?.nameEn,
+      nameKz: this.mainItemMenu?.nameKz,
+      showItem: this.mainItemMenu?.showItem,
+      serialNumber: 0
+    };
+    listItemsMenu.push(mainItemMenu);
+    this.listNestedItemMenu.forEach(itemMenu => listItemsMenu.push({
+      idItemMenuOnBranch: itemMenu.idItemMenuOnBranch,
+      idItemMenu: itemMenu.idItemMenu,
+      idTypeItemMenu: itemMenu.typeItemMenu.id,
+      nameRu: itemMenu.nameRu,
+      nameEn: itemMenu.nameEn,
+      nameKz: itemMenu.nameKz,
+      showItem: itemMenu.showItem,
+      serialNumber: 0
+    }));
+    this.menuService.updateItemsMenu(78, listItemsMenu).subscribe(data => {
+      this.getMainItemMenu();
+      this.updatedNestedItemMenu(data);
+      this.edit = false;
+    }, error => {
+      this.getMainItemMenu();
+      this.getNestedItemsMenu(78);
+      this.edit = false;
+      console.log(error)
     });
   }
 
