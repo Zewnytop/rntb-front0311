@@ -1,14 +1,15 @@
+<div>
+  <p><b>Загрузка файлов</b></p>
+</div>
 <div class="file-edit">
-
   <div>
     <div>
       <label>
         <input type="file" multiple (change)="selectFiles($event)"/>
       </label>
     </div>
-
     <div>
-      <button [disabled]="!selectedFiles" (click)="uploadFiles()">Upload</button>
+      <button [disabled]="!selectedFiles" (click)="uploadFiles()">Загрузить</button>
     </div>
   </div>
 
@@ -49,12 +50,12 @@
           <td>{{file.nameFile}}</td>
           <td>{{file.createdDate }}</td>
           <td>
-            <div class="file-edit-button">
+            <div class="edit-button">
               <button (click)="deleteFile(file.id, i)" [disabled]="edit" ><img [src]=" edit===false? 'assets/trash.svg': null "></button>
             </div>
           </td>
           <td>
-            <div class="file-edit-button">
+            <div class="edit-button">
               <button (click)="setIdAndTypeFile(file.id, file.typeFile)"><img src="assets/new-window.svg"></button>
             </div>
           </td>

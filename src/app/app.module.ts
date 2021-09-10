@@ -18,6 +18,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
 import { AdminContactsComponent } from './admin-contacts/admin-contacts.component';
+import { AdminGalleryComponent } from './admin-gallery/admin-gallery.component';
+import { AdminNewsComponent } from './admin-news/admin-news.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { AdminContactsComponent } from './admin-contacts/admin-contacts.componen
     EditArticleComponent,
     AdminFileEditComponent,
     AdminContactsComponent,
+    AdminGalleryComponent,
+    AdminNewsComponent,
   ],
   imports: [
     BrowserModule,

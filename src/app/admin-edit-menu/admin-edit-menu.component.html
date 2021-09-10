@@ -1,12 +1,12 @@
 <div>
-  <span>Редактирование меню</span>
+  <p><b>Редактирование меню</b></p>
 </div>
 <div class="admin-edit-menu-choice">
   <div>
     <p>Выбрать из списка</p>
   </div>
   <div>
-    <form>
+    <form class="edit-input">
       <p>
         <ng-template [ngIf]="!edit" [ngIfElse]="editMainBlock">
           <select name="select" size="1" [(ngModel)]="mainItemMenu" (ngModelChange)="getNestedItemsMenu(78)">
@@ -21,15 +21,15 @@
           <input type="checkbox" [(ngModel)]="getMainItemMenuEdit().showItem" name="a1">
           <label>Отображать</label>
         </ng-template>
-        <input type="checkbox" [(ngModel)]="edit" name="edit">
-        <label>Редактировать</label>
-        <button (click)="log()">asdasd</button>
       </p>
+      <input type="checkbox" [(ngModel)]="edit" name="edit">
+      <!--      <button (click)="edit=true" name="edit">Редакт</button>-->
+      <label>Редактировать</label>
     </form>
   </div>
 </div>
-<div>
-  <table class="admin-edit-menu-table">
+<div class="file-table">
+  <table>
     <thead>
     <tr>
       <th>Вложения</th>
@@ -44,29 +44,31 @@
         <td>{{nestedItemMenu.nameRu}}</td>
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
         <td>
-          <div class="admin-edit-menu-edit-button">
+          <div class="edit-button">
             <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c1">
-            <label for="c1"></label>
           </div>
         </td>
         <td>
-          <div class="admin-edit-menu-edit-button">
+          <div class="edit-button">
             <button><img src="assets/admin-edit-menu-edit1.svg"></button>
             <button><img src="assets/admin-edit-menu-edit2.svg"></button>
           </div>
         </td>
       </ng-template>
       <ng-template #editBlock>
-        <input type="text" [(ngModel)]="nestedItemMenu.nameRu">
+        <td>
+          <form class="edit-input">
+            <input type="text" [(ngModel)]="nestedItemMenu.nameRu" [name]="'edit-input' + i ">
+          </form>
+        </td>
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
         <td>
-          <div class="admin-edit-menu-edit-button">
+          <div class="edit-button">
             <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c2">
-            <label for="c1"></label>
           </div>
         </td>
         <td>
-          <div class="admin-edit-menu-edit-button">
+          <div class="edit-button">
             <button><img src="assets/admin-edit-menu-edit1.svg"></button>
             <button><img src="assets/admin-edit-menu-edit2.svg"></button>
           </div>

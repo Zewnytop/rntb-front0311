@@ -13,6 +13,8 @@ import {GalleryComponent} from "./gallery/gallery.component";
 import {EditArticleComponent} from "./edit-article/edit-article.component";
 import {AdminFileEditComponent} from "./admin-file-edit/admin-file-edit.component";
 import {AdminContactsComponent} from "./admin-contacts/admin-contacts.component";
+import {AdminGalleryComponent} from "./admin-gallery/admin-gallery.component";
+import {AdminNewsComponent} from "./admin-news/admin-news.component";
 
 const routes: Routes = [
   {
@@ -31,6 +33,8 @@ const routes: Routes = [
       {path: 'edit-article', component: EditArticleComponent},
       {path: 'admin-file-edit', component: AdminFileEditComponent},
       {path: 'admin-contacts', component: AdminContactsComponent},
+      {path: 'admin-gallery', component: AdminGalleryComponent},
+      {path: 'admin-news', component: AdminNewsComponent},
 
     ]
   },
