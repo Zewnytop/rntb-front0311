@@ -77,7 +77,11 @@ export class AdminContactsComponent implements OnInit {
       map: this.contactBranch['map'],
       iternalContact: listIternalContact
     }
-    this.contactService.createNewContact(78, newContact).subscribe(data => console.log(data));
+    this.contactService.createNewContact(78, newContact).subscribe(data => {
+      this.contactBranch = data.result;
+    }, error => {
+      console.log(error);
+    });
   }
 
   updateContact(): void {
@@ -103,7 +107,7 @@ export class AdminContactsComponent implements OnInit {
   }
 
   getMapSrc(): any {
-    const map =  this.sanitizer.bypassSecurityTrustResourceUrl(this.mapStr);
+    const map = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapStr);
     return map;
   }
 }
