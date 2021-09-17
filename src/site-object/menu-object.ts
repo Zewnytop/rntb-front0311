@@ -18,3 +18,10 @@ export interface TypeMenuObject {
   codeType: string,
   description: string
 }
+
+export interface ListContactObject {
+  id: number,
+  nameRu: string,
+  nameEn: string,
+  nameKz: string
+}
