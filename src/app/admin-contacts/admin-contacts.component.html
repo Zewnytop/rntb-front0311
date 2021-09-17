@@ -1,71 +1,86 @@
 <div class="admin-contacts">
-
-  <table>
-    <thead>
-    <tr>
-      <th></th>
-      <th>Название</th>
-      <th>Дата</th>
-    </tr>
-    </thead>
-    <tbody>
-    <td>
-      <div class="edit-button">
-        <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-      </div>
-    </td>
-    <td>sfasdsa</td>
-    <td>sfasdsa</td>
-    </tbody>
-  </table>
+  <div>
+    <p><b>Редактирование контактов</b></p>
+  </div>
   <div class="admin-contacts-edit">
-    <div>
-      <p><b>Редактирование контактов</b></p>
+    <div class="file-table">
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Название</th>
+          <th>Дата</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <div class="edit-button">
+              <button><img src="assets/admin-edit-menu-edit2.svg"></button>
+            </div>
+          </td>
+          <td>Административный корпус</td>
+          <td>23/23/3010</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="edit-button">
+              <button><img src="assets/admin-edit-menu-edit2.svg"></button>
+            </div>
+          </td>
+          <td>Центр Патентно-Информационной работы</td>
+          <td>23/23/3010</td>
+        </tr>
+        <tr>
+          <td>
+            <div class="edit-button">
+              <button><img src="assets/admin-edit-menu-edit2.svg"></button>
+            </div>
+          </td>
+          <td>Центр библиотечно-информационого обслуживания</td>
+          <td>23/23/3010</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-    <!--    <div>-->
-    <!--      <div>-->
-    <!--        <p>Выбрать из списка</p>-->
-    <!--      </div>-->
-    <!--      <div>-->
-    <!--        <form>-->
-    <!--          <p>-->
-    <!--            <select name="select" size="1">-->
-    <!--              <option disabled>Выбрать из списка</option>-->
-    <!--              <option selected value="none">Административный корпус</option>-->
-    <!--              <option value="none">Центр библиотечно-информационого обслуживани</option>-->
-    <!--              <option value="none">Центр Патентно-Информационной работы</option>-->
-    <!--              <option value="none">Центр по работе со специальными видами технической литературы и документаций</option>-->
-    <!--            </select>-->
-    <!--          </p>-->
-    <!--        </form>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <button (click)="log()">log</button>
-    <button (click)="clearObject()">clear</button>
-    <button (click)="createContactBranch()">create</button>
-    <button (click)="updateContact()">update</button>
-    <form>
-      <label for="nameru"><b>Название:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.nameRu" id="nameru" name="nameru" placeholder="Название">
-    </form>
-    <form>
-      <label for="address"><b>Адрес:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.address" id="address" name="address" placeholder="Адрес">
-    </form>
-    <form>
-      <label for="email"><b>Email:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.email" id="email" name="email" placeholder="email">
-    </form>
-    <form>
-      <label for="phone"><b>Телефон:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.phoneNumber" id="phone" name="phone" placeholder="телефон">
-    </form>
-    <form>
-      <label for="map"><b>Карта:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.map" id="map" name="map" placeholder="Карта">
-    </form>
+    <div>
+      <button (click)="log()">log</button>
+      <button (click)="clearObject()">clear</button>
+      <button (click)="createContactBranch()">create</button>
+      <button (click)="updateContact()">update</button>
+    </div>
+
+    <div>
+      <form>
+        <label for="nameru"><b>Название:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.nameRu" id="nameru" name="nameru" placeholder="Название">
+      </form>
+      <form>
+        <label for="address"><b>Адрес:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.address" id="address" name="address" placeholder="Адрес">
+      </form>
+      <form>
+        <label for="email"><b>Email:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.email" id="email" name="email" placeholder="email">
+      </form>
+      <form>
+        <label for="phone"><b>Телефон:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.phoneNumber" id="phone" name="phone" placeholder="телефон">
+      </form>
+      <form>
+        <label for="map"><b>Карта:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.map" id="map" name="map" placeholder="Карта">
+      </form>
+    </div>
+
   </div>
   <br>
+  <div>
+    <iframe
+      [src]="getMapSrc()"
+      width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
 
   <div class="file-table">
     <table>
@@ -92,7 +107,5 @@
     </table>
     <button (click)="addIternalContact()">Добавить</button>
   </div>
-  <iframe
-    [src]="getMapSrc()"
-    width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
 </div>
