@@ -1,48 +1,30 @@
 <div class="admin-contacts">
-  <div>
-    <p><b>Редактирование контактов</b></p>
-  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th></th>
+      <th>Название</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let contact of listContactBranch; let i = index">
+      <td>
+        <div class="edit-button">
+          <button (click)="choiceContactbranch(contact.id)"><img src="assets/admin-edit-menu-edit2.svg"></button>
+        </div>
+      </td>
+      <td>{{contact.nameRu}}</td>
+      <td>
+        <div class="edit-button">
+          <button (click)="deleteContact(contact.id, i)"><img src="assets/trash.svg"></button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
   <div class="admin-contacts-edit">
-    <div class="file-table">
-      <table>
-        <thead>
-        <tr>
-          <th></th>
-          <th>Название</th>
-          <th>Дата</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>
-            <div class="edit-button">
-              <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-            </div>
-          </td>
-          <td>Административный корпус</td>
-          <td>23/23/3010</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="edit-button">
-              <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-            </div>
-          </td>
-          <td>Центр Патентно-Информационной работы</td>
-          <td>23/23/3010</td>
-        </tr>
-        <tr>
-          <td>
-            <div class="edit-button">
-              <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-            </div>
-          </td>
-          <td>Центр библиотечно-информационого обслуживания</td>
-          <td>23/23/3010</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
     <div>
       <button (click)="log()">log</button>
       <button (click)="clearObject()">clear</button>
@@ -107,5 +89,7 @@
     </table>
     <button (click)="addIternalContact()">Добавить</button>
   </div>
-
+  <iframe
+    [src]="getMapSrc()"
+    width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </div>
