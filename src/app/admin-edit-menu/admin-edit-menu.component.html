@@ -93,7 +93,6 @@
   <button (click)="updateItemsMenuAdmin()" *ngIf="edit">Сохранить для главного администратора</button>
 
 
-
   <div class="admin-edit-menu-language">
     <ul>
       <li>RU</li>
@@ -105,17 +104,19 @@
     </div>
   </div>
   <div class="file-table">
-    <table>
-      <thead>
-      <tr>
-        <th>Вложения</th>
-        <th>Последнее изменение</th>
-        <th>Тип пункта</th>
-        <th>Отображать</th>
-        <th>
-          <div class="info">
-            <img src="assets/icons/info.svg">
-            <span class="info-dropdown">
+    <ul *ngFor="let k of [0,1,2,3,4]">
+      <li>
+        <table>
+          <thead *ngIf=" k == 0">
+          <tr>
+            <th>Вложения</th>
+            <th>Последнее изменение</th>
+            <th>Тип пункта</th>
+            <th>Отображать</th>
+            <th>
+              <div class="info">
+                <img src="assets/icons/info.svg">
+                <span class="info-dropdown">
             <ul>
               <li>Информация</li>
               <li><img src="assets/icons/arrow-up.svg">Переместить вверх</li>
@@ -124,61 +125,68 @@
               <li><img src="assets/icons/plus.svg"> Добавить новый подпункт меню</li>
             </ul>
           </span>
-          </div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Виртуальная выставка</td>
-        <td>Пусто</td>
-        <td>page</td>
-        <td>
-          <div class="edit-button">
-            <input type="checkbox">
-          </div>
-        </td>
-        <td>
-          <div class="edit-button">
+              </div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Виртуальная выставка</td>
+            <td>Пусто</td>
+            <td>page</td>
+            <td>
+              <div class="edit-button">
+                <input type="checkbox">
+              </div>
+            </td>
+            <td>
+              <div class="edit-button">
 
-            <button><img src="assets/icons/arrow-up.svg"></button>
-            <button><img src="assets/icons/arrow-down.svg"></button>
-            <button><img src="assets/icons/trash-2.svg"></button>
-            <button><img src="assets/icons/plus.svg"></button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <table class="inherit-table">
-      <thead>
-      <tr>
-        <th>Вложения</th>
-        <th>Последнее изменение</th>
-        <th>Тип пункта</th>
-        <th>Отображать</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Виртуальная выставка</td>
-        <td>Пусто</td>
-        <td>page</td>
-        <td>
-          <div class="edit-button">
-            <input type="checkbox">
-          </div>
-        </td>
-        <td>
-          <div class="edit-button">
-            <button><img src="assets/icons/arrow-up.svg"></button>
-            <button><img src="assets/icons/arrow-down.svg"></button>
-            <button><img src="assets/icons/trash-2.svg"></button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+                <button><img src="assets/icons/arrow-up.svg"></button>
+                <button><img src="assets/icons/arrow-down.svg"></button>
+                <button><img src="assets/icons/trash-2.svg"></button>
+                <button><img src="assets/icons/plus.svg"></button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table class="inherit-table">
+          <thead>
+          <tr>
+            <th>Вложения</th>
+            <th>Последнее изменение</th>
+            <th>Тип пункта</th>
+            <th>Отображать</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Виртуальная выставка</td>
+            <td>Пусто</td>
+            <td>page</td>
+            <td>
+              <div class="edit-button">
+                <input type="checkbox">
+              </div>
+            </td>
+            <td>
+              <div class="edit-button">
+                <button><img src="assets/icons/arrow-up.svg"></button>
+                <button><img src="assets/icons/arrow-down.svg"></button>
+                <button><img src="assets/icons/trash-2.svg"></button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </li>
+      <hr>
+    </ul>
+
+
   </div>
 </div>
