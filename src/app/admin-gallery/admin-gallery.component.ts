@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-admin-gallery',
@@ -7,7 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminGalleryComponent implements OnInit {
 
-  constructor() { }
+  private _close: boolean = false;
+
+  get close(): boolean {
+    return this._close;
+  }
+
+  set close(value: boolean) {
+    this._close = value;
+  }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
