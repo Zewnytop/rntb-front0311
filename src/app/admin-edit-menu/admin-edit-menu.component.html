@@ -68,7 +68,8 @@
         </td>
         <td>{{nestedItemMenu.lastModifiedDate}}</td>
         <td>
-          <select name="select" size="1" [(ngModel)]="nestedItemMenu.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, nestedItemMenu)">
+          <select name="select" size="1" [(ngModel)]="nestedItemMenu.typeItemMenu.id"
+                  (ngModelChange)="setTypeItemMenu($event, nestedItemMenu)">
             <option *ngFor="let type of listTypeItemMenu; let i = index "
                     [ngValue]="type.id">{{type.nameType}}</option>
           </select>
@@ -90,4 +91,102 @@
   </table>
   <button (click)="updateVisibleItemMenu()" *ngIf="!edit">Сохранить</button>
   <button (click)="updateItemsMenuAdmin()" *ngIf="edit">Сохранить для главного администратора</button>
+
+
+  <div class="admin-edit-menu-language">
+    <ul>
+      <li>RU</li>
+      <li>KK</li>
+      <li>ENG</li>
+    </ul>
+    <div class="add-button">
+      <button>Добавить пункт меню</button>
+    </div>
+  </div>
+  <div class="file-table">
+    <ul *ngFor="let k of [0,1,2,3,4]">
+      <li>
+        <table>
+          <thead *ngIf=" k == 0">
+          <tr>
+            <th>Вложения</th>
+            <th>Последнее изменение</th>
+            <th>Тип пункта</th>
+            <th>Отображать</th>
+            <th>
+              <div class="info">
+                <img src="assets/icons/info.svg">
+                <span class="info-dropdown">
+            <ul>
+              <li>Информация</li>
+              <li><img src="assets/icons/arrow-up.svg">Переместить вверх</li>
+              <li><img src="assets/icons/arrow-down.svg">Переместить вниз</li>
+              <li><img src="assets/icons/trash-2.svg">Удалить пункт меню</li>
+              <li><img src="assets/icons/plus.svg"> Добавить новый подпункт меню</li>
+            </ul>
+          </span>
+              </div>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Виртуальная выставка</td>
+            <td>Пусто</td>
+            <td>page</td>
+            <td>
+              <div class="edit-button">
+                <input type="checkbox">
+              </div>
+            </td>
+            <td>
+              <div class="edit-button">
+
+                <button><img src="assets/icons/arrow-up.svg"></button>
+                <button><img src="assets/icons/arrow-down.svg"></button>
+                <button><img src="assets/icons/trash-2.svg"></button>
+                <button><img src="assets/icons/plus.svg"></button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table class="inherit-table">
+          <thead>
+          <tr>
+            <th>Вложения</th>
+            <th>Последнее изменение</th>
+            <th>Тип пункта</th>
+            <th>Отображать</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Виртуальная выставка</td>
+            <td>Пусто</td>
+            <td>page</td>
+            <td>
+              <div class="edit-button">
+                <input type="checkbox">
+              </div>
+            </td>
+            <td>
+              <div class="edit-button">
+                <button><img src="assets/icons/arrow-up.svg"></button>
+                <button><img src="assets/icons/arrow-down.svg"></button>
+                <button><img src="assets/icons/trash-2.svg"></button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </li>
+      <hr>
+    </ul>
+
+
+  </div>
 </div>

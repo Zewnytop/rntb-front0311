@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ContactObject, InternalContactObject} from "../../site-object/contact-object";
 import {ContactService} from "../service/contact.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ListContactObject} from "../../site-object/menu-object";
 
 @Component({
   selector: 'app-admin-contacts',
@@ -9,6 +10,8 @@ import {DomSanitizer} from "@angular/platform-browser";
   styleUrls: ['./admin-contacts.component.css']
 })
 export class AdminContactsComponent implements OnInit {
+
+  private _listContactBranch: ListContactObject[] = []
 
   private _contactBranch: ContactObject = {
     id: null,
@@ -32,14 +35,44 @@ export class AdminContactsComponent implements OnInit {
     this._contactBranch = value;
   }
 
+  get listContactBranch(): ListContactObject[] {
+    return this._listContactBranch;
+  }
+
+  set listContactBranch(value: ListContactObject[]) {
+    this._listContactBranch = value;
+  }
+
   constructor(private contactService: ContactService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
+    this.getContacts();
   }
 
   log(): void {
     console.log(this.contactBranch);
+  }
+
+  getContacts(): void {
+    this.contactService.getListContact(78).subscribe(data => {
+      data.result.forEach((value, index, array) => this.listContactBranch.push({
+        id: value.id,
+        nameRu: value.nameRu,
+        nameEn: value.nameEn,
+        nameKz: value.nameKz
+      }));
+    }, error => {
+      console.log(error)
+    });
+  }
+
+  choiceContactbranch(idContact: number): void {
+    this.contactService.getContactBranch(idContact).subscribe(data => {
+      this.contactBranch = data.result;
+    }, error => {
+      console.log(error)
+    });
   }
 
   clearObject(): void {
@@ -77,7 +110,18 @@ export class AdminContactsComponent implements OnInit {
       map: this.contactBranch['map'],
       iternalContact: listIternalContact
     }
-    this.contactService.createNewContact(78, newContact).subscribe(data => console.log(data));
+    this.contactService.createNewContact(78, newContact).subscribe(data => {
+      const contact = data.result
+      this.contactBranch = contact;
+      this.listContactBranch.push({
+        id: contact.id,
+        nameRu: contact.nameRu,
+        nameEn: contact.nameEn,
+        nameKz: contact.nameKz
+      });
+    }, error => {
+      console.log(error);
+    });
   }
 
   updateContact(): void {
@@ -102,8 +146,18 @@ export class AdminContactsComponent implements OnInit {
     this.contactBranch.iternalContact.splice(index, 1);
   }
 
+  deleteContact(idContact: number, index: number): void {
+    this.contactService.deleteContact(idContact).subscribe(data => {
+      if (data.ok) {
+        this.listContactBranch.splice(index, 1);
+      }
+    }, error => {
+      console.log(error)
+    });
+  }
+
   getMapSrc(): any {
-    const map =  this.sanitizer.bypassSecurityTrustResourceUrl(this.mapStr);
+    const map = this.sanitizer.bypassSecurityTrustResourceUrl(this.mapStr);
     return map;
   }
 }

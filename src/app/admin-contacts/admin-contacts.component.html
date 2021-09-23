@@ -5,67 +5,64 @@
     <tr>
       <th></th>
       <th>Название</th>
-      <th>Дата</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
-    <td>
-      <div class="edit-button">
-        <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-      </div>
-    </td>
-    <td>sfasdsa</td>
-    <td>sfasdsa</td>
+    <tr *ngFor="let contact of listContactBranch; let i = index">
+      <td>
+        <div class="edit-button">
+          <button (click)="choiceContactbranch(contact.id)"><img src="assets/admin-edit-menu-edit2.svg"></button>
+        </div>
+      </td>
+      <td>{{contact.nameRu}}</td>
+      <td>
+        <div class="edit-button">
+          <button (click)="deleteContact(contact.id, i)"><img src="assets/trash.svg"></button>
+        </div>
+      </td>
+    </tr>
     </tbody>
   </table>
   <div class="admin-contacts-edit">
     <div>
-      <p><b>Редактирование контактов</b></p>
+      <button (click)="log()">log</button>
+      <button (click)="clearObject()">clear</button>
+      <button (click)="createContactBranch()">create</button>
+      <button (click)="updateContact()">update</button>
     </div>
-    <!--    <div>-->
-    <!--      <div>-->
-    <!--        <p>Выбрать из списка</p>-->
-    <!--      </div>-->
-    <!--      <div>-->
-    <!--        <form>-->
-    <!--          <p>-->
-    <!--            <select name="select" size="1">-->
-    <!--              <option disabled>Выбрать из списка</option>-->
-    <!--              <option selected value="none">Административный корпус</option>-->
-    <!--              <option value="none">Центр библиотечно-информационого обслуживани</option>-->
-    <!--              <option value="none">Центр Патентно-Информационной работы</option>-->
-    <!--              <option value="none">Центр по работе со специальными видами технической литературы и документаций</option>-->
-    <!--            </select>-->
-    <!--          </p>-->
-    <!--        </form>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <button (click)="log()">log</button>
-    <button (click)="clearObject()">clear</button>
-    <button (click)="createContactBranch()">create</button>
-    <button (click)="updateContact()">update</button>
-    <form>
-      <label for="nameru"><b>Название:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.nameRu" id="nameru" name="nameru" placeholder="Название">
-    </form>
-    <form>
-      <label for="address"><b>Адрес:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.address" id="address" name="address" placeholder="Адрес">
-    </form>
-    <form>
-      <label for="email"><b>Email:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.email" id="email" name="email" placeholder="email">
-    </form>
-    <form>
-      <label for="phone"><b>Телефон:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.phoneNumber" id="phone" name="phone" placeholder="телефон">
-    </form>
-    <form>
-      <label for="map"><b>Карта:</b></label>
-      <input type="text" [(ngModel)]="contactBranch.map" id="map" name="map" placeholder="Карта">
-    </form>
+
+    <div>
+      <form>
+        <label for="nameru"><b>Название:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.nameRu" id="nameru" name="nameru" placeholder="Название">
+      </form>
+      <form>
+        <label for="address"><b>Адрес:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.address" id="address" name="address" placeholder="Адрес">
+      </form>
+      <form>
+        <label for="email"><b>Email:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.email" id="email" name="email" placeholder="email">
+      </form>
+      <form>
+        <label for="phone"><b>Телефон:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.phoneNumber" id="phone" name="phone" placeholder="телефон">
+      </form>
+      <form>
+        <label for="map"><b>Карта:</b></label>
+        <input type="text" [(ngModel)]="contactBranch.map" id="map" name="map" placeholder="Карта">
+      </form>
+    </div>
+
   </div>
   <br>
+  <div>
+    <iframe
+      [src]="getMapSrc()"
+      width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
 
   <div class="file-table">
     <table>
