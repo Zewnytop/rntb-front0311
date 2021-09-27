@@ -51,7 +51,8 @@
           <td>{{file.createdDate }}</td>
           <td>
             <div class="edit-button">
-              <button (click)="deleteFile(file.id, i)" [disabled]="edit" ><img [src]=" edit===false? 'assets/trash.svg': null "></button>
+              <button (click)="deleteFile(file.id, i)" [disabled]="edit"><img
+                [src]=" edit===false? 'assets/trash.svg': null "></button>
             </div>
           </td>
           <td>
@@ -68,4 +69,37 @@
     </div>
   </div>
 
+</div>
+
+<button (click)="close=true">Файлы</button>
+<div class="file-popup" *ngIf="close">
+  <div class="file-popup-content">
+    <div class="file-popup-header">
+      <div>
+        <p><strong>Загрузите файл</strong></p>
+      </div>
+      <div class="edit-button">
+        <button (click)="close=false"><img src="assets/icons/x.svg"></button>
+      </div>
+    </div>
+
+    <div class="file-popup-content-area">
+      <div>
+        <input type="file">
+      </div>
+      <div>
+        <p>Выберите категорию файла</p>
+        <form class="edit-input">
+          <select name="select" size="1">
+            <option>ыполлд</option>
+            <option>ыполлд</option>
+            <option>ыполлд</option>
+          </select>
+        </form>
+      </div>
+    </div>
+    <div class="file-popup-save">
+      <button>Сохранить</button>
+    </div>
+  </div>
 </div>
