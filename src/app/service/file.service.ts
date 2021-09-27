@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
-import {DataObject} from "../../site-object/data-object";
+import {DataObject, DataSingleObject} from "../../site-object/data-object";
 import {Observable} from "rxjs";
+import {DestinationObject, FileObject, SelectedFileObject} from "../../site-object/file-object";
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +17,33 @@ export class FileService {
     return this.httpClient.get<DataObject>(url);
   }
 
-  uploadFile(file: File, user: number): Observable<HttpEvent<any>> {
-    const url = `/api/files/savefile/${user}`;
+  getTypesDestination(): Observable<DataObject> {
+    const url = `/api/files/list/destination`;
+    return this.httpClient.get<DataObject>(url);
+  }
+
+  uploadFile(selectFile: SelectedFileObject, branch: number): Observable<HttpEvent<any>> {
+    const url = `/api/files/savefile/${branch}`;
     const formData: FormData = new FormData();
-    formData.append('file', file);
-    formData.append('type', file.type);
-    formData.append('size', file.size.toString());
+    formData.append('file', selectFile.file);
+    formData.append('destination', selectFile.destination.idTypeDestination.toString());
+    // formData.append('type', file.type);
+    // formData.append('size', file.size.toString());
     const req = new HttpRequest('POST', url, formData, {
       reportProgress: true,
       // responseType: 'json'
     });
     return this.httpClient.request(req);
+  }
+
+  changeTypesDestination(viewFile: FileObject ): Observable<DataSingleObject> {
+    const url = `/api/files/destination`;
+    return this.httpClient.put<DataSingleObject>(url, viewFile);
+  }
+
+  getSingleFile(idFile: number): Observable<DataSingleObject> {
+    const url = `/api/files/single/${idFile}`;
+    return this.httpClient.get<DataSingleObject>(url);
   }
 
   deleteFile(id: number): Observable<any> {

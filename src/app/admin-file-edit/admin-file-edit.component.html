@@ -3,13 +3,35 @@
 </div>
 <div class="file-edit">
   <div>
+    <button (click)="log()">log</button>
     <div>
       <label>
         <input type="file" multiple (change)="selectFiles($event)"/>
       </label>
     </div>
     <div>
-      <button [disabled]="!selectedFiles" (click)="uploadFiles()">Загрузить</button>
+      <table>
+        <thead>
+        <tr>
+          <th>1asdasd</th>
+          <th>2afasfsdfd</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let file of selectedFile">
+          <td>{{file.file.name}}</td>
+          <td>
+            <select [(ngModel)]="file.destination">
+              <option *ngFor="let destination of listDestination"
+                      [ngValue]="destination">{{destination.nameDestination}}</option>
+            </select>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <button [disabled]="!selectedFile" (click)="uploadFiles()">Загрузить</button>
     </div>
   </div>
 
@@ -34,29 +56,44 @@
   </div>
 
   <div class="file-edit-space">
-
     <div class="file-table">
       <table>
         <thead>
         <tr>
           <th>Имя</th>
           <th>Дата</th>
-          <th>Удалить</th>
+          <th>Расширение имени файла</th>
+          <th>Тип использования</th>
+          <th>сохранить</th>
           <th>Предпросмотр</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let file of listFiles; let i = index">
           <td>{{file.nameFile}}</td>
           <td>{{file.createdDate }}</td>
+          <td>{{file.typeFile.split('/')[1] }}</td>
+          <td>
+            <select [(ngModel)]="file.destination.idTypeDestination" (ngModelChange)="setTypeDestination($event, i)">
+              <option *ngFor="let destination of listDestination"
+                      [ngValue]="destination.idTypeDestination">{{destination.nameDestination}}</option>
+            </select>
+          </td>
           <td>
             <div class="edit-button">
-              <button (click)="deleteFile(file.id, i)" [disabled]="edit" ><img [src]=" edit===false? 'assets/trash.svg': null "></button>
+              <button (click)="saveNewTypeDestinationFile(file)"><img src="assets/new-window.svg"></button>
             </div>
           </td>
           <td>
             <div class="edit-button">
               <button (click)="setIdAndTypeFile(file.id, file.typeFile)"><img src="assets/new-window.svg"></button>
+            </div>
+          </td>
+          <td>
+            <div class="edit-button">
+              <button (click)="deleteFile(file.id, i)" [disabled]="edit"><img
+                [src]=" edit===false? 'assets/trash.svg': null "></button>
             </div>
           </td>
         </tr>
