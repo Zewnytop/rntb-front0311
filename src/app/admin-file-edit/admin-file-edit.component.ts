@@ -105,7 +105,7 @@ export class AdminFileEditComponent implements OnInit {
       for (let i = 0; i < files.length; i++) {
         this.selectedFile.push({
           file: files.item(i)!,
-          destination: this.listDestination[0]
+          destination: this.listDestination[3]
         });
       }
     }
@@ -163,30 +163,35 @@ export class AdminFileEditComponent implements OnInit {
     }
   }
 
-  setTypeDestination(e: number, index: number): void {
-    const typeDestination = this.listDestination.filter(type => type.idTypeDestination === e)[0];
-    this.listFiles[index].destination = typeDestination;
-    // this.listDestination.forEach((value, index, array) => {
-    //   if (e === value.idTypeDestination) {
-    //     file.destination = value;
-    //     console.log(file)
-    //     console.log(e)
-    //   }
-    // })
-  }
+  // setTypeDestination(e: number, file: FileObject): void {
+  //   this._listDestination.forEach((value, index, array) => {
+  //     if (e === value.idTypeDestination) {
+  //
+  //     }
+  //   });
+  //   // file.destination = this.listDestination.filter(type => type.idTypeDestination === e)[0];
+  //   // console.log(this.listFiles[index].destination);
+  //   // this.listDestination.forEach((value, index, array) => {
+  //   //   if (e === value.idTypeDestination) {
+  //   //     file.destination = value;
+  //   //     console.log(file)
+  //   //     console.log(e)
+  //   //   }
+  //   // })
+  // }
 
-  saveNewTypeDestinationFile(viewFile: FileObject): void {
-    this.fileService.changeTypesDestination(viewFile).subscribe(data => {
-      viewFile = data.result;
-    }, error => {
-      this.fileService.getSingleFile(viewFile.id).subscribe(data => {
-        // viewFile.
-      }, error => {
-        console.log(error);
-      });
-      console.log(error);
-    });
-  }
+  // saveNewTypeDestinationFile(viewFile: FileObject): void {
+  //   this.fileService.changeTypesDestination(viewFile).subscribe(data => {
+  //     viewFile = data.result;
+  //   }, error => {
+  //     this.fileService.getSingleFile(viewFile.id).subscribe(data => {
+  //       // viewFile.
+  //     }, error => {
+  //       console.log(error);
+  //     });
+  //     console.log(error);
+  //   });
+  // }
 
 
   deleteFile(id: number, index: number): void {
@@ -217,6 +222,10 @@ export class AdminFileEditComponent implements OnInit {
   }
 
   setIdAndTypeFile(id: number, type: string): void {
+    if (this.idFile !== null && this.idFile === id) {
+      this.idFile = null;
+      return
+    }
     this.idFile = id;
     this.typeFile = type;
     if (type === "application/pdf") {
@@ -226,6 +235,7 @@ export class AdminFileEditComponent implements OnInit {
 
   log(): void {
     console.log(this.selectedFile);
+    console.log(this._listDestination);
     console.log(this.listFiles);
   }
 }
