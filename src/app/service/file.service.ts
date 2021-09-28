@@ -36,15 +36,15 @@ export class FileService {
     return this.httpClient.request(req);
   }
 
-  changeTypesDestination(viewFile: FileObject ): Observable<DataSingleObject> {
-    const url = `/api/files/destination`;
-    return this.httpClient.put<DataSingleObject>(url, viewFile);
-  }
+  // changeTypesDestination(viewFile: FileObject ): Observable<DataSingleObject> {
+  //   const url = `/api/files/destination`;
+  //   return this.httpClient.put<DataSingleObject>(url, viewFile);
+  // }
 
-  getSingleFile(idFile: number): Observable<DataSingleObject> {
-    const url = `/api/files/single/${idFile}`;
-    return this.httpClient.get<DataSingleObject>(url);
-  }
+  // getSingleFile(idFile: number): Observable<DataSingleObject> {
+  //   const url = `/api/files/single/${idFile}`;
+  //   return this.httpClient.get<DataSingleObject>(url);
+  // }
 
   deleteFile(id: number): Observable<any> {
     const url = `/api/files/delete/${id}`;
