@@ -1,38 +1,39 @@
 <div class="admin-contacts">
 
-  <table>
-    <thead>
-    <tr>
-      <th></th>
-      <th>Название</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let contact of listContactBranch; let i = index">
-      <td>
-        <div class="edit-button">
-          <button (click)="choiceContactbranch(contact.id)"><img src="assets/admin-edit-menu-edit2.svg"></button>
-        </div>
-      </td>
-      <td>{{contact.nameRu}}</td>
-      <td>
-        <div class="edit-button">
-          <button (click)="deleteContact(contact.id, i)"><img src="assets/trash.svg"></button>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <div class="admin-contacts-edit">
-    <div>
-      <button (click)="log()">log</button>
-      <button (click)="clearObject()">clear</button>
-      <button (click)="createContactBranch()">create</button>
-      <button (click)="updateContact()">update</button>
-    </div>
+  <!--  <table>-->
+  <!--    <thead>-->
+  <!--    <tr>-->
+  <!--      <th></th>-->
+  <!--      <th>Название</th>-->
+  <!--      <th></th>-->
+  <!--    </tr>-->
+  <!--    </thead>-->
+  <!--    <tbody>-->
+  <!--    <tr *ngFor="let contact of listContactBranch; let i = index">-->
+  <!--      <td>-->
+  <!--        <div class="edit-button">-->
+  <!--          <button (click)="choiceContactbranch(contact.id)"><img src="assets/admin-edit-menu-edit2.svg"></button>-->
+  <!--        </div>-->
+  <!--      </td>-->
+  <!--      <td>{{contact.nameRu}}</td>-->
+  <!--      <td>-->
+  <!--        <div class="edit-button">-->
+  <!--          <button (click)="deleteContact(contact.id, i)"><img src="assets/trash.svg"></button>-->
+  <!--        </div>-->
+  <!--      </td>-->
+  <!--    </tr>-->
+  <!--    </tbody>-->
+  <!--  </table>-->
+  <div>
+    <button (click)="log()">log</button>
+    <button (click)="clearObject()">clear</button>
+    <button (click)="createContactBranch()">create</button>
+    <button (click)="updateContact()">update</button>
+  </div>
 
-    <div>
+  <div class="admin-contacts-edit">
+
+    <div class="item1">
       <form>
         <label for="nameru"><b>Название:</b></label>
         <input type="text" [(ngModel)]="contactBranch.nameRu" id="nameru" name="nameru" placeholder="Название">
@@ -55,17 +56,43 @@
       </form>
     </div>
 
+    <div>
+      <table class="file-table">
+        <thead>
+        <tr>
+          <th>Название отделения</th>
+          <th>Адрес</th>
+          <th>Телефон</th>
+          <th>E-mail</th>
+          <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>АДМИНИСТРАТИВНЫЙ КОРПУС</td>
+          <td>
+            Республика Казахстан,
+            050026, г.Алматы,
+            ул. С.Муканова, 223б
+          </td>
+          <td>e-mail: rntb@rntb.kz</td>
+          <td>88005553535</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
   <br>
+  <!--  <div>-->
+  <!--    <iframe-->
+  <!--      [src]="getMapSrc()"-->
+  <!--      width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>-->
+  <!--  </div>-->
+
+
   <div>
-    <iframe
-      [src]="getMapSrc()"
-      width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-  </div>
-
-
-  <div class="file-table">
-    <table>
+    <table class="file-table">
       <thead>
       <tr>
         <th>Должность</th>
@@ -89,7 +116,7 @@
     </table>
     <button (click)="addIternalContact()">Добавить</button>
   </div>
-  <iframe
-    [src]="getMapSrc()"
-    width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <!--  <iframe-->
+  <!--    [src]="getMapSrc()"-->
+  <!--    width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>-->
 </div>

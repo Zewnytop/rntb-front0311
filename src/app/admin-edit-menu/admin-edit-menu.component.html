@@ -30,8 +30,8 @@
     </form>
   </div>
 </div>
-<div class="file-table">
-  <table>
+<div>
+  <table class="file-table">
     <thead>
     <tr>
       <th>Вложения</th>
@@ -103,10 +103,10 @@
       <button>Добавить пункт меню</button>
     </div>
   </div>
-  <div class="file-table">
+  <div>
     <ul *ngFor="let k of [0,1,2,3,4]">
       <li>
-        <table>
+        <table  class="file-table">
           <thead *ngIf=" k == 0">
           <tr>
             <th>Вложения</th>
