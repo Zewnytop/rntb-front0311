@@ -21,6 +21,8 @@ export class AdminFileEditComponent implements OnInit {
   private _listDestination: DestinationObject[] = [];
   private _close: boolean = false;
   edit: boolean = false;
+  previewImg1:string='assets/new-window.svg';
+  previewImg2:string='assets/icons/x.svg';
 
 
   get close(): boolean {

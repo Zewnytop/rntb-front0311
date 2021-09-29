@@ -3,12 +3,19 @@
 .file-edit {
 
   .file-edit-space {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 10fr));
-
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     //Здесь раньше были стили таблицы, теперь они перенесены в styles.less
-
+    .item1 {
+      flex: 1 1 auto;
+      width: 760px;
+      padding-right: 20px;
+    }
     .file-edit-preview {
+      flex: 1 0 auto;
+      max-width: 380px;
+      height: auto;
       img {
         width: 100%;
         object-fit: cover;
@@ -37,13 +44,16 @@
     justify-content: space-between;
     align-items: center;
     align-content: space-between;
-    div{
+
+    div {
       //border: 1px solid red;
     }
+
     .edit-button {
       width: 80%;
       justify-content: right;
-      button{
+
+      button {
       }
 
     }
@@ -71,6 +81,7 @@
       //  flex: 1 1;
       //}
     }
+
     .file-popup-save {
       display: block;
       text-align: center;
