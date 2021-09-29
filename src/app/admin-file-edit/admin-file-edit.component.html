@@ -1,46 +1,46 @@
 <div>
-    <p><b>Загрузка файлов</b></p>
+  <p><b>Загрузка файлов</b></p>
 </div>
 <div class="file-edit">
-    <div class="file-edit-space">
-        <div class="file-table">
-            <table>
-                <thead>
-                <tr>
-                    <th>Имя</th>
-                    <th>Дата</th>
-                    <th>Расширение имени файла</th>
-                    <th>Тип использования</th>
-                    <th>Предпросмотр</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let file of listFiles; let i = index">
-                    <td>{{file.nameFile}}</td>
-                    <td>{{file.createdDate }}</td>
-                    <td>{{file.typeFile.split('/')[1] }}</td>
-                    <td>{{file.destination.nameDestination}}</td>
-                    <td>
-                        <div class="edit-button">
-                            <button (click)="setIdAndTypeFile(file.id, file.typeFile)"><img src="assets/new-window.svg">
-                            </button>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="edit-button">
-                            <button (click)="deleteFile(file.id, i)" [disabled]="edit"><img
-                                    [src]=" edit===false? 'assets/trash.svg': null "></button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="file-edit-preview" *ngIf="idFile !== null">
-            <img [src]="previewImage()">
-        </div>
+  <div class="file-edit-space">
+    <div class="item1">
+      <table class="file-table">
+        <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Дата</th>
+          <th>Расширение имени файла</th>
+          <th>Тип использования</th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let file of listFiles; let i = index">
+          <td>{{file.nameFile}}</td>
+          <td>{{file.createdDate }}</td>
+          <td>{{file.typeFile.split('/')[1] }}</td>
+          <td>{{file.destination.nameDestination}}</td>
+          <td>
+            <div class="edit-button" alt="ananan">
+              <button (click)="setIdAndTypeFile(file.id, file.typeFile)"><img [src]="idFile!==file.id? previewImg1:previewImg2" title="Предпросмотр">
+              </button>
+            </div>
+          </td>
+          <td>
+            <div class="edit-button">
+              <button (click)="deleteFile(file.id, i)" [disabled]="edit"><img
+                [src]=" edit===false? 'assets/trash.svg': null "></button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
+    <div class="file-edit-preview" *ngIf="idFile !== null">
+      <img [src]="previewImage()">
+    </div>
+  </div>
 
 </div>
 
