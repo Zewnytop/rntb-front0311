@@ -19,8 +19,17 @@ export class AdminFileEditComponent implements OnInit {
   private _idFile: number | null = null;
   private _typeFile: string | null = null;
   private _listDestination: DestinationObject[] = [];
-
+  private _close: boolean = false;
   edit: boolean = false;
+
+
+  get close(): boolean {
+    return this._close;
+  }
+
+  set close(value: boolean) {
+    this._close = value;
+  }
 
   get listFiles(): FileObject[] {
     return this._listFiles;
