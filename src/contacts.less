@@ -32,25 +32,36 @@
   }
 
   .contact-map-box {
+    height: 500px;
+    margin-bottom: 20px;
+
     .contact-map {
       position: relative;
+      z-index: 1;
+
       display: flex;
       justify-content: center;
+
       margin: 50px auto 20px;
     }
 
     .contact-box {
-      position: absolute;
-      top: 1340px;
-      margin-left: 50px;
+      position: relative;
+      z-index: 2;
+      top: -400px;
+
       width: 400px;
       height: 300px;
+
+      display: flex;
+      flex-direction: column;
+      margin-left: 50px;
       background-color: rgba(198, 198, 198, 0.6);
 
       .contact-box-title {
         width: 316px;
         height: 22px;
-        margin-top: 74px;
+        padding-top: 74px;
         margin-left: 42px;
         font-style: normal;
         font-weight: bold;
@@ -68,7 +79,7 @@
         font-weight: normal;
         margin-left: 42px;
         margin-bottom: 74px;
-        margin-top: 20px;
+        padding-top: 20px;
       }
     }
   }
@@ -77,6 +88,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .contact-table {
       width: 100%;
 
@@ -85,30 +97,36 @@
         line-height: 30px;
         color: #F86C22;
       }
-      .tr-text{
+
+      .tr-text {
         font-size: 18px;
         line-height: 24px;
 
       }
+
       tr:nth-child(even) {
         background-color: #dddddd;
       }
-      .first-th{
+
+      .first-th {
         text-align: start;
         width: 17.71vw;
         padding: 0px;
       }
-      .second-th{
+
+      .second-th {
         text-align: center;
         padding: 0px;
       }
-      .third-th{
+
+      .third-th {
         text-align: end;
         width: 17.71vw;
         padding: 0px;
       }
     }
-    .strip{
+
+    .strip {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -116,19 +134,21 @@
       width: 34.896vw;
 
 
-      .strip-svg{
-        background: url("assets/images/strip.svg")no-repeat center;
+      .strip-svg {
+        background: url("assets/images/strip.svg") no-repeat center;
         width: 60px;
         height: 30px;
       }
-      .strip-hr-svg{
-        background: url("assets/images/strip-hr-svg.svg")no-repeat center;
+
+      .strip-hr-svg {
+        background: url("assets/images/strip-hr-svg.svg") no-repeat center;
         width: 100px;
         height: 1px;
         margin-bottom: 5px;
       }
     }
-    .hr-last-child{
+
+    .hr-last-child {
       margin-top: 40px;
       margin-bottom: 100px;
       width: 13.022vw;
