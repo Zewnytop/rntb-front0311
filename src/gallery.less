@@ -4,39 +4,43 @@
     display: flex;
     flex-direction: column;
 
-    .title-first{
+    .big-title{
       display: flex;
       align-items: center;
 
       .title-hr{
         width: 18.23vw;
         height: 0px;
-        border: 1px solid @burgundy;
+        border: 1px solid @darkBlue;
       }
       .title{
         font-style: normal;
         font-weight: bold;
         font-size: 26px;
+        color: #F86C22;
       }
     }
     .small-title{
-      width: 27.553vw;
+      width: auto;
       margin: 20px auto 40px;
 
       font-style: normal;
       font-weight: normal;
       font-size: 18px;
-      color: @burgundy;
+      color: @darkBlue;
     }
   }
 
   .gallery-carousel{
-    display: flex;
-    justify-content: space-between;
+    display: inline-block;
+    overflow-y:hidden;
     width: 66.41vw;
+    height: 300px;
     margin: auto;
+    white-space: nowrap;
 
     .carousel-block{
+      display: inline-block;
       width: 195px;
       height: 300px;
       background-color: @grey;
@@ -66,7 +70,7 @@
   .carousel-hr{
     width: 13.021vw;
     height: 0px;
-    border: 1px solid @burgundy;
+    border: 1px solid @darkBlue;
   }
   margin-bottom: 200px;
 }
