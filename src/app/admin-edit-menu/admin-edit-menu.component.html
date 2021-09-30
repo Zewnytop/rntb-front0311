@@ -9,11 +9,11 @@
     <form class="edit-input">
       <p>
         <ng-template [ngIf]="!edit" [ngIfElse]="editMainBlock">
-          <select name="select" size="1" [(ngModel)]="mainItemMenu" (ngModelChange)="getNestedItemsMenu(78)">
-            <option *ngFor="let mainItemMenu of listMainItemMenu; let i = index "
-                    [ngValue]="mainItemMenu">{{mainItemMenu.nameRu}}</option>
+          <!--          <select name="select" size="1" [(ngModel)]="mainItemMenu" (ngModelChange)="getNestedItemsMenu(78)">-->
+          <!--            <option *ngFor="let mainItemMenu of listMainItemMenu; let i = index "-->
+          <!--                    [ngValue]="mainItemMenu">{{mainItemMenu.nameRu}}</option>-->
 
-          </select>
+          <!--          </select>-->
           <input *ngIf="mainItemMenu !== null" type="checkbox" [(ngModel)]="getMainItemMenuEdit().showItem" name="a1">
           <label>Отображать</label>
         </ng-template>
@@ -25,7 +25,7 @@
         <input type="checkbox" [(ngModel)]="edit" name="edit">
         <label>Редактировать</label>
         <button (click)="log()">asdasd</button>
-        <button (click)="getMainItemMenu()">sssssssss</button>
+        <!--        <button (click)="getMainItemMenu()">sssssssss</button>-->
       </p>
     </form>
   </div>
@@ -89,25 +89,34 @@
     </tr>
     </tbody>
   </table>
-  <button (click)="updateVisibleItemMenu()" *ngIf="!edit">Сохранить</button>
-  <button (click)="updateItemsMenuAdmin()" *ngIf="edit">Сохранить для главного администратора</button>
+  <!--  <button (click)="updateVisibleItemMenu()" *ngIf="!edit">Сохранить</button>-->
+  <!--  <button (click)="updateItemsMenuAdmin()" *ngIf="edit">Сохранить для главного администратора</button>-->
 
-
+<button (click)="log()">fdsfsd</button>
   <div class="admin-edit-menu-language">
-    <ul>
-      <li>RU</li>
-      <li>KK</li>
-      <li>ENG</li>
-    </ul>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="ru">
+      RU
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="eng">
+      ENG
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="kz">
+      KZ
+    </label>
+
     <div class="add-button">
-      <button>Добавить пункт меню</button>
+      <button (click)="createItemMenu()">Добавить пункт меню</button>
     </div>
+    <button (click)="getMainitemsMenu(1)">get</button>
   </div>
   <div>
-    <ul *ngFor="let k of [0,1,2,3,4]">
+    <ul *ngFor="let itemMenu of listMainItemMenu; let i = index">
       <li>
-        <table  class="file-table">
-          <thead *ngIf=" k == 0">
+        <table class="file-table">
+          <thead>
           <tr>
             <th>Вложения</th>
             <th>Последнее изменение</th>
@@ -131,32 +140,33 @@
           </thead>
           <tbody>
           <tr>
-            <td>Виртуальная выставка</td>
-            <td>Пусто</td>
-            <td>page</td>
+            <td *ngIf="lang === 'ru'">{{itemMenu.nameRu + 'ru'}}</td>
+            <td *ngIf="lang === 'eng'">{{itemMenu.nameEn + 'eng'}}</td>
+            <td *ngIf="lang === 'kz'">{{itemMenu.nameKz + 'kz'}}</td>
+            <td>{{itemMenu.lastModifiedDate}}</td>
+            <td>{{itemMenu.typeItemMenu.nameType}}</td>
             <td>
               <div class="edit-button">
-                <input type="checkbox">
+                <input [(ngModel)]="itemMenu.showItem" type="checkbox">
               </div>
             </td>
             <td>
               <div class="edit-button">
-
                 <button><img src="assets/icons/arrow-up.svg"></button>
                 <button><img src="assets/icons/arrow-down.svg"></button>
                 <button><img src="assets/icons/trash-2.svg"></button>
-                <button><img src="assets/icons/plus.svg"></button>
+                <button (click)="createItemMenu(itemMenu.id)"><img src="assets/icons/plus.svg"></button>
               </div>
             </td>
           </tr>
           </tbody>
         </table>
       </li>
-      <li>
+      <li *ngIf="itemMenu.childerItemMenu.length !== 0">
         <table class="inherit-table">
           <thead>
           <tr>
-            <th>Вложения</th>
+            <th>Вложения2</th>
             <th>Последнее изменение</th>
             <th>Тип пункта</th>
             <th>Отображать</th>

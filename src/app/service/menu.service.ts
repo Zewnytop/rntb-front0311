@@ -1,7 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {DataObject} from "../../site-object/data-object";
+import {DataObject, DataSingleObject} from "../../site-object/data-object";
 import {MenuObject} from "../../site-object/menu-object";
 
 @Injectable({
@@ -36,6 +36,17 @@ export class MenuService {
   getTypesItemMenu(): Observable<DataObject> {
     const url = `/api/menu/type`;
     return this.httpClient.get<DataObject>(url);
+  }
+
+  createItemMenu(idBranch: number, serialNumber: number, typeItem: number, idParentItem: number | null): Observable<DataSingleObject> {
+    const url = `/api/menu/new/item`;
+    const body = {
+      idBranch: idBranch,
+      serialNumber: serialNumber,
+      typeItem: typeItem,
+      idParentItem: idParentItem
+    };
+    return this.httpClient.post<DataSingleObject>(url, body);
   }
 
   updateVisibleItemMenu(idBranch: number, listItemMenu: any[]): Observable<DataObject> {
