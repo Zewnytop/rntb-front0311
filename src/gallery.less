@@ -1,55 +1,70 @@
-.gallery{
+.gallery {
 
-  .gallery-title{
+  .gallery-title {
     display: flex;
     flex-direction: column;
 
-    .title-first{
+    .big-title {
       display: flex;
       align-items: center;
 
-      .title-hr{
+      .title-hr {
         width: 18.23vw;
         height: 0px;
-        border: 1px solid @burgundy;
+        border: 1px solid @darkBlue;
       }
-      .title{
+
+      .title {
         font-style: normal;
         font-weight: bold;
         font-size: 26px;
+        color: #F86C22;
       }
     }
-    .small-title{
-      width: 27.553vw;
+
+    .small-title {
+      width: auto;
       margin: 20px auto 40px;
 
       font-style: normal;
       font-weight: normal;
       font-size: 18px;
-      color: @burgundy;
+      color: @darkBlue;
     }
   }
 
-  .gallery-carousel{
-    display: flex;
-    justify-content: space-between;
+  .gallery-carousel {
+    display: inline-block;
+    overflow-y: hidden;
     width: 66.41vw;
+    height: 300px;
     margin: auto;
+    white-space: nowrap;
 
-    .carousel-block{
+    .carousel-block {
+      display: inline-block;
+      width: 195px;
+      height: 300px;
+      background-color: @grey;
+      margin-left: 75px;
+    }
+
+    .carousel-block-first {
+      display: inline-block;
       width: 195px;
       height: 300px;
       background-color: @grey;
     }
   }
-  .carousel-circle{
+
+  .carousel-circle {
     display: flex;
     justify-content: space-between;
     width: 4.17vw;
 
     margin: 35px auto;
 
-    .carousel-button{
+    .carousel-button {
       width: 20px;
       height: 20px;
       border-radius: 100px;
@@ -59,14 +74,17 @@
       transition-duration: 0.4s;
       cursor: pointer;
     }
-    .carousel-button:hover{
-      background-color: #585858 ;
+
+    .carousel-button:hover {
+      background-color: #585858;
     }
   }
-  .carousel-hr{
+
+  .carousel-hr {
     width: 13.021vw;
     height: 0px;
-    border: 1px solid @burgundy;
+    border: 1px solid @darkBlue;
   }
+
   margin-bottom: 200px;
 }

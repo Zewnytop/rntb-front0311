@@ -109,11 +109,29 @@
 
 
           .link-li-first {
+            a {
+              color: @white;
+              text-decoration: none;
+            }
 
+            a:hover {
+              transition-duration: 0.2s;
+              color: #2b1c1c;
+            }
           }
 
           .link-li {
             padding-top: 30px;
+
+            a {
+              color: @white;
+              text-decoration: none;
+            }
+
+            a:hover {
+              transition-duration: 0.2s;
+              color: #2b1c1c;
+            }
           }
           .link-li-content{
             list-style: none;
@@ -137,69 +155,6 @@
           .li-content:before {
             content: url("/assets/images/Vector.svg");
             margin-right: 10px;
-            cursor: pointer;
-          }
-        }
-      }
-
-      .ssilki {
-        display: flex;
-        flex-direction: column;
-
-        .link-article {
-          display: flex;
-          align-items: center;
-          width: 242px;
-          height: 17px;
-          top: 379px;
-          font-style: normal;
-          font-weight: 600;
-          font-size: 18px;
-          line-height: 22px;
-          color: #f8f8f8;
-        }
-
-        .link-span {
-          display: flex;
-          align-items: center;
-          margin-bottom: 5px;
-          margin-top: 15px;
-          font-size: 14px;
-          line-height: 22px;
-          font-style: normal;
-          color: #f8f8f8;
-
-          .link-ul {
-            padding: 0px;
-          }
-
-
-          .article-first-img {
-            background: url("/assets/images/Vector.svg") no-repeat center;
-            list-style: none;
-            width: 6px;
-            height: 10px;
-            margin-right: 12.6px;
-          }
-
-          .link-li {
-            list-style: none;
-            cursor: pointer;
-
-            .elem-span {
-              display: inline-block;
-              align-items: center;
-              margin-top: 10px;
-              font-size: 14px;
-              line-height: 22px;
-              font-style: normal;
-              color: #f8f8f8;
-            }
-          }
-
-          .link-li:before {
-            content: url("/assets/images/Vector.svg");
-            margin-right: 12.6px;
             cursor: pointer;
           }
         }

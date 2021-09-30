@@ -1,7 +1,7 @@
 <div class="app-menu">
   <div class="logo-navbar">
     <!-- Лого -->
-    <div class="logo"></div>
+    <a class="logo" routerLink="/"></a>
     <div class="navbar-media">
       <div class="navbar">
         <ul class="navbar-ul">
@@ -30,12 +30,29 @@
               <a class="dropdown-a">Фонды и Базы Данных</a>
             </div>
           </li>
-          <li class="navbar-li"><a class="li-a" routerLink="/">Ирбис
+          <li class="navbar-li"><a class="li-a" routerLink="/">Ресурсы
             <div class="li-svg"></div>
-          </a></li>
+          </a>
+            <div class="navbar-li-dropdown">
+              <a class="dropdown-a" routerLink="/">Электронный каталог</a>
+              <a class="dropdown-a">Электронная библиотека РНТБ</a>
+              <a class="dropdown-a">Система авторизаций библиотек "Ирбис"</a>
+              <a class="dropdown-a">Школа професионального развития</a>
+            </div>
+          </li>
           <li class="navbar-li"><a class="li-a" routerLink="/">Филиалы
             <div class="li-svg"></div>
-          </a></li>
+          </a>
+            <div class="navbar-li-dropdown">
+              <a class="dropdown-a" routerLink="/">Астанинский филиал</a>
+              <a class="dropdown-a" routerLink="/">Актюбинский филиал</a>
+              <a class="dropdown-a" routerLink="/">Восточно-Казахстанский филиал</a>
+              <a class="dropdown-a" routerLink="/">Жамбылский филиал</a>
+              <a class="dropdown-a" routerLink="/">Западно-Казахстанский филиал</a>
+              <a class="dropdown-a" routerLink="/">Павлодарский филиал</a>
+              <a class="dropdown-a" routerLink="/">Туркестанский филиал</a>
+            </div>
+          </li>
           <li class="navbar-li"><a class="li-a" routerLink="/contacts">Контакты</a></li>
         </ul>
 
@@ -51,6 +68,7 @@
       <div class="media">
         <div class="instagram"></div>
         <div class="facebook"></div>
+        <div class="telegram"></div>
       </div>
     </div>
 
