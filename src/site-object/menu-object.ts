@@ -11,6 +11,7 @@ export interface MenuObject {
   nameKz: string,
   description: string,
   lastModifiedDate: string,
+  isEdit: boolean,
   parentItem: MenuObject,
   file: FileObject,
   typeComponent: TypeComponentObject,

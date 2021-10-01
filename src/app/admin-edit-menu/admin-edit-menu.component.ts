@@ -80,33 +80,66 @@ export class AdminEditMenuComponent implements OnInit {
     this.getTypeItemMenu();
   }
 
-  createItemMenu(idParent: number | null = null): void {
-    let serialNumber = this.listMainItemMenu.length;
-    if (this.listMainItemMenu.length === 0) {
-      serialNumber = 0;
+  createItemMenu(idParent: number | null = null, index: number | null = null): void {
+    if (index === null) {
+      let serialNumber = this.listMainItemMenu.length;
+      if (this.listMainItemMenu.length === 0) {
+        serialNumber = 0;
+      }
+      this.menuService.createItemMenu(1, serialNumber, idParent).subscribe(data => {
+        console.log(data)
+        const itemMenu = data.result;
+        this.listMainItemMenu.push({
+          id: itemMenu.id,
+          showItem: itemMenu.showItem,
+          serialNumber: itemMenu.serialNumber,
+          nameRu: itemMenu.nameRu,
+          nameEn: itemMenu.nameEn,
+          nameKz: itemMenu.nameKz,
+          description: itemMenu.description,
+          lastModifiedDate: itemMenu.lastModifiedDate,
+          isEdit: false,
+          parentItem: itemMenu.parentItem,
+          file: itemMenu.file,
+          typeComponent: itemMenu.typeComponent,
+          libraryBranch: itemMenu.libraryBranch,
+          childerItemMenu: [],
+          typeItemMenu: itemMenu.typeItemMenu
+        })
+      }, error => {
+        console.log(error)
+      });
+    } else {
+      let serialNumber = this.listMainItemMenu[index].childerItemMenu.length;
+      if (this.listMainItemMenu[index].childerItemMenu.length === 0) {
+        serialNumber = 0;
+      }
+      console.log("lengts")
+      console.log(serialNumber)
+      this.menuService.createItemMenu(1, serialNumber, idParent).subscribe(data => {
+        console.log(data)
+        const itemMenu = data.result;
+        this.listMainItemMenu[index].childerItemMenu.push({
+          id: itemMenu.id,
+          showItem: itemMenu.showItem,
+          serialNumber: itemMenu.serialNumber,
+          nameRu: itemMenu.nameRu,
+          nameEn: itemMenu.nameEn,
+          nameKz: itemMenu.nameKz,
+          description: itemMenu.description,
+          lastModifiedDate: itemMenu.lastModifiedDate,
+          isEdit: false,
+          parentItem: itemMenu.parentItem,
+          file: itemMenu.file,
+          typeComponent: itemMenu.typeComponent,
+          libraryBranch: itemMenu.libraryBranch,
+          childerItemMenu: [],
+          typeItemMenu: itemMenu.typeItemMenu
+        })
+      }, error => {
+        console.log(error)
+      });
     }
-    this.menuService.createItemMenu(1, serialNumber, 28, idParent).subscribe(data => {
-      console.log(data)
-      const itemMenu = data.result;
-      this.listMainItemMenu.push({
-        id: itemMenu.id,
-        showItem: itemMenu.showItem,
-        serialNumber: itemMenu.serialNumber,
-        nameRu: itemMenu.nameRu,
-        nameEn: itemMenu.nameEn,
-        nameKz: itemMenu.nameKz,
-        description: itemMenu.description,
-        lastModifiedDate: itemMenu.lastModifiedDate,
-        parentItem: itemMenu.parentItem,
-        file: itemMenu.file,
-        typeComponent: itemMenu.typeComponent,
-        libraryBranch: itemMenu.libraryBranch,
-        childerItemMenu: [],
-        typeItemMenu: itemMenu.typeItemMenu
-      })
-    }, error => {
-      console.log(error)
-    });
   }
 
   getMainitemsMenu(idBranch: number): void {
@@ -132,6 +165,7 @@ export class AdminEditMenuComponent implements OnInit {
         nameKz: item.nameKz,
         description: item.description,
         lastModifiedDate: item.lastModifiedDate,
+        isEdit: false,
         parentItem: item.parentItem,
         file: item.file,
         typeComponent: item.typeComponent,
@@ -145,6 +179,30 @@ export class AdminEditMenuComponent implements OnInit {
       listItemMenu.push(itemMenu);
     }, this);
     return listItemMenu;
+  }
+
+  changeEditStatus(item: MenuObject): void {
+    if (item.isEdit) {
+      item.isEdit = false;
+    } else {
+      item.isEdit = true;
+    }
+  }
+
+  deleteItemMenu(id: number, index: number, childIndex: number | null = null): void {
+    if (childIndex === null) {
+      this.menuService.deleteItemMenu(id).subscribe(data => {
+        this.listMainItemMenu.splice(index, 1);
+      }, error => {
+        console.log(error)
+      });
+    } else {
+      this.menuService.deleteItemMenu(id).subscribe(data => {
+        this.listMainItemMenu[index].childerItemMenu.splice(childIndex, 1);
+      }, error => {
+        console.log(error)
+      });
+    }
   }
 
   // private getMainitemsMenu(idBranch: number): void {
@@ -232,6 +290,7 @@ export class AdminEditMenuComponent implements OnInit {
 
   getTypeItemMenu(): void {
     this.menuService.getTypesItemMenu().subscribe(data => {
+      console.log(data)
       data.result.forEach(type => this.listTypeItemMenu.push({
         id: type.id,
         nameType: type.nameType,
@@ -316,7 +375,7 @@ export class AdminEditMenuComponent implements OnInit {
 
   log() {
     // console.log(this.edit);
-    console.log(this.listNestedItemMenu);
+    console.log(this.listMainItemMenu);
     console.log(this.listTypeItemMenu);
     // console.log(this.listTypeItemMenu[0]);
     // console.log((this.listNestedItemMenu[0].typeItemMenu));
