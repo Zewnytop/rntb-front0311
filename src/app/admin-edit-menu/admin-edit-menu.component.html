@@ -1,98 +1,4 @@
 <div>
-  <p><b>Редактирование меню</b></p>
-</div>
-<div class="admin-edit-menu-choice">
-  <div>
-    <p>Выбрать из списка</p>
-  </div>
-  <div>
-    <form class="edit-input">
-      <p>
-        <ng-template [ngIf]="!edit" [ngIfElse]="editMainBlock">
-          <!--          <select name="select" size="1" [(ngModel)]="mainItemMenu" (ngModelChange)="getNestedItemsMenu(78)">-->
-          <!--            <option *ngFor="let mainItemMenu of listMainItemMenu; let i = index "-->
-          <!--                    [ngValue]="mainItemMenu">{{mainItemMenu.nameRu}}</option>-->
-
-          <!--          </select>-->
-          <input *ngIf="mainItemMenu !== null" type="checkbox" [(ngModel)]="getMainItemMenuEdit().showItem" name="a1">
-          <label>Отображать</label>
-        </ng-template>
-        <ng-template #editMainBlock>
-          <input type="text" [(ngModel)]="getMainItemMenuEdit().nameRu" name="c3">
-          <input type="checkbox" [(ngModel)]="getMainItemMenuEdit().showItem" name="a1">
-          <label>Отображать</label>
-        </ng-template>
-        <input type="checkbox" [(ngModel)]="edit" name="edit">
-        <label>Редактировать</label>
-        <button (click)="log()">asdasd</button>
-        <!--        <button (click)="getMainItemMenu()">sssssssss</button>-->
-      </p>
-    </form>
-  </div>
-</div>
-<div>
-  <table class="file-table">
-    <thead>
-    <tr>
-      <th>Вложения</th>
-      <th>Последнее изменение</th>
-      <th>Тип пункта</th>
-      <th>Отображать</th>
-      <th>Редактировать</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let nestedItemMenu of listNestedItemMenu; let i = index">
-      <ng-template [ngIf]="!edit" [ngIfElse]="editBlock">
-        <td>{{nestedItemMenu.nameRu}}</td>
-        <td>{{nestedItemMenu.lastModifiedDate}}</td>
-        <td>{{nestedItemMenu.typeItemMenu.nameType}}</td>
-        <td>
-          <div class="edit-button">
-            <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c1">
-            <label for="c1"></label>
-          </div>
-        </td>
-        <td>
-          <div class="edit-button">
-            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
-            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-          </div>
-        </td>
-      </ng-template>
-      <ng-template #editBlock>
-        <td>
-          <form class="edit-input">
-            <input type="text" [(ngModel)]="nestedItemMenu.nameRu" [name]="'edit-input' + i ">
-          </form>
-        </td>
-        <td>{{nestedItemMenu.lastModifiedDate}}</td>
-        <td>
-          <select name="select" size="1" [(ngModel)]="nestedItemMenu.typeItemMenu.id"
-                  (ngModelChange)="setTypeItemMenu($event, nestedItemMenu)">
-            <option *ngFor="let type of listTypeItemMenu; let i = index "
-                    [ngValue]="type.id">{{type.nameType}}</option>
-          </select>
-        </td>
-        <td>
-          <div class="edit-button">
-            <input type="checkbox" [(ngModel)]="nestedItemMenu.showItem" name="c1" id="c2">
-          </div>
-        </td>
-        <td>
-          <div class="edit-button">
-            <button><img src="assets/admin-edit-menu-edit1.svg"></button>
-            <button><img src="assets/admin-edit-menu-edit2.svg"></button>
-          </div>
-        </td>
-      </ng-template>
-    </tr>
-    </tbody>
-  </table>
-  <!--  <button (click)="updateVisibleItemMenu()" *ngIf="!edit">Сохранить</button>-->
-  <!--  <button (click)="updateItemsMenuAdmin()" *ngIf="edit">Сохранить для главного администратора</button>-->
-
-  <button (click)="log()">fdsfsd</button>
   <div class="admin-edit-menu-language">
     <label>
       <input type="radio" [(ngModel)]="lang" value="ru">
@@ -108,13 +14,8 @@
     </label>
 
     <div class="add-button">
-      <select>
-        <option [value]="typeItem"
-                *ngFor="let typeItem of listTypeItemMenu; let iType = index">{{typeItem.nameType}}</option>
-      </select>
       <button (click)="createItemMenu()">Добавить пункт меню</button>
     </div>
-    <button (click)="getMainitemsMenu(1)">get</button>
   </div>
   <div>
     <ul *ngFor="let itemMenu of listMainItemMenu; let i = index">
@@ -144,27 +45,42 @@
           </thead>
           <tbody>
           <tr>
-            <td *ngIf="lang === 'ru' && itemMenu.isEdit === false">{{itemMenu.nameRu + 'ru'}}</td>
+            <td *ngIf="lang === 'ru' && itemMenu.isEdit === false">{{itemMenu.nameRu}}</td>
             <td *ngIf="lang === 'ru' && itemMenu.isEdit === true"><input type="text" [(ngModel)]="itemMenu.nameRu">
             </td>
-            <td *ngIf="lang === 'eng' && itemMenu.isEdit === false">{{itemMenu.nameEn + 'eng'}}</td>
+            <td *ngIf="lang === 'eng' && itemMenu.isEdit === false">{{itemMenu.nameEn}}</td>
             <td *ngIf="lang === 'eng' && itemMenu.isEdit === true"><input type="text" [(ngModel)]="itemMenu.nameEn">
             </td>
-            <td *ngIf="lang === 'kz' && itemMenu.isEdit === false">{{itemMenu.nameKz + 'kz'}}</td>
+            <td *ngIf="lang === 'kz' && itemMenu.isEdit === false">{{itemMenu.nameKz}}</td>
             <td *ngIf="lang === 'kz' && itemMenu.isEdit === true"><input type="text" [(ngModel)]="itemMenu.nameKz">
             </td>
             <td>{{itemMenu.lastModifiedDate}}</td>
-            <td>{{[itemMenu.typeItemMenu === null ? 'Не выбран' : itemMenu.typeItemMenu.nameType]}}</td>
-            <td>
+            <td *ngIf="itemMenu.isEdit === true">
+              <select [ngModel]="itemMenu.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i)">
+                <option [ngValue]="typeItem.id"
+                        *ngFor="let typeItem of listTypeItemMenu; let iType = index">{{typeItem.nameType}}</option>
+              </select>
+            </td>
+            <td
+              *ngIf="itemMenu.isEdit === false">{{[itemMenu.typeItemMenu === null ? 'Не выбран' : itemMenu.typeItemMenu.nameType]}}</td>
+            <td *ngIf="itemMenu.isEdit === true">
               <div class="edit-button">
                 <input [(ngModel)]="itemMenu.showItem" type="checkbox">
               </div>
             </td>
+            <td *ngIf="itemMenu.isEdit === false">{{[itemMenu.showItem === true ? 'Показывать' : 'Скрыть']}}</td>
             <td>
               <div class="edit-button">
-                <button (click)="changeEditStatus(itemMenu)"><img alt="" src="assets/new-window.svg"></button>
-                <button *ngIf="i !== 0"><img alt="Вверх" src="assets/icons/arrow-up.svg"></button>
-                <button *ngIf="i !== (listMainItemMenu.length - 1)"><img alt="Вниз" src="assets/icons/arrow-down.svg">
+                <button (click)="updateItemMenu(itemMenu)" *ngIf="itemMenu.isEdit"><img alt=""
+                                                                                        src="assets/edit-menu.svg">
+                </button>
+                <button (click)="changeEditStatus(itemMenu)" *ngIf="!itemMenu.isEdit"><img alt=""
+                                                                                           src="assets/new-window.svg">
+                </button>
+                <button *ngIf="i !== 0" (click)="changePositionUp(i)"><img alt="Вверх"
+                                                                           src="assets/icons/arrow-up.svg"></button>
+                <button *ngIf="i !== (listMainItemMenu.length - 1)" (click)="changePositionDown(i)"><img alt="Вниз"
+                                                                                                         src="assets/icons/arrow-down.svg">
                 </button>
                 <button (click)="deleteItemMenu(itemMenu.id, i)"><img alt="Удалить" src="assets/icons/trash-2.svg">
                 </button>
@@ -189,27 +105,45 @@
           </thead>
           <tbody>
           <tr *ngFor="let childerItem of itemMenu.childerItemMenu; let iChildren = index">
-            <td *ngIf="lang === 'ru' && childerItem.isEdit === false">{{childerItem.nameRu + 'ru'}}</td>
-            <td *ngIf="lang === 'ru' && childerItem.isEdit === true"><input type="text" [(ngModel)]="childerItem.nameRu">
+            <td *ngIf="lang === 'ru' && childerItem.isEdit === false">{{childerItem.nameRu}}</td>
+            <td *ngIf="lang === 'ru' && childerItem.isEdit === true"><input type="text"
+                                                                            [(ngModel)]="childerItem.nameRu">
             </td>
-            <td *ngIf="lang === 'eng' && childerItem.isEdit === false">{{childerItem.nameEn + 'eng'}}</td>
-            <td *ngIf="lang === 'eng' && childerItem.isEdit === true"><input type="text" [(ngModel)]="childerItem.nameEn">
+            <td *ngIf="lang === 'eng' && childerItem.isEdit === false">{{childerItem.nameEn}}</td>
+            <td *ngIf="lang === 'eng' && childerItem.isEdit === true"><input type="text"
+                                                                             [(ngModel)]="childerItem.nameEn">
             </td>
-            <td *ngIf="lang === 'kz' && childerItem.isEdit === false">{{childerItem.nameKz + 'kz'}}</td>
-            <td *ngIf="lang === 'kz' && childerItem.isEdit === true"><input type="text" [(ngModel)]="childerItem.nameKz">
+            <td *ngIf="lang === 'kz' && childerItem.isEdit === false">{{childerItem.nameKz}}</td>
+            <td *ngIf="lang === 'kz' && childerItem.isEdit === true"><input type="text"
+                                                                            [(ngModel)]="childerItem.nameKz">
             <td>{{childerItem.lastModifiedDate}}</td>
-            <td>{{[childerItem.typeItemMenu === null ? 'Не выбран': childerItem.typeItemMenu.nameType]}}</td>
-            <td>
+            <td *ngIf="childerItem.isEdit === true">
+              <select [ngModel]="childerItem.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i, iChildren)">
+                <option [ngValue]="typeItem.id"
+                        *ngFor="let typeItem of listTypeItemMenu; let iType = index">{{typeItem.nameType}}</option>
+              </select>
+            </td>
+            <td
+              *ngIf="childerItem.isEdit === false">{{[childerItem.typeItemMenu === null ? 'Не выбран' : childerItem.typeItemMenu.nameType]}}</td>
+            <td *ngIf="childerItem.isEdit === true">
               <div class="edit-button">
                 <input [(ngModel)]="childerItem.showItem" type="checkbox">
               </div>
             </td>
+            <td *ngIf="childerItem.isEdit === false">{{[childerItem.showItem === true ? 'Показывать' : 'Скрыть']}}</td>
             <td>
               <div class="edit-button">
-                <button (click)="changeEditStatus(childerItem)" *ngIf="childerItem.isEdit"><img alt="" src="assets/edit-menu.svg"></button>
-                <button (click)="changeEditStatus(childerItem)" *ngIf="!childerItem.isEdit"><img alt="" src="assets/new-window.svg"></button>
-                <button *ngIf="iChildren !== 0"><img alt="Вверх" src="assets/icons/arrow-up.svg"></button>
-                <button *ngIf="iChildren !== (itemMenu.childerItemMenu.length - 1)">
+                <button (click)="updateItemMenu(childerItem)" *ngIf="childerItem.isEdit"><img alt=""
+                                                                                              src="assets/edit-menu.svg">
+                </button>
+                <button (click)="changeEditStatus(childerItem)" *ngIf="!childerItem.isEdit"><img alt=""
+                                                                                                 src="assets/new-window.svg">
+                </button>
+                <button *ngIf="iChildren !== 0" (click)="changePositionUp(i, iChildren)"><img alt="Вверх"
+                                                                                              src="assets/icons/arrow-up.svg">
+                </button>
+                <button *ngIf="iChildren !== (itemMenu.childerItemMenu.length - 1)"
+                        (click)="changePositionDown(i, iChildren)">
                   <img alt="Вниз" src="assets/icons/arrow-down.svg">
                 </button>
                 <button (click)="deleteItemMenu(childerItem.id, i, iChildren)">

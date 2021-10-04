@@ -1,10 +1,7 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../service/menu.service";
 import {MenuObject, TypeMenuItemObject} from "../../site-object/menu-object";
 import {DataObject} from "../../site-object/data-object";
-import {FileObject} from "../../site-object/file-object";
-import {TypeComponentObject} from "../../site-object/typeComponent-object";
-import {LibraryBranchObject} from "../../site-object/libraryBranch-object";
 
 @Component({
   selector: 'app-admin-edit-menu',
@@ -74,14 +71,11 @@ export class AdminEditMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMainitemsMenu(1);
-    this.menuService.updatedMenuPoints.subscribe(data => {
-      this.updatedNestedItemMenu(data);
-    })
     this.getTypeItemMenu();
   }
 
   createItemMenu(idParent: number | null = null, index: number | null = null): void {
-    if (index === null) {
+    if (index === null && idParent === null) {
       let serialNumber = this.listMainItemMenu.length;
       if (this.listMainItemMenu.length === 0) {
         serialNumber = 0;
@@ -110,8 +104,8 @@ export class AdminEditMenuComponent implements OnInit {
         console.log(error)
       });
     } else {
-      let serialNumber = this.listMainItemMenu[index].childerItemMenu.length;
-      if (this.listMainItemMenu[index].childerItemMenu.length === 0) {
+      let serialNumber = this.listMainItemMenu[index!].childerItemMenu.length;
+      if (this.listMainItemMenu[index!].childerItemMenu.length === 0) {
         serialNumber = 0;
       }
       console.log("lengts")
@@ -119,7 +113,7 @@ export class AdminEditMenuComponent implements OnInit {
       this.menuService.createItemMenu(1, serialNumber, idParent).subscribe(data => {
         console.log(data)
         const itemMenu = data.result;
-        this.listMainItemMenu[index].childerItemMenu.push({
+        this.listMainItemMenu[index!].childerItemMenu.push({
           id: itemMenu.id,
           showItem: itemMenu.showItem,
           serialNumber: itemMenu.serialNumber,
@@ -205,88 +199,50 @@ export class AdminEditMenuComponent implements OnInit {
     }
   }
 
-  // private getMainitemsMenu(idBranch: number): void {
-  //   this.listMainItemMenu = [];
-  //   this.menuService.getMainitemsMenu(idBranch).subscribe(data => {
-  //     data.result.forEach(menu => this.listMainItemMenu.push({
-  //       idItemMenuOnBranch: menu.idItemMenuOnBranch,
-  //       idItemMenu: menu.idItemMenu,
-  //       showItem: menu.showItem,
-  //       indexNumber: menu.indexNumber,
-  //       nameRu: menu.nameRu,
-  //       nameEn: menu.nameEn,
-  //       nameKz: menu.nameKz,
-  //       routeLink: menu.routeLink,
-  //       description: menu.description,
-  //       lastModifiedDate: menu.lastModifiedDate,
-  //       typeItemMenu: {
-  //         id: menu.typeItemMenu.id,
-  //         nameType: menu.typeItemMenu.nameType,
-  //         codeType: menu.typeItemMenu.codeType,
-  //         description: menu.typeItemMenu.description
-  //       }
-  //     }))
-  //     this.mainItemMenu = this.listMainItemMenu[0];
-  //     this.getNestedItemsMenu(78);
-  //   }, error => {
-  //     console.log(error)
-  //   });
-  // }
-
-  // getNestedItemsMenu(idBranch: number): void {
-  //   this.getMainItemMenu();
-  //   this.listNestedItemMenu = [];
-  //   this.menuService.getNestedItemsMenu(idBranch, this.mainItemMenu!.idItemMenu).subscribe(data => {
-  //       data.result.forEach(menu => this.listNestedItemMenu.push({
-  //         idItemMenuOnBranch: menu.idItemMenuOnBranch,
-  //         idItemMenu: menu.idItemMenu,
-  //         showItem: menu.showItem,
-  //         indexNumber: menu.indexNumber,
-  //         nameRu: menu.nameRu,
-  //         nameEn: menu.nameEn,
-  //         nameKz: menu.nameKz,
-  //         routeLink: menu.routeLink,
-  //         description: menu.description,
-  //         lastModifiedDate: menu.lastModifiedDate,
-  //         typeItemMenu: {
-  //           id: menu.typeItemMenu.id,
-  //           nameType: menu.typeItemMenu.nameType,
-  //           codeType: menu.typeItemMenu.codeType,
-  //           description: menu.typeItemMenu.description
-  //         }
-  //       }))
-  //     }, error => {
-  //       console.log(error)
-  //     }
-  //   );
-  // }
-
-  getMainItemMenuEdit(): MenuObject {
-    const index = this.listMainItemMenu.indexOf(this.mainItemMenu!);
-    return this.listMainItemMenu[index];
+  updateItemMenu(itemMenu: MenuObject | null): void {
+    const body = {
+      id: itemMenu!.id,
+      nameRu: itemMenu?.nameRu,
+      nameEn: itemMenu?.nameEn,
+      nameKz: itemMenu?.nameKz,
+      visible: itemMenu!.showItem,
+      typeItemMenu: itemMenu?.typeItemMenu?.id
+    };
+    console.log(body);
+    this.menuService.updateItemsMenu(body).subscribe(data => {
+      itemMenu!.isEdit = false;
+      const item = data.result;
+      itemMenu!.nameRu = item.nameRu;
+      itemMenu!.nameEn = item.nameEn;
+      itemMenu!.nameKz = item.nameKz;
+      if (item.typeItemMenu !== null) {
+        itemMenu!.typeItemMenu.id = item.typeItemMenu.id;
+        itemMenu!.typeItemMenu.codeType = item.typeItemMenu.codeType;
+        itemMenu!.typeItemMenu.nameType = item.typeItemMenu.nameType;
+        itemMenu!.typeItemMenu.description = item.typeItemMenu.description;
+      }
+      itemMenu!.showItem = item.showItem;
+    }, error => {
+      this.menuService.getItemMenu(itemMenu!.id).subscribe(data => {
+        console.log("error");
+        const item = data.result;
+        itemMenu!.nameRu = item.nameRu;
+        itemMenu!.nameEn = item.nameEn;
+        itemMenu!.nameKz = item.nameKz;
+        if (item.typeItemMenu !== null) {
+          itemMenu!.typeItemMenu.id = item.typeItemMenu.id;
+          itemMenu!.typeItemMenu.codeType = item.typeItemMenu.codeType;
+          itemMenu!.typeItemMenu.nameType = item.typeItemMenu.nameType;
+          itemMenu!.typeItemMenu.description = item.typeItemMenu.description;
+        }
+        itemMenu!.showItem = item.showItem;
+      }, error => {
+        console.log(error);
+      });
+      itemMenu!.isEdit = false;
+      console.log(error);
+    });
   }
-
-  // getMainItemMenu(): void {
-  //   this.menuService.getMainitemMenu(this.mainItemMenu?.idItemMenuOnBranch!).subscribe(data => {
-  //       const itemMenu = data.result[0];
-  //       this.listMainItemMenu.forEach((value, index, array) => {
-  //         if (value.idItemMenu === itemMenu.idItemMenu && value.idItemMenuOnBranch === itemMenu.idItemMenuOnBranch) {
-  //           this.listMainItemMenu[index].showItem = itemMenu.showItem;
-  //           this.listMainItemMenu[index].nameRu = itemMenu.nameRu;
-  //           this.listMainItemMenu[index].nameKz = itemMenu.nameKz;
-  //           this.listMainItemMenu[index].nameEn = itemMenu.nameEn;
-  //           this.listMainItemMenu[index].typeItemMenu = itemMenu.typeItemMenu;
-  //           this.listMainItemMenu[index].description = itemMenu.typeItemMenu;
-  //           this.listMainItemMenu[index].indexNumber = itemMenu.indexNumber;
-  //           this.listMainItemMenu[index].lastModifiedDate = itemMenu.indexNumber;
-  //           this.listMainItemMenu[index].routeLink = itemMenu.routeLink;
-  //         }
-  //       });
-  //     },
-  //     error => {
-  //       console.log(error)
-  //     })
-  // }
 
   getTypeItemMenu(): void {
     this.menuService.getTypesItemMenu().subscribe(data => {
@@ -302,75 +258,97 @@ export class AdminEditMenuComponent implements OnInit {
     });
   }
 
-  // updateVisibleItemMenu(): void {
-  //   let listItemVisibleMenu = [];
-  //   const itemMenu = {id: this.mainItemMenu?.idItemMenuOnBranch, visible: this.mainItemMenu?.showItem, mainPoint: true};
-  //   listItemVisibleMenu.push(itemMenu);
-  //   this.listNestedItemMenu.forEach(itemMenu => listItemVisibleMenu.push({
-  //     id: itemMenu.idItemMenuOnBranch,
-  //     visible: itemMenu.showItem,
-  //     mainPoint: false
-  //   }));
-  //   this.getMainItemMenu();
-  //   this.menuService.updateVisibleItemMenu(78, listItemVisibleMenu).subscribe(data => {
-  //     this.menuService.updatedMenuPoints.emit(data);
-  //   }, error => {
-  //     this.getNestedItemsMenu(78);
-  //     console.log(error);
-  //   });
-  // }
-
-  // updateItemsMenuAdmin(): void {
-  //   let listItemsMenu = [];
-  //   const mainItemMenu = {
-  //     idItemMenuOnBranch: this.mainItemMenu?.idItemMenuOnBranch,
-  //     idItemMenu: this.mainItemMenu?.idItemMenu,
-  //     idTypeItemMenu: this.mainItemMenu?.typeItemMenu.id,
-  //     nameRu: this.mainItemMenu?.nameRu,
-  //     nameEn: this.mainItemMenu?.nameEn,
-  //     nameKz: this.mainItemMenu?.nameKz,
-  //     showItem: this.mainItemMenu?.showItem,
-  //     serialNumber: 0
-  //   };
-  //   listItemsMenu.push(mainItemMenu);
-  //   this.listNestedItemMenu.forEach(itemMenu => listItemsMenu.push({
-  //     idItemMenuOnBranch: itemMenu.idItemMenuOnBranch,
-  //     idItemMenu: itemMenu.idItemMenu,
-  //     idTypeItemMenu: itemMenu.typeItemMenu.id,
-  //     nameRu: itemMenu.nameRu,
-  //     nameEn: itemMenu.nameEn,
-  //     nameKz: itemMenu.nameKz,
-  //     showItem: itemMenu.showItem,
-  //     serialNumber: 0
-  //   }));
-  //   this.menuService.updateItemsMenu(78, listItemsMenu).subscribe(data => {
-  //     this.getMainItemMenu();
-  //     this.updatedNestedItemMenu(data);
-  //     this.edit = false;
-  //   }, error => {
-  //     this.getMainItemMenu();
-  //     this.getNestedItemsMenu(78);
-  //     this.edit = false;
-  //     console.log(error)
-  //   });
-  // }
-
-  updatedNestedItemMenu(d: DataObject): void {
-    for (let resultElement of d.result) {
-      // this.listNestedItemMenu.forEach((value, index, array) => {
-      //   if (value.idItemMenu === resultElement.idItemMenu && value.idItemMenuOnBranch === resultElement.idItemMenuOnBranch) {
-      //     array[index] = resultElement;
-      //   }
-      // })
+  setTypeItemMenu(e: any, index: number, childIndex: number | null = null): void {
+    let type = this.listTypeItemMenu.filter(type => type.id === parseInt(e))[0];
+    if (childIndex === null) {
+      this.listMainItemMenu[index].typeItemMenu = type;
+    } else {
+      this.listMainItemMenu[index].childerItemMenu[childIndex].typeItemMenu = type;
     }
   }
 
-  setTypeItemMenu(e: number, nestedItemMenu: MenuObject): void {
-    this.listTypeItemMenu.forEach((value, index, array) => {
-      if (e === value.id) {
-        nestedItemMenu.typeItemMenu = value;
+  changePositionDown(index: number, childIndex: number | null = null): void {
+    let listItemMenu = [];
+    let itemMenu: MenuObject | null = null;
+    let nextItemMenu: MenuObject | null = null;
+    if (childIndex === null) {
+      itemMenu = this.listMainItemMenu[index];
+      nextItemMenu = this.listMainItemMenu[index + 1];
+      listItemMenu.push({
+        id: itemMenu.id,
+        serialNumber: nextItemMenu.serialNumber
+      }, {
+        id: nextItemMenu.id,
+        serialNumber: itemMenu.serialNumber
+      });
+    } else {
+      itemMenu = this.listMainItemMenu[index].childerItemMenu[childIndex];
+      nextItemMenu = this.listMainItemMenu[index].childerItemMenu[childIndex + 1];
+      listItemMenu.push({
+        id: itemMenu.id,
+        serialNumber: nextItemMenu.serialNumber
+      }, {
+        id: nextItemMenu.id,
+        serialNumber: itemMenu.serialNumber
+      });
+    }
+    this.menuService.updatePositionItemMenu(listItemMenu).subscribe(data => {
+      if (childIndex === null) {
+        this.listMainItemMenu[index] = nextItemMenu!;
+        this.listMainItemMenu[index].serialNumber = index;
+        this.listMainItemMenu[index + 1] = itemMenu!;
+        this.listMainItemMenu[index + 1].serialNumber = index + 1;
+      } else {
+        this.listMainItemMenu[index].childerItemMenu[childIndex] = nextItemMenu!;
+        this.listMainItemMenu[index].childerItemMenu[childIndex].serialNumber = childIndex;
+        this.listMainItemMenu[index].childerItemMenu[childIndex + 1] = itemMenu!;
+        this.listMainItemMenu[index].childerItemMenu[childIndex + 1].serialNumber = childIndex + 1;
       }
-    })
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  changePositionUp(index: number, childIndex: number | null = null): void {
+    let listItemMenu = [];
+    let itemMenu: MenuObject | null = null;
+    let nextItemMenu: MenuObject | null = null;
+    if (childIndex === null) {
+      itemMenu = this.listMainItemMenu[index];
+      nextItemMenu = this.listMainItemMenu[index - 1];
+      listItemMenu.push({
+        id: itemMenu.id,
+        serialNumber: nextItemMenu.serialNumber
+      }, {
+        id: nextItemMenu.id,
+        serialNumber: itemMenu.serialNumber
+      });
+    } else {
+      itemMenu = this.listMainItemMenu[index].childerItemMenu[childIndex];
+      nextItemMenu = this.listMainItemMenu[index].childerItemMenu[childIndex - 1];
+      listItemMenu.push({
+        id: itemMenu.id,
+        serialNumber: nextItemMenu.serialNumber
+      }, {
+        id: nextItemMenu.id,
+        serialNumber: itemMenu.serialNumber
+      });
+    }
+    this.menuService.updatePositionItemMenu(listItemMenu).subscribe(data => {
+      if (childIndex === null) {
+        this.listMainItemMenu[index] = nextItemMenu!;
+        this.listMainItemMenu[index].serialNumber = index;
+        this.listMainItemMenu[index - 1] = itemMenu!;
+        this.listMainItemMenu[index - 1].serialNumber = index - 1;
+      } else {
+        this.listMainItemMenu[index].childerItemMenu[childIndex] = nextItemMenu!;
+        this.listMainItemMenu[index].childerItemMenu[childIndex].serialNumber = childIndex;
+        this.listMainItemMenu[index].childerItemMenu[childIndex - 1] = itemMenu!;
+        this.listMainItemMenu[index].childerItemMenu[childIndex - 1].serialNumber = childIndex - 1;
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
   log() {

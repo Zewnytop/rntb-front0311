@@ -9,12 +9,6 @@ import {MenuObject} from "../../site-object/menu-object";
 })
 export class MenuService {
 
-  private _updatedMenuPoints: EventEmitter<DataObject> = new EventEmitter();
-
-  get updatedMenuPoints(): EventEmitter<DataObject> {
-    return this._updatedMenuPoints;
-  }
-
   constructor(private httpClient: HttpClient) {
   }
 
@@ -23,14 +17,9 @@ export class MenuService {
     return this.httpClient.get<DataObject>(url);
   }
 
-  getMainitemMenu(idItemMenu: number): Observable<DataObject> {
-    const url = `/api/menu/mainitem/${idItemMenu}`;
-    return this.httpClient.get<DataObject>(url);
-  }
-
-  getNestedItemsMenu(idBranch: number, idItemMenu: number): Observable<DataObject> {
-    const url = `/api/menu/nesteditems/${idBranch}/${idItemMenu}`;
-    return this.httpClient.get<DataObject>(url);
+  getItemMenu(idItemMenu: number): Observable<DataSingleObject> {
+    const url = `/api/menu/itemmenu/${idItemMenu}`;
+    return this.httpClient.get<DataSingleObject>(url);
   }
 
   getTypesItemMenu(): Observable<DataObject> {
@@ -48,19 +37,19 @@ export class MenuService {
     return this.httpClient.post<DataSingleObject>(url, body);
   }
 
-  deleteItemMenu(idItem: number): Observable<DataSingleObject>{
+  deleteItemMenu(idItem: number): Observable<DataSingleObject> {
     const url = `/api/menu/delete/${idItem}`;
     return this.httpClient.delete<DataSingleObject>(url);
   }
 
-  updateVisibleItemMenu(idBranch: number, listItemMenu: any[]): Observable<DataObject> {
-    const url = `/api/menu/visible/${idBranch}`;
-    return this.httpClient.put<DataObject>(url, listItemMenu);
+  updatePositionItemMenu(listItemMenu: any[]): Observable<DataSingleObject> {
+    const url = `/api/menu/change/order`;
+    return this.httpClient.put<DataSingleObject>(url, listItemMenu);
   }
 
-  updateItemsMenu(idBranch: number, listItemMenu: any[]): Observable<DataObject> {
-    const url = `/api/menu/updateitem/${idBranch}`;
-    return this.httpClient.put<DataObject>(url, listItemMenu);
+  updateItemsMenu(menuItem: Object): Observable<DataSingleObject> {
+    const url = `/api/menu/updateitem`;
+    return this.httpClient.put<DataSingleObject>(url, menuItem);
   }
 
 }
