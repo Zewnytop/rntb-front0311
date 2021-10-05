@@ -232,20 +232,22 @@
 }
 
 //Ирбис
-.container {
 
-}
 
 .irbis {
   display: flex;
   background: @grey;
   height: 360px;
+  .container{
+    display: flex;
+    justify-content: center;
+  }
 
   .irbis-sections {
     display: flex;
     justify-content: space-evenly;
     text-align: center;
-    width: 66.41vw;
+    width: 1275px;
 
     height: 120px;
     border-bottom: 2px solid #5285C6;
@@ -292,6 +294,7 @@
     .irbis-sections-three {
       display: flex;
       align-items: center;
+      text-decoration: none;
 
       .img {
         background: url("/assets/images/section-three.svg") no-repeat center;
@@ -302,12 +305,14 @@
 
       .text {
         width: 203px;
+        color: @black;
       }
     }
 
     .irbis-sections-four {
       display: flex;
       align-items: center;
+      text-decoration: none;
 
       .img {
         background: url("/assets/images/section-four.svg") no-repeat center;
@@ -318,6 +323,7 @@
 
       .text {
         width: 236px;
+        color: @black;
       }
     }
 

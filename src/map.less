@@ -3,7 +3,8 @@
 
 .map-title {
   margin-left: 13px;
-  padding-top: 100px;
+  padding-top: 150px;
+  padding-bottom: 50px;
 
   .title-span {
     font-size: 30px;
@@ -26,38 +27,59 @@
   }
 }
 
-.map {
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  margin-bottom: 40px;
-
-  .map-svg {
-    width: 100% !important;
-    height: 737px;
-
-    .cityname-tag {
-      transition-duration: 0.4s;
-      cursor: pointer;
-    }
-    .cityname-circle{
-      fill:#29A9FB;
-      transition-duration: 0.4s;
-      cursor: pointer;
-    }
-    cityname-tag:hover {
-      background-color: #585858;
-    }
-    cityname-circle:hover {
-      background-color: #585858;
-    }
-  }
-
-  .map-svg-bands {
-    width: 13.03vw;
-    border: 1px solid @burgundy;
-    margin-top: 40px;
-    margin-bottom: 0px;
-  }
+.map-img {
+  background: url("/assets/images/map-new.png") center no-repeat;
+  width: 100%;
+  height: 726.81px;
 }
 
+.table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .map-table {
+    width: 788px;
+
+    .tr-main {
+      font-size: 23px;
+      line-height: 30px;
+      color: #F86C22;
+    }
+
+    .tr-text {
+      font-size: 18px;
+      line-height: 24px;
+
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    .first-th {
+      text-align: start;
+      width: 50%;
+      padding: 0px;
+    }
+
+    .second-th {
+      text-align: end;
+      padding: 0px;
+    }
+  }
+
+  .strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4px;
+    width: 34.896vw;
+
+    .strip-svg {
+      background: url("assets/images/strip.svg") no-repeat center;
+      width: 60px;
+      height: 30px;
+    }
+  }
+}
