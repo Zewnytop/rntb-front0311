@@ -22,9 +22,9 @@ export class ContactService {
     return this.httpClient.get<DataSingleObject>(url);
   }
 
-  createNewContact(idBranch: number, newContact: Object): Observable<DataSingleObject> {
+  createNewContact(idBranch: number): Observable<DataSingleObject> {
     const url = `/api/contact/newcontact/${idBranch}`;
-    return this.httpClient.post<DataSingleObject>(url, newContact);
+    return this.httpClient.post<DataSingleObject>(url, null);
   }
 
   updateContact(contactOnBranch: ContactObject): Observable<DataSingleObject> {

@@ -24,12 +24,7 @@
   <!--    </tr>-->
   <!--    </tbody>-->
   <!--  </table>-->
-  <div>
-    <button (click)="log()">log</button>
-    <button (click)="clearObject()">clear</button>
-    <button (click)="createContactBranch()">create</button>
-    <button (click)="updateContact()">update</button>
-  </div>
+
 
   <div class="admin-contacts-edit">
 
@@ -60,26 +55,35 @@
       <table class="file-table">
         <thead>
         <tr>
-          <th>Название отделения</th>
-          <th>Адрес</th>
-          <th>Телефон</th>
-          <th>E-mail</th>
-          <th>Действия</th>
+          <th>Название контакта</th>
+          <th>Дата изменения</th>
+          <th></th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>АДМИНИСТРАТИВНЫЙ КОРПУС</td>
+        <tr *ngFor="let contactBranch of listViewContactBranch; let i = index">
+          <td>{{contactBranch.name}}</td>
+          <td>{{contactBranch.lastModifiedDate}}</td>
           <td>
-            Республика Казахстан,
-            050026, г.Алматы,
-            ул. С.Муканова, 223б
+            <button (click)="getContactBranch(contactBranch.id)">
+              <img alt="Просмотреть" src="assets/new-window.svg">
+            </button>
           </td>
-          <td>e-mail: rntb@rntb.kz</td>
-          <td>88005553535</td>
+          <td>
+            <button (click)="deleteContact(contactBranch.id, i)">
+              <img alt="Удалить" src="assets/icons/trash-2.svg">
+            </button>
+          </td>
         </tr>
         </tbody>
       </table>
+    </div>
+    <div>
+      <button (click)="log()">log</button>
+      <button (click)="clearObject()">clear</button>
+      <button (click)="createContactBranch()">create</button>
+      <button (click)="updateContact()">update</button>
     </div>
 
   </div>
