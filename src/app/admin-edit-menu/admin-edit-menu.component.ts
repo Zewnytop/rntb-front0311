@@ -92,7 +92,7 @@ export class AdminEditMenuComponent implements OnInit {
           nameKz: itemMenu.nameKz,
           description: itemMenu.description,
           lastModifiedDate: itemMenu.lastModifiedDate,
-          isEdit: false,
+          isEdit: true,
           parentItem: itemMenu.parentItem,
           file: itemMenu.file,
           typeComponent: itemMenu.typeComponent,
@@ -122,7 +122,7 @@ export class AdminEditMenuComponent implements OnInit {
           nameKz: itemMenu.nameKz,
           description: itemMenu.description,
           lastModifiedDate: itemMenu.lastModifiedDate,
-          isEdit: false,
+          isEdit: true,
           parentItem: itemMenu.parentItem,
           file: itemMenu.file,
           typeComponent: itemMenu.typeComponent,
@@ -215,6 +215,7 @@ export class AdminEditMenuComponent implements OnInit {
       itemMenu!.nameRu = item.nameRu;
       itemMenu!.nameEn = item.nameEn;
       itemMenu!.nameKz = item.nameKz;
+      itemMenu!.lastModifiedDate = item.lastModifiedDate;
       if (item.typeItemMenu !== null) {
         itemMenu!.typeItemMenu.id = item.typeItemMenu.id;
         itemMenu!.typeItemMenu.codeType = item.typeItemMenu.codeType;
@@ -229,6 +230,7 @@ export class AdminEditMenuComponent implements OnInit {
         itemMenu!.nameRu = item.nameRu;
         itemMenu!.nameEn = item.nameEn;
         itemMenu!.nameKz = item.nameKz;
+        itemMenu!.lastModifiedDate = item.lastModifiedDate;
         if (item.typeItemMenu !== null) {
           itemMenu!.typeItemMenu.id = item.typeItemMenu.id;
           itemMenu!.typeItemMenu.codeType = item.typeItemMenu.codeType;
