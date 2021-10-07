@@ -19,7 +19,8 @@ export interface InternalContactObject {
   fioRu: string | null,
   fioEn: string | null,
   fioKz: string | null,
-  phoneNumber: string | null
+  phoneNumber: string | null,
+  serialNumber: number | null
 }
 
 export interface ViewContactObject {

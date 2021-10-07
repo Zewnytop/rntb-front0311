@@ -72,7 +72,8 @@ export class AdminContactsComponent implements OnInit {
   }
 
   log(): void {
-    console.log(this.contactBranch);
+    console.log(this.contact);
+    console.log(this.listViewContactBranch);
   }
 
   getContacts(): void {
@@ -93,11 +94,31 @@ export class AdminContactsComponent implements OnInit {
       console.log(data)
       const contact = data.result
       this.contactBranch = contact;
-      this.listViewContactBranch.push({
+      this.listViewContactBranch.unshift({
         id: contact.id,
         name: contact.nameRu,
         lastModifiedDate: contact.lastModifiedDate,
         mainContact: contact.mainContact
+      });
+      this.getContactBranch(contact.id);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  createIternalContact(): void {
+    this.contactService.createNewItertnalContact(this.contact!.id!).subscribe(data => {
+      const iternalContact = data.result;
+      this.contact?.iternalContact.push({
+        id: iternalContact.id,
+        postRu: iternalContact.postRu,
+        postEn: iternalContact.postEn,
+        postKz: iternalContact.postKz,
+        fioRu: iternalContact.fioRu,
+        fioEn: iternalContact.fioEn,
+        fioKz: iternalContact.fioKz,
+        phoneNumber: iternalContact.phoneNumber,
+        serialNumber: iternalContact.serialNumber
       });
     }, error => {
       console.log(error);
@@ -106,6 +127,9 @@ export class AdminContactsComponent implements OnInit {
 
   deleteContact(idContact: number, index: number): void {
     this.contactService.deleteContact(idContact).subscribe(data => {
+      if (this.listViewContactBranch[index].id === this.contact?.id) {
+        this.contact = null;
+      }
       this.listViewContactBranch.splice(index, 1);
     }, error => {
       console.log(error);
@@ -114,7 +138,7 @@ export class AdminContactsComponent implements OnInit {
 
   getContactBranch(idContact: number): void {
     this.contactService.getContactBranch(idContact).subscribe(data => {
-      this.contactBranch = data.result;
+      this.contact = data.result;
     }, error => {
       console.log(error);
     });
@@ -154,7 +178,8 @@ export class AdminContactsComponent implements OnInit {
       fioRu: null,
       fioEn: null,
       fioKz: null,
-      phoneNumber: null
+      phoneNumber: null,
+      serialNumber: null
     });
   }
 

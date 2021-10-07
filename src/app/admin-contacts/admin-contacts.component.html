@@ -25,29 +25,29 @@
   <!--    </tbody>-->
   <!--  </table>-->
 
-
   <div class="admin-contacts-edit">
 
-    <div class="item1">
+    <div class="item1" *ngIf="contact">
       <form>
         <label for="nameru"><b>Название:</b></label>
-        <input type="text" [(ngModel)]="contactBranch.nameRu" id="nameru" name="nameru" placeholder="Название">
+        <input type="text" [(ngModel)]="contact.nameRu" id="nameru" name="nameru"
+               placeholder="Введите название нового контакта">
       </form>
       <form>
         <label for="address"><b>Адрес:</b></label>
-        <input type="text" [(ngModel)]="contactBranch.address" id="address" name="address" placeholder="Адрес">
+        <input type="text" [(ngModel)]="contact.address" id="address" name="address" placeholder="Адрес">
       </form>
       <form>
         <label for="email"><b>Email:</b></label>
-        <input type="text" [(ngModel)]="contactBranch.email" id="email" name="email" placeholder="email">
+        <input type="text" [(ngModel)]="contact.email" id="email" name="email" placeholder="email">
       </form>
       <form>
         <label for="phone"><b>Телефон:</b></label>
-        <input type="text" [(ngModel)]="contactBranch.phoneNumber" id="phone" name="phone" placeholder="телефон">
+        <input type="text" [(ngModel)]="contact.phoneNumber" id="phone" name="phone" placeholder="телефон">
       </form>
       <form>
         <label for="map"><b>Карта:</b></label>
-        <input type="text" [(ngModel)]="contactBranch.map" id="map" name="map" placeholder="Карта">
+        <input type="text" [(ngModel)]="contact.map" id="map" name="map" placeholder="Карта">
       </form>
     </div>
 
@@ -57,6 +57,7 @@
         <tr>
           <th>Название контакта</th>
           <th>Дата изменения</th>
+          <th>Основной</th>
           <th></th>
           <th></th>
         </tr>
@@ -65,6 +66,7 @@
         <tr *ngFor="let contactBranch of listViewContactBranch; let i = index">
           <td>{{contactBranch.name}}</td>
           <td>{{contactBranch.lastModifiedDate}}</td>
+          <td>{{[contactBranch.mainContact === false ? 'Нет' : 'Да']}}</td>
           <td>
             <button (click)="getContactBranch(contactBranch.id)">
               <img alt="Просмотреть" src="assets/new-window.svg">
@@ -95,30 +97,35 @@
   <!--  </div>-->
 
 
-  <div>
-    <table class="file-table">
+  <div *ngIf="contact">
+    <table class="file-table" *ngIf="contact">
       <thead>
       <tr>
         <th>Должность</th>
         <th>ФИО</th>
         <th>Телефон</th>
-        <th></th>
+        <th>
+          <button (click)="createIternalContact()">
+            <img alt="Создать" src="assets/icons/plus.svg">
+          </button>
+        </th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let iternalContact of contactBranch.iternalContact; let i = index">
+      <tr *ngFor="let iternalContact of contact.iternalContact; let i = index">
         <td><input type="text" [(ngModel)]="iternalContact.postRu" name="postRu"></td>
         <td><input type="text" [(ngModel)]="iternalContact.fioRu" name="fioRu"></td>
         <td><input type="text" [(ngModel)]="iternalContact.phoneNumber" name="fioRu"></td>
         <td>
           <div class="edit-button">
-            <button (click)="deleteIternalContact(i)"><img src="assets/trash.svg"></button>
+            <!--            <button (click)="deleteIternalContact(i)"><img src="assets/trash.svg"></button>-->
+            <button><img src="assets/trash.svg"></button>
           </div>
         </td>
       </tr>
       </tbody>
     </table>
-    <button (click)="addIternalContact()">Добавить</button>
+    <!--    <button (click)="addIternalContact()">Добавить</button>-->
   </div>
   <!--  <iframe-->
   <!--    [src]="getMapSrc()"-->

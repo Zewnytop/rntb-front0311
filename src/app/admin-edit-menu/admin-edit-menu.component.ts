@@ -76,11 +76,7 @@ export class AdminEditMenuComponent implements OnInit {
 
   createItemMenu(idParent: number | null = null, index: number | null = null): void {
     if (index === null && idParent === null) {
-      let serialNumber = this.listMainItemMenu.length;
-      if (this.listMainItemMenu.length === 0) {
-        serialNumber = 0;
-      }
-      this.menuService.createItemMenu(1, serialNumber, idParent).subscribe(data => {
+      this.menuService.createItemMenu(1, idParent).subscribe(data => {
         console.log(data)
         const itemMenu = data.result;
         this.listMainItemMenu.push({
@@ -104,13 +100,7 @@ export class AdminEditMenuComponent implements OnInit {
         console.log(error)
       });
     } else {
-      let serialNumber = this.listMainItemMenu[index!].childerItemMenu.length;
-      if (this.listMainItemMenu[index!].childerItemMenu.length === 0) {
-        serialNumber = 0;
-      }
-      console.log("lengts")
-      console.log(serialNumber)
-      this.menuService.createItemMenu(1, serialNumber, idParent).subscribe(data => {
+      this.menuService.createItemMenu(1, idParent).subscribe(data => {
         console.log(data)
         const itemMenu = data.result;
         this.listMainItemMenu[index!].childerItemMenu.push({

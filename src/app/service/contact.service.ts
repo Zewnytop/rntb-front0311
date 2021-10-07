@@ -27,6 +27,12 @@ export class ContactService {
     return this.httpClient.post<DataSingleObject>(url, null);
   }
 
+  createNewItertnalContact(idContact: number): Observable<DataSingleObject> {
+    const url = `/api/contact/newiternal/${idContact}`;
+    return this.httpClient.post<DataSingleObject>(url, null);
+
+  }
+
   updateContact(contactOnBranch: ContactObject): Observable<DataSingleObject> {
     const url = `/api/contact/updatecontact`;
     return this.httpClient.put<DataSingleObject>(url, contactOnBranch);

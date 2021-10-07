@@ -27,11 +27,10 @@ export class MenuService {
     return this.httpClient.get<DataObject>(url);
   }
 
-  createItemMenu(idBranch: number, serialNumber: number, idParentItem: number | null): Observable<DataSingleObject> {
+  createItemMenu(idBranch: number, idParentItem: number | null): Observable<DataSingleObject> {
     const url = `/api/menu/new/item`;
     const body = {
       idBranch: idBranch,
-      serialNumber: serialNumber,
       idParentItem: idParentItem
     };
     return this.httpClient.post<DataSingleObject>(url, body);
