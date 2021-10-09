@@ -1,41 +1,36 @@
 <div class="admin-contacts">
-
-  <!--  <table>-->
-  <!--    <thead>-->
-  <!--    <tr>-->
-  <!--      <th></th>-->
-  <!--      <th>Название</th>-->
-  <!--      <th></th>-->
-  <!--    </tr>-->
-  <!--    </thead>-->
-  <!--    <tbody>-->
-  <!--    <tr *ngFor="let contact of listContactBranch; let i = index">-->
-  <!--      <td>-->
-  <!--        <div class="edit-button">-->
-  <!--          <button (click)="choiceContactbranch(contact.id)"><img src="assets/admin-edit-menu-edit2.svg"></button>-->
-  <!--        </div>-->
-  <!--      </td>-->
-  <!--      <td>{{contact.nameRu}}</td>-->
-  <!--      <td>-->
-  <!--        <div class="edit-button">-->
-  <!--          <button (click)="deleteContact(contact.id, i)"><img src="assets/trash.svg"></button>-->
-  <!--        </div>-->
-  <!--      </td>-->
-  <!--    </tr>-->
-  <!--    </tbody>-->
-  <!--  </table>-->
-
+  <label>
+    <input type="radio" [(ngModel)]="lang" value="ru">
+    RU
+  </label>
+  <label>
+    <input type="radio" [(ngModel)]="lang" value="eng">
+    ENG
+  </label>
+  <label>
+    <input type="radio" [(ngModel)]="lang" value="kz">
+    KZ
+  </label>
   <div class="admin-contacts-edit">
 
     <div class="item1" *ngIf="contact">
       <form>
         <label for="nameru"><b>Название:</b></label>
-        <input type="text" [(ngModel)]="contact.nameRu" id="nameru" name="nameru"
+        <input *ngIf="lang === 'ru'" type="text" [(ngModel)]="contact.nameRu" id="nameru" name="nameru"
+               placeholder="Введите название нового контакта">
+        <input *ngIf="lang === 'eng'" type="text" [(ngModel)]="contact.nameEn" id="nameEn" name="nameru"
+               placeholder="Введите название нового контакта">
+        <input *ngIf="lang === 'kz'" type="text" [(ngModel)]="contact.nameKz" id="nameKz" name="nameru"
                placeholder="Введите название нового контакта">
       </form>
       <form>
-        <label for="address"><b>Адрес:</b></label>
-        <input type="text" [(ngModel)]="contact.address" id="address" name="address" placeholder="Адрес">
+        <label for="addressRu"><b>Адрес:</b></label>
+        <input *ngIf="lang === 'ru'" type="text" [(ngModel)]="contact.addressRu" id="addressRu" name="address"
+               placeholder="Адрес">
+        <input *ngIf="lang === 'eng'" type="text" [(ngModel)]="contact.addressEn" id="addressEn" name="address"
+               placeholder="Адрес">
+        <input *ngIf="lang === 'kz'" type="text" [(ngModel)]="contact.addressKz" id="addressKz" name="address"
+               placeholder="Адрес">
       </form>
       <form>
         <label for="email"><b>Email:</b></label>
@@ -82,10 +77,14 @@
       </table>
     </div>
     <div>
-      <button (click)="log()">log</button>
-      <button (click)="clearObject()">clear</button>
-      <button (click)="createContactBranch()">create</button>
-      <button (click)="updateContact()">update</button>
+      <label *ngIf="contact"> Главный контакт:
+        <input [disabled]="blockCheckBox" type="checkbox" [(ngModel)]="contact.mainContact">
+      </label>
+      <a>{{errorMessage}}</a>
+    </div>
+    <div>
+      <button (click)="createContactBranch()">Создать контакт</button>
+      <button (click)="updateContact()">Сохранить</button>
     </div>
 
   </div>
@@ -95,7 +94,6 @@
   <!--      [src]="getMapSrc()"-->
   <!--      width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>-->
   <!--  </div>-->
-
 
   <div *ngIf="contact">
     <table class="file-table" *ngIf="contact">
@@ -113,13 +111,24 @@
       </thead>
       <tbody>
       <tr *ngFor="let iternalContact of contact.iternalContact; let i = index">
-        <td><input type="text" [(ngModel)]="iternalContact.postRu" name="postRu"></td>
-        <td><input type="text" [(ngModel)]="iternalContact.fioRu" name="fioRu"></td>
-        <td><input type="text" [(ngModel)]="iternalContact.phoneNumber" name="fioRu"></td>
+        <td *ngIf="lang === 'ru'"><input type="text" [(ngModel)]="iternalContact.postRu" name="postRu"></td>
+        <td *ngIf="lang === 'eng'"><input type="text" [(ngModel)]="iternalContact.postEn" name="postEn"></td>
+        <td *ngIf="lang === 'kz'"><input type="text" [(ngModel)]="iternalContact.postKz" name="postKz"></td>
+        <td *ngIf="lang === 'ru'"><input type="text" [(ngModel)]="iternalContact.fioRu" name="fioRu"></td>
+        <td *ngIf="lang === 'eng'"><input type="text" [(ngModel)]="iternalContact.fioEn" name="fioEn"></td>
+        <td *ngIf="lang === 'kz'"><input type="text" [(ngModel)]="iternalContact.fioKz" name="fioKz"></td>
+        <td><input type="text" [(ngModel)]="iternalContact.phoneNumber" name="phoneNumber"></td>
         <td>
           <div class="edit-button">
-            <!--            <button (click)="deleteIternalContact(i)"><img src="assets/trash.svg"></button>-->
-            <button><img src="assets/trash.svg"></button>
+            <button *ngIf="i !== 0" (click)="changePositionUp(i)">
+              <img alt="Вверх" src="assets/icons/arrow-up.svg">
+            </button>
+            <button *ngIf="i !== (contact.iternalContact.length - 1)" (click)="changePositionDown(i)">
+              <img alt="Вниз" src="assets/icons/arrow-down.svg">
+            </button>
+            <button (click)="deleteIternalContact(iternalContact.id!, i)">
+              <img alt="Удалить" src="assets/trash.svg">
+            </button>
           </div>
         </td>
       </tr>

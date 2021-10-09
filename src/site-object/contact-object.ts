@@ -3,11 +3,14 @@ export interface ContactObject {
   nameRu: string | null,
   nameEn: string | null,
   nameKz: string | null,
-  address: string | null,
+  addressRu: string | null,
+  addressEn: string | null,
+  addressKz: string | null,
   email: string | null,
   phoneNumber: string | null,
   map: string | null,
   lastModifiedDate: string | null,
+  mainContact: boolean | null,
   iternalContact: InternalContactObject[]
 }
 

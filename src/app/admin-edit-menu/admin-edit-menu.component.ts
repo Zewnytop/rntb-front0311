@@ -287,14 +287,18 @@ export class AdminEditMenuComponent implements OnInit {
     this.menuService.updatePositionItemMenu(listItemMenu).subscribe(data => {
       if (childIndex === null) {
         this.listMainItemMenu[index] = nextItemMenu!;
-        this.listMainItemMenu[index].serialNumber = index;
         this.listMainItemMenu[index + 1] = itemMenu!;
-        this.listMainItemMenu[index + 1].serialNumber = index + 1;
+        const serialNumber = this.listMainItemMenu[index].serialNumber;
+        const nextSerialNumber = this.listMainItemMenu[index + 1].serialNumber;
+        this.listMainItemMenu[index].serialNumber = nextSerialNumber;
+        this.listMainItemMenu[index + 1].serialNumber = serialNumber;
       } else {
         this.listMainItemMenu[index].childerItemMenu[childIndex] = nextItemMenu!;
-        this.listMainItemMenu[index].childerItemMenu[childIndex].serialNumber = childIndex;
         this.listMainItemMenu[index].childerItemMenu[childIndex + 1] = itemMenu!;
-        this.listMainItemMenu[index].childerItemMenu[childIndex + 1].serialNumber = childIndex + 1;
+        const serialNumber = this.listMainItemMenu[index].childerItemMenu[childIndex].serialNumber;
+        const nextSerialNumber = this.listMainItemMenu[index].childerItemMenu[childIndex + 1].serialNumber;
+        this.listMainItemMenu[index].childerItemMenu[childIndex].serialNumber = nextSerialNumber;
+        this.listMainItemMenu[index].childerItemMenu[childIndex + 1].serialNumber = serialNumber;
       }
     }, error => {
       console.log(error);
@@ -329,14 +333,18 @@ export class AdminEditMenuComponent implements OnInit {
     this.menuService.updatePositionItemMenu(listItemMenu).subscribe(data => {
       if (childIndex === null) {
         this.listMainItemMenu[index] = nextItemMenu!;
-        this.listMainItemMenu[index].serialNumber = index;
         this.listMainItemMenu[index - 1] = itemMenu!;
-        this.listMainItemMenu[index - 1].serialNumber = index - 1;
+        const serialNumber = this.listMainItemMenu[index].serialNumber;
+        const nextSerialNumber = this.listMainItemMenu[index - 1].serialNumber;
+        this.listMainItemMenu[index - 1].serialNumber = serialNumber;
+        this.listMainItemMenu[index].serialNumber = nextSerialNumber;
       } else {
         this.listMainItemMenu[index].childerItemMenu[childIndex] = nextItemMenu!;
-        this.listMainItemMenu[index].childerItemMenu[childIndex].serialNumber = childIndex;
         this.listMainItemMenu[index].childerItemMenu[childIndex - 1] = itemMenu!;
-        this.listMainItemMenu[index].childerItemMenu[childIndex - 1].serialNumber = childIndex - 1;
+        const serialNumber = this.listMainItemMenu[index].childerItemMenu[childIndex].serialNumber;
+        const nextSerialNumber = this.listMainItemMenu[index].childerItemMenu[childIndex - 1].serialNumber;
+        this.listMainItemMenu[index].childerItemMenu[childIndex - 1].serialNumber = serialNumber;
+        this.listMainItemMenu[index].childerItemMenu[childIndex].serialNumber = nextSerialNumber;
       }
     }, error => {
       console.log(error);

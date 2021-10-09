@@ -34,12 +34,22 @@ export class ContactService {
   }
 
   updateContact(contactOnBranch: ContactObject): Observable<DataSingleObject> {
-    const url = `/api/contact/updatecontact`;
+    const url = `/api/contact/update`;
     return this.httpClient.put<DataSingleObject>(url, contactOnBranch);
+  }
+
+  updatePositionIternalContact(listPosition: any[]): Observable<DataSingleObject> {
+    const url = `/api/contact/change/order`;
+    return this.httpClient.put<DataSingleObject>(url, listPosition);
   }
 
   deleteContact(idContact: number): Observable<DataSingleObject> {
     const url = `/api/contact/delete/${idContact}`;
+    return this.httpClient.delete<DataSingleObject>(url);
+  }
+
+  deleteIternalContact(idIternalContact: number): Observable<DataSingleObject> {
+    const url = `/api/contact/delete/iternal/${idIternalContact}`;
     return this.httpClient.delete<DataSingleObject>(url);
   }
 }

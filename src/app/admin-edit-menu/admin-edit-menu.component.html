@@ -77,10 +77,11 @@
                 <button (click)="changeEditStatus(itemMenu)" *ngIf="!itemMenu.isEdit"><img alt=""
                                                                                            src="assets/new-window.svg">
                 </button>
-                <button *ngIf="i !== 0" (click)="changePositionUp(i)"><img alt="Вверх"
-                                                                           src="assets/icons/arrow-up.svg"></button>
-                <button *ngIf="i !== (listMainItemMenu.length - 1)" (click)="changePositionDown(i)"><img alt="Вниз"
-                                                                                                         src="assets/icons/arrow-down.svg">
+                <button *ngIf="i !== 0" (click)="changePositionUp(i)">
+                  <img alt="Вверх" src="assets/icons/arrow-up.svg">
+                </button>
+                <button *ngIf="i !== (listMainItemMenu.length - 1)" (click)="changePositionDown(i)">
+                  <img alt="Вниз" src="assets/icons/arrow-down.svg">
                 </button>
                 <button (click)="deleteItemMenu(itemMenu.id, i)"><img alt="Удалить" src="assets/icons/trash-2.svg">
                 </button>
