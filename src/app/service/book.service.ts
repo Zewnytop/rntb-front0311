@@ -21,6 +21,11 @@ export class BookService {
     return this.httpClient.get<DataSingleObject>(url);
   }
 
+  getFiles(idBranch: number): Observable<DataObject> {
+    const url = `/api/book/covers/${idBranch}`;
+    return this.httpClient.get<DataObject>(url);
+  }
+
   createBook(idBranch: number): Observable<DataSingleObject> {
     const url = `/api/book/new`;
     return this.httpClient.post<DataSingleObject>(url, idBranch);

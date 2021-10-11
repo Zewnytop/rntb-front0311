@@ -98,20 +98,20 @@
   <table>
     <thead>
     <tr>
-      <th>dsfgsd</th>
-      <th>dsfgsd</th>
-      <th>dsfgsd</th>
-      <th>dsfgsd</th>
-      <th>dsfgsd</th>
+      <th>Название</th>
+      <th>Дата</th>
+      <th>Выбрать</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1111111111</td>
-      <td>1111111111</td>
-      <td>1111111111</td>
-      <td>1111111111</td>
-      <td>1111111111</td>
+    <tr *ngFor="let viewFile of listViewFile; let i = index">
+      <td>{{viewFile.nameFile}}</td>
+      <td>{{viewFile.createdDate}}</td>
+      <td>
+        <button>
+          <img alt="Обложка" src="assets/edit-menu.svg">
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>

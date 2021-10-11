@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BookService} from "../service/book.service";
 import {BookObject, ViewBookObject} from "../../site-object/book-object";
+import {DestinationObject, FileObject} from "../../site-object/file-object";
 
 @Component({
   selector: 'app-admin-book',
@@ -9,7 +10,8 @@ import {BookObject, ViewBookObject} from "../../site-object/book-object";
 })
 export class AdminBookComponent implements OnInit {
 
-  private _listViewBook: ViewBookObject[] = []
+  private _listViewBook: ViewBookObject[] = [];
+  private _listViewFile: FileObject[] = [];
   private _book: BookObject | null = null;
   private _lang: string = "ru";
 
@@ -19,6 +21,14 @@ export class AdminBookComponent implements OnInit {
 
   set listViewBook(value: ViewBookObject[]) {
     this._listViewBook = value;
+  }
+
+  get listViewFile(): FileObject[] {
+    return this._listViewFile;
+  }
+
+  set listViewFile(value: FileObject[]) {
+    this._listViewFile = value;
   }
 
   get book(): BookObject | null {
@@ -42,6 +52,7 @@ export class AdminBookComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBooks();
+    this.getFiles();
   }
 
   getBooks(): void {
@@ -66,9 +77,26 @@ export class AdminBookComponent implements OnInit {
     });
   }
 
+  getFiles(): void {
+    this.bookService.getFiles(1).subscribe(data => {
+      data.result.forEach(viewFile => {
+        // this.listViewBook.push({
+        //   id: viewFile.id,
+        //   nameFile: viewFile.nameFile,
+        //   typeFile: viewFile.typeFile,
+        //   createdDate: viewFile.createdDate,
+        //   destination: viewFile.destinatiom
+        // })
+      });
+      console.log(data.result)
+    }, error => {
+      console.log(error);
+    });
+  }
+
   createBook(): void {
     this.bookService.createBook(1).subscribe(data => {
-      console.log(data);
+      this.book = data.result;
     }, error => {
       console.log(error);
     });
