@@ -15,6 +15,7 @@ import {AdminFileEditComponent} from "./admin-file-edit/admin-file-edit.componen
 import {AdminContactsComponent} from "./admin-contacts/admin-contacts.component";
 import {AdminGalleryComponent} from "./admin-gallery/admin-gallery.component";
 import {AdminNewsComponent} from "./admin-news/admin-news.component";
+import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
   {
@@ -28,15 +29,17 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'login', component: AdminPanelComponent, children: [
+    path: 'admin-panel', component: AdminPanelComponent, children: [
       {path: 'admin-edit-menu', component: AdminEditMenuComponent},
       {path: 'edit-article', component: EditArticleComponent},
       {path: 'admin-file-edit', component: AdminFileEditComponent},
       {path: 'admin-contacts', component: AdminContactsComponent},
       {path: 'admin-gallery', component: AdminGalleryComponent},
       {path: 'admin-news', component: AdminNewsComponent},
-
     ]
+  },
+  {
+    path: 'login', component: LoginComponent
   },
 
 ];
