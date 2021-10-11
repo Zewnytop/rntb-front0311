@@ -15,6 +15,7 @@ import {AdminFileEditComponent} from "./admin-file-edit/admin-file-edit.componen
 import {AdminContactsComponent} from "./admin-contacts/admin-contacts.component";
 import {AdminGalleryComponent} from "./admin-gallery/admin-gallery.component";
 import {AdminNewsComponent} from "./admin-news/admin-news.component";
+import {AdminBookComponent} from "./admin-book/admin-book.component";
 import {LoginComponent} from "./login/login.component";
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
       {path: 'admin-contacts', component: AdminContactsComponent},
       {path: 'admin-gallery', component: AdminGalleryComponent},
       {path: 'admin-news', component: AdminNewsComponent},
+      {path: 'admin-book', component: AdminBookComponent},
     ]
   },
   {
@@ -51,7 +53,7 @@ const routes: Routes = [
 const routesLang: Routes = []
 
 @NgModule({
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  imports: [BrowserModule, RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

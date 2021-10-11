@@ -21,6 +21,7 @@ import { AdminContactsComponent } from './admin-contacts/admin-contacts.componen
 import { AdminGalleryComponent } from './admin-gallery/admin-gallery.component';
 import { AdminNewsComponent } from './admin-news/admin-news.component';
 import { LoginComponent } from './login/login.component';
+import { AdminBookComponent } from './admin-book/admin-book.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { LoginComponent } from './login/login.component';
     AdminContactsComponent,
     AdminGalleryComponent,
     AdminNewsComponent,
+    AdminBookComponent,
     LoginComponent,
   ],
   imports: [
