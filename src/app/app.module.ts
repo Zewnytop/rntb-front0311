@@ -20,6 +20,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import { AdminContactsComponent } from './admin-contacts/admin-contacts.component';
 import { AdminGalleryComponent } from './admin-gallery/admin-gallery.component';
 import { AdminNewsComponent } from './admin-news/admin-news.component';
+import { LoginComponent } from './login/login.component';
 import { AdminBookComponent } from './admin-book/admin-book.component';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { AdminBookComponent } from './admin-book/admin-book.component';
     AdminGalleryComponent,
     AdminNewsComponent,
     AdminBookComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
