@@ -1,21 +1,48 @@
+<div>
+  <p><b>Редактирование галлереи</b></p>
+</div>
 <div class="admin-gallery">
   <div>
-    <p><b>Редактирование галлереи</b></p>
+    <table class="file-table">
+      <thead>
+      <tr>
+        <th>Сет галлереи</th>
+        <th>Дата изменения</th>
+        <th>Отображать</th>
+        <th>Предпросмотр</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Административный корпус</td>
+        <td>123123</td>
+        <td>+</td>
+        <td>+</td>
+      </tr>
+      <tr>
+        <td>Центр библиотечно-информационого обслуживани</td>
+        <td>123123</td>
+        <td>+</td>
+        <td>+</td>
+      </tr>
+      <tr>
+        <td>Центр Патентно-Информационной работы</td>
+        <td>123123</td>
+        <td>+</td>
+        <td>+</td>
+      </tr>
+      <tr>
+        <td>Центр по работе со специальными видами технической литературы и документаций</td>
+        <td>123123</td>
+        <td>+</td>
+        <td>+</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
   <div>
-    <form class="edit-input">
-      <p>
-        <select name="select" size="1">
-          <option disabled>Выбрать категорию</option>
-          <option selected value="none">Административный корпус</option>
-          <option value="none">Центр библиотечно-информационого обслуживани</option>
-          <option value="none">Центр Патентно-Информационной работы</option>
-          <option value="none">Центр по работе со специальными видами технической литературы и документаций</option>
-        </select>
-      </p>
-    </form>
+    <button>добавить сет</button>
   </div>
-
   <div class="gallery-carousel">
     <div class="carousel-block"></div>
     <div class="carousel-block"></div>
@@ -35,25 +62,26 @@
 <button (click)="close=true" class="proverkaa">Проверка попап</button>
 
 <div class="gallery-popup" *ngIf="close">
-    <div class="popup-close-button">
-        <div class="edit-button">
-          <button (click)="close=false"><img src="assets/icons/x-circle.svg"></button>
-        </div>
+  <div class="popup-close-button">
+    <div class="edit-button">
+      <button (click)="close=false"><img src="assets/icons/x-circle.svg"></button>
     </div>
-    <div class="popup-content">
-      <div class="popup-img">
-        <img src="assets/test.jpg">
-      </div>
-      <div class="popup-text">
-        <p>
-          <strong>
-            Алиев Р. А., Калмыков С. Н.
-          </strong>
-          <br>
-            <strong>Радиоактивность: Учебное пособие.</strong>
-           — СПб.: Издательство «Лань», 2013. — 304 с: ил. (+ вклейка, 2 с.) — (Учебники для вузов. Специальная литература).
-        </p>
-        <p>
+  </div>
+  <div class="popup-content">
+    <div class="popup-img">
+      <img src="assets/test.jpg">
+    </div>
+    <div class="popup-text">
+      <p>
+        <strong>
+          Алиев Р. А., Калмыков С. Н.
+        </strong>
+        <br>
+        <strong>Радиоактивность: Учебное пособие.</strong>
+        — СПб.: Издательство «Лань», 2013. — 304 с: ил. (+ вклейка, 2 с.) — (Учебники для вузов. Специальная
+        литература).
+      </p>
+      <p>
         История войны и мира, пронизанная множеством сюжетных линий, – это пронзительный, точный, панорамный и
         обстоятельный взгляд мудрого художника на вечные проблемы бытия. ""Война и мир"" – роман-эпопея Льва Николаевича
         Толстого, по глубине и охвату событий до сих пор стоящий на первом месте во всей мировой литературе, - вершина
@@ -61,19 +89,19 @@
         философии. Эта книга из разряда вечных, потому что она обо всем - о жизни и смерти, о любви и чести, о мужестве
         и героизме, о славе и подвиге, о войне и мире
       </p>
-      </div>
     </div>
-    <div class="popup-bottom">
-      <td>
-        <div class="edit-button">
-          <button><img src="assets/icons/arrow-left.svg"></button>
-          <button><img src="assets/icons/arrow-right.svg"></button>
-        </div>
-      </td>
-      <td>
+  </div>
+  <div class="popup-bottom">
+    <td>
+      <div class="edit-button">
+        <button><img src="assets/icons/arrow-left.svg"></button>
+        <button><img src="assets/icons/arrow-right.svg"></button>
+      </div>
+    </td>
+    <td>
         <span>
           «Тара́с Бу́льба» — повесть Николая Васильевича Гоголя, входящая в цикл «Миргород».
         </span>
-      </td>
-    </div>
+    </td>
+  </div>
 </div>
