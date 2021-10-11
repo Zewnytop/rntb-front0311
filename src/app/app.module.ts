@@ -20,6 +20,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import { AdminContactsComponent } from './admin-contacts/admin-contacts.component';
 import { AdminGalleryComponent } from './admin-gallery/admin-gallery.component';
 import { AdminNewsComponent } from './admin-news/admin-news.component';
+import { AdminBookComponent } from './admin-book/admin-book.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AdminNewsComponent } from './admin-news/admin-news.component';
     AdminContactsComponent,
     AdminGalleryComponent,
     AdminNewsComponent,
+    AdminBookComponent,
   ],
   imports: [
     BrowserModule,
