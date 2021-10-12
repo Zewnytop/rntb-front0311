@@ -80,13 +80,13 @@ export class AdminBookComponent implements OnInit {
   getFiles(): void {
     this.bookService.getFiles(1).subscribe(data => {
       data.result.forEach(viewFile => {
-        // this.listViewBook.push({
-        //   id: viewFile.id,
-        //   nameFile: viewFile.nameFile,
-        //   typeFile: viewFile.typeFile,
-        //   createdDate: viewFile.createdDate,
-        //   destination: viewFile.destinatiom
-        // })
+        this.listViewFile.push({
+          id: viewFile.id,
+          nameFile: viewFile.nameFile,
+          typeFile: viewFile.typeFile,
+          createdDate: viewFile.createdDate,
+          destination: viewFile.destination
+        })
       });
       console.log(data.result)
     }, error => {
@@ -96,14 +96,56 @@ export class AdminBookComponent implements OnInit {
 
   createBook(): void {
     this.bookService.createBook(1).subscribe(data => {
-      this.book = data.result;
+      const book = data.result;
+      this.listViewBook.unshift({
+        id: book.id,
+        name: book.nameBookRu,
+        lastModifiedDate: book.lastModifiedDate
+      });
+      this.book = book;
     }, error => {
       console.log(error);
     });
   }
 
+  updateBook(): void {
+    const body = {
+      id: this.book!.id,
+      authorRu: this.book?.authorRu,
+      authorEn: this.book?.authorEn,
+      authorKz: this.book?.authorKz,
+      nameRu: this.book?.nameBookRu,
+      nameEn: this.book?.nameBookEn,
+      nameKz: this.book?.nameBookKz,
+      descriptionRu: this.book?.descriptionRu,
+      descriptionEn: this.book?.descriptionEn,
+      descriptionKz: this.book?.descriptionKz,
+      isbn: this.book?.isbn,
+      fileId: this.book?.file?.id
+    };
+    this.bookService.updateBook(body).subscribe(() => {
+      console.log(this.listViewBook.filter(viewBok => viewBok.id === this.book?.id))
+      this.listViewBook.filter(viewBok => viewBok.id === this.book?.id)[0].name = this.book!.nameBookRu;
+    }, error => {
+      this.getBook(this.book!.id);
+      console.log(error);
+    });
+  }
+
+  setCoverBook(file: FileObject): void {
+    this.book!.file = file;
+  }
+
+  previewImage(file: FileObject): string {
+    const src = `/api/files/get/${file.id}`
+    return src;
+  }
+
   deleteBook(idBook: number, index: number): void {
     this.bookService.deleteBook(idBook).subscribe(data => {
+      if (this.listViewBook[index].id === this.book?.id) {
+        this.book = null;
+      }
       this.listViewBook.splice(index, 1);
     }, error => {
       console.log(error);
@@ -112,6 +154,7 @@ export class AdminBookComponent implements OnInit {
 
   log(): void {
     console.log(this.listViewBook);
+    console.log(this.listViewFile);
     console.log(this.book);
   }
 }

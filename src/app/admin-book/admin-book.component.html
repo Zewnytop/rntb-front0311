@@ -90,9 +90,10 @@
       </label>
     </form>
   </div>
-  <div>
+  <div *ngIf="book">
     <a>Обложка</a>
-    <img src="assets/edit-menu.svg" alt="Обложка" style="width: 200px ; height: 200px">
+    <!--    <img src="assets/edit-menu.svg" alt="Обложка" style="width: 200px ; height: 200px">-->
+    <img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="width: 200px ; height: 200px">
   </div>
   <a>Список обложек</a>
   <table>
@@ -108,7 +109,7 @@
       <td>{{viewFile.nameFile}}</td>
       <td>{{viewFile.createdDate}}</td>
       <td>
-        <button>
+        <button (click)="setCoverBook(viewFile)">
           <img alt="Обложка" src="assets/edit-menu.svg">
         </button>
       </td>
@@ -117,7 +118,7 @@
   </table>
   <div>
     <button (click)="createBook()">Создать</button>
-    <button>Сохранить</button>
+    <button (click)="updateBook()">Сохранить</button>
     <button (click)="log()">log</button>
   </div>
 </div>

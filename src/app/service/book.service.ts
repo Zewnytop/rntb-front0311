@@ -31,6 +31,11 @@ export class BookService {
     return this.httpClient.post<DataSingleObject>(url, idBranch);
   }
 
+  updateBook(updateBook: Object): Observable<DataSingleObject> {
+    const url = `/api/book/update`;
+    return this.httpClient.put<DataSingleObject>(url, updateBook);
+  }
+
   deleteBook(idBook: number): Observable<DataSingleObject> {
     const url = `/api/book/delete/${idBook}`;
     return this.httpClient.delete<DataSingleObject>(url);
