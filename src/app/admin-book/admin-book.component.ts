@@ -124,7 +124,6 @@ export class AdminBookComponent implements OnInit {
       fileId: this.book?.file?.id
     };
     this.bookService.updateBook(body).subscribe(() => {
-      console.log(this.listViewBook.filter(viewBok => viewBok.id === this.book?.id))
       this.listViewBook.filter(viewBok => viewBok.id === this.book?.id)[0].name = this.book!.nameBookRu;
     }, error => {
       this.getBook(this.book!.id);
@@ -150,11 +149,5 @@ export class AdminBookComponent implements OnInit {
     }, error => {
       console.log(error);
     });
-  }
-
-  log(): void {
-    console.log(this.listViewBook);
-    console.log(this.listViewFile);
-    console.log(this.book);
   }
 }
