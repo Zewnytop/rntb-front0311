@@ -1,0 +1,123 @@
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th>Название</th>
+      <th>Дата последних изменений</th>
+      <th>Выбрать</th>
+      <th>Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let viewBook of listViewBook; let i = index">
+      <td>{{viewBook.name}}</td>
+      <td>{{viewBook.lastModifiedDate}}</td>
+      <td>
+        <button (click)="getBook(viewBook.id)">
+          <img alt="Редактирование" src="assets/edit-menu.svg">
+        </button>
+      </td>
+      <td>
+        <button (click)="deleteBook(viewBook.id, i)">
+          <img alt="Удалить" src="assets/icons/trash-2.svg">
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="ru">
+      RU
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="eng">
+      ENG
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="kz">
+      KZ
+    </label>
+  </div>
+
+  <div *ngIf="book">
+    <form>
+      <label for="authorRu">Автор:
+        <input type="text" [(ngModel)]="book.authorRu" *ngIf="lang === 'ru'" id="authorRu" name="authorRu"
+               placeholder="authorRu" size="50"
+               style="height: 30px">
+        <input type="text" [(ngModel)]="book.authorEn" *ngIf="lang === 'eng'" id="authorEn" name="authorEn"
+               placeholder="authorEn" size="50"
+               style="height: 30px">
+        <input type="text" [(ngModel)]="book.authorKz" *ngIf="lang === 'kz'" id="authorKz" name="authorKz"
+               placeholder="authorKz" size="50"
+               style="height: 30px">
+      </label>
+    </form>
+    <form>
+      <label for="nameBookRu">Название:
+        <input type="text" [(ngModel)]="book.nameBookRu" *ngIf="lang === 'ru'" id="nameBookRu" name="nameBookRu"
+               placeholder="nameBookRu" size="50"
+               style="height: 30px">
+        <input type="text" [(ngModel)]="book.nameBookEn" *ngIf="lang === 'eng'" id="nameBookEn" name="nameBookEn"
+               placeholder="nameBookEn" size="50"
+               style="height: 30px">
+        <input type="text" [(ngModel)]="book.nameBookKz" *ngIf="lang === 'kz'" id="nameBookKz" name="nameBookKz"
+               placeholder="nameBookKz" size="50"
+               style="height: 30px">
+      </label>
+    </form>
+    <form>
+      <label for="isbn">ISB:
+        <input type="text" [(ngModel)]="book.isbn" id="isbn" name="isbn" placeholder="isbn" size="50"
+               style="height: 30px">
+      </label>
+    </form>
+    <form>
+      <label for="descriptionRu">Описание:
+        <input type="text" [(ngModel)]="book.descriptionRu" *ngIf="lang === 'ru'" id="descriptionRu"
+               name="descriptionRu"
+               placeholder="descriptionRu" size="50"
+               style="height: 30px">
+        <input type="text" [(ngModel)]="book.descriptionEn" *ngIf="lang === 'eng'" id="descriptionEn"
+               name="descriptionEn"
+               placeholder="descriptionEn" size="50"
+               style="height: 30px">
+        <input type="text" [(ngModel)]="book.descriptionKz" *ngIf="lang === 'kz'" id="descriptionKz"
+               name="descriptionKz"
+               placeholder="descriptionKz" size="50"
+               style="height: 30px">
+      </label>
+    </form>
+  </div>
+  <div>
+    <a>Обложка</a>
+    <img src="assets/edit-menu.svg" alt="Обложка" style="width: 200px ; height: 200px">
+  </div>
+  <a>Список обложек</a>
+  <table>
+    <thead>
+    <tr>
+      <th>Название</th>
+      <th>Дата</th>
+      <th>Выбрать</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let viewFile of listViewFile; let i = index">
+      <td>{{viewFile.nameFile}}</td>
+      <td>{{viewFile.createdDate}}</td>
+      <td>
+        <button>
+          <img alt="Обложка" src="assets/edit-menu.svg">
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div>
+    <button (click)="createBook()">Создать</button>
+    <button>Сохранить</button>
+    <button (click)="log()">log</button>
+  </div>
+</div>

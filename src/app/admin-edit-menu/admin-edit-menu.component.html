@@ -17,11 +17,11 @@
       <button (click)="createItemMenu()">Добавить пункт меню</button>
     </div>
   </div>
-  <div>
+  <div class="admin-edit-menu-tables">
     <ul *ngFor="let itemMenu of listMainItemMenu; let i = index">
       <li>
         <table class="file-table">
-          <thead>
+          <thead *ngIf="i === 0">
           <tr>
             <th>Вложения</th>
             <th>Последнее изменение</th>
@@ -31,14 +31,14 @@
               <div class="info">
                 <img src="assets/icons/info.svg">
                 <span class="info-dropdown">
-            <ul>
-              <li>Информация</li>
-              <li><img src="assets/icons/arrow-up.svg">Переместить вверх</li>
-              <li><img src="assets/icons/arrow-down.svg">Переместить вниз</li>
-              <li><img src="assets/icons/trash-2.svg">Удалить пункт меню</li>
-              <li><img src="assets/icons/plus.svg"> Добавить новый подпункт меню</li>
-            </ul>
-          </span>
+                  <ul>
+                    <li>Информация</li>
+                    <li><img src="assets/icons/arrow-up.svg">Переместить вверх</li>
+                    <li><img src="assets/icons/arrow-down.svg">Переместить вниз</li>
+                    <li><img src="assets/icons/trash-2.svg">Удалить пункт меню</li>
+                    <li><img src="assets/icons/plus.svg"> Добавить новый подпункт меню</li>
+                  </ul>
+                </span>
               </div>
             </th>
           </tr>
@@ -70,23 +70,25 @@
             </td>
             <td *ngIf="itemMenu.isEdit === false">{{[itemMenu.showItem === true ? 'Показывать' : 'Скрыть']}}</td>
             <td>
-              <div class="edit-button">
-                <button (click)="updateItemMenu(itemMenu)" *ngIf="itemMenu.isEdit"><img alt=""
-                                                                                        src="assets/edit-menu.svg">
-                </button>
-                <button (click)="changeEditStatus(itemMenu)" *ngIf="!itemMenu.isEdit"><img alt=""
-                                                                                           src="assets/new-window.svg">
-                </button>
-                <button *ngIf="i !== 0" (click)="changePositionUp(i)">
-                  <img alt="Вверх" src="assets/icons/arrow-up.svg">
-                </button>
-                <button *ngIf="i !== (listMainItemMenu.length - 1)" (click)="changePositionDown(i)">
-                  <img alt="Вниз" src="assets/icons/arrow-down.svg">
-                </button>
-                <button (click)="deleteItemMenu(itemMenu.id, i)"><img alt="Удалить" src="assets/icons/trash-2.svg">
-                </button>
-                <button (click)="createItemMenu(itemMenu.id, i)"><img alt="Создать" src="assets/icons/plus.svg">
-                </button>
+              <div class="td-right">
+                <div class="edit-button">
+                  <button (click)="updateItemMenu(itemMenu)" *ngIf="itemMenu.isEdit"><img alt=""
+                                                                                          src="assets/edit-menu.svg">
+                  </button>
+                  <button (click)="changeEditStatus(itemMenu)" *ngIf="!itemMenu.isEdit"><img alt=""
+                                                                                             src="assets/new-window.svg">
+                  </button>
+                  <button (click)="createItemMenu(itemMenu.id, i)"><img alt="Создать" src="assets/icons/plus.svg">
+                  </button>
+                  <button *ngIf="i !== 0" (click)="changePositionUp(i)">
+                    <img alt="Вверх" src="assets/icons/arrow-up.svg">
+                  </button>
+                  <button *ngIf="i !== (listMainItemMenu.length - 1)" (click)="changePositionDown(i)">
+                    <img alt="Вниз" src="assets/icons/arrow-down.svg">
+                  </button>
+                  <button (click)="deleteItemMenu(itemMenu.id, i)"><img alt="Удалить" src="assets/icons/trash-2.svg">
+                  </button>
+                </div>
               </div>
             </td>
           </tr>
@@ -133,23 +135,24 @@
             </td>
             <td *ngIf="childerItem.isEdit === false">{{[childerItem.showItem === true ? 'Показывать' : 'Скрыть']}}</td>
             <td>
-              <div class="edit-button">
-                <button (click)="updateItemMenu(childerItem)" *ngIf="childerItem.isEdit"><img alt=""
-                                                                                              src="assets/edit-menu.svg">
-                </button>
-                <button (click)="changeEditStatus(childerItem)" *ngIf="!childerItem.isEdit"><img alt=""
-                                                                                                 src="assets/new-window.svg">
-                </button>
-                <button *ngIf="iChildren !== 0" (click)="changePositionUp(i, iChildren)"><img alt="Вверх"
-                                                                                              src="assets/icons/arrow-up.svg">
-                </button>
-                <button *ngIf="iChildren !== (itemMenu.childerItemMenu.length - 1)"
-                        (click)="changePositionDown(i, iChildren)">
-                  <img alt="Вниз" src="assets/icons/arrow-down.svg">
-                </button>
-                <button (click)="deleteItemMenu(childerItem.id, i, iChildren)">
-                  <img alt="Удалить" src="assets/icons/trash-2.svg">
-                </button>
+              <div class="td-right">
+                <div class="edit-button">
+                  <button (click)="updateItemMenu(childerItem)" *ngIf="childerItem.isEdit"><img alt=""
+                                                                                                src="assets/edit-menu.svg">
+                  </button>
+                  <button (click)="changeEditStatus(childerItem)" *ngIf="!childerItem.isEdit"><img alt=""
+                                                                                                   src="assets/new-window.svg">
+                  </button>
+                  <button *ngIf="iChildren !== 0" (click)="changePositionUp(i, iChildren)"><img alt="Вверх"
+                                                                                                src="assets/icons/arrow-up.svg">
+                  </button>
+                  <button *ngIf="iChildren !== (itemMenu.childerItemMenu.length - 1)"
+                          (click)="changePositionDown(i, iChildren)"><img alt="Вниз" src="assets/icons/arrow-down.svg">
+                  </button>
+                  <button (click)="deleteItemMenu(childerItem.id, i, iChildren)">
+                    <img alt="Удалить" src="assets/icons/trash-2.svg">
+                  </button>
+                </div>
               </div>
             </td>
           </tr>
