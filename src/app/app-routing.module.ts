@@ -17,6 +17,7 @@ import {AdminGalleryComponent} from "./admin-gallery/admin-gallery.component";
 import {AdminNewsComponent} from "./admin-news/admin-news.component";
 import {AdminBookComponent} from "./admin-book/admin-book.component";
 import {LoginComponent} from "./login/login.component";
+import {AdminUserPanelComponent} from "./admin-panel/admin-user-panel/admin-user-panel.component";
 
 const routes: Routes = [
   {
@@ -37,6 +38,7 @@ const routes: Routes = [
       {path: 'admin-contacts', component: AdminContactsComponent},
       {path: 'admin-gallery', component: AdminGalleryComponent},
       {path: 'admin-news', component: AdminNewsComponent},
+      {path: 'admin-user-panel', component: AdminUserPanelComponent},
       {path: 'admin-book', component: AdminBookComponent},
     ]
   },

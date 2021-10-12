@@ -22,6 +22,7 @@ import { AdminGalleryComponent } from './admin-gallery/admin-gallery.component';
 import { AdminNewsComponent } from './admin-news/admin-news.component';
 import { LoginComponent } from './login/login.component';
 import { AdminBookComponent } from './admin-book/admin-book.component';
+import { AdminUserPanelComponent } from './admin-panel/admin-user-panel/admin-user-panel.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AdminBookComponent } from './admin-book/admin-book.component';
     AdminContactsComponent,
     AdminGalleryComponent,
     AdminNewsComponent,
+    AdminUserPanelComponent,
     AdminBookComponent,
     LoginComponent,
   ],
