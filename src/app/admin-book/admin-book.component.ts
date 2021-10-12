@@ -14,6 +14,16 @@ export class AdminBookComponent implements OnInit {
   private _listViewFile: FileObject[] = [];
   private _book: BookObject | null = null;
   private _lang: string = "ru";
+  private _close: boolean = false;
+
+
+  get close(): boolean {
+    return this._close;
+  }
+
+  set close(value: boolean) {
+    this._close = value;
+  }
 
   get listViewBook(): ViewBookObject[] {
     return this._listViewBook;

@@ -22,6 +22,7 @@ import { AdminGalleryComponent } from './admin-gallery/admin-gallery.component';
 import { AdminNewsComponent } from './admin-news/admin-news.component';
 import { LoginComponent } from './login/login.component';
 import { AdminBookComponent } from './admin-book/admin-book.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AdminUserPanelComponent } from './admin-panel/admin-user-panel/admin-user-panel.component';
 
 @NgModule({
@@ -51,7 +52,8 @@ import { AdminUserPanelComponent } from './admin-panel/admin-user-panel/admin-us
     CKEditorModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
