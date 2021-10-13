@@ -1,47 +1,43 @@
 <div class="user-panel">
-  <table class="table-user">
+  <table class="file-table" style="width: 300px;">
     <thead>
-    <tr>
-      <th>Название филиала</th>
-    </tr>
+    <tr><th>Название филиала</th></tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Астанинский</td>
-    </tr>
+    <tr><td>Астанинский</td></tr>
     </tbody>
   </table>
 
-  <table class="table-user">
+  <table class="file-table">
     <thead>
     <tr>
       <th>ФИО</th>
       <th>Логин</th>
       <th>Пароль</th>
       <th>Доступ</th>
-      <th><div class="edit"></div></th>
-      <th><div class="trash"></div></th>
+      <th>Редактирование</th>
+      <th>Удалить</th>
     </tr>
     </thead>
     <tbody>
     <tr>
+      <td>Иван Иванов</td>
+      <td>IvanIvanov</td>
+      <td>123456789</td>
+      <td>Открыт</td>
       <td>
-        Иван Иванов
+        <div class="edit-button">
+          <button>
+            <img alt="Редактирование" src="assets/icons/edit-2.svg">
+          </button>
+        </div>
       </td>
       <td>
-        IvanIvanov
-      </td>
-      <td>
-        123456789
-      </td>
-      <td>
-        Открыт
-      </td>
-      <td>
-        +
-      </td>
-      <td>
-        +
+        <div class="edit-button">
+          <button>
+            <img alt="Удалить" src="assets/icons/trash-2.svg">
+          </button>
+        </div>
       </td>
     </tr>
     </tbody>
