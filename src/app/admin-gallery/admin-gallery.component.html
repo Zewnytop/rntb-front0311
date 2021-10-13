@@ -3,52 +3,89 @@
 </div>
 <div class="admin-gallery">
   <div>
+    <div>
+      <label>
+        <input type="radio" [(ngModel)]="lang" value="ru">
+        RU
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="lang" value="eng">
+        ENG
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="lang" value="kz">
+        KZ
+      </label>
+    </div>
     <table class="file-table">
       <thead>
       <tr>
-        <th>Сет галлереи</th>
+        <th>Название</th>
         <th>Дата изменения</th>
         <th>Отображать</th>
-        <th>Предпросмотр</th>
+        <th colspan="3">
+          <button (click)="createCategory()">Добавить</button>
+        </th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>Административный корпус</td>
-        <td>123123</td>
-        <td>+</td>
-        <td>+</td>
+      <tr *ngFor="let category of listCategoryVirtualExhibition; let i = index">
+        <td *ngIf="lang === 'ru' && !category.isEdit">{{category.nameRu}}</td>
+        <td *ngIf="lang === 'ru' && category.isEdit"><input type="text" [(ngModel)]="category.nameRu"
+                                                            placeholder="nameRu"></td>
+        <td *ngIf="lang === 'eng' && !category.isEdit">{{category.nameEn}}</td>
+        <td *ngIf="lang === 'eng' && category.isEdit"><input type="text" [(ngModel)]="category.nameEn"
+                                                             placeholder="nameEn"></td>
+        <td *ngIf="lang === 'kz' && !category.isEdit">{{category.nameKz}}</td>
+        <td *ngIf="lang === 'kz' && category.isEdit"><input type="text" [(ngModel)]="category.nameKz"
+                                                            placeholder="nameKz"></td>
+        <td>{{category.lastModifiedDate}}</td>
+        <td *ngIf="!category.isEdit">{{[category.showOnPage ? 'Да' : 'Нет']}}</td>
+        <td *ngIf="category.isEdit"><input type="checkbox" [(ngModel)]="category.showOnPage"></td>
+        <td *ngIf="!category.isEdit">
+          <button (click)="changeEditStatus(i)">Редактировать</button>
+        </td>
+        <td *ngIf="category.isEdit">
+          <button (click)="updateCategory(i)">Сохранить</button>
+        </td>
+        <td>
+          <button (click)="getBooksByCategory(category.id)">Книги</button>
+        </td>
+        <td>
+          <button (click)="deleteCategory(category.id, i)">Удалить</button>
+        </td>
       </tr>
+      </tbody>
+    </table>
+    <table class="file-table">
+      <thead>
       <tr>
-        <td>Центр библиотечно-информационого обслуживани</td>
-        <td>123123</td>
-        <td>+</td>
-        <td>+</td>
+        <th>Название</th>
+        <th>Дата последних изменений</th>
+        <th>Выбрать</th>
       </tr>
-      <tr>
-        <td>Центр Патентно-Информационной работы</td>
-        <td>123123</td>
-        <td>+</td>
-        <td>+</td>
-      </tr>
-      <tr>
-        <td>Центр по работе со специальными видами технической литературы и документаций</td>
-        <td>123123</td>
-        <td>+</td>
-        <td>+</td>
+      </thead>
+      <tbody>
+      <tr *ngFor="let viewBook of listViewBook; let i = index">
+        <td>{{viewBook.name}}</td>
+        <td>{{viewBook.lastModifiedDate}}</td>
+        <td>
+          <div class="edit-button">
+            <button (click)="addBookInCategory(viewBook.id)">
+              <img alt="Редактирование" src="assets/icons/edit-2.svg">
+            </button>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
   <div>
     <button>добавить сет</button>
+    <button (click)="log()">log</button>
   </div>
-  <div class="gallery-carousel">
-    <div class="carousel-block"></div>
-    <div class="carousel-block"></div>
-    <div class="carousel-block"></div>
-    <div class="carousel-block"></div>
-    <div class="carousel-block"></div>
+  <div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0">
+    <div *ngFor="let book of virtualExhibition.books; let iBook = index"><img alt="Обложка" class="carousel-block" [src]="previewCover(book.file!.id!)"></div>
   </div>
 
   <div class="carousel-circle">
@@ -64,7 +101,7 @@
 <div class="gallery-popup" *ngIf="close">
   <div class="popup-close-button">
     <div class="edit-button">
-      <button (click)="close=false"><img src="assets/icons/x-circle.svg"></button>
+      <button (click)="close=false"><img alt="Круг стрелка" src="assets/icons/x-circle.svg"></button>
     </div>
   </div>
   <div class="popup-content">
