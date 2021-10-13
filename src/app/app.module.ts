@@ -23,7 +23,7 @@ import { AdminNewsComponent } from './admin-news/admin-news.component';
 import { LoginComponent } from './login/login.component';
 import { AdminBookComponent } from './admin-book/admin-book.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { AdminUserPanelComponent } from './admin-panel/admin-user-panel/admin-user-panel.component';
+import { AdminUserPanelComponent } from './admin-user-panel/admin-user-panel.component';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 <div>
-  <p><b>Книги</b></p>
+  <h2><b>Книги</b></h2>
 </div>
 <div class="admin-book">
   <div class="admin-book-table">
@@ -8,8 +8,8 @@
       <tr>
         <th>Название</th>
         <th>Дата последних изменений</th>
-        <th>Выбрать</th>
-        <th>Удалить</th>
+        <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -33,114 +33,116 @@
       </tr>
       </tbody>
     </table>
+    <div>
+      <button (click)="createBook()">Создать</button>
+      <button (click)="updateBook()">Сохранить</button>
+    </div>
   </div>
-  <div *ngIf="book">
-    <table>
-      <tbody class="edit-input2">
-      <tr>
-        <td>
-          <div>
-            <label>
-              <input type="radio" [(ngModel)]="lang" value="ru">
-              RU
-            </label>
-            <label>
-              <input type="radio" [(ngModel)]="lang" value="eng">
-              ENG
-            </label>
-            <label>
-              <input type="radio" [(ngModel)]="lang" value="kz">
-              KZ
-            </label>
-          </div>
-        </td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><b>Автор:</b></td>
-        <td>
-          <form>
-            <label for="authorRu">
-              <input type="text" [(ngModel)]="book.authorRu" *ngIf="lang === 'ru'" id="authorRu" name="authorRu"
-                     placeholder="authorRu" size="50"
-                     style="height: 30px">
-              <input type="text" [(ngModel)]="book.authorEn" *ngIf="lang === 'eng'" id="authorEn" name="authorEn"
-                     placeholder="authorEn" size="50"
-                     style="height: 30px">
-              <input type="text" [(ngModel)]="book.authorKz" *ngIf="lang === 'kz'" id="authorKz" name="authorKz"
-                     placeholder="authorKz" size="50"
-                     style="height: 30px">
-            </label>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td><b>Название:</b></td>
-        <td>
-          <form>
-            <label for="nameBookRu">
-              <input type="text" [(ngModel)]="book.nameBookRu" *ngIf="lang === 'ru'" id="nameBookRu" name="nameBookRu"
-                     placeholder="nameBookRu" size="50"
-                     style="height: 30px">
-              <input type="text" [(ngModel)]="book.nameBookEn" *ngIf="lang === 'eng'" id="nameBookEn" name="nameBookEn"
-                     placeholder="nameBookEn" size="50"
-                     style="height: 30px">
-              <input type="text" [(ngModel)]="book.nameBookKz" *ngIf="lang === 'kz'" id="nameBookKz" name="nameBookKz"
-                     placeholder="nameBookKz" size="50"
-                     style="height: 30px">
-            </label>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td><b>ISB:</b></td>
-        <td>
-          <form>
-            <label for="isbn">
-              <input type="text" [(ngModel)]="book.isbn" id="isbn" name="isbn" placeholder="isbn" size="50"
-                     style="height: 30px">
-            </label>
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td><b>Описание:</b></td>
-        <td>
-          <form>
-            <label for="descriptionRu">
-              <textarea type="text" [(ngModel)]="book.descriptionRu" *ngIf="lang === 'ru'" id="descriptionRu"
+  <div *ngIf="book" class="right-table">
+    <div>
+      <div>
+        <label>
+          <input type="radio" [(ngModel)]="lang" value="ru">
+          RU
+        </label>
+        <label>
+          <input type="radio" [(ngModel)]="lang" value="eng">
+          ENG
+        </label>
+        <label>
+          <input type="radio" [(ngModel)]="lang" value="kz">
+          KZ
+        </label>
+      </div>
+      <table>
+        <tbody class="edit-input2">
+        <tr>
+          <td><b>Автор:</b></td>
+          <td>
+            <form>
+              <label for="authorRu">
+                <input type="text" [(ngModel)]="book.authorRu" *ngIf="lang === 'ru'" id="authorRu" name="authorRu"
+                       placeholder="authorRu" size="50"
+                       style="height: 30px">
+                <input type="text" [(ngModel)]="book.authorEn" *ngIf="lang === 'eng'" id="authorEn" name="authorEn"
+                       placeholder="authorEn" size="50"
+                       style="height: 30px">
+                <input type="text" [(ngModel)]="book.authorKz" *ngIf="lang === 'kz'" id="authorKz" name="authorKz"
+                       placeholder="authorKz" size="50"
+                       style="height: 30px">
+              </label>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Название:</b></td>
+          <td>
+            <form>
+              <label for="nameBookRu">
+                <input type="text" [(ngModel)]="book.nameBookRu" *ngIf="lang === 'ru'" id="nameBookRu" name="nameBookRu"
+                       placeholder="nameBookRu" size="50"
+                       style="height: 30px">
+                <input type="text" [(ngModel)]="book.nameBookEn" *ngIf="lang === 'eng'" id="nameBookEn"
+                       name="nameBookEn"
+                       placeholder="nameBookEn" size="50"
+                       style="height: 30px">
+                <input type="text" [(ngModel)]="book.nameBookKz" *ngIf="lang === 'kz'" id="nameBookKz" name="nameBookKz"
+                       placeholder="nameBookKz" size="50"
+                       style="height: 30px">
+              </label>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td><b>ISB:</b></td>
+          <td>
+            <form>
+              <label for="isbn">
+                <input type="text" [(ngModel)]="book.isbn" id="isbn" name="isbn" placeholder="isbn" size="50"
+                       style="height: 30px">
+              </label>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Описание:</b></td>
+          <td>
+            <form>
+              <label for="descriptionRu">
+              <textarea style="min-width: 500px; max-width: 500px; max-height: 486px; min-height: 486px;" type="text" [(ngModel)]="book.descriptionRu" *ngIf="lang === 'ru'" id="descriptionRu"
                         name="descriptionRu"
-                        placeholder="descriptionRu" size="50"
-                        style="height: 30px"></textarea>
-              <textarea type="text" [(ngModel)]="book.descriptionEn" *ngIf="lang === 'eng'" id="descriptionEn"
-                        name="descriptionEn"
-                        placeholder="descriptionEn" size="50"
-                        style="height: 30px"></textarea>
-              <textarea type="text" [(ngModel)]="book.descriptionKz" *ngIf="lang === 'kz'" id="descriptionKz"
-                        name="descriptionKz"
-                        placeholder="descriptionKz" size="50"
-                        style="height: 30px"></textarea>
-            </label>
-          </form>
-        </td>
-      </tr>
-      <tr *ngIf="book">
-        <td><b>Обложка</b></td>
-        <td><img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="width: 200px ; height: 300px">
-          <button (click)="close=true">Изменить обложку</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+                        placeholder="descriptionRu" size="50"></textarea>
+                <textarea style="min-width: 500px; max-width: 500px; max-height: 486px; min-height: 486px;" type="text" [(ngModel)]="book.descriptionEn" *ngIf="lang === 'eng'" id="descriptionEn"
+                          name="descriptionEn"
+                          placeholder="descriptionEn" size="50"></textarea>
+                <textarea style="min-width: 500px; max-width: 500px; max-height: 486px; min-height: 486px;" type="text" [(ngModel)]="book.descriptionKz" *ngIf="lang === 'kz'" id="descriptionKz"
+                          name="descriptionKz"
+                          placeholder="descriptionKz" size="50"></textarea>
+              </label>
+            </form>
+          </td>
+        </tr>
+        <!--      <tr *ngIf="book">-->
+        <!--        <td><b>Обложка</b></td>-->
+        <!--        <td><img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="width: 200px ; height: 300px">-->
+        <!--          <button (click)="close=true">Изменить обложку</button>-->
+        <!--        </td>-->
+        <!--      </tr>-->
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="book" class="cover">
+      <div><h4>Обложка</h4></div>
+      <div><img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="width: 200px ; height: 300px">
+      </div>
+      <div>
+        <button (click)="close=true">Изменить обложку</button>
+      </div>
+    </div>
   </div>
 
 </div>
 
-
-<div>
-  <button (click)="createBook()">Создать</button>
-  <button (click)="updateBook()">Сохранить</button>
-</div>
 
 <div class="file-popup" *ngIf="close">
   <div class="file-popup-content">
