@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  status: boolean = false;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  changeStatus(): void {
+    if (this.status) {
+      this.status = false;
+    } else {
+      this.status = true;
+    }
   }
 
 }
