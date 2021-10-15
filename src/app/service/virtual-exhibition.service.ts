@@ -41,6 +41,16 @@ export class VirtualExhibitionService {
     return this.httpClient.put<DataSingleObject>(url, null);
   }
 
+  changePosition(listPosition: any[]): Observable<DataSingleObject> {
+    const url = `/api/category/position`;
+    return this.httpClient.put<DataSingleObject>(url, listPosition);
+  }
+
+  unhookBook(idBook: number): Observable<DataSingleObject> {
+    const url = `/api/category/unhook/${idBook}`;
+    return this.httpClient.put<DataSingleObject>(url, null);
+  }
+
   deleteCategory(idCategory: number): Observable<DataSingleObject> {
     const url = `/api/category/remove/${idCategory}`;
     return this.httpClient.delete<DataSingleObject>(url);

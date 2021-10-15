@@ -70,7 +70,7 @@ export class AdminGalleryComponent implements OnInit {
 
   log(): void {
     console.log(this.listCategoryVirtualExhibition);
-    console.log(this.virtualExhibition);
+    console.log(this.virtualExhibition?.books);
   }
 
   getCategories(): void {
@@ -164,6 +164,7 @@ export class AdminGalleryComponent implements OnInit {
           descriptionEn: book.descriptionEn,
           descriptionKz: book.descriptionKz,
           lastModifiedDate: book.lastModifiedDate,
+          serialNumber: book,
           typeComponent: book.typeComponent,
           libraryBranch: book.libraryBranch,
           file: book.file
@@ -208,6 +209,72 @@ export class AdminGalleryComponent implements OnInit {
     }, error => {
       this.getCategory(index);
       this.listCategoryVirtualExhibition[index].isEdit = false;
+      console.log(error);
+    });
+  }
+
+  blockButtonAddBook(idBook: number): boolean {
+    let block = false;
+    if (this.virtualExhibition && this.virtualExhibition.books.length) {
+      for (let book of this.virtualExhibition.books) {
+        if (book.id === idBook) {
+          return true;
+        }
+      }
+    }
+    return block;
+  }
+
+  unhookBook(idBook: number, index: number): void {
+    this.virtualExhibitionService.unhookBook(idBook).subscribe(data => {
+      this.virtualExhibition?.books.splice(index, 1);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  moveBookRight(index: number): void {
+    let listPosition = [];
+    const book = this.virtualExhibition!.books[index];
+    const nextBook = this.virtualExhibition!.books[index + 1];
+    listPosition.push({
+      id: book.id,
+      serialNumber: nextBook.serialNumber
+    }, {
+      id: nextBook.id,
+      serialNumber: book.serialNumber
+    });
+    this.virtualExhibitionService.changePosition(listPosition).subscribe(data => {
+      this.virtualExhibition!.books[index] = nextBook;
+      this.virtualExhibition!.books[index + 1] = book;
+      const serialNumberBook = this.virtualExhibition!.books[index].serialNumber;
+      const nextSerialNumberBook = this.virtualExhibition!.books[index + 1].serialNumber;
+      this.virtualExhibition!.books[index].serialNumber = nextSerialNumberBook;
+      this.virtualExhibition!.books[index + 1].serialNumber = serialNumberBook;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  moveBookLeft(index: number): void {
+    let listPosition = [];
+    const book = this.virtualExhibition!.books[index];
+    const previousBook = this.virtualExhibition!.books[index - 1];
+    listPosition.push({
+      id: book.id,
+      serialNumber: previousBook.serialNumber
+    }, {
+      id: previousBook.id,
+      serialNumber: book.serialNumber
+    });
+    this.virtualExhibitionService.changePosition(listPosition).subscribe(data => {
+      this.virtualExhibition!.books[index] = previousBook;
+      this.virtualExhibition!.books[index - 1] = book;
+      const serialNumberBook = this.virtualExhibition!.books[index].serialNumber;
+      const previousSerialNumberBook = this.virtualExhibition!.books[index - 1].serialNumber;
+      this.virtualExhibition!.books[index].serialNumber = previousSerialNumberBook;
+      this.virtualExhibition!.books[index - 1].serialNumber = serialNumberBook;
+    }, error => {
       console.log(error);
     });
   }

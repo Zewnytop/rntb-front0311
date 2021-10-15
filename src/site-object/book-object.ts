@@ -21,6 +21,7 @@ export interface BookObject {
   descriptionEn: string,
   descriptionKz: string,
   lastModifiedDate: string,
+  serialNumber: number,
   typeComponent: TypeComponentObject,
   libraryBranch: LibraryBranchObject,
   file: FileObject | null

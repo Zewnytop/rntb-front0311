@@ -71,8 +71,9 @@
         <td>{{viewBook.lastModifiedDate}}</td>
         <td>
           <div class="edit-button">
-            <button (click)="addBookInCategory(viewBook.id)">
-              <img alt="Редактирование" src="assets/icons/edit-2.svg">
+            <button (click)="addBookInCategory(viewBook.id)" [disabled]="blockButtonAddBook(viewBook.id)">
+              <img alt="Редактирование"
+                   [src]="[blockButtonAddBook(viewBook.id)? 'assets/icons/alert-circle.svg' : 'assets/icons/edit-2.svg']">
             </button>
           </div>
         </td>
@@ -85,7 +86,14 @@
     <button (click)="log()">log</button>
   </div>
   <div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0">
-    <div *ngFor="let book of virtualExhibition.books; let iBook = index"><img alt="Обложка" class="carousel-block" [src]="previewCover(book.file!.id!)"></div>
+    <div *ngFor="let book of virtualExhibition.books; let iBook = index">
+      <div>
+        <img alt="Обложка" class="carousel-block" [src]="previewCover(book.file!.id!)">
+      </div>
+      <button (click)="moveBookLeft(iBook)" *ngIf="iBook !==0">Лево</button>
+      <button (click)="unhookBook(book.id, iBook)">Удалить</button>
+      <button (click)="moveBookRight(iBook)" *ngIf="iBook !== (virtualExhibition.books.length - 1)">Право</button>
+    </div>
   </div>
 
   <div class="carousel-circle">
