@@ -126,8 +126,9 @@ export class AdminGalleryComponent implements OnInit {
   }
 
   getSelectedBook(idBook: number): void {
+    this.close = true;
+    this.selectedBook = null;
     this.bookService.getBook(idBook).subscribe(data => {
-      this.close = true;
       this.selectedBook = data.result;
     }, error => {
       console.log(error);
