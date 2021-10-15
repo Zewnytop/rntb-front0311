@@ -87,7 +87,7 @@
   </div>
   <div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0">
     <div *ngFor="let book of virtualExhibition.books; let iBook = index">
-      <div>
+      <div (click)="getSelectedBook(book.id)">
         <img alt="Обложка" class="carousel-block" [src]="previewCover(book.file!.id!)">
       </div>
       <button (click)="moveBookLeft(iBook)" *ngIf="iBook !==0">Лево</button>
@@ -112,27 +112,21 @@
       <button (click)="close=false"><img alt="Круг стрелка" src="assets/icons/x-circle.svg"></button>
     </div>
   </div>
-  <div class="popup-content">
-    <div class="popup-img">
-      <img src="assets/test.jpg">
+  <div class="popup-content" *ngIf="selectedBook">
+    <div class="popup-img" *ngIf="selectedBook.file">
+      <img [src]="previewCover(selectedBook.file.id)">
     </div>
     <div class="popup-text">
       <p>
         <strong>
-          Алиев Р. А., Калмыков С. Н.
+          {{selectedBook.authorRu}}
         </strong>
         <br>
-        <strong>Радиоактивность: Учебное пособие.</strong>
-        — СПб.: Издательство «Лань», 2013. — 304 с: ил. (+ вклейка, 2 с.) — (Учебники для вузов. Специальная
-        литература).
+        <strong>{{selectedBook.nameBookRu}}</strong>
+        <strong>{{selectedBook.isbn}}</strong>
       </p>
       <p>
-        История войны и мира, пронизанная множеством сюжетных линий, – это пронзительный, точный, панорамный и
-        обстоятельный взгляд мудрого художника на вечные проблемы бытия. ""Война и мир"" – роман-эпопея Льва Николаевича
-        Толстого, по глубине и охвату событий до сих пор стоящий на первом месте во всей мировой литературе, - вершина
-        творчества великого мыслителя, как никакое другое произведение писателя отражает глубину его мироощущения и
-        философии. Эта книга из разряда вечных, потому что она обо всем - о жизни и смерти, о любви и чести, о мужестве
-        и героизме, о славе и подвиге, о войне и мире
+        {{selectedBook.descriptionRu}}
       </p>
     </div>
   </div>
@@ -145,7 +139,7 @@
     </td>
     <td>
         <span>
-          «Тара́с Бу́льба» — повесть Николая Васильевича Гоголя, входящая в цикл «Миргород».
+          {{selectedBook?.nameBookRu}}
         </span>
     </td>
   </div>

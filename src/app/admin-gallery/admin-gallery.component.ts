@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {VirtualExhibitionService} from "../service/virtual-exhibition.service";
 import {ViewVirtualExhibitionObject, VirtualExhibitionObject} from "../../site-object/view-virtual-exhibition-object";
 import {BookService} from "../service/book.service";
-import {ViewBookObject} from "../../site-object/book-object";
+import {BookObject, ViewBookObject} from "../../site-object/book-object";
 import {TypeComponentObject} from "../../site-object/typeComponent-object";
 import {LibraryBranchObject} from "../../site-object/libraryBranch-object";
 import {FileObject} from "../../site-object/file-object";
@@ -17,6 +17,7 @@ export class AdminGalleryComponent implements OnInit {
   private _listCategoryVirtualExhibition: ViewVirtualExhibitionObject[] = [];
   private _listViewBook: ViewBookObject[] = [];
   private _virtualExhibition: VirtualExhibitionObject | null = null;
+  private _selectedBook: BookObject | null = null;
   private _lang: string = "ru";
   private _close: boolean = false;
 
@@ -42,6 +43,14 @@ export class AdminGalleryComponent implements OnInit {
 
   set virtualExhibition(value: VirtualExhibitionObject | null) {
     this._virtualExhibition = value;
+  }
+
+  get selectedBook(): BookObject | null {
+    return this._selectedBook;
+  }
+
+  set selectedBook(value: BookObject | null) {
+    this._selectedBook = value;
   }
 
   get lang(): string {
@@ -111,6 +120,15 @@ export class AdminGalleryComponent implements OnInit {
           lastModifiedDate: viewBook.lastModifiedDate
         })
       });
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getSelectedBook(idBook: number): void {
+    this.bookService.getBook(idBook).subscribe(data => {
+      this.close = true;
+      this.selectedBook = data.result;
     }, error => {
       console.log(error);
     });
