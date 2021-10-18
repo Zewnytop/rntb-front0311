@@ -24,6 +24,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminBookComponent } from './admin-book/admin-book.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AdminUserPanelComponent } from './admin-user-panel/admin-user-panel.component';
+import { ArticleComponent } from './article/article.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AdminUserPanelComponent } from './admin-user-panel/admin-user-panel.com
     AdminUserPanelComponent,
     AdminBookComponent,
     LoginComponent,
+    ArticleComponent,
   ],
   imports: [
     BrowserModule,

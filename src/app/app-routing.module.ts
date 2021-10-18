@@ -18,6 +18,7 @@ import {AdminNewsComponent} from "./admin-news/admin-news.component";
 import {AdminBookComponent} from "./admin-book/admin-book.component";
 import {LoginComponent} from "./login/login.component";
 import {AdminUserPanelComponent} from "./admin-user-panel/admin-user-panel.component";
+import {ArticleComponent} from "./article/article.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       {path: 'contacts', component: ContactsComponent},
       {path: 'map', component: MapComponent},
       {path: 'gallery', component: GalleryComponent},
+      {path: 'article', component: ArticleComponent},
       // {path: '**', redirectTo: '/'},
     ]
   },
