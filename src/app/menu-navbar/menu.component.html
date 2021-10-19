@@ -7,58 +7,18 @@
         <div class="navbar-filial">
           <div class="navbar">
             <ul class="navbar-ul">
-              <li class="navbar-li"><a class="li-a" routerLink="/">О библиотеке
-                <div class="li-svg"></div>
-              </a>
-
-                <div class="navbar-li-dropdown">
-                  <a class="dropdown-a">История РНТБ</a>
-                  <a class="dropdown-a">Научно-исследовательская деятельность</a>
-                  <a class="dropdown-a">Новости</a>
-                  <a class="dropdown-a">Сотрудничество</a>
-                  <a class="dropdown-a">Страница Президента</a>
-                  <a class="dropdown-a">Структура Библиотеки</a>
-                  <a class="dropdown-a">Кейс РНТБ</a>
-                </div>
-              </li>
-
-              <li class="navbar-li"><a class="li-a" routerLink="/">Читателю
-                <div class="li-svg"></div>
-              </a>
-                <div class="navbar-li-dropdown">
-                  <a class="dropdown-a" routerLink="/gallery">Виртуальная Выставка</a>
-                  <a class="dropdown-a">Правила записи в Библиотеку</a>
-                  <a class="dropdown-a">Услуги</a>
-                  <a class="dropdown-a">Фонды и Базы Данных</a>
-                </div>
-              </li>
-              <li class="navbar-li"><a class="li-a" routerLink="/">Ресурсы
-                <div class="li-svg"></div>
-              </a>
-                <div class="navbar-li-dropdown">
-                  <a class="dropdown-a" routerLink="/">Электронный каталог</a>
-                  <a class="dropdown-a">Электронная библиотека РНТБ</a>
-                  <a class="dropdown-a">Система авторизаций библиотек "Ирбис"</a>
-                  <a class="dropdown-a">Школа професионального развития</a>
-                </div>
-              </li>
-              <li class="navbar-li"><a class="li-a" routerLink="/">Филиалы
-                <div class="li-svg"></div>
-              </a>
-                <div class="navbar-li-dropdown">
-                  <a class="dropdown-a" routerLink="/">Астанинский филиал</a>
-                  <a class="dropdown-a" routerLink="/">Актюбинский филиал</a>
-                  <a class="dropdown-a" routerLink="/">Восточно-Казахстанский филиал</a>
-                  <a class="dropdown-a" routerLink="/">Жамбылский филиал</a>
-                  <a class="dropdown-a" routerLink="/">Западно-Казахстанский филиал</a>
-                  <a class="dropdown-a" routerLink="/">Павлодарский филиал</a>
-                  <a class="dropdown-a" routerLink="/">Туркестанский филиал</a>
-                </div>
-              </li>
-              <li class="navbar-li"><a class="li-a" routerLink="/contacts">Контакты</a></li>
+              <ng-template ngFor let-item [ngForOf]="listMainItemMenu">
+                <li class="navbar-li" *ngIf="item.showItem"><a class="li-a" routerLink="/">{{item.nameRu}}
+                  <div class="li-svg"></div>
+                </a>
+                  <div class="navbar-li-dropdown">
+                    <ng-template ngFor let-iternalItem [ngForOf]="item.childerItemMenu">
+                      <a class="dropdown-a" *ngIf="iternalItem.showItem">{{iternalItem.nameRu}}</a>
+                    </ng-template>
+                  </div>
+                </li>
+              </ng-template>
             </ul>
-
-
             <div class="search">
               <div class="search-svg"></div>
               <div class="search-input">
