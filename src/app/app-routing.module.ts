@@ -19,19 +19,20 @@ import {LoginComponent} from "./login/login.component";
 import {AdminUserPanelComponent} from "./admin-user-panel/admin-user-panel.component";
 import {ArticleComponent} from "./article/article.component";
 import {AdminPagesComponent} from "./admin-pages/admin-pages.component";
+import {SitePageComponent} from "./site-page/site-page.component";
 
 const routes: Routes = [
   {
     path: '', component: GeneralComponent, children: [
-      {path: 'menu-navbar', component: MenuComponent},
-      {path: 'footer', component: FooterComponent},
-      {path: 'contacts', component: ContactsComponent},
-      {path: 'map', component: MapComponent},
-      {path: 'gallery', component: GalleryComponent},
-      {path: 'article', component: ArticleComponent},
+
       // {path: '**', redirectTo: '/'},
     ]
   },
+  {
+    path: 'site-page', component: SitePageComponent, children: [
+  ]
+  },
+
   {
     path: 'admin-panel', component: AdminPanelComponent, children: [
       {path: 'admin-edit-menu', component: AdminEditMenuComponent},
