@@ -25,6 +25,7 @@ import { AdminBookComponent } from './admin-book/admin-book.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AdminUserPanelComponent } from './admin-user-panel/admin-user-panel.component';
 import { ArticleComponent } from './article/article.component';
+import { AdminPagesComponent } from './admin-pages/admin-pages.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ArticleComponent } from './article/article.component';
     AdminBookComponent,
     LoginComponent,
     ArticleComponent,
+    AdminPagesComponent,
   ],
   imports: [
     BrowserModule,
