@@ -1,5 +1,19 @@
 <div class="pages">
   <h4>Настройка страниц</h4>
+  <div>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="ru">
+      RU
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="eng">
+      ENG
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="kz">
+      KZ
+    </label>
+  </div>
   <div style="display: flex;">
     <table class="file-table">
       <thead>
@@ -21,8 +35,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr></tr>
-      <tr></tr>
+      <tr *ngFor="let category of listCategoryVirtualExhibition; let i = index">
+        <td *ngIf="lang === 'ru' && !category.isEdit">{{category.nameRu}}</td>
+        <td *ngIf="lang === 'ru' && category.isEdit"><input type="text" [(ngModel)]="category.nameRu"
+                                                            placeholder="nameRu"></td>
+        <td *ngIf="lang === 'eng' && !category.isEdit">{{category.nameEn}}</td>
+        <td *ngIf="lang === 'eng' && category.isEdit"><input type="text" [(ngModel)]="category.nameEn"
+                                                             placeholder="nameEn"></td>
+        <td *ngIf="lang === 'kz' && !category.isEdit">{{category.nameKz}}</td>
+        <td *ngIf="lang === 'kz' && category.isEdit"><input type="text" [(ngModel)]="category.nameKz"
+                                                            placeholder="nameKz"></td>
+        <td style="display: flex; justify-content: center;"><button><img src="/assets/plus.svg" alt="Добавить"></button></td>
+      </tr>
       </tbody>
     </table>
     <table class="file-table">
@@ -33,8 +57,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr></tr>
-      <tr></tr>
+      <tr *ngFor="let contactBranch of listViewContactBranch; let i = index">
+        <td>{{contactBranch.name}}</td>
+        <td style="display: flex; justify-content: center;"><button><img src="/assets/plus.svg" alt="Добавить"></button></td>
+      </tr>
       </tbody>
     </table>
   </div>
