@@ -11,7 +11,6 @@ import {DataObject} from "../../site-object/data-object";
 export class AdminEditMenuComponent implements OnInit {
 
   private _listMainItemMenu: MenuObject[] = [];
-  private _listNestedItemMenu: MenuObject[] = [];
   private _listTypeItemMenu: TypeMenuItemObject[] = [];
   private _mainItemMenu: MenuObject | null = null;
   private _lang: string = "ru";
@@ -24,14 +23,6 @@ export class AdminEditMenuComponent implements OnInit {
 
   set listMainItemMenu(value: MenuObject[]) {
     this._listMainItemMenu = value;
-  }
-
-  get listNestedItemMenu(): MenuObject[] {
-    return this._listNestedItemMenu;
-  }
-
-  set listNestedItemMenu(value: MenuObject[]) {
-    this._listNestedItemMenu = value;
   }
 
   get listTypeItemMenu(): TypeMenuItemObject[] {
@@ -355,6 +346,16 @@ export class AdminEditMenuComponent implements OnInit {
     // console.log(this.edit);
     console.log(this.listMainItemMenu);
     console.log(this.listTypeItemMenu);
+    console.log(document.baseURI)
+    const ur = "http://rntb.timir.kz/";
+    const ur2 = "https://ast.rntb.timir.kz/";
+    const ur3 = ur.replace(/.*\/\//, '');
+    const ur4 = ur2.replace(/.*\/\//, '');
+    console.log(ur3)
+    console.log(ur3.replace('/', ''))
+    // console.log(ur3.split('.', 1))
+    // console.log(ur4.split('.', 1))
+
     // console.log(this.listTypeItemMenu[0]);
     // console.log((this.listNestedItemMenu[0].typeItemMenu));
     // console.log(this.listTypeItemMenu[0] === this.listNestedItemMenu[0].typeItemMenu)
