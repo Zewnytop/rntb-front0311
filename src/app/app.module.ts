@@ -19,13 +19,13 @@ import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
 import { AdminContactsComponent } from './admin-contacts/admin-contacts.component';
 import { AdminGalleryComponent } from './admin-gallery/admin-gallery.component';
-import { AdminNewsComponent } from './admin-news/admin-news.component';
 import { LoginComponent } from './login/login.component';
 import { AdminBookComponent } from './admin-book/admin-book.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AdminUserPanelComponent } from './admin-user-panel/admin-user-panel.component';
 import { ArticleComponent } from './article/article.component';
 import { AdminPagesComponent } from './admin-pages/admin-pages.component';
+import { AdminFilialComponent } from './admin-filial/admin-filial.component';
 
 @NgModule({
   declarations: [
@@ -42,12 +42,12 @@ import { AdminPagesComponent } from './admin-pages/admin-pages.component';
     AdminFileEditComponent,
     AdminContactsComponent,
     AdminGalleryComponent,
-    AdminNewsComponent,
     AdminUserPanelComponent,
     AdminBookComponent,
     LoginComponent,
     ArticleComponent,
     AdminPagesComponent,
+    AdminFilialComponent,
   ],
   imports: [
     BrowserModule,

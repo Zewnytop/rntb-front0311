@@ -76,7 +76,7 @@ export class AdminFileEditComponent implements OnInit {
   }
 
   getListfiles(): void {
-    this.fileService.getFiles(1).subscribe(data => {
+    this.fileService.getFiles(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
       console.log(data);
       data.result.forEach(file => this.listFiles.push({
           id: file.id,
@@ -136,7 +136,7 @@ export class AdminFileEditComponent implements OnInit {
     this.progressInfos[idx] = {value: 0, fileName: selectFile.file.name};
 
     if (selectFile.file) {
-      this.fileService.uploadFile(selectFile, 1).subscribe(
+      this.fileService.uploadFile(selectFile, parseInt(localStorage.getItem("BranchId")!!)).subscribe(
         (event: any) => {
           console.log(event instanceof HttpResponse)
           if (event.type === HttpEventType.UploadProgress) {

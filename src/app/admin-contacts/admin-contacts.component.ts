@@ -72,7 +72,7 @@ export class AdminContactsComponent implements OnInit {
   // }
 
   getContacts(): void {
-    this.contactService.getListContact(1).subscribe(data => {
+    this.contactService.getListContact(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
       data.result.forEach((value) => this.listViewContactBranch.push({
         id: value.id,
         name: value.name,
@@ -85,7 +85,7 @@ export class AdminContactsComponent implements OnInit {
   }
 
   createContactBranch(): void {
-    this.contactService.createNewContact(1).subscribe(data => {
+    this.contactService.createNewContact(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
       console.log(data);
       const contact = data.result;
       this.listViewContactBranch.unshift({

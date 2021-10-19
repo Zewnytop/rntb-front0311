@@ -14,7 +14,6 @@ import {EditArticleComponent} from "./edit-article/edit-article.component";
 import {AdminFileEditComponent} from "./admin-file-edit/admin-file-edit.component";
 import {AdminContactsComponent} from "./admin-contacts/admin-contacts.component";
 import {AdminGalleryComponent} from "./admin-gallery/admin-gallery.component";
-import {AdminNewsComponent} from "./admin-news/admin-news.component";
 import {AdminBookComponent} from "./admin-book/admin-book.component";
 import {LoginComponent} from "./login/login.component";
 import {AdminUserPanelComponent} from "./admin-user-panel/admin-user-panel.component";
@@ -40,7 +39,6 @@ const routes: Routes = [
       {path: 'admin-file-edit', component: AdminFileEditComponent},
       {path: 'admin-contacts', component: AdminContactsComponent},
       {path: 'admin-gallery', component: AdminGalleryComponent},
-      {path: 'admin-news', component: AdminNewsComponent},
       {path: 'user-panel', component: AdminUserPanelComponent},
       {path: 'admin-book', component: AdminBookComponent},
       {path: 'pages', component: AdminPagesComponent},

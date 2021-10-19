@@ -66,7 +66,7 @@ export class AdminBookComponent implements OnInit {
   }
 
   getBooks(): void {
-    this.bookService.getBooks(1).subscribe(data => {
+    this.bookService.getBooks(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
       data.result.forEach(viewBook => {
         this.listViewBook.push({
           id: viewBook.id,
@@ -88,7 +88,7 @@ export class AdminBookComponent implements OnInit {
   }
 
   getFiles(): void {
-    this.bookService.getFiles(1).subscribe(data => {
+    this.bookService.getFiles(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
       data.result.forEach(viewFile => {
         this.listViewFile.push({
           id: viewFile.id,
@@ -105,7 +105,7 @@ export class AdminBookComponent implements OnInit {
   }
 
   createBook(): void {
-    this.bookService.createBook(1).subscribe(data => {
+    this.bookService.createBook(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
       const book = data.result;
       this.listViewBook.unshift({
         id: book.id,

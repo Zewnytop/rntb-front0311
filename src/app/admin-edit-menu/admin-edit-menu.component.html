@@ -4,6 +4,9 @@
 <div>
 
   <div class="admin-edit-menu-tables">
+    <div class="add-button">
+      <button (click)="createItemMenu()">Добавить пункт меню</button>
+    </div>
     <ul *ngFor="let itemMenu of listMainItemMenu; let i = index">
       <li>
         <table class="file-table">
@@ -30,9 +33,6 @@
             <td></td>
             <td>
               <div class="td-right">
-                <div class="add-button">
-                  <button (click)="createItemMenu()">Добавить пункт меню</button>
-                </div>
               </div>
             </td>
           </tr>
