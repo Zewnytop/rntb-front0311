@@ -23,6 +23,32 @@ html, body {
     margin: auto;
     min-width: 1300px;
   }
+  .title {
+    margin-left: 13px;
+    padding-top: 150px;
+    display: block;
+    padding-bottom: 100px;
+
+    .title-span {
+      font-size: 25px;
+      line-height: 30.48px;
+      color: #F86C22;
+    }
+
+    .title-hr-first {
+      width: 13.03vw;
+      border: 1px solid @darkBlue;
+      margin-left: 0px;
+      margin-top: 5px;
+    }
+
+    .title-hr-second {
+      width: 7.82vw;
+      border: 1px solid @darkBlue;
+      margin-left: 0px;
+      margin-top: 20px;
+    }
+  }
 
   .container-menu {
     display: block;
@@ -53,6 +79,7 @@ html, body {
     @import "media";
     @import "admin-user-panel";
     @import "admin-book";
+    @import "article";
   }
 
   .edit-button {
