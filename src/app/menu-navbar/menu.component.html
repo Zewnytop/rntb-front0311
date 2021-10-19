@@ -11,7 +11,7 @@
                 <li class="navbar-li" *ngIf="item.showItem"><a class="li-a" routerLink="/">{{item.nameRu}}
                   <div class="li-svg"></div>
                 </a>
-                  <div class="navbar-li-dropdown">
+                  <div class="navbar-li-dropdown" *ngIf="item.childerItemMenu.length">
                     <ng-template ngFor let-iternalItem [ngForOf]="item.childerItemMenu">
                       <a class="dropdown-a" *ngIf="iternalItem.showItem">{{iternalItem.nameRu}}</a>
                     </ng-template>
@@ -33,7 +33,7 @@
               <a href="" class="kz">KZ</a>
             </div>
           </div>
-          <span class="filial-name">ВОСТОЧНО-КАЗАХСТАНСКИЙ ФИЛИАЛ</span> <!-- Название филиала -->
+          <span class="filial-name">{{branchName}}</span> <!-- Название филиала -->
         </div>
         <div class="media">
           <a href="/" class="instagram"></a>

@@ -10,6 +10,7 @@ import {HttpClient} from "@angular/common/http";
 export class MenuComponent implements OnInit {
 
   private _listMainItemMenu: MenuObject[] = [];
+  private _branchName: string = ""
 
   get listMainItemMenu(): MenuObject[] {
     return this._listMainItemMenu;
@@ -19,11 +20,33 @@ export class MenuComponent implements OnInit {
     this._listMainItemMenu = value;
   }
 
+  get branchName(): string {
+    return this._branchName;
+  }
+
+  set branchName(value: string) {
+    this._branchName = value;
+  }
+
   constructor(private httpClient: HttpClient) {
   }
 
   ngOnInit(): void {
     this.getMainitemsMenu();
+    this.getNameBranch();
+  }
+
+  getNameBranch(): void {
+    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    const baseURI = urlWithSlash.replace('/', '');
+    const url = `/api/page/name/${baseURI}`;
+    console.log("adsad")
+    this.httpClient.get(url, {responseType: 'text'}).subscribe(data => {
+      this.branchName = data;
+      // console.log(data);
+    }, error => {
+      console.log(error);
+    });
   }
 
   getMainitemsMenu(): void {
