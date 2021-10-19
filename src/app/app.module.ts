@@ -26,6 +26,7 @@ import { AdminUserPanelComponent } from './admin-user-panel/admin-user-panel.com
 import { ArticleComponent } from './article/article.component';
 import { AdminPagesComponent } from './admin-pages/admin-pages.component';
 import { AdminFilialComponent } from './admin-filial/admin-filial.component';
+import { InsertHtmlDirective } from './insert-html.directive';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AdminFilialComponent } from './admin-filial/admin-filial.component';
     ArticleComponent,
     AdminPagesComponent,
     AdminFilialComponent,
+    InsertHtmlDirective,
   ],
   imports: [
     BrowserModule,

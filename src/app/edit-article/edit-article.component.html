@@ -65,8 +65,10 @@
           <input type="text" id="description" placeholder="Описание">
         </form>
       </div>
-      <ckeditor [editor]="Editor" data="<p>Hello, world!</p>"></ckeditor>
+      <ckeditor [(ngModel)]="tst" [editor]="Editor" [config]="config" ></ckeditor>
     </div>
   </div>
+<div [InsertHtml]="tst">
 
+</div>
 </div>
