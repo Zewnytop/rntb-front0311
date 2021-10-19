@@ -6,13 +6,13 @@
     <div class="login-form">
       <form class="edit-input">
         <label><strong>Логин:</strong></label>
-        <input type="text" placeholder="Введите логин">
+        <input type="text" [(ngModel)]="login" [ngModelOptions]="{standalone: true}" placeholder="Введите логин">
         <label><strong>Пароль:</strong></label>
-        <input type="text" placeholder="Введите пароль">
+        <input type="text" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Введите пароль">
       </form>
     </div>
     <div class="edit-button">
-      <button>Войти</button>
+      <button (click)="loginInSystem()">Войти</button>
     </div>
   </div>
 </div>

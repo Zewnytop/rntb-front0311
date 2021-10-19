@@ -70,7 +70,7 @@ export class AdminEditMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMainitemsMenu(1);
+    this.getMainitemsMenu(parseInt(localStorage.getItem("BranchId")!!));
     this.getTypeItemMenu();
   }
 
