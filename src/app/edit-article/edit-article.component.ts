@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+//import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// @ts-ignore
+import * as CustomEditor from '../../ckeditor5custom/build/ckeditor';
 
 @Component({
   selector: 'app-edit-article',
@@ -7,10 +9,67 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./edit-article.component.css']
 })
 export class EditArticleComponent implements OnInit {
-  public Editor = ClassicEditor;
+  public Editor = CustomEditor;
+  public tst = '';
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  public config = {
+    toolbar: {
+      items: [
+        'heading',
+        '|',
+        'bold',
+        'italic',
+        'underline',
+        'alignment',
+        '|',
+        'link',
+        'bulletedList',
+        'numberedList',
+        '|',
+        'outdent',
+        'indent',
+        '|',
+        'imageUpload',
+        'blockQuote',
+        'fontColor',
+        'highlight',
+        'insertTable',
+        // 'mediaEmbed',
+        'undo',
+        'redo',
+        'todoList'
+      ]
+    },
+    language: 'ru',
+    image: {
+      toolbar: [
+        'imageTextAlternative',
+        'imageStyle:inline',
+        'imageStyle:block',
+        'imageStyle:alignLeft',
+        'imageStyle:alignRight'
+      ],
+      styles: [
+        'full',
+        'alignLeft',
+        'alignRight'
+      ]
+
+
+    },
+    table: {
+      contentToolbar: [
+        'tableColumn',
+        'tableRow',
+        'mergeTableCells',
+        'tableCellProperties',
+        'tableProperties'
+      ]
+    },
+}
 }

@@ -16,6 +16,23 @@ export class AdminContactsComponent implements OnInit {
   private _lang: string = "ru";
   private _errorMessage: string | null = null;
   private _blockCheckBox: boolean = false;
+  private _krt: string = "";
+
+
+  get krt(): string {
+    return this._krt;
+  }
+
+  set krt(value: string) {
+    this._krt = value;
+  }
+
+  regKrt(e: Event): any {
+    console.log((e.target as HTMLInputElement).value);
+    // @ts-ignore
+    this._krt = (e.target as HTMLInputElement).value.match(/.iframe.*src="([^"]*)"/)[1]
+
+  }
 
   get listViewContactBranch(): ViewContactObject[] {
     return this._listViewContactBranch;
@@ -232,4 +249,7 @@ export class AdminContactsComponent implements OnInit {
     return map;
   }
 
+  log() {
+    console.log(this.krt);
+  }
 }
