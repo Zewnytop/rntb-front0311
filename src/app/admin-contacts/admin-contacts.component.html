@@ -147,3 +147,14 @@
   <!--    [src]="getMapSrc()"-->
   <!--    width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>-->
 </div>
+
+<div>
+  <button (click)="log()">sdfdsfds</button>
+  <input type="text" [(ngModel)]="krt" placeholder="Карта" (input)="regKrt($event)">
+  <div>
+    <iframe
+      src=""
+      width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+</div>

@@ -16,6 +16,23 @@ export class AdminContactsComponent implements OnInit {
   private _lang: string = "ru";
   private _errorMessage: string | null = null;
   private _blockCheckBox: boolean = false;
+  private _krt: string = "";
+
+
+  get krt(): string {
+    return this._krt;
+  }
+
+  set krt(value: string) {
+    this._krt = value;
+  }
+
+  regKrt(e: Event): any {
+    console.log((e.target as HTMLInputElement).value);
+    // @ts-ignore
+    this._krt = (e.target as HTMLInputElement).value.match(/.iframe.*src="([^"]*)"/)[1]
+
+  }
 
   get listViewContactBranch(): ViewContactObject[] {
     return this._listViewContactBranch;
@@ -58,6 +75,7 @@ export class AdminContactsComponent implements OnInit {
   }
 
   mapStr = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2905.995163113485!2d76.91192371591033!3d43.25152317913716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3883694bbe3cbd31%3A0x41d06ef0c602f3c4!2z0YPQuy4g0JzRg9C60LDQvdC-0LLQsCAyMjPQsiwg0JDQu9C80LDRgtGLIDA1MDAwMA!5e0!3m2!1sru!2skz!4v1628583965969!5m2!1sru!2skz";
+
   constructor(private contactService: ContactService, private sanitizer: DomSanitizer) {
   }
 
@@ -231,4 +249,7 @@ export class AdminContactsComponent implements OnInit {
     return map;
   }
 
+  log() {
+    console.log(this.krt);
+  }
 }
