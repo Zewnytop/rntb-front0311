@@ -27,7 +27,6 @@ import { ArticleComponent } from './article/article.component';
 import { AdminPagesComponent } from './admin-pages/admin-pages.component';
 import { AdminFilialComponent } from './admin-filial/admin-filial.component';
 import { SitePageComponent } from './site-page/site-page.component';
-import { FilialComponent } from './filial/filial.component';
 import { InsertHtmlDirective } from './insert-html.directive';
 
 @NgModule({
@@ -53,7 +52,6 @@ import { InsertHtmlDirective } from './insert-html.directive';
     AdminFilialComponent,
     InsertHtmlDirective,
     SitePageComponent,
-    FilialComponent,
   ],
   imports: [
     BrowserModule,
