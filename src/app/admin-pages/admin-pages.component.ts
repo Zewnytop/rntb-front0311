@@ -125,8 +125,7 @@ export class AdminPagesComponent implements OnInit {
       data.forEach((item: any) => {
         this.listPage.push({
           id: item.id,
-          name: item.name,
-          component: item.component
+          name: item.name
         });
       });
     }, error => {
@@ -135,7 +134,17 @@ export class AdminPagesComponent implements OnInit {
   }
 
   selectPage(index: number): void {
-    this.selectedPage = this.listPage[index];
+    const id = this.listPage[index].id;
+    const url = `/api/build/page/pages/${id}`;
+    this.httpClient.get<any>(url).subscribe(data => {
+      console.log(data);
+      this.selectedPage = data;
+      // this.selectedPage!.id = data.id;
+      // this.selectedPage!.name = data.name;
+      // this.selectedPage!.component = data.component;
+    }, error => {
+      console.log(error);
+    });
   }
 
   addCompoennentOnPage(component: any): void {
@@ -148,7 +157,7 @@ export class AdminPagesComponent implements OnInit {
   }
 
   savePage(): void {
-    let mass : any[] = [];
+    let mass: any[] = [];
     this.selectedPage?.component.forEach(item => {
       mass.push({
         id: this.selectedPage?.id,
