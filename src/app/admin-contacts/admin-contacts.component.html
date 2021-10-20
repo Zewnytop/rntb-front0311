@@ -45,7 +45,7 @@
       </form>
       <form>
         <label for="map"><b>Карта:</b></label>
-        <input type="text" [(ngModel)]="contact.map" id="map" name="map" placeholder="Карта">
+        <input type="text" [(ngModel)]="contact.map" (input)="regKrt($event)" id="map" name="map" placeholder="Карта">
       </form>
     </div>
 
@@ -68,7 +68,7 @@
           <td>
             <div class="edit-button">
               <button (click)="getContactBranch(contactBranch.id)">
-                <img alt="Просмотреть" src="assets/new-window.svg">
+                <img alt="Просмотреть" src="assets/icons/edit-2.svg">
               </button>
             </div>
           </td>
@@ -134,7 +134,7 @@
               <img alt="Вниз" src="assets/icons/arrow-down.svg">
             </button>
             <button (click)="deleteIternalContact(iternalContact.id!, i)">
-              <img alt="Удалить" src="assets/trash.svg">
+              <img alt="Удалить" src="assets/icons/trash-2.svg">
             </button>
           </div>
         </td>
@@ -146,15 +146,4 @@
   <!--  <iframe-->
   <!--    [src]="getMapSrc()"-->
   <!--    width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>-->
-</div>
-
-<div>
-  <button (click)="log()">sdfdsfds</button>
-  <input type="text" [(ngModel)]="krt" placeholder="Карта" (input)="regKrt($event)">
-  <div>
-    <iframe
-      src=""
-      width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-  </div>
-
 </div>
