@@ -78,8 +78,8 @@
   <hr>
   <div *ngIf="selectedPage && selectedPage.component.length">
     <ng-template ngFor let-component [ngForOf]="selectedPage!.component">
-      <app-gallery *ngIf="component.typeComponent"></app-gallery>
-      <app-contacts *ngIf="!component.typeComponent"></app-contacts>
+      <app-gallery *ngIf="component.typeComponent || component.typeComponent === 'VirExhibition'"></app-gallery>
+      <app-contacts *ngIf="!component.typeComponent || component.typeComponent ===  'Contact'"></app-contacts>
       <!--      <app-article></app-article>-->
     </ng-template>
   </div>
