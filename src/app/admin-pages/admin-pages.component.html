@@ -18,13 +18,19 @@
     <table class="file-table">
       <thead>
       <tr>
-        <th>Статья</th>
-        <th>Добавить</th>
+        <th>Страница</th>
+        <th>
+          <button (click)="createPage()">Создать</button>
+        </th>
       </tr>
       </thead>
       <tbody>
-      <tr></tr>
-      <tr></tr>
+      <tr *ngFor="let page of listPage; let i=index">
+        <td>{{page.name}}</td>
+        <td>
+          <button (click)="selectPage(i)">Выбрать</button>
+        </td>
+      </tr>
       </tbody>
     </table>
     <table class="file-table">
@@ -45,7 +51,9 @@
         <td *ngIf="lang === 'kz' && !category.isEdit">{{category.nameKz}}</td>
         <td *ngIf="lang === 'kz' && category.isEdit"><input type="text" [(ngModel)]="category.nameKz"
                                                             placeholder="nameKz"></td>
-        <td style="display: flex; justify-content: center;"><button><img src="/assets/plus.svg" alt="Добавить"></button></td>
+        <td style="display: flex; justify-content: center;">
+          <button (click)="addCompoennentOnPage(category)"><img src="/assets/plus.svg" alt="Добавить"></button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -59,13 +67,20 @@
       <tbody>
       <tr *ngFor="let contactBranch of listViewContactBranch; let i = index">
         <td>{{contactBranch.name}}</td>
-        <td style="display: flex; justify-content: center;"><button><img src="/assets/plus.svg" alt="Добавить"></button></td>
+        <td style="display: flex; justify-content: center;">
+          <button (click)="addCompoennentOnPage(contactBranch)"><img src="/assets/plus.svg" alt="Добавить"></button>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
+  <button (click)="savePage()">Сохранить</button>
   <hr>
-  <app-gallery></app-gallery>
-  <app-contacts></app-contacts>
-  <app-article></app-article>
+  <div *ngIf="selectedPage && selectedPage.component.length">
+    <ng-template ngFor let-component [ngForOf]="selectedPage!.component">
+      <app-gallery *ngIf="component.typeComponent"></app-gallery>
+      <app-contacts *ngIf="!component.typeComponent"></app-contacts>
+      <!--      <app-article></app-article>-->
+    </ng-template>
+  </div>
 </div>
