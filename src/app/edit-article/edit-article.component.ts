@@ -25,6 +25,8 @@ export class EditArticleComponent implements OnInit {
         'bold',
         'italic',
         'underline',
+        'alignment',
+        '|',
         'link',
         'bulletedList',
         'numberedList',
@@ -37,7 +39,7 @@ export class EditArticleComponent implements OnInit {
         'fontColor',
         'highlight',
         'insertTable',
-        'mediaEmbed',
+        // 'mediaEmbed',
         'undo',
         'redo',
         'todoList'
@@ -49,8 +51,16 @@ export class EditArticleComponent implements OnInit {
         'imageTextAlternative',
         'imageStyle:inline',
         'imageStyle:block',
-        'imageStyle:side'
+        'imageStyle:alignLeft',
+        'imageStyle:alignRight'
+      ],
+      styles: [
+        'full',
+        'alignLeft',
+        'alignRight'
       ]
+
+
     },
     table: {
       contentToolbar: [
