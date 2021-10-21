@@ -7,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminFilialComponent implements OnInit {
 
+  private _lang: string = "ru";
+
+  get lang(): string {
+    return this._lang;
+  }
+
+  set lang(value: string) {
+    this._lang = value;
+  }
   constructor() { }
 
   ngOnInit(): void {

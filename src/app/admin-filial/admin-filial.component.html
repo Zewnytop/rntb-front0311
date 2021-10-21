@@ -1,1 +1,31 @@
-<p>admin-filial works!</p>
+<h4>Филиалы</h4>
+<div>
+  <label>
+    <input type="radio" [(ngModel)]="lang" value="ru">
+    RU
+  </label>
+  <label>
+    <input type="radio" [(ngModel)]="lang" value="eng">
+    ENG
+  </label>
+  <label>
+    <input type="radio" [(ngModel)]="lang" value="kz">
+    KZ
+  </label>
+</div>
+<table class="file-table">
+  <thead>
+  <tr>
+    <th>Название Филиала</th>
+    <th>Город</th>
+    <th><button>Добавить</button></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr >
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+  </tr>
+  </tbody>
+</table>

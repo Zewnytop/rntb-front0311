@@ -20,6 +20,7 @@ import {AdminUserPanelComponent} from "./admin-user-panel/admin-user-panel.compo
 import {ArticleComponent} from "./article/article.component";
 import {AdminPagesComponent} from "./admin-pages/admin-pages.component";
 import {SitePageComponent} from "./site-page/site-page.component";
+import {AdminFilialComponent} from "./admin-filial/admin-filial.component";
 
 const routes: Routes = [
   {
@@ -43,6 +44,7 @@ const routes: Routes = [
       {path: 'user-panel', component: AdminUserPanelComponent},
       {path: 'admin-book', component: AdminBookComponent},
       {path: 'pages', component: AdminPagesComponent},
+      {path: 'filial', component: AdminFilialComponent},
     ]
   },
   {
