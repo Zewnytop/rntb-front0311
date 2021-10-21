@@ -86,9 +86,9 @@
     <button (click)="log()">log</button>
   </div>
   <div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0">
-    <div *ngFor="let book of virtualExhibition.books; let iBook = index">
+    <div class="carousel-block" *ngFor="let book of virtualExhibition.books; let iBook = index">
       <div (click)="getSelectedBook(book.id)">
-        <img alt="Обложка" class="carousel-block" [src]="previewCover(book.file!.id!)">
+        <img alt="Обложка" class="img-carousel" [src]="previewCover(book.file!.id!)">
       </div>
       <button (click)="moveBookLeft(iBook)" *ngIf="iBook !==0">Лево</button>
       <button (click)="unhookBook(book.id, iBook)">Удалить</button>
@@ -97,7 +97,6 @@
   </div>
 
   <div class="carousel-circle">
-    <button class="carousel-button"></button>
     <button class="carousel-button"></button>
     <button class="carousel-button"></button>
   </div>

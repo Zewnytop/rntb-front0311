@@ -1,23 +1,32 @@
+::-webkit-scrollbar {
+  width: 0;
+}
 .admin-gallery {
   .gallery-carousel {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 66.41vw;
+    display: inline-block;
+    overflow-y: hidden;
+    width: 100%;
+    height: 350px;
     margin: auto;
+    white-space: nowrap;
 
     .carousel-block {
-      margin: 10px 25px;
+      display: inline-block;
       width: 195px;
       height: 300px;
       background-color: @grey;
+      margin-left: 75px;
+    }
+    .img-carousel{
+      width: 195px;
+      height: 300px;
     }
   }
 
   .carousel-circle {
     display: flex;
     justify-content: space-between;
-    width: 4.17vw;
+    width: 50px;
 
     margin: 35px auto;
 
