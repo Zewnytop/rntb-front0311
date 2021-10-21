@@ -19,6 +19,33 @@
       <thead>
       <tr>
         <th>Страница</th>
+        <th style="">
+          <div class="edit-button">
+            <button><img src="/assets/icons/arrow-up.svg" alt="Элемент вверх"></button>
+          </div>
+          <div class="edit-button">
+            <button><img src="/assets/icons/arrow-down.svg" alt="Элемент вниз"></button>
+          </div>
+        </th>
+        <th>
+          <div class="edit-button">
+            <button><img src="/assets/icons/trash-2.svg" alt="Удалить"></button>
+          </div>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      </tbody>
+    </table>
+    <table class="file-table">
+      <thead>
+      <tr>
+        <th>Страница</th>
         <th>
           <button (click)="createPage()">Создать</button>
         </th>
@@ -28,11 +55,16 @@
       <tr *ngFor="let page of listPage; let i=index">
         <td>{{page.name}}</td>
         <td>
-          <button (click)="selectPage(i)">Выбрать</button>
+          <div class="edit-button">
+            <button (click)="selectPage(i)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
+          </div>
+
         </td>
       </tr>
       </tbody>
     </table>
+  </div>
+  <div style="display: flex;">
     <table class="file-table">
       <thead>
       <tr>
@@ -51,8 +83,10 @@
         <td *ngIf="lang === 'kz' && !category.isEdit">{{category.nameKz}}</td>
         <td *ngIf="lang === 'kz' && category.isEdit"><input type="text" [(ngModel)]="category.nameKz"
                                                             placeholder="nameKz"></td>
-        <td style="display: flex; justify-content: center;">
-          <button (click)="addCompoennentOnPage(category)"><img src="/assets/plus.svg" alt="Добавить"></button>
+        <td>
+          <div class="edit-button">
+            <button (click)="addCompoennentOnPage(category)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
+          </div>
         </td>
       </tr>
       </tbody>
@@ -67,13 +101,16 @@
       <tbody>
       <tr *ngFor="let contactBranch of listViewContactBranch; let i = index">
         <td>{{contactBranch.name}}</td>
-        <td style="display: flex; justify-content: center;">
-          <button (click)="addCompoennentOnPage(contactBranch)"><img src="/assets/plus.svg" alt="Добавить"></button>
+        <td>
+          <div class="edit-button">
+            <button (click)="addCompoennentOnPage(contactBranch)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
+          </div>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
+
   <button (click)="savePage()">Сохранить</button>
   <hr>
   <div *ngIf="selectedPage && selectedPage.component.length">
