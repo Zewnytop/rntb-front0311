@@ -85,15 +85,18 @@
     <button>добавить сет</button>
     <button (click)="log()">log</button>
   </div>
-  <div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0">
-    <div class="carousel-block" *ngFor="let book of virtualExhibition.books; let iBook = index">
-      <div (click)="getSelectedBook(book.id)">
-        <img alt="Обложка" class="img-carousel" [src]="previewCover(book.file!.id!)">
+  <div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0" id="asdsdas">
+    <ng-template ngFor let-book [ngForOf]="virtualExhibition.books" let-iBook="index">
+      <!--    <div class="carousel-block" *ngFor="let book of virtualExhibition.books; let iBook = index">-->
+      <div [class]="iBook === 0 ? 'carousel-block-first' : 'carousel-block'">
+        <div (click)="getSelectedBook(book.id)">
+          <img alt="Обложка" class="img-carousel" [src]="previewCover(book.file!.id!)">
+        </div>
+        <button (click)="moveBookLeft(iBook)" *ngIf="iBook !==0">Лево</button>
+        <button (click)="unhookBook(book.id, iBook)">Удалить</button>
+        <button (click)="moveBookRight(iBook)" *ngIf="iBook !== (virtualExhibition.books.length - 1)">Право</button>
       </div>
-      <button (click)="moveBookLeft(iBook)" *ngIf="iBook !==0">Лево</button>
-      <button (click)="unhookBook(book.id, iBook)">Удалить</button>
-      <button (click)="moveBookRight(iBook)" *ngIf="iBook !== (virtualExhibition.books.length - 1)">Право</button>
-    </div>
+    </ng-template>
   </div>
 
   <div class="carousel-circle">
