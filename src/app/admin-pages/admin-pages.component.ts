@@ -5,6 +5,8 @@ import {VirtualExhibitionService} from "../service/virtual-exhibition.service";
 import {ViewContactObject} from "../../site-object/contact-object";
 import {ContactService} from "../service/contact.service";
 import {HttpClient} from "@angular/common/http";
+import {ViewPages} from "../../site-object/page-object";
+import {PageService} from "../service/page.service";
 
 
 @Component({
@@ -16,7 +18,7 @@ export class AdminPagesComponent implements OnInit {
 
   private _listCategoryVirtualExhibition: ViewVirtualExhibitionObject[] = [];
   private _listViewContactBranch: ViewContactObject[] = [];
-  private _listPage: any[] = [];
+  private _listViewPages: ViewPages[] = [];
   private _lang: string = "ru";
   private _selectedPage: {
     id: number,
@@ -40,12 +42,12 @@ export class AdminPagesComponent implements OnInit {
     this._listViewContactBranch = value;
   }
 
-  get listPage(): any[] {
-    return this._listPage;
+  get listViewPages(): ViewPages[] {
+    return this._listViewPages;
   }
 
-  set listPage(value: any[]) {
-    this._listPage = value;
+  set listViewPages(value: ViewPages[]) {
+    this._listViewPages = value;
   }
 
   get selectedPage(): { id: number; name: string; component: [any] } | null {
@@ -64,7 +66,10 @@ export class AdminPagesComponent implements OnInit {
     this._lang = value;
   }
 
-  constructor(private virtualExhibitionService: VirtualExhibitionService, private contactService: ContactService, private httpClient: HttpClient) {
+  constructor(private virtualExhibitionService: VirtualExhibitionService,
+              private contactService: ContactService,
+              private httpClient: HttpClient,
+              private pageService: PageService) {
   }
 
   ngOnInit(): void {
@@ -99,7 +104,8 @@ export class AdminPagesComponent implements OnInit {
         id: value.id,
         name: value.name,
         lastModifiedDate: value.lastModifiedDate,
-        mainContact: value.mainContact
+        mainContact: value.mainContact,
+        typeComponent: value.typeComponent
       }));
     }, error => {
       console.log(error)
@@ -109,23 +115,22 @@ export class AdminPagesComponent implements OnInit {
   createPage(): void {
     const url = `/api/build/page/new/page`;
     this.httpClient.post<any>(url, null).subscribe((data) => {
-      this.listPage.push({
-        id: data.id,
-        name: data.name,
-        component: []
-      });
+      // this.listPage.push({
+      //   id: data.id,
+      //   name: data.name,
+      //   component: []
+      // });
     }, error => {
       console.log(error);
     });
   }
 
   getPages(): void {
-    const url = `/api/build/page/pages`;
-    this.httpClient.get<any>(url).subscribe(data => {
-      data.forEach((item: any) => {
-        this.listPage.push({
-          id: item.id,
-          name: item.name
+    this.pageService.getListPage(3).subscribe(data => {
+      data.result.forEach(page => {
+        this.listViewPages.push({
+          id: page.id,
+          name: page.name
         });
       });
     }, error => {
@@ -134,7 +139,8 @@ export class AdminPagesComponent implements OnInit {
   }
 
   selectPage(index: number): void {
-    const id = this.listPage[index].id;
+    // const id = this.listPage[index].id;
+    const id = 1;
     const url = `/api/build/page/pages/${id}`;
     this.httpClient.get<any>(url).subscribe(data => {
       console.log(data);
@@ -148,12 +154,13 @@ export class AdminPagesComponent implements OnInit {
   }
 
   addCompoennentOnPage(component: any): void {
-    if (component.typeComponent) {
-      this.selectedPage!.component.push(component);
-    } else {
-      this.selectedPage!.component.push(component);
-    }
-    console.log(this.selectedPage);
+    console.log(component);
+    // if (component.typeComponent) {
+    //   this.selectedPage!.component.push(component);
+    // } else {
+    //   this.selectedPage!.component.push(component);
+    // }
+    // console.log(this.selectedPage);
   }
 
   savePage(): void {

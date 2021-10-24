@@ -1,3 +1,5 @@
+import {TypeComponentObject} from "./typeComponent-object";
+
 export interface ContactObject {
   id: number | null,
   nameRu: string | null,
@@ -30,7 +32,8 @@ export interface ViewContactObject {
   id: number,
   name: string | null,
   lastModifiedDate: string | null,
-  mainContact: boolean
+  mainContact: boolean,
+  typeComponent: TypeComponentObject
 }
 
 // export interface NewInternalContactObject {

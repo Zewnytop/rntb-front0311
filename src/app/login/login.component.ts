@@ -35,18 +35,21 @@ export class LoginComponent implements OnInit {
   }
 
   loginInSystem(): void {
-    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(this.login + ":" + this.password)});
-    const url = `/api/auth/user`;
-    this.httpClient.get<any>(url, {headers: headers}).subscribe(data => {
-      this.httpClient.get(`/api/auth/admin`).subscribe(data => {
-        console.log(data);
-      });
-      // localStorage.setItem("BranchId", data);
-      // this.router.navigate(['/admin-panel'])
-      console.log(data);
-    }, error => {
-      console.log(error);
-    });
+    // const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(this.login + ":" + this.password)});
+    // const url = `/api/auth/user`;
+    // this.httpClient.get<any>(url, {headers: headers}).subscribe(data => {
+    //   this.httpClient.get(`/api/auth/admin`).subscribe(data => {
+    //     console.log(data);
+    //   });
+    //   // localStorage.setItem("BranchId", data);
+    //   // this.router.navigate(['/admin-panel'])
+    //   console.log(data);
+    // }, error => {
+    //   console.log(error);
+    // });
+
+    localStorage.setItem("BranchId", "3");
+    this.router.navigate(['/admin-panel']);
   }
 
   test(): void {

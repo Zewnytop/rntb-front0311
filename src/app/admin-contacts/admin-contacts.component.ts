@@ -19,8 +19,8 @@ export class AdminContactsComponent implements OnInit {
 
 
   regKrt(e: Event): any {
-      // @ts-ignore
-      this.contact!.map = (e.target as HTMLInputElement).value.match(/.iframe.*src="([^"]*)"/)[1]
+    // @ts-ignore
+    this.contact!.map = (e.target as HTMLInputElement).value.match(/.iframe.*src="([^"]*)"/)[1]
 
   }
 
@@ -84,7 +84,8 @@ export class AdminContactsComponent implements OnInit {
         id: value.id,
         name: value.name,
         lastModifiedDate: value.lastModifiedDate,
-        mainContact: value.mainContact
+        mainContact: value.mainContact,
+        typeComponent: value.typeComponent
       }));
     }, error => {
       console.log(error)
@@ -99,7 +100,8 @@ export class AdminContactsComponent implements OnInit {
         id: contact.id,
         name: contact.nameRu,
         lastModifiedDate: contact.lastModifiedDate,
-        mainContact: contact.mainContact
+        mainContact: contact.mainContact,
+        typeComponent: contact.typeComponent
       });
       this.getContactBranch(contact.id);
     }, error => {

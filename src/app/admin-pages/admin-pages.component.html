@@ -19,26 +19,25 @@
       <thead>
       <tr>
         <th>Страница</th>
-        <th style="">
-          <div class="edit-button">
-            <button><img src="/assets/icons/arrow-up.svg" alt="Элемент вверх"></button>
-          </div>
-          <div class="edit-button">
-            <button><img src="/assets/icons/arrow-down.svg" alt="Элемент вниз"></button>
-          </div>
-        </th>
-        <th>
-          <div class="edit-button">
-            <button><img src="/assets/icons/trash-2.svg" alt="Удалить"></button>
-          </div>
-        </th>
+        <th></th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
       <tr>
         <td>1</td>
         <td>2</td>
-        <td>3</td>
+        <td>
+          <div class="edit-button">
+            <button><img src="/assets/icons/arrow-up.svg" alt="Элемент вверх"></button>
+          </div>
+          <div class="edit-button">
+            <button><img src="/assets/icons/arrow-down.svg" alt="Элемент вниз"></button>
+          </div>
+          <div class="edit-button">
+            <button><img src="/assets/icons/trash-2.svg" alt="Удалить"></button>
+          </div>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -52,13 +51,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let page of listPage; let i=index">
+      <tr *ngFor="let page of listViewPages; let i=index">
         <td>{{page.name}}</td>
         <td>
           <div class="edit-button">
             <button (click)="selectPage(i)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
           </div>
-
         </td>
       </tr>
       </tbody>
@@ -85,7 +83,8 @@
                                                             placeholder="nameKz"></td>
         <td>
           <div class="edit-button">
-            <button (click)="addCompoennentOnPage(category)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
+            <button (click)="addCompoennentOnPage(category)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать">
+            </button>
           </div>
         </td>
       </tr>
@@ -103,7 +102,8 @@
         <td>{{contactBranch.name}}</td>
         <td>
           <div class="edit-button">
-            <button (click)="addCompoennentOnPage(contactBranch)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
+            <button (click)="addCompoennentOnPage(contactBranch)"><img src="/assets/icons/plus-circle.svg"
+                                                                       alt="Выбрать"></button>
           </div>
         </td>
       </tr>
