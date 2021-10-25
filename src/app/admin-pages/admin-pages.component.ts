@@ -5,8 +5,9 @@ import {VirtualExhibitionService} from "../service/virtual-exhibition.service";
 import {ViewContactObject} from "../../site-object/contact-object";
 import {ContactService} from "../service/contact.service";
 import {HttpClient} from "@angular/common/http";
-import {ViewPages} from "../../site-object/page-object";
+import {PageComponentObject, PageObject, ViewPages} from "../../site-object/page-object";
 import {PageService} from "../service/page.service";
+import {TypeComponentObject} from "../../site-object/typeComponent-object";
 
 
 @Component({
@@ -19,12 +20,8 @@ export class AdminPagesComponent implements OnInit {
   private _listCategoryVirtualExhibition: ViewVirtualExhibitionObject[] = [];
   private _listViewContactBranch: ViewContactObject[] = [];
   private _listViewPages: ViewPages[] = [];
+  private _selectedPage: PageObject | null = null;
   private _lang: string = "ru";
-  private _selectedPage: {
-    id: number,
-    name: string,
-    component: [any]
-  } | null = null;
 
   get listCategoryVirtualExhibition(): ViewVirtualExhibitionObject[] {
     return this._listCategoryVirtualExhibition;
@@ -50,11 +47,11 @@ export class AdminPagesComponent implements OnInit {
     this._listViewPages = value;
   }
 
-  get selectedPage(): { id: number; name: string; component: [any] } | null {
+  get selectedPage(): PageObject | null {
     return this._selectedPage;
   }
 
-  set selectedPage(value: { id: number; name: string; component: [any] } | null) {
+  set selectedPage(value: PageObject | null) {
     this._selectedPage = value;
   }
 
@@ -125,7 +122,7 @@ export class AdminPagesComponent implements OnInit {
     });
   }
 
-  getPages(): void {
+  getPages(): void { //TODO
     this.pageService.getListPage(3).subscribe(data => {
       data.result.forEach(page => {
         this.listViewPages.push({
@@ -138,46 +135,38 @@ export class AdminPagesComponent implements OnInit {
     });
   }
 
-  selectPage(index: number): void {
-    // const id = this.listPage[index].id;
-    const id = 1;
-    const url = `/api/build/page/pages/${id}`;
-    this.httpClient.get<any>(url).subscribe(data => {
-      console.log(data);
-      this.selectedPage = data;
-      // this.selectedPage!.id = data.id;
-      // this.selectedPage!.name = data.name;
-      // this.selectedPage!.component = data.component;
+  getPage(idPage: number): void {
+    this.pageService.getPage(idPage).subscribe(data => {
+      this.selectedPage = data.result;
+      console.log(this.selectedPage);
     }, error => {
       console.log(error);
     });
   }
 
-  addCompoennentOnPage(component: any): void {
-    console.log(component);
-    // if (component.typeComponent) {
-    //   this.selectedPage!.component.push(component);
-    // } else {
-    //   this.selectedPage!.component.push(component);
-    // }
-    // console.log(this.selectedPage);
+  addComponentOnPage(idComponent: number, typeComponent: TypeComponentObject): void {
+    if (this.selectedPage) {
+      const body = {
+        idPage: this.selectedPage.id,
+        idComponent: idComponent,
+        typeComponent: typeComponent
+      };
+      this.pageService.addComponentOnpage(body).subscribe(data => {
+        console.log(data);
+        const newComponent = data.result;
+        this.selectedPage?.components.push({
+          id: newComponent.id,
+          name: newComponent.name,
+          typeComponent: newComponent.typeComponent,
+          serialNumber: newComponent.serialNumber,
+        });
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
   savePage(): void {
-    let mass: any[] = [];
-    this.selectedPage?.component.forEach(item => {
-      mass.push({
-        id: this.selectedPage?.id,
-        idComponent: item.id,
-        type: item.typeComponent?.code
-      });
-    });
-    const url = `/api/build/page/save`;
-    this.httpClient.post(url, mass).subscribe(data => {
-
-    }, error => {
-
-    });
   }
 
 }

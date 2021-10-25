@@ -18,15 +18,15 @@
     <table class="file-table">
       <thead>
       <tr>
-        <th>Страница</th>
-        <th></th>
+        <th>{{selectedPage?.name}}</th>
+        <th>Тип компонента</th>
         <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>1</td>
-        <td>2</td>
+      <tr *ngFor="let component of selectedPage?.components; let i = index">
+        <td>{{component.name}}</td>
+        <td>{{component.typeComponent.name}}</td>
         <td>
           <div class="edit-button">
             <button><img src="/assets/icons/arrow-up.svg" alt="Элемент вверх"></button>
@@ -40,7 +40,7 @@
     <table class="file-table">
       <thead>
       <tr>
-        <th>Страница</th>
+        <th>Страницы</th>
         <th>
           <button (click)="createPage()">Создать</button>
         </th>
@@ -51,7 +51,7 @@
         <td>{{page.name}}</td>
         <td>
           <div class="edit-button">
-            <button (click)="selectPage(i)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
+            <button (click)="getPage(page.id)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
           </div>
         </td>
       </tr>
@@ -79,7 +79,8 @@
                                                             placeholder="nameKz"></td>
         <td>
           <div class="edit-button">
-            <button (click)="addCompoennentOnPage(category)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать">
+            <button (click)="addComponentOnPage(category.id, category.typeComponent)"><img
+              src="/assets/icons/plus-circle.svg" alt="Выбрать">
             </button>
           </div>
         </td>
@@ -98,8 +99,9 @@
         <td>{{contactBranch.name}}</td>
         <td>
           <div class="edit-button">
-            <button (click)="addCompoennentOnPage(contactBranch)"><img src="/assets/icons/plus-circle.svg"
-                                                                       alt="Выбрать"></button>
+            <button (click)="addComponentOnPage(contactBranch.id, contactBranch.typeComponent)"><img
+              src="/assets/icons/plus-circle.svg"
+              alt="Выбрать"></button>
           </div>
         </td>
       </tr>
@@ -109,11 +111,11 @@
 
   <button (click)="savePage()">Сохранить</button>
   <hr>
-  <div *ngIf="selectedPage && selectedPage.component.length">
-    <ng-template ngFor let-component [ngForOf]="selectedPage!.component">
-      <app-gallery *ngIf="component.typeComponent || component.typeComponent === 'VirExhibition'"></app-gallery>
-      <app-contacts *ngIf="!component.typeComponent || component.typeComponent ===  'Contact'"></app-contacts>
-      <!--      <app-article></app-article>-->
+  <div *ngIf="selectedPage && selectedPage.components">
+    <ng-template ngFor let-component [ngForOf]="selectedPage.components">
+      <app-gallery *ngIf="component.typeComponent.code === 'VirExhibition'"></app-gallery>
+      <app-contacts *ngIf="component.typeComponent.code ===  'Contact'"></app-contacts>
+      <!--              <app-article></app-article>-->
     </ng-template>
   </div>
 </div>

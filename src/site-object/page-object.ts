@@ -1,13 +1,15 @@
 import {TypeComponentObject} from "./typeComponent-object";
 
 export interface PageObject {
-  name: string | null
+  id: number | null,
+  name: string | null,
   lastModifiedDate: string | null,
-  components: PageComponentsObject[]
+  components: PageComponentObject[]
 }
 
-export interface PageComponentsObject {
+export interface PageComponentObject {
   id: number,
+  name: string,
   typeComponent: TypeComponentObject,
   serialNumber: number
 }
