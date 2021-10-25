@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gallery.component.css']
 })
 export class GalleryComponent implements OnInit {
-
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
   constructor() { }
 
   ngOnInit(): void {
