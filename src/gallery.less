@@ -74,19 +74,34 @@
 
     margin: 35px auto;
 
-    .carousel-button {
+    .carousel-button-left {
       width: 20px;
       height: 20px;
       border-radius: 100px;
       background: #C4C4C4;
       border-style: none;
 
-      transition-duration: 0.4s;
+      transition-duration: 2s;
+      cursor: pointer;
+    }
+    .carousel-button-right{
+      width: 20px;
+      height: 20px;
+      border-radius: 100px;
+      background: #C4C4C4;
+      border-style: none;
+
+      transition-duration: 2s;
       cursor: pointer;
     }
 
-    .carousel-button:hover {
-      background-color: #585858;
+    .carousel-button-left:hover {
+      background: url("/assets/images/arrow-left.svg")center no-repeat;
+      //background-color: #585858;
+    }
+    .carousel-button-right:hover {
+      background: url("/assets/images/arrow-right.svg")center no-repeat;
+      //background-color: #585858;
     }
   }
 

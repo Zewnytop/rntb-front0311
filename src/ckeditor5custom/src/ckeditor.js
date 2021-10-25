@@ -21,7 +21,7 @@ import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent.js';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
 import Link from '@ckeditor/ckeditor5-link/src/link.js';
-import List from '@ckeditor/ckeditor5-list/src/list.js';
+//import List from '@ckeditor/ckeditor5-list/src/list.js';
 import ListStyle from '@ckeditor/ckeditor5-list/src/liststyle.js';
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed.js';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph.js';
@@ -57,7 +57,7 @@ Editor.builtinPlugins = [
 	Indent,
 	Italic,
 	Link,
-	List,
+	//List,
 	ListStyle,
 	MediaEmbed,
 	Paragraph,

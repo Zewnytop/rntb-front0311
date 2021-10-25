@@ -117,6 +117,7 @@
           <tr>
             <th>Вложения2</th>
             <th>Последнее изменение</th>
+            <th>Ссылка</th>
             <th>Тип пункта</th>
             <th>Отображать</th>
             <th></th>
@@ -137,6 +138,16 @@
                                                                             [(ngModel)]="childerItem.nameKz">
             <td>{{childerItem.lastModifiedDate}}</td>
             <td *ngIf="childerItem.isEdit === true">
+              <select *ngIf="childerItem.typeItemMenu.codeType == 'link'">
+                <option [ngValue]=""></option>
+              </select>
+            </td>
+            <td *ngIf="childerItem.isEdit === false">
+              <div *ngIf="childerItem.typeItemMenu.codeType == 'link'">
+<!--                {{childerItem.file.destination.nameDestination}}-->
+              </div>
+            </td>
+            <td *ngIf="childerItem.isEdit === true">
               <select [ngModel]="childerItem.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i, iChildren)">
                 <option [ngValue]="typeItem.id"
                         *ngFor="let typeItem of listTypeItemMenu; let iType = index">{{typeItem.nameType}}</option>
@@ -154,10 +165,10 @@
               <div class="td-right">
                 <div class="edit-button">
                   <button (click)="updateItemMenu(childerItem)" *ngIf="childerItem.isEdit"><img alt=""
-                                                                                                src="assets/edit-menu.svg">
+                                                                                                src="assets/icons/save.svg">
                   </button>
                   <button (click)="changeEditStatus(childerItem)" *ngIf="!childerItem.isEdit"><img alt=""
-                                                                                                   src="assets/new-window.svg">
+                                                                                                   src="assets/icons/edit-2.svg">
                   </button>
                   <button *ngIf="iChildren !== 0" (click)="changePositionUp(i, iChildren)"><img alt="Вверх"
                                                                                                 src="assets/icons/arrow-up.svg">
@@ -176,7 +187,6 @@
         </table>
       </li>
       <hr>
-
     </ul>
 
   </div>
