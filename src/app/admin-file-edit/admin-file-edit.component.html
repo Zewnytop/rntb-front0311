@@ -30,7 +30,7 @@
           <td>
             <div class="edit-button">
               <button (click)="deleteFile(file.id, i)" [disabled]="edit"><img alt="Удалить"
-                [src]=" edit===false? 'assets/icons/trash-2.svg': null "></button>
+                [src]=" edit===false? 'assets/icons/trash-2.svg': 'assets/icons/loader.svg' "></button>
             </div>
           </td>
         </tr>
@@ -59,7 +59,7 @@
     <div class="file-popup-content-area">
       <div>
         <label>
-          <input type="file" multiple (change)="selectFiles($event)"/>
+          <input type="file"  accept=".jpg| .png, .jpeg, .gif, .bmp, .tif, .pdf, .tiff|image/*" multiple (change)="selectFiles($event)"/>
         </label>
         <table>
           <thead>
