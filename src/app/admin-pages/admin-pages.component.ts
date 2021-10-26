@@ -5,7 +5,7 @@ import {VirtualExhibitionService} from "../service/virtual-exhibition.service";
 import {ViewContactObject} from "../../site-object/contact-object";
 import {ContactService} from "../service/contact.service";
 import {HttpClient} from "@angular/common/http";
-import {PageComponentObject, PageObject, ViewPages} from "../../site-object/page-object";
+import {PageComponentObject, PageObject, ViewPageObject} from "../../site-object/page-object";
 import {PageService} from "../service/page.service";
 import {TypeComponentObject} from "../../site-object/typeComponent-object";
 import {MenuObject} from "../../site-object/menu-object";
@@ -20,7 +20,7 @@ export class AdminPagesComponent implements OnInit {
 
   private _listCategoryVirtualExhibition: ViewVirtualExhibitionObject[] = [];
   private _listViewContactBranch: ViewContactObject[] = [];
-  private _listViewPages: ViewPages[] = [];
+  private _listViewPages: ViewPageObject[] = [];
   private _selectedPage: PageObject | null = null;
   private _lang: string = "ru";
 
@@ -40,11 +40,11 @@ export class AdminPagesComponent implements OnInit {
     this._listViewContactBranch = value;
   }
 
-  get listViewPages(): ViewPages[] {
+  get listViewPages(): ViewPageObject[] {
     return this._listViewPages;
   }
 
-  set listViewPages(value: ViewPages[]) {
+  set listViewPages(value: ViewPageObject[]) {
     this._listViewPages = value;
   }
 
@@ -169,7 +169,7 @@ export class AdminPagesComponent implements OnInit {
     }
   }
 
-  updateInfoPage(page: ViewPages): void {
+  updateInfoPage(page: ViewPageObject): void {
     this.pageService.updateInfoPage(page.id, page.name).subscribe(data => {
       page.isEdit = false;
     }, error => {
@@ -203,7 +203,7 @@ export class AdminPagesComponent implements OnInit {
     return block;
   }
 
-  changeEditStatus(item: ViewPages): void {
+  changeEditStatus(item: ViewPageObject): void {
     if (item.isEdit) {
       item.isEdit = false;
     } else {

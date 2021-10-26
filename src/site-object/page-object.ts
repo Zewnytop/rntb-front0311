@@ -15,7 +15,7 @@ export interface PageComponentObject {
   serialNumber: number
 }
 
-export interface ViewPages {
+export interface ViewPageObject {
   id: number,
   name: string,
   isEdit: boolean

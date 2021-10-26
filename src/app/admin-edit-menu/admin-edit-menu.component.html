@@ -6,6 +6,7 @@
   <div class="admin-edit-menu-tables">
     <div class="add-button">
       <button (click)="createItemMenu()">Добавить пункт меню</button>
+      <button (click)="log()">Доasfasfasfю</button>
     </div>
     <ul *ngFor="let itemMenu of listMainItemMenu; let i = index">
       <li>
@@ -41,6 +42,7 @@
           <tr>
             <th>Вложения</th>
             <th>Последнее изменение</th>
+            <th>Страница</th>
             <th>Тип пункта</th>
             <th>Отображать</th>
             <th>
@@ -71,6 +73,16 @@
             <td *ngIf="lang === 'kz' && itemMenu.isEdit === true"><input type="text" [(ngModel)]="itemMenu.nameKz">
             </td>
             <td>{{itemMenu.lastModifiedDate}}</td>
+            <td *ngIf="itemMenu.isEdit === true">
+              <select *ngIf="itemMenu.typeItemMenu.codeType == 'page'" [ngModel]="itemMenu?.page?.id"
+                      (ngModelChange)="setPage($event, i)">
+                <option [value]="null">Пусто</option>
+                <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.name}}</option>
+              </select>
+            </td>
+            <td *ngIf="itemMenu.isEdit === false">
+              {{[itemMenu?.page ? itemMenu?.page?.name : 'Пусто']}}
+            </td>
             <td *ngIf="itemMenu.isEdit === true">
               <select [ngModel]="itemMenu.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i)">
                 <option [ngValue]="typeItem.id"
@@ -117,7 +129,7 @@
           <tr>
             <th>Вложения2</th>
             <th>Последнее изменение</th>
-            <th>Ссылка</th>
+            <th>Страница</th>
             <th>Тип пункта</th>
             <th>Отображать</th>
             <th></th>
@@ -138,14 +150,14 @@
                                                                             [(ngModel)]="childerItem.nameKz">
             <td>{{childerItem.lastModifiedDate}}</td>
             <td *ngIf="childerItem.isEdit === true">
-              <select *ngIf="childerItem.typeItemMenu.codeType == 'link'">
-                <option [ngValue]=""></option>
+              <select *ngIf="childerItem.typeItemMenu.codeType == 'page'" [ngModel]="childerItem?.page?.id"
+                      (ngModelChange)="setPage($event, i, iChildren)">
+                <option [value]="null">Пусто</option>
+                <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.name}}</option>
               </select>
             </td>
             <td *ngIf="childerItem.isEdit === false">
-              <div *ngIf="childerItem.typeItemMenu.codeType == 'link'">
-<!--                {{childerItem.file.destination.nameDestination}}-->
-              </div>
+              {{[childerItem?.page ? childerItem?.page?.name : 'Пусто']}}
             </td>
             <td *ngIf="childerItem.isEdit === true">
               <select [ngModel]="childerItem.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i, iChildren)">

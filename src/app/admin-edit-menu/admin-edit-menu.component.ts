@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../service/menu.service";
 import {MenuObject, TypeMenuItemObject} from "../../site-object/menu-object";
 import {DataObject} from "../../site-object/data-object";
+import {PageService} from "../service/page.service";
+import {ViewPageObject} from "../../site-object/page-object";
 
 @Component({
   selector: 'app-admin-edit-menu',
@@ -12,6 +14,7 @@ export class AdminEditMenuComponent implements OnInit {
 
   private _listMainItemMenu: MenuObject[] = [];
   private _listTypeItemMenu: TypeMenuItemObject[] = [];
+  private _listViewPages: ViewPageObject[] = [];
   private _mainItemMenu: MenuObject | null = null;
   private _lang: string = "ru";
 
@@ -31,6 +34,14 @@ export class AdminEditMenuComponent implements OnInit {
 
   set listTypeItemMenu(value: TypeMenuItemObject[]) {
     this._listTypeItemMenu = value;
+  }
+
+  get listViewPages(): ViewPageObject[] {
+    return this._listViewPages;
+  }
+
+  set listViewPages(value: ViewPageObject[]) {
+    this._listViewPages = value;
   }
 
   get mainItemMenu(): MenuObject | null {
@@ -57,12 +68,13 @@ export class AdminEditMenuComponent implements OnInit {
     this._lang = value;
   }
 
-  constructor(private menuService: MenuService) {
+  constructor(private menuService: MenuService, private pageService: PageService) {
   }
 
   ngOnInit(): void {
     this.getMainitemsMenu(parseInt(localStorage.getItem("BranchId")!!));
     this.getTypeItemMenu();
+    this.getPages();
   }
 
   createItemMenu(idParent: number | null = null, index: number | null = null): void {
@@ -85,7 +97,8 @@ export class AdminEditMenuComponent implements OnInit {
           typeComponent: itemMenu.typeComponent,
           libraryBranch: itemMenu.libraryBranch,
           childerItemMenu: [],
-          typeItemMenu: itemMenu.typeItemMenu
+          typeItemMenu: itemMenu.typeItemMenu,
+          page: itemMenu.page
         })
       }, error => {
         console.log(error)
@@ -109,12 +122,27 @@ export class AdminEditMenuComponent implements OnInit {
           typeComponent: itemMenu.typeComponent,
           libraryBranch: itemMenu.libraryBranch,
           childerItemMenu: [],
-          typeItemMenu: itemMenu.typeItemMenu
+          typeItemMenu: itemMenu.typeItemMenu,
+          page: itemMenu.page
         })
       }, error => {
         console.log(error)
       });
     }
+  }
+
+  getPages(): void { //TODO
+    this.pageService.getListPage(3).subscribe(data => {
+      data.result.forEach(page => {
+        this.listViewPages.push({
+          id: page.id,
+          name: page.name,
+          isEdit: false
+        });
+      });
+    }, error => {
+      console.log(error);
+    });
   }
 
   getMainitemsMenu(idBranch: number): void {
@@ -146,7 +174,8 @@ export class AdminEditMenuComponent implements OnInit {
         typeComponent: item.typeComponent,
         libraryBranch: item.libraryBranch,
         // childerItemMenu: MenuObject[],
-        typeItemMenu: item.typeItemMenu
+        typeItemMenu: item.typeItemMenu,
+        page: item.page
       };
       if (item.childerItemMenu) {
         itemMenu['childerItemMenu'] = this.setListItemMenu(item.childerItemMenu);
@@ -187,7 +216,8 @@ export class AdminEditMenuComponent implements OnInit {
       nameEn: itemMenu?.nameEn,
       nameKz: itemMenu?.nameKz,
       visible: itemMenu!.showItem,
-      typeItemMenu: itemMenu?.typeItemMenu?.id
+      typeItemMenu: itemMenu?.typeItemMenu?.id,
+      pageId: itemMenu?.page?.id
     };
     console.log(body);
     this.menuService.updateItemsMenu(body).subscribe(data => {
@@ -203,6 +233,7 @@ export class AdminEditMenuComponent implements OnInit {
         itemMenu!.typeItemMenu.nameType = item.typeItemMenu.nameType;
         itemMenu!.typeItemMenu.description = item.typeItemMenu.description;
       }
+      this.checkSelectedPage(itemMenu);
       itemMenu!.showItem = item.showItem;
     }, error => {
       this.menuService.getItemMenu(itemMenu!.id).subscribe(data => {
@@ -247,6 +278,30 @@ export class AdminEditMenuComponent implements OnInit {
       this.listMainItemMenu[index].typeItemMenu = type;
     } else {
       this.listMainItemMenu[index].childerItemMenu[childIndex].typeItemMenu = type;
+    }
+  }
+
+  setPage(e: any, index: number, childIndex: number | null = null): void {
+    let page = this.listViewPages.filter(page => page.id === parseInt(e))[0];
+    if (childIndex === null) {
+      this.listMainItemMenu[index].page = page;
+    } else {
+      this.listMainItemMenu[index].childerItemMenu[childIndex].page = page;
+    }
+  }
+
+  checkSelectedPage(itemMenu: MenuObject | null): void {
+    if (itemMenu && itemMenu.page) {
+      for (let mainItemMenu of this.listMainItemMenu) {
+        if (mainItemMenu.page && itemMenu.id !== mainItemMenu.id && mainItemMenu.page.id == itemMenu.page.id) {
+          mainItemMenu.page = null;
+        }
+        for (let childerItemMenu of mainItemMenu.childerItemMenu) {
+          if (childerItemMenu.page && itemMenu.id !== childerItemMenu.id && childerItemMenu.page.id == itemMenu.page.id) {
+            childerItemMenu.page = null;
+          }
+        }
+      }
     }
   }
 
@@ -346,13 +401,13 @@ export class AdminEditMenuComponent implements OnInit {
     // console.log(this.edit);
     console.log(this.listMainItemMenu);
     console.log(this.listTypeItemMenu);
-    console.log(document.baseURI)
-    const ur = "http://rntb.timir.kz/";
-    const ur2 = "https://ast.rntb.timir.kz/";
-    const ur3 = ur.replace(/.*\/\//, '');
-    const ur4 = ur2.replace(/.*\/\//, '');
-    console.log(ur3)
-    console.log(ur3.replace('/', ''))
+    // console.log(document.baseURI)
+    // const ur = "http://rntb.timir.kz/";
+    // const ur2 = "https://ast.rntb.timir.kz/";
+    // const ur3 = ur.replace(/.*\/\//, '');
+    // const ur4 = ur2.replace(/.*\/\//, '');
+    // console.log(ur3)
+    // console.log(ur3.replace('/', ''))
     // console.log(ur3.split('.', 1))
     // console.log(ur4.split('.', 1))
 
