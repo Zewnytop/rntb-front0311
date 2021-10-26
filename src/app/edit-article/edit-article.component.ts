@@ -11,8 +11,27 @@ import * as CustomEditor from '../../ckeditor5custom/build/ckeditor';
 export class EditArticleComponent implements OnInit {
   public Editor = CustomEditor;
   public tst = '';
+  private _article : string = 'article1';
+  private _edit: boolean = false;
+
+  get edit(): boolean {
+    return this._edit;
+  }
+
+  set edit(value: boolean) {
+    this._edit = value;
+  }
+
+  get article(): string {
+    return this._article;
+  }
+
+  set article(value: string) {
+    this._article = value;
+  }
 
   constructor() { }
+
 
   ngOnInit(): void {
   }
