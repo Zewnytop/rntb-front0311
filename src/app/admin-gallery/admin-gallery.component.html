@@ -90,7 +90,7 @@
       <!--    <div class="carousel-block" *ngFor="let book of virtualExhibition.books; let iBook = index">-->
       <div [class]="iBook === 0 ? 'carousel-block-first' : 'carousel-block'">
         <div (click)="getSelectedBook(book.id)">
-          <img alt="Обложка" class="img-carousel" [src]="previewCover(book.file!.id!)">
+          <img alt="Обложка" class="img-carousel" [src]="previewCover(book.file!.id!)" *ngIf="book.file">
         </div>
         <button (click)="moveBookLeft(iBook)" *ngIf="iBook !==0">Лево</button>
         <button (click)="unhookBook(book.id, iBook)">Удалить</button>

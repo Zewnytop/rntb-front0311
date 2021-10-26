@@ -1,18 +1,18 @@
 <div class="pages">
   <h4>Настройка страниц</h4>
   <div>
-    <label>
-      <input type="radio" [(ngModel)]="lang" value="ru">
-      RU
-    </label>
-    <label>
-      <input type="radio" [(ngModel)]="lang" value="eng">
-      ENG
-    </label>
-    <label>
-      <input type="radio" [(ngModel)]="lang" value="kz">
-      KZ
-    </label>
+    <!--    <label>-->
+    <!--      <input type="radio" [(ngModel)]="lang" value="ru">-->
+    <!--      RU-->
+    <!--    </label>-->
+    <!--    <label>-->
+    <!--      <input type="radio" [(ngModel)]="lang" value="eng">-->
+    <!--      ENG-->
+    <!--    </label>-->
+    <!--    <label>-->
+    <!--      <input type="radio" [(ngModel)]="lang" value="kz">-->
+    <!--      KZ-->
+    <!--    </label>-->
   </div>
   <div style="display: flex;">
     <table class="file-table">
@@ -29,9 +29,15 @@
         <td>{{component.typeComponent.name}}</td>
         <td>
           <div class="edit-button">
-            <button><img src="/assets/icons/arrow-up.svg" alt="Элемент вверх"></button>
-            <button><img src="/assets/icons/arrow-down.svg" alt="Элемент вниз"></button>
-            <button><img src="/assets/icons/trash-2.svg" alt="Удалить"></button>
+            <button (click)="changePositionUp(i)" *ngIf="i !== 0">
+              <img src="/assets/icons/arrow-up.svg" alt="Элемент вверх">
+            </button>
+            <button (click)="changePositionDown(i)" *ngIf="i !== (selectedPage!.components.length - 1)">
+              <img src="/assets/icons/arrow-down.svg" alt="Элемент вниз">
+            </button>
+            <button (click)="deleteComponentOnPage(component.id, i)">
+              <img src="/assets/icons/trash-2.svg" alt="Удалить">
+            </button>
           </div>
         </td>
       </tr>
@@ -79,8 +85,11 @@
                                                             placeholder="nameKz"></td>
         <td>
           <div class="edit-button">
-            <button (click)="addComponentOnPage(category.id, category.typeComponent)"><img
-              src="/assets/icons/plus-circle.svg" alt="Выбрать">
+            <button (click)="addComponentOnPage(category.id, category.typeComponent)"
+                    [disabled]="blockButtonAddComponent(category.id)">
+              <img
+                [src]="[blockButtonAddComponent(category.id)? 'assets/icons/alert-circle.svg' : '/assets/icons/plus-circle.svg']"
+                alt="Выбрать">
             </button>
           </div>
         </td>
@@ -99,9 +108,12 @@
         <td>{{contactBranch.name}}</td>
         <td>
           <div class="edit-button">
-            <button (click)="addComponentOnPage(contactBranch.id, contactBranch.typeComponent)"><img
-              src="/assets/icons/plus-circle.svg"
-              alt="Выбрать"></button>
+            <button (click)="addComponentOnPage(contactBranch.id, contactBranch.typeComponent)"
+                    [disabled]="blockButtonAddComponent(contactBranch.id)">
+              <img
+                [src]="[blockButtonAddComponent(contactBranch.id)? 'assets/icons/alert-circle.svg' : '/assets/icons/plus-circle.svg']"
+                alt="Выбрать">
+            </button>
           </div>
         </td>
       </tr>
@@ -109,12 +121,12 @@
     </table>
   </div>
 
-  <button (click)="savePage()">Сохранить</button>
+  <!--  <button (click)="savePage()">Сохранить</button>-->
   <hr>
   <div *ngIf="selectedPage && selectedPage.components">
     <ng-template ngFor let-component [ngForOf]="selectedPage.components">
       <app-gallery *ngIf="component.typeComponent.code === 'VirExhibition'"></app-gallery>
-      <app-contacts *ngIf="component.typeComponent.code ===  'Contact'"></app-contacts>
+      <app-contacts *ngIf="component.typeComponent.code ===  'Contact'" [id]="component.idComponent"></app-contacts>
       <!--              <app-article></app-article>-->
     </ng-template>
   </div>

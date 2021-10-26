@@ -26,4 +26,14 @@ export class PageService {
     return this.httpClient.post<DataSingleObject>(url, component);
   }
 
+  deleteComponentOnPage(idComponent: number): Observable<DataSingleObject> {
+    const url = `/api/build/page/remove/${idComponent}`;
+    return this.httpClient.delete<DataSingleObject>(url);
+  }
+
+  updatePositionComponentOnPage(listPosition: any[]): Observable<DataSingleObject> {
+    const url = `/api/build/page/position`;
+    return this.httpClient.put<DataSingleObject>(url, listPosition);
+  }
+
 }

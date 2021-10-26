@@ -106,6 +106,7 @@ export class AdminGalleryComponent implements OnInit {
     const idCategory = this.listCategoryVirtualExhibition[index].id;
     this.virtualExhibitionService.getCategory(idCategory).subscribe(data => {
       this.listCategoryVirtualExhibition[index] = data.result;
+      console.log(data);
     }, error => {
       console.log(error);
     });

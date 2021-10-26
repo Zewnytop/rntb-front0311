@@ -109,6 +109,7 @@ export class AdminPagesComponent implements OnInit {
     });
   }
 
+
   createPage(): void {
     const url = `/api/build/page/new/page`;
     this.httpClient.post<any>(url, null).subscribe((data) => {
@@ -156,6 +157,7 @@ export class AdminPagesComponent implements OnInit {
         const newComponent = data.result;
         this.selectedPage?.components.push({
           id: newComponent.id,
+          idComponent: newComponent.idComponent,
           name: newComponent.name,
           typeComponent: newComponent.typeComponent,
           serialNumber: newComponent.serialNumber,
@@ -164,6 +166,74 @@ export class AdminPagesComponent implements OnInit {
         console.log(error);
       });
     }
+  }
+
+  deleteComponentOnPage(idComponent: number, index: number): void {
+    this.pageService.deleteComponentOnPage(idComponent).subscribe(data => {
+      this.selectedPage?.components.splice(index, 1);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  blockButtonAddComponent(idComponent: number): boolean {
+    let block = false;
+    if (this.selectedPage && this.selectedPage.components.length) {
+      for (let component of this.selectedPage.components) {
+        if (component.idComponent === idComponent) {
+          return true;
+        }
+      }
+    }
+    return block;
+  }
+
+  changePositionUp(index: number): void {
+    let listPosition = [];
+    const componentPage = this.selectedPage!.components[index];
+    const nextComponentPage = this.selectedPage!.components[index - 1];
+    listPosition.push({
+      id: componentPage?.id,
+      serialNumber: nextComponentPage?.serialNumber
+    }, {
+      id: nextComponentPage?.id,
+      serialNumber: componentPage?.serialNumber
+    });
+    this.pageService.updatePositionComponentOnPage(listPosition).subscribe(data => {
+      this.selectedPage!.components[index] = nextComponentPage;
+      this.selectedPage!.components[index - 1] = componentPage;
+      const serialNumber = this.selectedPage!.components[index].serialNumber;
+      const nextSerialNumber = this.selectedPage!.components[index - 1].serialNumber;
+      this.selectedPage!.components[index].serialNumber = nextSerialNumber;
+      this.selectedPage!.components[index - 1].serialNumber = serialNumber;
+    }, error => {
+      console.log(error);
+    });
+    console.log(this.selectedPage);
+  }
+
+  changePositionDown(index: number): void {
+    let listPosition = [];
+    const componentPage = this.selectedPage!.components[index];
+    const nextComponentPage = this.selectedPage!.components[index + 1];
+    listPosition.push({
+      id: componentPage?.id,
+      serialNumber: nextComponentPage?.serialNumber
+    }, {
+      id: nextComponentPage?.id,
+      serialNumber: componentPage?.serialNumber
+    });
+    this.pageService.updatePositionComponentOnPage(listPosition).subscribe(data => {
+      this.selectedPage!.components[index] = nextComponentPage;
+      this.selectedPage!.components[index + 1] = componentPage;
+      const serialNumber = this.selectedPage!.components[index].serialNumber;
+      const nextSerialNumber = this.selectedPage!.components[index + 1].serialNumber;
+      this.selectedPage!.components[index].serialNumber = nextSerialNumber;
+      this.selectedPage!.components[index + 1].serialNumber = serialNumber;
+    }, error => {
+      console.log(error);
+    });
+    console.log(this.selectedPage);
   }
 
   savePage(): void {
