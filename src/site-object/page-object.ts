@@ -17,5 +17,6 @@ export interface PageComponentObject {
 
 export interface ViewPages {
   id: number,
-  name: string
+  name: string,
+  isEdit: boolean
 }
