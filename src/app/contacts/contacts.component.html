@@ -7,72 +7,41 @@
       <hr class="title-hr-second">
     </div>
     <div class="contact-map-box">
-      <div class="contact-map">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2905.995163113485!2d76.91192371591033!3d43.25152317913716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3883694bbe3cbd31%3A0x41d06ef0c602f3c4!2z0YPQuy4g0JzRg9C60LDQvdC-0LLQsCAyMjPQsiwg0JDQu9C80LDRgtGLIDA1MDAwMA!5e0!3m2!1sru!2skz!4v1628583965969!5m2!1sru!2skz"
-          width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      <div class="contact-map" *ngIf="branchContact">
+        <iframe [src]="getMapSrc(branchContact.navigationMap)" *ngIf="branchContact.navigationMap"
+                width="1300" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
       <div class="contact-box">
-        <div class="contact-box-title">АДМИНИСТРАТИВНЫЙ БЛОК</div>
-        <div class="contact-box-context">Республика Казахстан, 050026, г.Алматы, ул. С.Муканова, 223б e-mail:
-          rntb@rntb.kz
+        <div class="contact-box-title">{{branchContact?.nameContact}}</div>
+        <div class="contact-box-context">{{branchContact?.address}}
+          e-mail: {{branchContact?.email}}
         </div>
       </div>
     </div>
-
-    <div class="table">
-      <table class="contact-table">
-        <tr class="tr-main">
-          <th class="first-th">Должность</th>
-          <th class="second-th">ФИО</th>
-          <th class="third-th">Телефон</th>
-        </tr>
-      </table>
-      <div class="strip">
-        <div class="strip-svg"></div>
-        <div class="strip-hr-svg"></div>
-        <div class="strip-svg"></div>
+    <ng-template [ngIf]="branchContact">
+      <div class="table" *ngIf="branchContact.iternalContacts.length">
+        <table class="contact-table">
+          <tr class="tr-main">
+            <th class="first-th">Должность</th>
+            <th class="second-th">ФИО</th>
+            <th class="third-th">Телефон</th>
+          </tr>
+        </table>
+        <div class="strip">
+          <div class="strip-svg"></div>
+          <div class="strip-hr-svg"></div>
+          <div class="strip-svg"></div>
+        </div>
+        <table class="contact-table">
+          <tr class="tr-text" *ngFor="let iternalContact of branchContact?.iternalContacts">
+            <td class="first-th">{{iternalContact.position}}</td>
+            <td class="second-th">{{iternalContact.fio}}</td>
+            <td class="third-th">{{iternalContact.phoneNumber}}</td>
+          </tr>
+        </table>
+        <hr class="hr-last-child">
       </div>
-      <table class="contact-table">
-        <tr class="tr-text">
-          <td class="first-th">Президент</td>
-          <td class="second-th">Урмурзина Кама Газизовна</td>
-          <td class="third-th">378-41-95 <br>(приемная)</td>
-        </tr>
-        <tr class="tr-text">
-          <td class="first-th">Вице-президент по библиотечной работе и инновациям </td>
-          <td class="second-th">Соловьева Ирина Владимировна</td>
-          <td class="third-th">378-36-68</td>
-        </tr>
-        <tr class="tr-text">
-          <td class="first-th">Директор финансовой службы</td>
-          <td class="second-th">Иманкулова Алия Уалихановна</td>
-          <td class="third-th">378-41-91</td>
-        </tr>
-        <tr class="tr-text">
-          <td class="first-th">Главный бухгалтер</td>
-          <td class="second-th">—</td>
-          <td class="third-th">378-41-91</td>
-        </tr>
-        <tr class="tr-text">
-          <td class="first-th">Директор хозяйственной службы</td>
-          <td class="second-th">—</td>
-          <td class="third-th">378-41-90</td>
-        </tr>
-        <tr class="tr-text">
-          <td class="first-th">Директор финансовой службы</td>
-          <td class="second-th">Иманкулова Алия Уалихановна</td>
-          <td class="third-th">378-41-91</td>
-        </tr>
-        <tr class="tr-text">
-          <td class="first-th">Директор финансовой службы</td>
-          <td class="second-th">Иманкулова Алия Уалихановна</td>
-          <td class="third-th">378-41-91</td>
-        </tr>
-      </table>
-      <hr class="hr-last-child">
-    </div>
-
+    </ng-template>
   </div>
 </div>
 

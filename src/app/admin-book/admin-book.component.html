@@ -1,6 +1,7 @@
 <div>
   <h2><b>Книги</b></h2>
 </div>
+<button (click)="createBook()">Создать</button>
 <div class="admin-book">
   <div class="admin-book-table" style="overflow:auto; height: 690px;">
     <table class="file-table" style="overflow: auto;">
@@ -128,7 +129,6 @@
         </tbody>
       </table>
       <div>
-        <button (click)="createBook()">Создать</button>
         <button (click)="updateBook()">Сохранить</button>
       </div>
     </div>

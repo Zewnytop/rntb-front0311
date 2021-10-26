@@ -126,7 +126,7 @@
   <div *ngIf="selectedPage && selectedPage.components">
     <ng-template ngFor let-component [ngForOf]="selectedPage.components">
       <app-gallery *ngIf="component.typeComponent.code === 'VirExhibition'"></app-gallery>
-      <app-contacts *ngIf="component.typeComponent.code ===  'Contact'"></app-contacts>
+      <app-contacts *ngIf="component.typeComponent.code ===  'Contact'" [id]="component.idComponent"></app-contacts>
       <!--              <app-article></app-article>-->
     </ng-template>
   </div>
