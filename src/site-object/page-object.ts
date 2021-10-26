@@ -9,6 +9,7 @@ export interface PageObject {
 
 export interface PageComponentObject {
   id: number,
+  idComponent: number,
   name: string,
   typeComponent: TypeComponentObject,
   serialNumber: number
