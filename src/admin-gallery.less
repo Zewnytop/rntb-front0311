@@ -74,6 +74,14 @@
   background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
   z-index: 1;
 
+  .div-close{
+    position: absolute;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
   .popup-close-button {
     position: absolute;
     top: 15px;
@@ -102,7 +110,7 @@
     align-content: flex-start;
     flex-wrap: wrap;
     box-sizing: border-box;
-    z-index: 2;
+    z-index: 333;
 
     .popup-img {
       flex: 1 1 270px;

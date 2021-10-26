@@ -73,7 +73,7 @@
           <div class="edit-button">
             <button (click)="addBookInCategory(viewBook.id)" [disabled]="blockButtonAddBook(viewBook.id)">
               <img alt="Редактирование"
-                   [src]="[blockButtonAddBook(viewBook.id)? 'assets/icons/alert-circle.svg' : 'assets/icons/edit-2.svg']">
+                   [src]="[blockButtonAddBook(viewBook.id)? 'assets/icons/check.svg' : 'assets/icons/plus.svg']">
             </button>
           </div>
         </td>
@@ -108,7 +108,10 @@
 
 <button (click)="close=true" class="proverkaa">Проверка попап</button>
 
-<div class="gallery-popup" *ngIf="close" (click)="close=false">
+<div class="gallery-popup" *ngIf="close">
+  <a class="div-close" (click)="close=false">
+
+  </a>
   <div class="popup-close-button">
     <div class="edit-button">
       <button (click)="close=false"><img alt="Круг стрелка" src="assets/icons/x-circle.svg"></button>
