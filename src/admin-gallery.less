@@ -72,7 +72,7 @@
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-  z-index: 4444;
+  z-index: 1;
 
   .popup-close-button {
     position: absolute;
@@ -102,15 +102,17 @@
     align-content: flex-start;
     flex-wrap: wrap;
     box-sizing: border-box;
+    z-index: 2;
 
     .popup-img {
-      flex: 1 1 300px;
+      flex: 1 1 270px;
       width: 30%;
 
       img {
         width: 100%;
         height: auto;
         max-width: 400px;
+        max-height: 505px;
         overflow: auto;
       }
     }
@@ -118,6 +120,8 @@
     .popup-text {
       flex: 1 1 333.3px;
       width: 70%;
+      max-height: 505px;
+      overflow: scroll;
       padding-left: 20px;
     }
   }

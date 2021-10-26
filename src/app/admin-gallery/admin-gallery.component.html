@@ -108,7 +108,7 @@
 
 <button (click)="close=true" class="proverkaa">Проверка попап</button>
 
-<div class="gallery-popup" *ngIf="close">
+<div class="gallery-popup" *ngIf="close" (click)="close=false">
   <div class="popup-close-button">
     <div class="edit-button">
       <button (click)="close=false"><img alt="Круг стрелка" src="assets/icons/x-circle.svg"></button>
