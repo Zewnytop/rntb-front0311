@@ -18,6 +18,7 @@
       </label>
     </div>
     <table class="file-table">
+      <caption><strong>Сеты</strong></caption>
       <thead>
       <tr>
         <th>Название</th>
@@ -31,33 +32,34 @@
       <tbody>
       <tr *ngFor="let category of listCategoryVirtualExhibition; let i = index">
         <td *ngIf="lang === 'ru' && !category.isEdit">{{category.nameRu}}</td>
-        <td *ngIf="lang === 'ru' && category.isEdit"><input type="text" [(ngModel)]="category.nameRu"
+        <td *ngIf="lang === 'ru' && category.isEdit" class="edit-input2"><input type="text" [(ngModel)]="category.nameRu"
                                                             placeholder="nameRu"></td>
         <td *ngIf="lang === 'eng' && !category.isEdit">{{category.nameEn}}</td>
-        <td *ngIf="lang === 'eng' && category.isEdit"><input type="text" [(ngModel)]="category.nameEn"
+        <td *ngIf="lang === 'eng' && category.isEdit" class="edit-input2"><input type="text" [(ngModel)]="category.nameEn"
                                                              placeholder="nameEn"></td>
         <td *ngIf="lang === 'kz' && !category.isEdit">{{category.nameKz}}</td>
-        <td *ngIf="lang === 'kz' && category.isEdit"><input type="text" [(ngModel)]="category.nameKz"
+        <td *ngIf="lang === 'kz' && category.isEdit" class="edit-input2"><input type="text" [(ngModel)]="category.nameKz"
                                                             placeholder="nameKz"></td>
         <td>{{category.lastModifiedDate}}</td>
         <td *ngIf="!category.isEdit">{{[category.showOnPage ? 'Да' : 'Нет']}}</td>
         <td *ngIf="category.isEdit"><input type="checkbox" [(ngModel)]="category.showOnPage"></td>
-        <td *ngIf="!category.isEdit">
-          <button (click)="changeEditStatus(i)">Редактировать</button>
+        <td *ngIf="!category.isEdit" class="edit-button">
+          <button (click)="changeEditStatus(i)"><img src="assets/icons/edit-2.svg"></button>
         </td>
-        <td *ngIf="category.isEdit">
-          <button (click)="updateCategory(i)">Сохранить</button>
+        <td *ngIf="category.isEdit" class="edit-button">
+          <button (click)="updateCategory(i)"><img src="assets/icons/save.svg"></button>
         </td>
         <td>
           <button (click)="getBooksByCategory(category.id)">Книги</button>
         </td>
-        <td>
-          <button (click)="deleteCategory(category.id, i)">Удалить</button>
+        <td class="edit-button">
+          <button (click)="deleteCategory(category.id, i)"><img src="assets/icons/trash-2.svg"></button>
         </td>
       </tr>
       </tbody>
     </table>
     <table class="file-table">
+      <caption><strong>Книги</strong></caption>
       <thead>
       <tr>
         <th>Название</th>
@@ -73,7 +75,7 @@
           <div class="edit-button">
             <button (click)="addBookInCategory(viewBook.id)" [disabled]="blockButtonAddBook(viewBook.id)">
               <img alt="Редактирование"
-                   [src]="[blockButtonAddBook(viewBook.id)? 'assets/icons/alert-circle.svg' : 'assets/icons/edit-2.svg']">
+                   [src]="[blockButtonAddBook(viewBook.id)? 'assets/icons/check.svg' : 'assets/icons/plus.svg']">
             </button>
           </div>
         </td>
@@ -109,6 +111,9 @@
 <button (click)="close=true" class="proverkaa">Проверка попап</button>
 
 <div class="gallery-popup" *ngIf="close">
+  <a class="div-close" (click)="close=false">
+
+  </a>
   <div class="popup-close-button">
     <div class="edit-button">
       <button (click)="close=false"><img alt="Круг стрелка" src="assets/icons/x-circle.svg"></button>
