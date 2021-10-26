@@ -1,74 +1,83 @@
-
+<div>
+  <p><b>Редактирование статей</b></p>
+</div>
 <div class="edit-article">
-  <div class="edit-article-head">
-    <ul>
-      <li>Статьи</li>
-      <li>Страница Президента</li>
-      <li>Новостные блоки</li>
-    </ul>
-  </div>
+<!--  <div class="edit-article-head">-->
+<!--    <ul>-->
+<!--      <li (click)="article = 'article1'">Статьи</li>-->
+<!--      <li (click)="article = 'article2'">Личная статья</li>-->
+<!--    </ul>-->
+<!--  </div>-->
 
-  <div class="edit-article-space">
-    <div class="edit-article-image">
-      <div></div>
-      <a>Загрузить изображение</a>
-      <!--350x250-->
-      <p><input type="file" name="photo" multiple accept="image/*,image/jpeg">
-        <input type="submit" value="Отправить"></p>
-    </div>
-    <div class="article-table">
-      <table>
+  <ng-template [ngIf]="edit==false">
+    <div class="edit-article-table">
+      <table class="file-table">
+        <caption><strong>Статьи</strong></caption>
         <thead>
         <tr>
           <th>Заголовок</th>
-          <th>Описание</th>
-          <th>Содержание</th>
-          <th>Дата</th>
+          <th>Последнее изменение</th>
+          <th>Тип</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
-          </td>
-          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
-          </td>
-          <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
-          </td>
+          <td>Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem</td>
           <td>19.08.2021</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>Статья</td>
+          <td class="edit-button"><button (click)="edit=true"><img src="assets/icons/edit-2.svg"></button></td>
         </tr>
         </tbody>
       </table>
-    </div>
-    <div class="edit-article-text">
-      <div>
-        <form>
-          <label for="title"><b>Заголовок:</b></label>
-          <input type="text" id="title" placeholder="Заголовок">
-        </form>
-        <form>
-          <label for="description"><b>Описание:</b></label>
-          <input type="text" id="description" placeholder="Описание">
-        </form>
+      <div class="add-button">
+        <button>Создать статью</button>
       </div>
-        <ckeditor [(ngModel)]="tst" [editor]="Editor" [config]="config"></ckeditor>
     </div>
-  </div>
+  </ng-template>
+  <ng-template [ngIf]="edit==true">
+    <div class="edit-article-space">
+
+      <div class="edit-article-text">
+        <form>
+          <label><strong>Тип статьи:</strong></label>
+          <select [(ngModel)]="article">
+            <option [value]="'article1'">Статья</option>
+            <option [value]="'article2'">Личная статья</option>
+          </select>
+        </form>
+
+        <ng-template [ngIf]="article=='article1'">
+          <div class="edit-article-image">
+            <p><strong>Обложка</strong></p>
+            <div></div>
+            <a>Загрузить изображение</a>
+            <!--350x250-->
+            <p><input type="file" name="photo" multiple accept="image/*,image/jpeg">
+              <input type="submit" value="Отправить"></p>
+          </div>
+        </ng-template>
+        <div>
+          <form>
+            <label for="title"><b>Заголовок:</b></label>
+            <input type="text" id="title" placeholder="Заголовок">
+          </form>
+          <ng-template [ngIf]="article=='article1'">
+            <form>
+              <label for="description"><b>Описание:</b></label>
+              <input type="text" id="description" placeholder="Описание">
+            </form>
+          </ng-template>
+          <p><b>Текст:</b></p>
+          <ckeditor [(ngModel)]="tst" [editor]="Editor" [config]="config"></ckeditor>
+        </div>
+      </div>
+      <div class="add-button">
+        <button (click)="edit=false">Сохранить</button>
+      </div>
+    </div>
     <div class="ck-content" [InsertHtml]="tst">
 
     </div>
+  </ng-template>
 </div>
