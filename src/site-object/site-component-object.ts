@@ -12,3 +12,13 @@ export interface SiteIternalContactObject {
   fio: string,
   phoneNumber: string
 }
+
+export interface VirtualExhibitionObject {
+  name: string,
+  books: ViewBookVirtualExhibitionObject[]
+}
+
+export interface ViewBookVirtualExhibitionObject {
+  idBook: number,
+  idCoverImage: number
+}
