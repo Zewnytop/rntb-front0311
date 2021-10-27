@@ -12,7 +12,6 @@ import {SitePageObject} from "../../site-object/site-component-object";
 export class SitePageComponent implements OnInit {
 
   private id: number | null = null;
-  private subscription: Subscription | null = null;
   private _page: SitePageObject | null = null;
 
   get page(): SitePageObject | null {
@@ -24,11 +23,13 @@ export class SitePageComponent implements OnInit {
   }
 
   constructor(private sitePageService: SitePageService, private activatedRoute: ActivatedRoute) {
-    this.subscription = activatedRoute.params.subscribe(params => this.id = params['id']);
   }
 
   ngOnInit(): void {
-    this.getPage();
+    this.activatedRoute.params.subscribe(params => {
+      this.id = params['id'];
+      this.getPage();
+    });
   }
 
   getPage(): void {
