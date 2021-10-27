@@ -31,7 +31,7 @@ export class FooterComponent implements OnInit {
   getMainitemsMenu(): void {
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    const url = `/api/page/menu/${baseURI}`;
+    const url = `/api/site/menu/${baseURI}`;
     this.httpClient.get<any>(url).subscribe(data => {
       console.log(data);
       this.listMainItemMenu = this.setListItemMenu(data.result);

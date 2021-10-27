@@ -11,8 +11,18 @@ export class SitePageService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getContact(id: number | null, lang: string): Observable<DataSingleObject> {
-    const url = `/api/site/contact/${id}/${lang}`;
+  getContact(idContact: number | null, lang: string): Observable<DataSingleObject> {
+    const url = `/api/site/contact/${idContact}/${lang}`;
+    return this.httpClient.get<DataSingleObject>(url);
+  }
+
+  getCategoriesVirtualExhibition(idCategory: number, lang: string): Observable<DataSingleObject> {
+    const url = `/api/site/category/${idCategory}/${lang}`;
+    return this.httpClient.get<DataSingleObject>(url);
+  }
+
+  getPage(idPage: number): Observable<DataSingleObject> {
+    const url = `/api/site/page/${idPage}`;
     return this.httpClient.get<DataSingleObject>(url);
   }
 }

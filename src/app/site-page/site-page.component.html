@@ -1,6 +1,9 @@
 <app-menu></app-menu>
-<app-contacts></app-contacts>
-<app-article></app-article>
-<app-map></app-map>
-<app-gallery></app-gallery>
+<h1>{{page?.name}}</h1>
+<ng-template ngFor let-component [ngForOf]="page?.components" let-i="index">
+  <app-contacts *ngIf="component.codeType === 'Contact'" [id]="component.idComponent"></app-contacts>
+  <app-article *ngIf="component.codeType === 'Article'" [id]="component.idComponent"></app-article>
+  <!--<app-map></app-map>-->
+  <app-gallery *ngIf="component.codeType === 'VirExhibition'" [id]="component.idComponent"></app-gallery>
+</ng-template>
 <app-footer></app-footer>

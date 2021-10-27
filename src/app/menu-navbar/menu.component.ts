@@ -39,7 +39,7 @@ export class MenuComponent implements OnInit {
   getNameBranch(): void {
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    const url = `/api/page/name/${baseURI}`;
+    const url = `/api/site/name/${baseURI}`;
     console.log("adsad")
     this.httpClient.get(url, {responseType: 'text'}).subscribe(data => {
       this.branchName = data;
@@ -52,7 +52,7 @@ export class MenuComponent implements OnInit {
   getMainitemsMenu(): void {
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    const url = `/api/page/menu/${baseURI}`;
+    const url = `/api/site/menu/${baseURI}`;
     this.httpClient.get<any>(url).subscribe(data => {
       console.log(data);
       this.listMainItemMenu = this.setListItemMenu(data.result);
@@ -81,7 +81,8 @@ export class MenuComponent implements OnInit {
         typeComponent: item.typeComponent,
         libraryBranch: item.libraryBranch,
         // childerItemMenu: MenuObject[],
-        typeItemMenu: item.typeItemMenu
+        typeItemMenu: item.typeItemMenu,
+        page: item.page
       };
       if (item.childerItemMenu) {
         itemMenu['childerItemMenu'] = this.setListItemMenu(item.childerItemMenu);

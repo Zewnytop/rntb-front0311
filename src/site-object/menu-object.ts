@@ -1,6 +1,7 @@
 import {FileObject} from "./file-object";
 import {LibraryBranchObject} from "./libraryBranch-object";
 import {TypeComponentObject} from "./typeComponent-object";
+import {ViewPageObject} from "./page-object";
 
 export interface MenuObject {
   id: number,
@@ -18,6 +19,7 @@ export interface MenuObject {
   libraryBranch: LibraryBranchObject,
   childerItemMenu: MenuObject[],
   typeItemMenu: TypeMenuItemObject
+  page: ViewPageObject | null
 }
 
 export interface TypeMenuItemObject {

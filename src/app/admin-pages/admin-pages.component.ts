@@ -5,9 +5,10 @@ import {VirtualExhibitionService} from "../service/virtual-exhibition.service";
 import {ViewContactObject} from "../../site-object/contact-object";
 import {ContactService} from "../service/contact.service";
 import {HttpClient} from "@angular/common/http";
-import {PageComponentObject, PageObject, ViewPages} from "../../site-object/page-object";
+import {PageComponentObject, PageObject, ViewPageObject} from "../../site-object/page-object";
 import {PageService} from "../service/page.service";
 import {TypeComponentObject} from "../../site-object/typeComponent-object";
+import {MenuObject} from "../../site-object/menu-object";
 
 
 @Component({
@@ -19,7 +20,7 @@ export class AdminPagesComponent implements OnInit {
 
   private _listCategoryVirtualExhibition: ViewVirtualExhibitionObject[] = [];
   private _listViewContactBranch: ViewContactObject[] = [];
-  private _listViewPages: ViewPages[] = [];
+  private _listViewPages: ViewPageObject[] = [];
   private _selectedPage: PageObject | null = null;
   private _lang: string = "ru";
 
@@ -39,11 +40,11 @@ export class AdminPagesComponent implements OnInit {
     this._listViewContactBranch = value;
   }
 
-  get listViewPages(): ViewPages[] {
+  get listViewPages(): ViewPageObject[] {
     return this._listViewPages;
   }
 
-  set listViewPages(value: ViewPages[]) {
+  set listViewPages(value: ViewPageObject[]) {
     this._listViewPages = value;
   }
 
@@ -111,13 +112,12 @@ export class AdminPagesComponent implements OnInit {
 
 
   createPage(): void {
-    const url = `/api/build/page/new/page`;
-    this.httpClient.post<any>(url, null).subscribe((data) => {
-      // this.listPage.push({
-      //   id: data.id,
-      //   name: data.name,
-      //   component: []
-      // });
+    this.pageService.createPage().subscribe(data => {
+      this.listViewPages.push({
+        id: data.result.id,
+        name: data.result.name,
+        isEdit: true
+      });
     }, error => {
       console.log(error);
     });
@@ -128,7 +128,8 @@ export class AdminPagesComponent implements OnInit {
       data.result.forEach(page => {
         this.listViewPages.push({
           id: page.id,
-          name: page.name
+          name: page.name,
+          isEdit: false
         });
       });
     }, error => {
@@ -168,6 +169,20 @@ export class AdminPagesComponent implements OnInit {
     }
   }
 
+  updateInfoPage(page: ViewPageObject): void {
+    this.pageService.updateInfoPage(page.id, page.name).subscribe(data => {
+      page.isEdit = false;
+    }, error => {
+      this.pageService.getPage(page.id).subscribe(data => {
+        page.name = data.result.name;
+      }, error1 => {
+        console.log(error1)
+      });
+      page.isEdit = false;
+      console.log(error);
+    });
+  }
+
   deleteComponentOnPage(idComponent: number, index: number): void {
     this.pageService.deleteComponentOnPage(idComponent).subscribe(data => {
       this.selectedPage?.components.splice(index, 1);
@@ -186,6 +201,23 @@ export class AdminPagesComponent implements OnInit {
       }
     }
     return block;
+  }
+
+  changeEditStatus(item: ViewPageObject): void {
+    if (item.isEdit) {
+      item.isEdit = false;
+    } else {
+      item.isEdit = true;
+    }
+  }
+
+  deletePage(idPage: number, index: number): void {
+    this.pageService.deletePage(idPage).subscribe(data => {
+      this.listViewPages.splice(index, 1);
+      this.selectedPage = null;
+    }, error => {
+      console.log(error);
+    });
   }
 
   changePositionUp(index: number): void {
@@ -235,8 +267,4 @@ export class AdminPagesComponent implements OnInit {
     });
     console.log(this.selectedPage);
   }
-
-  savePage(): void {
-  }
-
 }

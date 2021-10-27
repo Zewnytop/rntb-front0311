@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SitePageService} from "../service/site-page.service";
+import {ActivatedRoute} from "@angular/router";
+import {Subscription} from "rxjs";
+import {SitePageObject} from "../../site-object/site-component-object";
 
 @Component({
   selector: 'app-site-page',
@@ -7,9 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SitePageComponent implements OnInit {
 
-  constructor() { }
+  private id: number | null = null;
+  private subscription: Subscription | null = null;
+  private _page: SitePageObject | null = null;
+
+  get page(): SitePageObject | null {
+    return this._page;
+  }
+
+  set page(value: SitePageObject | null) {
+    this._page = value;
+  }
+
+  constructor(private sitePageService: SitePageService, private activatedRoute: ActivatedRoute) {
+    this.subscription = activatedRoute.params.subscribe(params => this.id = params['id']);
+  }
 
   ngOnInit(): void {
+    this.getPage();
+  }
+
+  getPage(): void {
+    this.sitePageService.getPage(this.id!).subscribe(data => {
+      this.page = data.result;
+      console.log(this._page);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

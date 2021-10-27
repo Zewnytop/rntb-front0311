@@ -54,10 +54,20 @@
       </thead>
       <tbody>
       <tr *ngFor="let page of listViewPages; let i=index">
-        <td>{{page.name}}</td>
+        <td *ngIf="!page.isEdit">{{page.name}}</td>
+        <td *ngIf="page.isEdit">
+          <input type="text" [(ngModel)]="page.name">
+        </td>
         <td>
           <div class="edit-button">
+            <button (click)="changeEditStatus(page)" *ngIf="!page.isEdit">
+              <img src="/assets/icons/edit-2.svg" alt="Редактировать">
+            </button>
+            <button (click)="updateInfoPage(page)" *ngIf="page.isEdit">
+              <img src="/assets/icons/save.svg" alt="Сохранить">
+            </button>
             <button (click)="getPage(page.id)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
+            <button (click)="deletePage(page.id, i)"><img src="/assets/icons/trash-2.svg" alt="Удалить"></button>
           </div>
         </td>
       </tr>
@@ -125,7 +135,7 @@
   <hr>
   <div *ngIf="selectedPage && selectedPage.components">
     <ng-template ngFor let-component [ngForOf]="selectedPage.components">
-      <app-gallery *ngIf="component.typeComponent.code === 'VirExhibition'"></app-gallery>
+      <app-gallery *ngIf="component.typeComponent.code === 'VirExhibition'" [id]="component.idComponent"></app-gallery>
       <app-contacts *ngIf="component.typeComponent.code ===  'Contact'" [id]="component.idComponent"></app-contacts>
       <!--              <app-article></app-article>-->
     </ng-template>
