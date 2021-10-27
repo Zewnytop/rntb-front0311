@@ -47,9 +47,15 @@ export class LoginComponent implements OnInit {
     // }, error => {
     //   console.log(error);
     // });
+    this.httpClient.get(`/api/auth/admin/${this.login}/${this.password}`).subscribe(data => {
+      // console.log(data);
+      console.log("good");
+      localStorage.setItem("BranchId", "3");
+      this.router.navigate(['/admin-panel']);
+    }, error => {
+      console.log(error);
+    });
 
-    localStorage.setItem("BranchId", "3");
-    this.router.navigate(['/admin-panel']);
   }
 
   test(): void {
