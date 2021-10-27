@@ -30,7 +30,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'site-page', component: SitePageComponent, children: [
+    path: 'sp/:id', component: SitePageComponent, children: [
   ]
   },
 

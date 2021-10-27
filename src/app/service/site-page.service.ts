@@ -20,4 +20,9 @@ export class SitePageService {
     const url = `/api/site/category/${idCategory}/${lang}`;
     return this.httpClient.get<DataSingleObject>(url);
   }
+
+  getPage(idPage: number): Observable<DataSingleObject> {
+    const url = `/api/site/page/${idPage}`;
+    return this.httpClient.get<DataSingleObject>(url);
+  }
 }

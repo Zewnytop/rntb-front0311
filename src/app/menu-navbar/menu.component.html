@@ -8,12 +8,14 @@
           <div class="navbar">
             <ul class="navbar-ul">
               <ng-template ngFor let-item [ngForOf]="listMainItemMenu">
-                <li class="navbar-li" *ngIf="item.showItem"><a class="li-a" routerLink="/site-page">{{item.nameRu}}
+                <li class="navbar-li" *ngIf="item.showItem">
+                  <a class="li-a" [routerLink]="['/sp', item?.page?.id]">{{item.nameRu}}
                   <div class="li-svg"></div>
                 </a>
                   <div class="navbar-li-dropdown" *ngIf="item.childerItemMenu.length">
                     <ng-template ngFor let-iternalItem [ngForOf]="item.childerItemMenu">
-                      <a class="dropdown-a" routerLink="/site-page" *ngIf="iternalItem.showItem">{{iternalItem.nameRu}}</a>
+                      <a class="dropdown-a" [routerLink]="['/sp', iternalItem?.page?.id]"
+                         *ngIf="iternalItem.showItem">{{iternalItem.nameRu}}</a>
                     </ng-template>
                   </div>
                 </li>
