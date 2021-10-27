@@ -46,8 +46,9 @@
   </div>
 
 </div>
-
-<button (click)="close=true">Файлы</button>
+<div class="add-button">
+  <button (click)="close=true">Загрузить файл</button>
+</div>
 <div class="file-popup" *ngIf="close">
   <div class="file-popup-content">
     <div class="file-popup-header">
@@ -64,19 +65,19 @@
         <label>
           <input type="file" accept="image/*" multiple (change)="selectFiles($event)"/>
         </label>
-        <table>
+        <table class="file-popup-table">
           <thead>
           <tr>
             <th>Название файла</th>
             <th>Тип</th>
             <th>Прогресс</th>
-            <th>Тип</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let file of selectedFile; let i=index">
             <td>{{file.file.name}}</td>
-            <td>
+            <td class="edit-input2">
               <select [(ngModel)]="file.destination">
                 <option *ngFor="let destination of listDestination"
                         [ngValue]="destination">{{destination.nameDestination}}</option>

@@ -15,7 +15,16 @@ export class AdminBookComponent implements OnInit {
   private _book: BookObject | null = null;
   private _lang: string = "ru";
   private _close: boolean = false;
+  private _edit: boolean = false;
 
+
+  get edit(): boolean {
+    return this._edit;
+  }
+
+  set edit(value: boolean) {
+    this._edit = value;
+  }
 
   get close(): boolean {
     return this._close;
