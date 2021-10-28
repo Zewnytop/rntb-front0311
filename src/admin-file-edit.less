@@ -31,7 +31,7 @@
   //display: none;
   display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
-  padding-top: 250px; /* Location of the box */
+  padding-top: 200px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -78,8 +78,11 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      .file-popup-table-tbody {
+
+      .file-popup-table {
+        display: block;
         overflow: scroll;
+        max-height: 360px;
       }
 
     }
