@@ -11,6 +11,16 @@ export class GalleryComponent implements OnInit {
 
   private _id: number | null = null;
   private _categoryVirtualExhibition: VirtualExhibitionObject | null = null;
+  private _close: boolean = false;
+
+
+  get close(): boolean {
+    return this._close;
+  }
+
+  set close(value: boolean) {
+    this._close = value;
+  }
 
   get id(): number | null {
     return this._id;

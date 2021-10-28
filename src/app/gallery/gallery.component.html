@@ -12,7 +12,7 @@
 
     <div class="gallery-carousel">
       <ng-template ngFor let-book [ngForOf]="categoryVirtualExhibition?.books" let-iBook="index">
-        <div [class]="[iBook === 0 ? 'carousel-block-first' : 'carousel-block']">
+        <div [class]="[iBook === 0 ? 'carousel-block-first' : 'carousel-block']" (click)="close=true">
           <img class="img-carousel" *ngIf="book.idCoverImage" [src]="previewCover(book.idCoverImage)" alt="Обложка">
         </div>
       </ng-template>
@@ -23,5 +23,49 @@
       <button class="carousel-button-right"></button>
     </div>
     <hr class="carousel-hr">
+
+    <div class="gallery-popup" *ngIf="close">
+      <a class="div-close" (click)="close=false">
+
+      </a>
+      <div class="popup-close-button">
+        <div class="edit-button">
+          <button (click)="close=false"><img alt="Круг стрелка" src="assets/icons/x-circle.svg"></button>
+        </div>
+      </div>
+      <div class="popup-content">
+        <div class="popup-img">
+          <img>
+        </div>
+        <div class="popup-text">
+          <p>
+            <strong>
+              Author
+            </strong>
+            <br>
+            <strong>NAme</strong>
+            <strong>gsdfgfs</strong>
+          </p>
+          <p>
+            Desctiprion
+          </p>
+        </div>
+      </div>
+      <div class="popup-bottom">
+        <td>
+          <div class="edit-button">
+            <button><img src="assets/icons/arrow-left.svg"></button>
+            <button><img src="assets/icons/arrow-right.svg"></button>
+          </div>
+        </td>
+        <td>
+        <span>
+          namebook
+        </span>
+        </td>
+      </div>
+    </div>
+
+
   </div>
 </div>
