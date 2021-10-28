@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   private _login: string = "";
   private _password: string = "";
 
+  private token = "";
+
   get login(): string {
     return this._login;
   }
@@ -47,11 +49,16 @@ export class LoginComponent implements OnInit {
     // }, error => {
     //   console.log(error);
     // });
-    this.httpClient.get(`/api/auth/admin/${this.login}/${this.password}`).subscribe(data => {
-      // console.log(data);
-      console.log("good");
-      localStorage.setItem("BranchId", "3");
-      this.router.navigate(['/admin-panel']);
+    const body = {
+      login: this.login,
+      password: this.password
+    };
+    this.httpClient.post<any>(`/api/auth/login`, body).subscribe(data => {
+      console.log(data);
+      this.token = data.token;
+      // console.log("good");
+      // localStorage.setItem("BranchId", "3");
+      // this.router.navigate(['/admin-panel']);
     }, error => {
       console.log(error);
     });
@@ -59,7 +66,11 @@ export class LoginComponent implements OnInit {
   }
 
   test(): void {
-    this.httpClient.get(`/api/auth/admin`).subscribe(data => {
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: this.token
+    });
+    this.httpClient.get(`/api/book/list/3`, {headers: header}).subscribe(data => {
       console.log(data);
     });
   }
