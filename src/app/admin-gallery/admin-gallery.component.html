@@ -1,24 +1,25 @@
 <div>
   <p><b>Редактирование галлереи</b></p>
 </div>
-<ng-template [ngIf]="edit==false">
-
-</ng-template>
 <div>
   <div>
-    <label>
-      <input type="radio" [(ngModel)]="lang" value="ru">
-      RU
-    </label>
-    <label>
-      <input type="radio" [(ngModel)]="lang" value="eng">
-      ENG
-    </label>
-    <label>
-      <input type="radio" [(ngModel)]="lang" value="kz">
-      KZ
-    </label>
-  </div>
+    <div class="select-language">
+      <label>
+        <input type="radio" [(ngModel)]="lang" value="ru">
+        RU
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="lang" value="eng">
+        ENG
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="lang" value="kz">
+        KZ
+      </label>
+    </div>
+    <div class="add-button">
+      <button (click)="createCategory()">Добавить сет</button>
+    </div>
   <table class="file-table">
     <caption><strong>Сеты</strong></caption>
     <thead>
@@ -27,7 +28,6 @@
       <th>Дата изменения</th>
       <th>Отображать</th>
       <th colspan="3">
-        <button (click)="createCategory()">Добавить</button>
       </th>
     </tr>
     </thead>
@@ -46,12 +46,12 @@
       <td *ngIf="!category.isEdit">{{[category.showOnPage ? 'Да' : 'Нет']}}</td>
       <td *ngIf="category.isEdit"><input type="checkbox" [(ngModel)]="category.showOnPage"></td>
       <td *ngIf="!category.isEdit" class="edit-button">
-        <button (click)="changeEditStatus(i)"><img src="assets/icons/edit-2.svg"></button>
+        <button (click)="changeEditStatus(i); edit=true"><img src="assets/icons/edit-2.svg"></button>
       </td>
       <td *ngIf="category.isEdit" class="edit-button">
-        <button (click)="updateCategory(i)"><img src="assets/icons/save.svg"></button>
+        <button (click)="updateCategory(i); edit=false"><img src="assets/icons/save.svg"></button>
       </td>
-      <td>
+      <td class="add-button">
         <button (click)="getBooksByCategory(category.id)">Книги</button>
       </td>
       <td class="edit-button">
@@ -60,34 +60,32 @@
     </tr>
     </tbody>
   </table>
-  <table class="file-table">
-    <caption><strong>Книги</strong></caption>
-    <thead>
-    <tr>
-      <th>Название</th>
-      <th>Дата последних изменений</th>
-      <th>Выбрать</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let viewBook of listViewBook; let i = index">
-      <td>{{viewBook.name}}</td>
-      <td>{{viewBook.lastModifiedDate}}</td>
-      <td>
-        <div class="edit-button">
-          <button (click)="addBookInCategory(viewBook.id)" [disabled]="blockButtonAddBook(viewBook.id)">
-            <img alt="Редактирование"
-                 [src]="[blockButtonAddBook(viewBook.id)? 'assets/icons/check.svg' : 'assets/icons/plus.svg']">
-          </button>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-<div>
-  <button>добавить сет</button>
-  <button (click)="log()">log</button>
+  <ng-template [ngIf]="edit==true">
+    <table class="file-table">
+      <caption><strong>Книги</strong></caption>
+      <thead>
+      <tr>
+        <th>Название</th>
+        <th>Дата последних изменений</th>
+        <th>Выбрать</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let viewBook of listViewBook; let i = index">
+        <td>{{viewBook.name}}</td>
+        <td>{{viewBook.lastModifiedDate}}</td>
+        <td>
+          <div class="edit-button">
+            <button (click)="addBookInCategory(viewBook.id)" [disabled]="blockButtonAddBook(viewBook.id)">
+              <img alt="Редактирование"
+                   [src]="[blockButtonAddBook(viewBook.id)? 'assets/icons/check.svg' : 'assets/icons/plus.svg']">
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </ng-template>
 </div>
 <div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0" id="asdsdas">
   <ng-template ngFor let-book [ngForOf]="virtualExhibition.books" let-iBook="index">
@@ -96,9 +94,11 @@
       <div (click)="getSelectedBook(book.id)">
         <img alt="Обложка" class="img-carousel" [src]="previewCover(book.file!.id!)" *ngIf="book.file">
       </div>
-      <button (click)="moveBookLeft(iBook)" *ngIf="iBook !==0">Лево</button>
-      <button (click)="unhookBook(book.id, iBook)">Удалить</button>
-      <button (click)="moveBookRight(iBook)" *ngIf="iBook !== (virtualExhibition.books.length - 1)">Право</button>
+      <div class="edit-button">
+        <button (click)="moveBookLeft(iBook)" *ngIf="iBook !==0"><img src="assets/icons/arrow-left.svg"></button>
+        <button (click)="unhookBook(book.id, iBook)">Удалить</button>
+        <button (click)="moveBookRight(iBook)" *ngIf="iBook !== (virtualExhibition.books.length - 1)"><img src="assets/icons/arrow-right.svg"></button>
+      </div>
     </div>
   </ng-template>
 </div>
