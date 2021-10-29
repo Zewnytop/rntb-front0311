@@ -10,62 +10,64 @@
       <span class="small-title">{{categoryVirtualExhibition?.name}}</span>
     </div>
 
-    <div class="gallery-carousel">
+    <div class="gallery-carousel" [id]="'virtualExhibition' +  id">
       <ng-template ngFor let-book [ngForOf]="categoryVirtualExhibition?.books" let-iBook="index">
-        <div [class]="[iBook === 0 ? 'carousel-block-first' : 'carousel-block']" (click)="close=true">
+        <div [class]="[iBook === 0 ? 'carousel-block-first' : 'carousel-block']" (click)="getBook(book.idBook, iBook)">
           <img class="img-carousel" *ngIf="book.idCoverImage" [src]="previewCover(book.idCoverImage)" alt="Обложка">
         </div>
       </ng-template>
     </div>
 
     <div class="carousel-circle">
-      <button class="carousel-button-left"></button>
-      <button class="carousel-button-right"></button>
+      <button class="carousel-button-left" (click)="previousPageBooks()"></button>
+      <button class="carousel-button-right" (click)="nextPageBooks()"></button>
     </div>
     <hr class="carousel-hr">
 
     <div class="gallery-popup" *ngIf="close">
-      <a class="div-close" (click)="close=false">
-
-      </a>
+      <a class="div-close" (click)="clearBookAndClose()"></a>
       <div class="popup-close-button">
         <div class="edit-button">
-          <button (click)="close=false"><img alt="Круг стрелка" src="assets/icons/x-circle.svg"></button>
+          <button (click)="clearBookAndClose()"><img alt="Круг стрелка" src="assets/icons/x-circle.svg"></button>
         </div>
       </div>
-      <div class="popup-content">
+      <div class="popup-content" *ngIf="bookVirtualExhibition">
         <div class="popup-img">
-          <img>
+          <img *ngIf="bookVirtualExhibition.idImageCover" [src]="previewCover(bookVirtualExhibition.idImageCover)"
+               alt="Обложка">
         </div>
         <div class="popup-text">
           <p>
             <strong>
-              Author
+              {{bookVirtualExhibition.author}}
             </strong>
             <br>
-            <strong>NAme</strong>
-            <strong>gsdfgfs</strong>
+            <strong>{{bookVirtualExhibition.name}}</strong>
+            <br>
+            <strong>ISBN {{bookVirtualExhibition.isbn}}</strong>
           </p>
           <p>
-            Desctiprion
+            {{bookVirtualExhibition.description}}
           </p>
         </div>
       </div>
-      <div class="popup-bottom">
+      <div class="popup-bottom" *ngIf="bookVirtualExhibition">
         <td>
           <div class="edit-button">
-            <button><img src="assets/icons/arrow-left.svg"></button>
-            <button><img src="assets/icons/arrow-right.svg"></button>
+            <button (click)="previewPreviousBook()">
+              <img src="assets/icons/arrow-left.svg">
+            </button>
+            <button (click)="previewNextBook()">
+              <img src="assets/icons/arrow-right.svg">
+            </button>
           </div>
         </td>
         <td>
         <span>
-          namebook
+          {{bookVirtualExhibition.name}}
         </span>
         </td>
       </div>
     </div>
-
-
   </div>
 </div>

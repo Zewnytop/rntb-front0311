@@ -13,7 +13,7 @@ export interface SiteIternalContactObject {
   phoneNumber: string
 }
 
-export interface VirtualExhibitionObject {
+export interface SiteVirtualExhibitionObject {
   name: string,
   books: ViewBookVirtualExhibitionObject[]
 }
@@ -31,4 +31,12 @@ export interface SitePageObject {
 export interface SitePageComponentObject {
   idComponent: number,
   codeType: string
+}
+
+export interface SiteBook {
+  author: string,
+  name: string,
+  isbn: string,
+  description: string,
+  idImageCover: number
 }

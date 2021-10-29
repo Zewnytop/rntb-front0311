@@ -36,6 +36,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  fake(): void {
+    localStorage.setItem("BranchId", "3");
+    this.router.navigate(['/admin-panel']);
+  }
+
   loginInSystem(): void {
     // const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(this.login + ":" + this.password)});
     // const url = `/api/auth/user`;

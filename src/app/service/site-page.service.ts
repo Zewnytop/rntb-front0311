@@ -25,4 +25,9 @@ export class SitePageService {
     const url = `/api/site/page/${idPage}`;
     return this.httpClient.get<DataSingleObject>(url);
   }
+
+  getBook(idBook: number, lang: string): Observable<DataSingleObject> {
+    const url = `/api/site/book/${idBook}/${lang}`;
+    return this.httpClient.get<DataSingleObject>(url);
+  }
 }
