@@ -38,7 +38,7 @@ export class ContactsComponent implements OnInit {
   }
 
   getContact(): void {
-    this.sitePageService.getContact(this.id, "ru").subscribe(data => {
+    this.sitePageService.getContact(this.id!, "ru").subscribe(data => {
       this.branchContact = data.result;
     }, error => {
       console.log(error);

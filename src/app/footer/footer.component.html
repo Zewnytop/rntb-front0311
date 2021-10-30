@@ -24,14 +24,17 @@
               <button class="link-li-button-open"><img src="/assets/images/Vector.svg" alt="Vector"></button>
               <a href="/">Главная</a>
             </li>
-            <ng-template ngFor let-item [ngForOf]="listMainItemMenu">
-              <li class="link-li" *ngIf="item.showItem">
-                <button class="link-li-button-open"><img src="/assets/images/Vector.svg" alt="Vector"
-                                                         [ngClass]="{}" (click)="changeStatus(item)"></button>
-                <a href="">{{item.nameRu}}</a>
-                <ul class="link-li-content" *ngIf="item.isOpen">
-                  <ng-template ngFor let-iternalItem [ngForOf]="item.childerItemMenu">
-                    <li class="li-content" *ngIf="iternalItem.showItem">{{iternalItem.nameRu}}</li>
+            <ng-template ngFor let-item [ngForOf]="listItemMenu">
+              <li class="link-li">
+                <button class="link-li-button-open">
+                  <img src="/assets/images/Vector.svg" alt="Vector"
+                       [ngClass]="{}" (click)="changeStatus(item)"></button>
+                <a [routerLink]="['/sp', item?.pageId]" (click)="setScrollTop()">{{item.name}}</a>
+                <ul class="link-li-content" *ngIf="item.isShow">
+                  <ng-template ngFor let-iternalItem [ngForOf]="item.childrenItem">
+                    <li class="li-content">
+                      <a [routerLink]="['/sp', iternalItem?.pageId]" (click)="setScrollTop()">{{iternalItem.name}}</a>
+                    </li>
                   </ng-template>
                 </ul>
               </li>

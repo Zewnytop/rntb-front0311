@@ -1,3 +1,11 @@
+export interface SiteMenuObject {
+  name: string,
+  pageId: number,
+  fileId: number,
+  codeTypeItemMenu: string,
+  childrenItem: SiteMenuObject[]
+}
+
 export interface SiteContactObject {
   nameContact: string | null,
   address: string,

@@ -28,11 +28,3 @@ export interface TypeMenuItemObject {
   codeType: string,
   description: string
 }
-
-export interface ListContactObject {
-  //не сюда в contact object
-  id: number,
-  nameRu: string,
-  nameEn: string,
-  nameKz: string
-}

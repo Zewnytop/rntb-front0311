@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuObject} from "../../site-object/menu-object";
 import {HttpClient} from "@angular/common/http";
+import {SiteMenuObject} from "../../site-object/site-component-object";
+import {SitePageService} from "../service/site-page.service";
 
 @Component({
   selector: 'app-menu',
@@ -9,15 +11,15 @@ import {HttpClient} from "@angular/common/http";
 })
 export class MenuComponent implements OnInit {
 
-  private _listMainItemMenu: MenuObject[] = [];
+  private _listSiteItemMenu: SiteMenuObject[] = [];
   private _branchName: string = ""
 
-  get listMainItemMenu(): MenuObject[] {
-    return this._listMainItemMenu;
+  get listSiteItemMenu(): SiteMenuObject[] {
+    return this._listSiteItemMenu;
   }
 
-  set listMainItemMenu(value: MenuObject[]) {
-    this._listMainItemMenu = value;
+  set listSiteItemMenu(value: SiteMenuObject[]) {
+    this._listSiteItemMenu = value;
   }
 
   get branchName(): string {
@@ -28,68 +30,81 @@ export class MenuComponent implements OnInit {
     this._branchName = value;
   }
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private sitePageService: SitePageService) {
   }
 
   ngOnInit(): void {
-    this.getMainitemsMenu();
     this.getNameBranch();
+    this.getItemMenu();
   }
 
   getNameBranch(): void {
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    const url = `/api/site/name/${baseURI}`;
-    console.log("adsad")
-    this.httpClient.get(url, {responseType: 'text'}).subscribe(data => {
-      this.branchName = data;
-      // console.log(data);
+    this.sitePageService.getNameBranch(baseURI, "ru").subscribe(data => {
+      this.branchName = data.result;
     }, error => {
       console.log(error);
     });
   }
 
-  getMainitemsMenu(): void {
+  getItemMenu(): void {
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    const url = `/api/site/menu/${baseURI}`;
-    this.httpClient.get<any>(url).subscribe(data => {
-      console.log(data);
-      this.listMainItemMenu = this.setListItemMenu(data.result);
-      console.log("dasdasdas");
-      console.log(this.listMainItemMenu);
+    this.sitePageService.getSiteMenu(baseURI, "ru").subscribe(data => {
+      this.listSiteItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);
     });
   }
 
-  setListItemMenu(itemsMenu: MenuObject[]): any[] {
+  getListItemMenu(listItem: SiteMenuObject[]): any[] {
     let listItemMenu: any[] = [];
-    itemsMenu.forEach((item) => {
-      let itemMenu: { [k: string]: any } = {
-        id: item.id,
-        showItem: item.showItem,
-        serialNumber: item.serialNumber,
-        nameRu: item.nameRu,
-        nameEn: item.nameEn,
-        nameKz: item.nameKz,
-        description: item.description,
-        lastModifiedDate: item.lastModifiedDate,
-        isEdit: false,
-        parentItem: item.parentItem,
-        file: item.file,
-        typeComponent: item.typeComponent,
-        libraryBranch: item.libraryBranch,
-        // childerItemMenu: MenuObject[],
-        typeItemMenu: item.typeItemMenu,
-        page: item.page
-      };
-      if (item.childerItemMenu) {
-        itemMenu['childerItemMenu'] = this.setListItemMenu(item.childerItemMenu);
-      }
-      listItemMenu.push(itemMenu);
-    }, this);
+    if (listItem && listItem.length) {
+      listItem.forEach((item) => {
+        let itemMenu: { [k: string]: any } = {
+          name: item.name,
+          pageId: item.pageId,
+          fileId: item.fileId,
+          codeTypeItemMenu: item.codeTypeItemMenu,
+          childrenItem: []
+        };
+        if (item.childrenItem && item.childrenItem.length) {
+          itemMenu['childrenItem'] = this.getListItemMenu(item.childrenItem);
+        }
+        listItemMenu.push(itemMenu);
+      }, this);
+    }
     return listItemMenu;
   }
+
+  // setListItemMenu(itemsMenu: MenuObject[]): any[] {
+  //   let listItemMenu: any[] = [];
+  //   itemsMenu.forEach((item) => {
+  //     let itemMenu: { [k: string]: any } = {
+  //       id: item.id,
+  //       showItem: item.showItem,
+  //       serialNumber: item.serialNumber,
+  //       nameRu: item.nameRu,
+  //       nameEn: item.nameEn,
+  //       nameKz: item.nameKz,
+  //       description: item.description,
+  //       lastModifiedDate: item.lastModifiedDate,
+  //       isEdit: false,
+  //       parentItem: item.parentItem,
+  //       file: item.file,
+  //       typeComponent: item.typeComponent,
+  //       libraryBranch: item.libraryBranch,
+  //       // childerItemMenu: MenuObject[],
+  //       typeItemMenu: item.typeItemMenu,
+  //       page: item.page
+  //     };
+  //     if (item.childerItemMenu) {
+  //       itemMenu['childerItemMenu'] = this.setListItemMenu(item.childerItemMenu);
+  //     }
+  //     listItemMenu.push(itemMenu);
+  //   }, this);
+  //   return listItemMenu;
+  // }
 
 }

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ContactObject, InternalContactObject, ViewContactObject} from "../../site-object/contact-object";
 import {ContactService} from "../service/contact.service";
 import {DomSanitizer} from "@angular/platform-browser";
-import {ListContactObject} from "../../site-object/menu-object";
 
 @Component({
   selector: 'app-admin-contacts',
