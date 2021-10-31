@@ -40,4 +40,9 @@ export class SitePageService {
     const url = `/api/site/book/${idBook}/${lang}`;
     return this.httpClient.get<DataSingleObject>(url);
   }
+
+  getLibraryBranches(lang: string | null): Observable<DataSingleObject> {
+    const url = `/api/site/branch/${lang}`;
+    return this.httpClient.get<DataSingleObject>(url);
+  }
 }

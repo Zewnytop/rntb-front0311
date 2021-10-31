@@ -16,6 +16,12 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "ru",
+        "locales": {
+          "en": "src/locale/messages.en.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -35,6 +41,9 @@
             "scripts": []
           },
           "configurations": {
+            "en": {
+              "localize": ["en"]
+            },
             "production": {
               "budgets": [
                 {
@@ -78,6 +87,9 @@
             },
             "development": {
               "browserTarget": "rntb-front:build:development"
+            },
+            "en": {
+              "browserTarget": "rntb-front:build:en"
             }
           },
           "defaultConfiguration": "development"

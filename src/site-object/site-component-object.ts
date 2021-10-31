@@ -48,3 +48,9 @@ export interface SiteBook {
   description: string,
   idImageCover: number
 }
+
+export interface SiteLibraryBranch {
+  name: string,
+  city: string,
+  domen: string
+}

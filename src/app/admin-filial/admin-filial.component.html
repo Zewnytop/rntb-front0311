@@ -17,19 +17,43 @@
   <thead>
   <tr>
     <th>Название Филиала</th>
+    <th>Домен</th>
     <th>Город</th>
-    <th>
-      <div class="edit-button">
-        <button><img src="/assets/icons/file-plus.svg" alt="Добавить"></button>
-      </div>
-    </th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>1</td>
-    <td>2</td>
-    <td>3</td>
+  <tr *ngFor="let branch of listLibraryBranch; let i = index">
+    <td *ngIf="lang == 'ru' && !branch.isEdit">{{branch.nameRu}}</td>
+    <td *ngIf="lang == 'ru' && branch.isEdit">
+      <input type="text" [(ngModel)]="branch.nameRu">
+    </td>
+    <td *ngIf="lang == 'eng' && !branch.isEdit">{{branch.nameEn}}</td>
+    <td *ngIf="lang == 'eng' && branch.isEdit">
+      <input type="text" [(ngModel)]="branch.nameEn">
+    </td>
+    <td *ngIf="lang == 'kz' && !branch.isEdit">{{branch.nameKz}}</td>
+    <td *ngIf="lang == 'kz' && branch.isEdit">
+      <input type="text" [(ngModel)]="branch.nameKz">
+    </td>
+    <td *ngIf="!branch.isEdit">{{branch.domen}}</td>
+    <td *ngIf="branch.isEdit">
+      <input type="text" [(ngModel)]="branch.domen">
+    </td>
+    <td *ngIf="!branch.isEdit">{{branch.description}}</td>
+    <td *ngIf="branch.isEdit">
+      <input type="text" [(ngModel)]="branch.description">
+    </td>
+    <td>
+      <div class="edit-button">
+        <button *ngIf="!branch.isEdit">
+          <img src="assets/icons/edit-2.svg" alt="Редактировать" (click)="changeStatusEdit(branch)">
+        </button>
+        <button *ngIf="branch.isEdit" (click)="updateInfoBranch(i)">
+          <img src="assets/icons/save.svg" alt="Сохранить">
+        </button>
+      </div>
+    </td>
   </tr>
   </tbody>
 </table>

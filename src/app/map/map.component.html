@@ -19,33 +19,9 @@
       <div class="strip-svg"></div>
     </div>
     <table class="map-table">
-      <tr>
-        <td class="first-th"><a href="http://rntb.timir.kz" target="_blank">АО "РНТБ"</a></td>
-        <td class="second-th">Алматы</td>
-      </tr>
-      <tr>
-        <td class="first-th"><a href="http://ast.rntb.timir.kz" target="_blank">Астанинский филиал</a></td>
-        <td class="second-th">Нур-Султан</td>
-      </tr>
-      <tr>
-        <td class="first-th"><a href="http://kst.rntb.timir.kz" target="_blank">Восточно-Казахстанский филиал</a></td>
-        <td class="second-th">Усть-Каменогорск</td>
-      </tr>
-      <tr>
-        <td class="first-th">Жамбылский филиал</td>
-        <td class="second-th">Тараз</td>
-      </tr>
-      <tr>
-        <td class="first-th">Западно-Казахстанский филиал</td>
-        <td class="second-th">Уральск</td>
-      </tr>
-      <tr>
-        <td class="first-th">Павлодарский филиал</td>
-        <td class="second-th">Павлодар</td>
-      </tr>
-      <tr>
-        <td class="first-th">Туркестанский филиал</td>
-        <td class="second-th">Шымкент</td>
+      <tr *ngFor="let branch of listLibraryBranch; let i =index">
+        <td class="first-th"><a [href]="branch.domen" target="_blank">{{branch.name}}</a></td>
+        <td class="second-th">{{branch.city}}</td>
       </tr>
     </table>
   </div>

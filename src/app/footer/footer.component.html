@@ -22,7 +22,7 @@
           <ul class="link-ul">
             <li class="link-li-first">
               <button class="link-li-button-open"><img src="/assets/images/Vector.svg" alt="Vector"></button>
-              <a href="/">Главная</a>
+              <a href="/" i18n="@@ButtonFooterMain">Главная</a>
             </li>
             <ng-template ngFor let-item [ngForOf]="listItemMenu">
               <li class="link-li">
@@ -45,7 +45,7 @@
         <div class="wrapper-hr-90"></div>
         <div class="worktime">
           <div class="worktime-top">
-            <div class="top-week">
+            <div class="top-week" i18n="@@Weekdays">
               Понедельник
               Вторник
               Среда
@@ -59,11 +59,11 @@
           </div>
 
           <div class="worktime-bottom">
-            <div class="bottom-week">
+            <div class="bottom-week" i18n="@@Weekends">
               Суббота
               Воскресенье
             </div>
-            <div class="bottom-time">
+            <div class="bottom-time" i18n="@@LabelDayOff">
               <div class="worktime-img"></div>
               Выходной день
             </div>
@@ -74,7 +74,7 @@
 
       <div class="footer-end">
         <div class="footer-end-hr"></div>
-        <div class="footer-end-text">© 2021. Республиканская научно-техническая библиотека</div>
+        <div class="footer-end-text" i18n="@@Footer">© 2021. Республиканская научно-техническая библиотека</div>
       </div>
     </div>
   </div>
