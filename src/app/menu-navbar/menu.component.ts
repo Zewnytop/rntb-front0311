@@ -39,9 +39,9 @@ export class MenuComponent implements OnInit {
   }
 
   getNameBranch(): void {
-    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getNameBranch(baseURI, "ru").subscribe(data => {
+    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    // const baseURI = urlWithSlash.replace('/', '');
+    this.sitePageService.getNameBranch(document.baseURI, "ru").subscribe(data => {
       this.branchName = data.result;
     }, error => {
       console.log(error);
@@ -49,9 +49,9 @@ export class MenuComponent implements OnInit {
   }
 
   getItemMenu(): void {
-    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getSiteMenu(baseURI, "ru").subscribe(data => {
+    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    // const baseURI = urlWithSlash.replace('/', '');
+    this.sitePageService.getSiteMenu(document.baseURI, "ru").subscribe(data => {
       this.listSiteItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);
