@@ -3,6 +3,7 @@ import {MenuObject} from "../../site-object/menu-object";
 import {HttpClient} from "@angular/common/http";
 import {SiteMenuObject} from "../../site-object/site-component-object";
 import {SitePageService} from "../service/site-page.service";
+import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-menu',
@@ -13,6 +14,7 @@ export class MenuComponent implements OnInit {
 
   private _listSiteItemMenu: SiteMenuObject[] = [];
   private _branchName: string = ""
+  private pathArray: any;
 
   get listSiteItemMenu(): SiteMenuObject[] {
     return this._listSiteItemMenu;
@@ -30,18 +32,41 @@ export class MenuComponent implements OnInit {
     this._branchName = value;
   }
 
-  constructor(private sitePageService: SitePageService) {
+  constructor(private sitePageService: SitePageService, private router: Router) {
   }
+
 
   ngOnInit(): void {
     this.getNameBranch();
     this.getItemMenu();
   }
 
+  changeLanguage(lang: string): void {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
+    paramsRoter[1] = lang;
+    let newNavigateUrl = "";
+    paramsRoter.forEach((param: any) => {
+      if (param !== "") {
+        newNavigateUrl += "/" + param;
+      }
+    });
+    this.router.navigate([newNavigateUrl]);
+  }
+
+  navigateHome(): void {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
+    const newNavigateUrl = "/" + paramsRoter[1];
+    this.router.navigate([newNavigateUrl]);
+  }
+
   getNameBranch(): void {
-    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    // const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getNameBranch(document.baseURI, "ru").subscribe(data => {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
+    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    const baseURI = urlWithSlash.replace('/', '');
+    this.sitePageService.getNameBranch(baseURI, paramsRoter[1]).subscribe(data => {
       this.branchName = data.result;
     }, error => {
       console.log(error);
@@ -49,9 +74,11 @@ export class MenuComponent implements OnInit {
   }
 
   getItemMenu(): void {
-    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    // const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getSiteMenu(document.baseURI, "ru").subscribe(data => {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
+    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    const baseURI = urlWithSlash.replace('/', '');
+    this.sitePageService.getSiteMenu(baseURI, paramsRoter[1]).subscribe(data => {
       this.listSiteItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);

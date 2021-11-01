@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {SiteContactObject} from "../../site-object/site-component-object";
 import {DomSanitizer} from "@angular/platform-browser";
 import {SitePageService} from "../service/site-page.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contacts',
@@ -30,7 +31,7 @@ export class ContactsComponent implements OnInit {
     this._branchContact = value;
   }
 
-  constructor(private sitePageService: SitePageService, private sanitizer: DomSanitizer) {
+  constructor(private sitePageService: SitePageService, private sanitizer: DomSanitizer, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -38,7 +39,9 @@ export class ContactsComponent implements OnInit {
   }
 
   getContact(): void {
-    this.sitePageService.getContact(this.id!, "ru").subscribe(data => {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
+    this.sitePageService.getContact(this.id!, paramsRoter[1]).subscribe(data => {
       this.branchContact = data.result;
     }, error => {
       console.log(error);

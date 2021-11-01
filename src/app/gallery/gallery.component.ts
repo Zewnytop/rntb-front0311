@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SitePageService} from "../service/site-page.service";
 import {SiteBook, SiteVirtualExhibitionObject} from "../../site-object/site-component-object";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-gallery',
@@ -56,7 +57,7 @@ export class GalleryComponent implements OnInit {
     this._indexSelectedBook = value;
   }
 
-  constructor(private sitePageService: SitePageService) {
+  constructor(private sitePageService: SitePageService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -64,7 +65,9 @@ export class GalleryComponent implements OnInit {
   }
 
   getCategory(): void {
-    this.sitePageService.getCategoriesVirtualExhibition(this.id!, "ru").subscribe(data => {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
+    this.sitePageService.getCategoriesVirtualExhibition(this.id!, paramsRoter[1]).subscribe(data => {
       this.categoryVirtualExhibition = data.result;
       console.log(this.categoryVirtualExhibition);
     }, error => {
@@ -73,9 +76,11 @@ export class GalleryComponent implements OnInit {
   }
 
   getBook(idBook: number, index: number): void {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
     this.indexSelectedBook = index;
     this.close = true;
-    this.sitePageService.getBook(idBook, "ru").subscribe(data => {
+    this.sitePageService.getBook(idBook, paramsRoter[1]).subscribe(data => {
       this.bookVirtualExhibition = data.result;
     }, error => {
       console.log(error);

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SitePageService} from "../service/site-page.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {SitePageObject} from "../../site-object/site-component-object";
 
@@ -22,7 +22,7 @@ export class SitePageComponent implements OnInit {
     this._page = value;
   }
 
-  constructor(private sitePageService: SitePageService, private activatedRoute: ActivatedRoute) {
+  constructor(private sitePageService: SitePageService, private activatedRoute: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -33,6 +33,8 @@ export class SitePageComponent implements OnInit {
   }
 
   getPage(): void {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
     this.sitePageService.getPage(this.id!).subscribe(data => {
       this.page = data.result;
       console.log(this._page);

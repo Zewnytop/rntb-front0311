@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SiteLibraryBranch} from "../../site-object/site-component-object";
 import {SitePageService} from "../service/site-page.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -20,7 +21,7 @@ export class MapComponent implements OnInit {
     this._listLibraryBranch = value;
   }
 
-  constructor(private sitePageService: SitePageService) {
+  constructor(private sitePageService: SitePageService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,7 +29,9 @@ export class MapComponent implements OnInit {
   }
 
   getBranches(): void {
-    this.sitePageService.getLibraryBranches("ru").subscribe(data => {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
+    this.sitePageService.getLibraryBranches(paramsRoter[1]).subscribe(data => {
       data.result.forEach((branch: SiteLibraryBranch) => {
         this.listLibraryBranch.push({
           name: branch.name,
