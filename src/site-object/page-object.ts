@@ -2,7 +2,9 @@ import {TypeComponentObject} from "./typeComponent-object";
 
 export interface PageObject {
   id: number | null,
-  name: string | null,
+  nameRu: string | null,
+  nameEn: string | null,
+  nameKz: string | null,
   lastModifiedDate: string | null,
   components: PageComponentObject[]
 }
@@ -17,6 +19,8 @@ export interface PageComponentObject {
 
 export interface ViewPageObject {
   id: number,
-  name: string,
+  nameRu: string,
+  nameEn: string,
+  nameKz: string,
   isEdit: boolean
 }

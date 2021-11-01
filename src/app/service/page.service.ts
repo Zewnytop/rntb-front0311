@@ -11,13 +11,13 @@ export class PageService {
   constructor(private httpClient: HttpClient) {
   }
 
-  createPage(): Observable<DataSingleObject> {
-    const url = `/api/build/page/new`;
+  createPage(idBranch: number): Observable<DataSingleObject> {
+    const url = `/api/build/page/new/${idBranch}`;
     return this.httpClient.post<DataSingleObject>(url, null);
   }
 
   getListPage(idBranch: number): Observable<DataObject> {
-    const url = `/api/build/page/list`;
+    const url = `/api/build/page/list/${idBranch}`;
     return this.httpClient.get<DataObject>(url);
   }
 
@@ -41,9 +41,9 @@ export class PageService {
     return this.httpClient.put<DataSingleObject>(url, listPosition);
   }
 
-  updateInfoPage(idPage: number, name: string): Observable<DataSingleObject> {
+  updateInfoPage(idPage: number, page: Object): Observable<DataSingleObject> {
     const url = `/api/build/page/newname/${idPage}`;
-    return this.httpClient.put<DataSingleObject>(url, name);
+    return this.httpClient.put<DataSingleObject>(url, page);
   }
 
   deletePage(idPage: number): Observable<DataSingleObject> {
@@ -51,4 +51,8 @@ export class PageService {
     return this.httpClient.delete<DataSingleObject>(url);
   }
 
+  getListTypeComponent(): Observable<DataObject> {
+    const url = `/api/build/page/list/type`;
+    return this.httpClient.get<DataObject>(url);
+  }
 }

@@ -132,11 +132,13 @@ export class AdminEditMenuComponent implements OnInit {
   }
 
   getPages(): void { //TODO
-    this.pageService.getListPage(3).subscribe(data => {
+    this.pageService.getListPage(10).subscribe(data => {
       data.result.forEach(page => {
         this.listViewPages.push({
           id: page.id,
-          name: page.name,
+          nameRu: page.nameRu,
+          nameEn: page.nameEn,
+          nameKz: page.nameKz,
           isEdit: false
         });
       });

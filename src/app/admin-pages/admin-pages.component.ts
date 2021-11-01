@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminGalleryComponent} from "../admin-gallery/admin-gallery.component";
 import {ViewVirtualExhibitionObject} from "../../site-object/view-virtual-exhibition-object";
 import {VirtualExhibitionService} from "../service/virtual-exhibition.service";
 import {ViewContactObject} from "../../site-object/contact-object";
 import {ContactService} from "../service/contact.service";
 import {HttpClient} from "@angular/common/http";
-import {PageComponentObject, PageObject, ViewPageObject} from "../../site-object/page-object";
+import {PageObject, ViewPageObject} from "../../site-object/page-object";
 import {PageService} from "../service/page.service";
 import {TypeComponentObject} from "../../site-object/typeComponent-object";
-import {MenuObject} from "../../site-object/menu-object";
 
 
 @Component({
@@ -21,7 +19,9 @@ export class AdminPagesComponent implements OnInit {
   private _listCategoryVirtualExhibition: ViewVirtualExhibitionObject[] = [];
   private _listViewContactBranch: ViewContactObject[] = [];
   private _listViewPages: ViewPageObject[] = [];
+  private _listTypeComponent: TypeComponentObject[] = [];
   private _selectedPage: PageObject | null = null;
+  private _selectedTypeComponent: string | null = null;
   private _lang: string = "ru";
 
   get listCategoryVirtualExhibition(): ViewVirtualExhibitionObject[] {
@@ -48,12 +48,28 @@ export class AdminPagesComponent implements OnInit {
     this._listViewPages = value;
   }
 
+  get listTypeComponent(): TypeComponentObject[] {
+    return this._listTypeComponent;
+  }
+
+  set listTypeComponent(value: TypeComponentObject[]) {
+    this._listTypeComponent = value;
+  }
+
   get selectedPage(): PageObject | null {
     return this._selectedPage;
   }
 
   set selectedPage(value: PageObject | null) {
     this._selectedPage = value;
+  }
+
+  get selectedTypeComponent(): string | null {
+    return this._selectedTypeComponent;
+  }
+
+  set selectedTypeComponent(value: string | null) {
+    this._selectedTypeComponent = value;
   }
 
   get lang(): string {
@@ -71,9 +87,26 @@ export class AdminPagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getListTypeComponent();
     this.getCategories();
     this.getContacts();
     this.getPages();
+  }
+
+  getListTypeComponent(): void {
+    this.pageService.getListTypeComponent().subscribe(data => {
+      data.result.forEach(item => {
+        this.listTypeComponent.push({
+          id: item.id,
+          name: item.name,
+          code: item.code,
+          description: item.description
+        });
+      });
+      this.selectedTypeComponent = this.listTypeComponent[0].code;
+    }, error => {
+      console.log(error);
+    });
   }
 
   getCategories(): void {
@@ -112,10 +145,12 @@ export class AdminPagesComponent implements OnInit {
 
 
   createPage(): void {
-    this.pageService.createPage().subscribe(data => {
+    this.pageService.createPage(10).subscribe(data => {
       this.listViewPages.push({
         id: data.result.id,
-        name: data.result.name,
+        nameRu: data.result.nameRu,
+        nameEn: data.result.nameEn,
+        nameKz: data.result.nameKz,
         isEdit: true
       });
     }, error => {
@@ -124,11 +159,13 @@ export class AdminPagesComponent implements OnInit {
   }
 
   getPages(): void { //TODO
-    this.pageService.getListPage(3).subscribe(data => {
+    this.pageService.getListPage(10).subscribe(data => {
       data.result.forEach(page => {
         this.listViewPages.push({
           id: page.id,
-          name: page.name,
+          nameRu: page.nameRu,
+          nameEn: page.nameEn,
+          nameKz: page.nameKz,
           isEdit: false
         });
       });
@@ -170,11 +207,13 @@ export class AdminPagesComponent implements OnInit {
   }
 
   updateInfoPage(page: ViewPageObject): void {
-    this.pageService.updateInfoPage(page.id, page.name).subscribe(data => {
+    this.pageService.updateInfoPage(page.id, page).subscribe(data => {
       page.isEdit = false;
     }, error => {
       this.pageService.getPage(page.id).subscribe(data => {
-        page.name = data.result.name;
+        page.nameRu = data.result.nameRu;
+        page.nameEn = data.result.nameEn;
+        page.nameKz = data.result.nameKz;
       }, error1 => {
         console.log(error1)
       });
@@ -266,5 +305,9 @@ export class AdminPagesComponent implements OnInit {
       console.log(error);
     });
     console.log(this.selectedPage);
+  }
+
+  log() {
+    console.log(this.selectedTypeComponent)
   }
 }

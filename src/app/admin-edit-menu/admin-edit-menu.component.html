@@ -77,11 +77,11 @@
               <select *ngIf="itemMenu.typeItemMenu.codeType == 'page'" [ngModel]="itemMenu?.page?.id"
                       (ngModelChange)="setPage($event, i)">
                 <option [value]="null">Пусто</option>
-                <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.name}}</option>
+                <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
               </select>
             </td>
             <td *ngIf="itemMenu.isEdit === false">
-              {{[itemMenu?.page ? itemMenu?.page?.name : 'Пусто']}}
+              {{[itemMenu?.page ? itemMenu?.page?.nameRu : 'Пусто']}}
             </td>
             <td *ngIf="itemMenu.isEdit === true">
               <select [ngModel]="itemMenu.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i)">
@@ -153,11 +153,11 @@
               <select *ngIf="childerItem.typeItemMenu.codeType == 'page'" [ngModel]="childerItem?.page?.id"
                       (ngModelChange)="setPage($event, i, iChildren)">
                 <option [value]="null">Пусто</option>
-                <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.name}}</option>
+                <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
               </select>
             </td>
             <td *ngIf="childerItem.isEdit === false">
-              {{[childerItem?.page ? childerItem?.page?.name : 'Пусто']}}
+              {{[childerItem?.page ? childerItem?.page?.nameRu : 'Пусто']}}
             </td>
             <td *ngIf="childerItem.isEdit === true">
               <select [ngModel]="childerItem.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i, iChildren)">

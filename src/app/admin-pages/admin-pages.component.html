@@ -1,24 +1,27 @@
 <div class="pages">
   <h4>Настройка страниц</h4>
   <div>
-    <!--    <label>-->
-    <!--      <input type="radio" [(ngModel)]="lang" value="ru">-->
-    <!--      RU-->
-    <!--    </label>-->
-    <!--    <label>-->
-    <!--      <input type="radio" [(ngModel)]="lang" value="eng">-->
-    <!--      ENG-->
-    <!--    </label>-->
-    <!--    <label>-->
-    <!--      <input type="radio" [(ngModel)]="lang" value="kz">-->
-    <!--      KZ-->
-    <!--    </label>-->
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="ru">
+      RU
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="eng">
+      ENG
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="kz">
+      KZ
+    </label>
   </div>
+  <select [(ngModel)]="selectedTypeComponent">
+    <option *ngFor="let type of listTypeComponent; let i=index" [value]="type.code">{{type.name}}</option>
+  </select>
   <div style="display: flex;">
     <table class="file-table">
       <thead>
       <tr>
-        <th>{{selectedPage?.name}}</th>
+        <th>{{selectedPage?.nameRu}}</th>
         <th>Тип компонента</th>
         <th></th>
       </tr>
@@ -49,14 +52,23 @@
         <th>Страницы</th>
         <th>
           <button (click)="createPage()">Создать</button>
+          <button (click)="log()">Создать</button>
         </th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let page of listViewPages; let i=index">
-        <td *ngIf="!page.isEdit">{{page.name}}</td>
-        <td *ngIf="page.isEdit">
-          <input type="text" [(ngModel)]="page.name">
+        <td *ngIf="!page.isEdit && lang === 'ru'">{{page.nameRu}}</td>
+        <td *ngIf="page.isEdit && lang === 'ru'">
+          <input type="text" [(ngModel)]="page.nameRu">
+        </td>
+        <td *ngIf="!page.isEdit && lang === 'eng'">{{page.nameEn}}</td>
+        <td *ngIf="page.isEdit && lang === 'eng'">
+          <input type="text" [(ngModel)]="page.nameEn">
+        </td>
+        <td *ngIf="!page.isEdit && lang === 'kz'">{{page.nameKz}}</td>
+        <td *ngIf="page.isEdit && lang === 'kz'">
+          <input type="text" [(ngModel)]="page.nameKz">
         </td>
         <td>
           <div class="edit-button">
@@ -75,7 +87,7 @@
     </table>
   </div>
   <div style="display: flex;">
-    <table class="file-table">
+    <table class="file-table" *ngIf="selectedTypeComponent === 'VirtExhibition'">
       <thead>
       <tr>
         <th>Виртуальная выставка</th>
@@ -106,7 +118,7 @@
       </tr>
       </tbody>
     </table>
-    <table class="file-table">
+    <table class="file-table" *ngIf="selectedTypeComponent === 'Contact'">
       <thead>
       <tr>
         <th>контакты</th>
