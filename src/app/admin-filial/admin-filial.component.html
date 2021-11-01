@@ -19,7 +19,11 @@
     <th>Название Филиала</th>
     <th>Домен</th>
     <th>Город</th>
-    <th></th>
+    <th>
+      <button (click)="addNewBranch()">
+        Добавить
+      </button>
+    </th>
   </tr>
   </thead>
   <tbody>
@@ -40,9 +44,17 @@
     <td *ngIf="branch.isEdit">
       <input type="text" [(ngModel)]="branch.domen">
     </td>
-    <td *ngIf="!branch.isEdit">{{branch.description}}</td>
-    <td *ngIf="branch.isEdit">
-      <input type="text" [(ngModel)]="branch.description">
+    <td *ngIf="lang == 'ru' && !branch.isEdit">{{branch.cityRu}}</td>
+    <td *ngIf="lang == 'ru' && branch.isEdit">
+      <input type="text" [(ngModel)]="branch.cityRu">
+    </td>
+    <td *ngIf="lang == 'eng' && !branch.isEdit">{{branch.cityEn}}</td>
+    <td *ngIf="lang == 'eng' && branch.isEdit">
+      <input type="text" [(ngModel)]="branch.cityEn">
+    </td>
+    <td *ngIf="lang == 'kz' && !branch.isEdit">{{branch.cityKz}}</td>
+    <td *ngIf="lang == 'kz' && branch.isEdit">
+      <input type="text" [(ngModel)]="branch.cityKz">
     </td>
     <td>
       <div class="edit-button">
@@ -51,6 +63,9 @@
         </button>
         <button *ngIf="branch.isEdit" (click)="updateInfoBranch(i)">
           <img src="assets/icons/save.svg" alt="Сохранить">
+        </button>
+        <button (click)="deleteBranch(branch.id,i)">
+          <img src="assets/icons/trash-2.svg" alt="Сохранить">
         </button>
       </div>
     </td>

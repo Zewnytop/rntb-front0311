@@ -52,7 +52,9 @@ export class AdminFilialComponent implements OnInit {
       nameEn: branch.nameEn,
       nameKz: branch.nameKz,
       domen: branch.domen,
-      description: branch.description,
+      cityRu: branch.cityRu,
+      cityEn: branch.cityEn,
+      cityKz: branch.cityKz,
     };
     this.branchService.updateInfoLibararyBranch(body).subscribe(data => {
       branch.isEdit = false;
@@ -71,12 +73,32 @@ export class AdminFilialComponent implements OnInit {
       branch.nameEn = bdBranch.nameEn;
       branch.nameKz = bdBranch.nameKz;
       branch.domen = bdBranch.domen;
-      branch.description = bdBranch.description;
+      branch.cityRu = bdBranch.cityRu;
+      branch.cityEn = bdBranch.cityEn;
+      branch.cityKz = bdBranch.cityKz;
     }, error => {
       console.log(error);
     });
   }
 
+  addNewBranch(): void {
+    this.branchService.addBranch().subscribe(data => {
+      const bdBranch = data.result;
+      this.listLibraryBranch.push({
+        id: bdBranch.id,
+        nameRu: bdBranch.nameRu,
+        nameEn: bdBranch.nameEn,
+        nameKz: bdBranch.nameKz,
+        domen: bdBranch.domen,
+        cityRu: bdBranch.cityRu,
+        cityEn: bdBranch.cityEn,
+        cityKz: bdBranch.cityKz,
+        isEdit: true
+      });
+    }, error => {
+      console.log(error);
+    });
+  }
 
   getNewListBranch(listLibraryBranch: LibraryBranchObject[]): any[] {
     let listItem: any[] = [];
@@ -88,13 +110,23 @@ export class AdminFilialComponent implements OnInit {
           nameEn: item.nameEn,
           nameKz: item.nameKz,
           domen: item.domen,
-          description: item.description,
+          cityRu: item.cityRu,
+          cityEn: item.cityEn,
+          cityKz: item.cityKz,
           isEdit: false
         };
         listItem.push(itemMenu);
       }, this);
     }
     return listItem;
+  }
+
+  deleteBranch(idBranch: number, index: number): void {
+    this.branchService.deleteBranch(idBranch).subscribe(data => {
+      this.listLibraryBranch.splice(index, 1);
+    }, error => {
+      console.log(error);
+    });
   }
 
   changeStatusEdit(item: any): void {

@@ -16,6 +16,11 @@ export class BranchService {
     return this.httpClient.get<DataObject>(url);
   }
 
+  addBranch(): Observable<DataSingleObject> {
+    const url = `/api/branch/add`;
+    return this.httpClient.post<DataSingleObject>(url, null);
+  }
+
   getBranch(idBranch: number): Observable<DataSingleObject> {
     const url = `/api/branch/single/${idBranch}`;
     return this.httpClient.get<DataSingleObject>(url);
@@ -24,5 +29,10 @@ export class BranchService {
   updateInfoLibararyBranch(body: Object): Observable<DataSingleObject> {
     const url = `/api/branch/update`;
     return this.httpClient.put<DataSingleObject>(url, body);
+  }
+
+  deleteBranch(idBranch: number): Observable<DataSingleObject> {
+    const url = `/api/branch/remove/${idBranch}`;
+    return this.httpClient.delete<DataSingleObject>(url);
   }
 }

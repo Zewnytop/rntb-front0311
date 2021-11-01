@@ -4,5 +4,7 @@ export interface LibraryBranchObject {
   nameEn: string,
   nameKz: string,
   domen: string,
-  description: string
+  cityRu: string,
+  cityEn: string,
+  cityKz: string
 }
