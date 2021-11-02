@@ -100,7 +100,6 @@ export class AdminGalleryComponent implements OnInit {
           nameRu: category.nameRu,
           nameEn: category.nameEn,
           nameKz: category.nameKz,
-          showOnPage: category.showOnPage,
           isEdit: false,
           lastModifiedDate: category.lastModifiedDate,
           typeComponent: category.typeComponent,
@@ -213,7 +212,6 @@ export class AdminGalleryComponent implements OnInit {
         nameRu: category.nameRu,
         nameEn: category.nameEn,
         nameKz: category.nameKz,
-        showOnPage: category.showOnPage,
         isEdit: true,
         lastModifiedDate: category.lastModifiedDate,
         typeComponent: category.typeComponent,
@@ -231,7 +229,6 @@ export class AdminGalleryComponent implements OnInit {
       nameRu: category.nameRu,
       nameEn: category.nameEn,
       nameKz: category.nameKz,
-      showOnPage: category.showOnPage
     };
     this.virtualExhibitionService.updateCategory(body).subscribe(data => {
       this.listCategoryVirtualExhibition[index] = data.result;

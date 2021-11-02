@@ -117,7 +117,6 @@ export class AdminPagesComponent implements OnInit {
           nameRu: category.nameRu,
           nameEn: category.nameEn,
           nameKz: category.nameKz,
-          showOnPage: category.showOnPage,
           isEdit: false,
           lastModifiedDate: category.lastModifiedDate,
           typeComponent: category.typeComponent,

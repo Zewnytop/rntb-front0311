@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   fake(): void {
-    localStorage.setItem("BranchId", "10");
+    localStorage.setItem("BranchId", "19");
     this.router.navigate(['/admin-panel']);
   }
 
