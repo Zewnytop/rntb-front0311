@@ -105,7 +105,7 @@ export class AdminBookComponent implements OnInit {
           typeFile: viewFile.typeFile,
           createdDate: viewFile.createdDate,
           destination: viewFile.destination
-        })
+        });
       });
       console.log(data.result)
     }, error => {
