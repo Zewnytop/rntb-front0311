@@ -9,6 +9,7 @@
   }
 
   .article-span {
+    display: flex;
     font-weight: bold;
     font-size: 22px;
     line-height: 37px;
@@ -17,16 +18,19 @@
   }
 
   .article-div {
-    display: flex;
-    align-items: flex-start;
-    padding-top: 10px;
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 5px;
+    margin-top: 20px;
+  }
+  .article-p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 0px;
 
-    .article-p {
-      padding-left: 20px;
-      font-size: 16px;
-      line-height: 24px;
-      margin: 0px;
-    }
+    min-height: 216px;
+
+    overflow-wrap: break-word;
   }
 
   .article-hr {
@@ -36,6 +40,8 @@
   }
 
   .article-button {
+    display: block;
+
     width: 130px;
     height: 35px;
 

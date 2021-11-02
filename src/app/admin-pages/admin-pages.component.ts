@@ -144,7 +144,7 @@ export class AdminPagesComponent implements OnInit {
 
 
   createPage(): void {
-    this.pageService.createPage(10).subscribe(data => {
+    this.pageService.createPage(19).subscribe(data => {
       this.listViewPages.push({
         id: data.result.id,
         nameRu: data.result.nameRu,
@@ -158,7 +158,7 @@ export class AdminPagesComponent implements OnInit {
   }
 
   getPages(): void { //TODO
-    this.pageService.getListPage(10).subscribe(data => {
+    this.pageService.getListPage(19).subscribe(data => {
       data.result.forEach(page => {
         this.listViewPages.push({
           id: page.id,
