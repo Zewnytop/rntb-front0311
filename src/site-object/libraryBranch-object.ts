@@ -6,5 +6,6 @@ export interface LibraryBranchObject {
   domen: string,
   cityRu: string,
   cityEn: string,
-  cityKz: string
+  cityKz: string,
+  showOnPage: boolean
 }

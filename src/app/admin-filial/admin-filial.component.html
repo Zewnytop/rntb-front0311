@@ -19,6 +19,7 @@
     <th>Название Филиала</th>
     <th>Домен</th>
     <th>Город</th>
+    <th>Отображать на сайте</th>
     <th>
       <button (click)="addNewBranch()">
         Добавить
@@ -55,6 +56,10 @@
     <td *ngIf="lang == 'kz' && !branch.isEdit">{{branch.cityKz}}</td>
     <td *ngIf="lang == 'kz' && branch.isEdit">
       <input type="text" [(ngModel)]="branch.cityKz">
+    </td>
+    <td *ngIf=" !branch.isEdit">{{[branch.showOnPage ? 'Отображать' : 'Скрыть']}}</td>
+    <td *ngIf="branch.isEdit">
+      <input type="checkbox" [(ngModel)]="branch.showOnPage">
     </td>
     <td>
       <div class="edit-button">
