@@ -163,7 +163,7 @@ export class EditArticleComponent implements OnInit {
     };
     this.articleService.updateArticle(body).subscribe(data => {
       const itemViewArticle = this.listViewArticle.filter(item => item.id === this.selectedArticle?.id)[0];
-      itemViewArticle.name = data.result.topicRu;
+      itemViewArticle.name = data.result.name;
       itemViewArticle.lastModifiedDate = data.result.lastModifiedDate;
       itemViewArticle.showOnPage = data.result.showOnPage;
     }, error => {
