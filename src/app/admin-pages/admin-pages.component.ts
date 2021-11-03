@@ -4,7 +4,7 @@ import {VirtualExhibitionService} from "../service/virtual-exhibition.service";
 import {ViewContactObject} from "../../site-object/contact-object";
 import {ContactService} from "../service/contact.service";
 import {HttpClient} from "@angular/common/http";
-import {PageObject, ViewPageObject} from "../../site-object/page-object";
+import {MapBranchObject, PageObject, ViewPageObject} from "../../site-object/page-object";
 import {PageService} from "../service/page.service";
 import {TypeComponentObject} from "../../site-object/typeComponent-object";
 import {ArticleService} from "../service/article.service";
@@ -24,6 +24,7 @@ export class AdminPagesComponent implements OnInit {
   private _listTypeComponent: TypeComponentObject[] = [];
   private _listViewArticle: ViewArticleObject[] = [];
   private _listTypeAticle: TypeArticleObject[] = [];
+  private _listMapBranch: MapBranchObject[] = [];
   private _selectedPage: PageObject | null = null;
   private _selectedTypeArticle: TypeArticleObject | null = null;
   private _selectedTypeComponent: string | null = null;
@@ -77,6 +78,14 @@ export class AdminPagesComponent implements OnInit {
     this._listTypeAticle = value;
   }
 
+  get listMapBranch(): MapBranchObject[] {
+    return this._listMapBranch;
+  }
+
+  set listMapBranch(value: MapBranchObject[]) {
+    this._listMapBranch = value;
+  }
+
   get selectedPage(): PageObject | null {
     return this._selectedPage;
   }
@@ -120,8 +129,23 @@ export class AdminPagesComponent implements OnInit {
     this.getListTypeComponent();
     this.getCategories();
     this.getContacts();
+    this.getMapBranch();
     this.getPages();
     this.getListTypeAticle();
+  }
+
+  getMapBranch(): void {
+    this.pageService.getMapBranch().subscribe(data => {
+      data.result.forEach(item => {
+        this.listMapBranch.push({
+          id: item.id,
+          name: item.name,
+          typeComponent: item.typeComponent
+        });
+      });
+    }, error => {
+      console.log(error);
+    });
   }
 
   getListTypeComponent(): void {

@@ -24,3 +24,9 @@ export interface ViewPageObject {
   nameKz: string,
   isEdit: boolean
 }
+
+export interface MapBranchObject {
+  id: number,
+  name: string,
+  typeComponent: TypeComponentObject
+}

@@ -67,6 +67,17 @@ export class GalleryComponent implements OnInit {
   getCategory(): void {
     let paramsRoter: any[];
     paramsRoter = this.router.url.trim().split("/");
+    if (paramsRoter.length >= 1) {
+      if (paramsRoter[1].trim() === "ru") {
+        paramsRoter[1] = 'ru';
+      } else if (paramsRoter[1].trim() === "en") {
+        paramsRoter[1] = 'en';
+      } else if (paramsRoter[1].trim() === "kz") {
+        paramsRoter[1] = 'kz';
+      } else {
+        paramsRoter[1] = 'ru';
+      }
+    }
     this.sitePageService.getCategoriesVirtualExhibition(this.id!, paramsRoter[1]).subscribe(data => {
       this.categoryVirtualExhibition = data.result;
       console.log(this.categoryVirtualExhibition);
@@ -78,6 +89,17 @@ export class GalleryComponent implements OnInit {
   getBook(idBook: number, index: number): void {
     let paramsRoter: any[];
     paramsRoter = this.router.url.trim().split("/");
+    if (paramsRoter.length >= 1) {
+      if (paramsRoter[1].trim() === "ru") {
+        paramsRoter[1] = 'ru';
+      } else if (paramsRoter[1].trim() === "en") {
+        paramsRoter[1] = 'en';
+      } else if (paramsRoter[1].trim() === "kz") {
+        paramsRoter[1] = 'kz';
+      } else {
+        paramsRoter[1] = 'ru';
+      }
+    }
     this.indexSelectedBook = index;
     this.close = true;
     this.sitePageService.getBook(idBook, paramsRoter[1]).subscribe(data => {

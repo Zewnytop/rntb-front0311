@@ -168,6 +168,29 @@
       </tr>
       </tbody>
     </table>
+    <table class="file-table" *ngIf="selectedTypeComponent === 'BranchesMap'">
+      <thead>
+      <tr>
+        <th>Карта филиалов</th>
+        <th>Добавить</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let map of listMapBranch; let i = index">
+        <td>{{map.name}}</td>
+        <td>
+          <div class="edit-button">
+            <button (click)="addComponentOnPage(map.id, map.typeComponent)"
+                    [disabled]="blockButtonAddComponent(map.id)">
+              <img
+                [src]="[blockButtonAddComponent(map.id)? 'assets/icons/alert-circle.svg' : '/assets/icons/plus-circle.svg']"
+                alt="Выбрать">
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
   <!--  <button (click)="savePage()">Сохранить</button>-->
@@ -177,6 +200,7 @@
       <app-gallery *ngIf="component.typeComponent.code === 'VirtExhibition'" [id]="component.idComponent"></app-gallery>
       <app-contacts *ngIf="component.typeComponent.code ===  'Contact'" [id]="component.idComponent"></app-contacts>
       <app-article *ngIf="component.typeComponent.code ===  'Article'" [id]="component.idComponent"></app-article>
+      <app-map *ngIf="component.typeComponent.code ===  'BranchesMap'"></app-map>
     </ng-template>
   </div>
 </div>

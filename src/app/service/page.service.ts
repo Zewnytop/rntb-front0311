@@ -11,6 +11,11 @@ export class PageService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getMapBranch(): Observable<DataObject> {
+    const url = `/api/build/page/map`;
+    return this.httpClient.get<DataObject>(url);
+  }
+
   createPage(idBranch: number): Observable<DataSingleObject> {
     const url = `/api/build/page/new/${idBranch}`;
     return this.httpClient.post<DataSingleObject>(url, null);
