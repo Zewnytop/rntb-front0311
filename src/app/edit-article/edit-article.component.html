@@ -4,10 +4,11 @@
 <button (click)="log()">dsfdsfds</button>
 <div class="edit-article">
   <div class="edit-article-head">
-    <ul>
-      <li *ngFor="let type of listTypeAticle; let i=index" (click)="selectType(type)">{{type.nameType}}</li>
-    </ul>
+    <div class="add-button">
+      <button *ngFor="let type of listTypeAticle; let i=index" (click)="selectType(type)">{{type.nameType}}</button>
+    </div>
   </div>
+  <hr>
   <div class="edit-article-table">
     <table class="file-table">
       <caption><strong>Статьи News</strong></caption>
@@ -17,7 +18,11 @@
         <th>Последнее изменение</th>
         <th>Тип</th>
         <th *ngIf="selectedTypeArticle?.codeType === 'News'">Отображения</th>
-        <th></th>
+        <th>
+          <div class="add-button">
+            <button (click)="createArticle()">Создать статью</button>
+          </div>
+        </th>
       </tr>
       </thead>
       <tbody>
@@ -37,9 +42,6 @@
       </tr>
       </tbody>
     </table>
-    <div class="add-button">
-      <button (click)="createArticle()">Создать статью</button>
-    </div>
   </div>
   <div class="edit-article-space" *ngIf="selectedArticle">
     <div class="edit-article-text">
@@ -51,7 +53,11 @@
         </div>
         <!--350x250-->
       </div>
-      <button (click)="clearFileArticle()">Очистить изображение</button>
+      <div class="image-button">
+        <button (click)="clearFileArticle()">Очистить изображение</button>
+        <button>Выбрать изображение</button>
+      </div>
+
       <div class="select-language">
         <label>
           <input type="radio" [(ngModel)]="lang" value="ru">
