@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SitePageService} from "../service/site-page.service";
-import {SiteBook, SiteVirtualExhibitionObject} from "../../site-object/site-component-object";
+import {SiteBookObject, SiteVirtualExhibitionObject} from "../../site-object/site-component-object";
 import {Router} from "@angular/router";
 
 @Component({
@@ -12,7 +12,7 @@ export class GalleryComponent implements OnInit {
 
   private _id: number | null = null;
   private _categoryVirtualExhibition: SiteVirtualExhibitionObject | null = null;
-  private _bookVirtualExhibition: SiteBook | null = null;
+  private _bookVirtualExhibition: SiteBookObject | null = null;
   private _indexSelectedBook: number | null = null;
   private _close: boolean = false;
 
@@ -41,11 +41,11 @@ export class GalleryComponent implements OnInit {
     this._categoryVirtualExhibition = value;
   }
 
-  get bookVirtualExhibition(): SiteBook | null {
+  get bookVirtualExhibition(): SiteBookObject | null {
     return this._bookVirtualExhibition;
   }
 
-  set bookVirtualExhibition(value: SiteBook | null) {
+  set bookVirtualExhibition(value: SiteBookObject | null) {
     this._bookVirtualExhibition = value;
   }
 

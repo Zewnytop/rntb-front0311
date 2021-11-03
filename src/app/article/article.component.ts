@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {SiteArticleObject} from "../../site-object/site-component-object";
+import {SitePageService} from "../service/site-page.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-article',
@@ -7,9 +10,47 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticleComponent implements OnInit {
 
-  constructor() { }
+  private _id: number | null = null;
+  private _article: SiteArticleObject | null = null;
+
+  get id(): number | null {
+    return this._id;
+  }
+
+  @Input()
+  set id(value: number | null) {
+    this._id = value;
+  }
+
+  get article(): SiteArticleObject | null {
+    return this._article;
+  }
+
+  set article(value: SiteArticleObject | null) {
+    this._article = value;
+  }
+
+  constructor(private sitePageService: SitePageService, private router: Router) {
+  }
 
   ngOnInit(): void {
+    this.getArticle();
+  }
+
+  getArticle(): void {
+    let paramsRoter: any[];
+    paramsRoter = this.router.url.trim().split("/");
+    this.sitePageService.getArticle(this.id!, "ru").subscribe(data => {
+      console.log("data");
+      console.log(data);
+      this.article = data.result;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  previewCover(idFile: number): string {
+    return `/api/site/file/${idFile}`;
   }
 
 }

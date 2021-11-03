@@ -1,46 +1,23 @@
 <div class="container">
   <div class="article">
-    <div class="title">
-      <span class="title-span">Статья</span>
-      <hr class="title-hr-first">
-      <hr class="title-hr-second">
-    </div>
-    <span class="article-span">Для вас медики</span>
-    <div class="article-div">
-      <img src="/assets/images/news-1.png" alt="" class="article-img">
-    </div>
-      <div class="article-p">Осуществлена подписка на медицинские журналы издательства "Медиа Сфера" компании ООО "ИВИС"
-        -это ведущие и
-        наиболее популярные журналы в области медицины и здравоохранения, издания по общим вопросам медицины, детских
-        болезней, наркологии, психиатрии, инфекционных заболеваний и др.
-
-        Информационный поиск необходимой информации Вы всегда можете осуществить в залах электронных ресурсов Центра
-        библиотечно-информационного обслуживания и хранения фонда (Толе би, 73), Центра по работе со специальными видами
-        технической литературы и документации (Муканова, 233), а также в Центре патентно-информационной работы
-        (Сатпаева,
-        53).
+    <ng-template [ngIf]="article?.codeType === 'News' || article?.codeType === 'FullSize'">
+      <span class="article-span">{{article?.topic}}</span>
+      <div class="article-div" *ngIf="article && article.idCoverArticle">
+        <img [src]="previewCover(article.idCoverArticle)" alt="Обложка" class="article-img">
       </div>
-    <hr class="article-hr">
-
-    <div class="title">
-      <span class="title-span">Статья</span>
-      <hr class="title-hr-first">
-      <hr class="title-hr-second">
-    </div>
-
-    <span class="article-span">База данных "SpringerLink"</span>
-    <div class="article-div">
-      <img src="/assets/images/news-1.png" alt="" class="article-img">
-    </div>
-    <div class="article-p">
-      <b>SpringerLink</b> — основной электронный ресурс компании Шпрингер. Как один из мировых лидеров на
-      информационном
-      рынке электронных продуктов и услуг, SpringerLink предлагает вниманию читателей книги и журналы издательства
-      научной литературы Springer-Verlag, история деятельности которого насчитывает более 150 лет.
-    </div>
-    <div class="article-close">
-      <button class="article-button">Подробнее..</button>
-      <hr class="article-hr">
-    </div>
+      <div class="article-p" *ngIf="article && article.title" [InsertHtml]="article.title"></div>
+      <div class="ck-content" *ngIf="article && article.mainText" [InsertHtml]="article.mainText"></div>
+    </ng-template>
+    <ng-template [ngIf]="article?.codeType === 'Preview'">
+      <span class="article-span">{{article?.topic}}</span>
+      <div class="article-div" *ngIf="article && article.idCoverArticle">
+        <img [src]="previewCover(article.idCoverArticle)" alt="Обложка" class="article-img">
+      </div>
+      <div class="article-p" *ngIf="article && article.title" [InsertHtml]="article.title"></div>
+      <div class="article-close">
+        <button class="article-button">Подробнее..</button>
+        <hr class="article-hr">
+      </div>
+    </ng-template>
   </div>
 </div>

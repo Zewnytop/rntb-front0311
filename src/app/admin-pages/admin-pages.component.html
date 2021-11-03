@@ -52,7 +52,7 @@
         <th>Страницы</th>
         <th>
           <button (click)="createPage()">Создать</button>
-          <button (click)="log()">Создать</button>
+          <button (click)="log()">log</button>
         </th>
       </tr>
       </thead>
@@ -141,6 +141,33 @@
       </tr>
       </tbody>
     </table>
+    <table class="file-table" *ngIf="selectedTypeComponent === 'Article'">
+      <thead>
+      <tr>
+        <th>Статья
+          <select [ngModel]="selectedTypeArticle?.id" (ngModelChange)="selectType($event)">
+            <option [ngValue]="type.id" *ngFor="let type of listTypeAticle; let i= index">{{type.nameType}}</option>
+          </select>
+        </th>
+        <th>Добавить</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let article of listViewArticle; let i = index">
+        <td>{{article.name}}</td>
+        <td>
+          <div class="edit-button">
+            <button (click)="addComponentOnPage(article.id, article.typeComponent)"
+                    [disabled]="blockButtonAddComponent(article.id)">
+              <img
+                [src]="[blockButtonAddComponent(article.id)? 'assets/icons/alert-circle.svg' : '/assets/icons/plus-circle.svg']"
+                alt="Выбрать">
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
   <!--  <button (click)="savePage()">Сохранить</button>-->
@@ -149,7 +176,7 @@
     <ng-template ngFor let-component [ngForOf]="selectedPage.components">
       <app-gallery *ngIf="component.typeComponent.code === 'VirtExhibition'" [id]="component.idComponent"></app-gallery>
       <app-contacts *ngIf="component.typeComponent.code ===  'Contact'" [id]="component.idComponent"></app-contacts>
-      <!--              <app-article></app-article>-->
+      <app-article *ngIf="component.typeComponent.code ===  'Article'" [id]="component.idComponent"></app-article>
     </ng-template>
   </div>
 </div>

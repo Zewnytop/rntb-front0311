@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SiteLibraryBranch} from "../../site-object/site-component-object";
+import {SiteLibraryBranchObject} from "../../site-object/site-component-object";
 import {SitePageService} from "../service/site-page.service";
 import {Router} from "@angular/router";
 
@@ -11,13 +11,13 @@ import {Router} from "@angular/router";
 })
 export class MapComponent implements OnInit {
 
-  private _listLibraryBranch: SiteLibraryBranch[] = [];
+  private _listLibraryBranch: SiteLibraryBranchObject[] = [];
 
-  get listLibraryBranch(): SiteLibraryBranch[] {
+  get listLibraryBranch(): SiteLibraryBranchObject[] {
     return this._listLibraryBranch;
   }
 
-  set listLibraryBranch(value: SiteLibraryBranch[]) {
+  set listLibraryBranch(value: SiteLibraryBranchObject[]) {
     this._listLibraryBranch = value;
   }
 
@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
     let paramsRoter: any[];
     paramsRoter = this.router.url.trim().split("/");
     this.sitePageService.getLibraryBranches(paramsRoter[1]).subscribe(data => {
-      data.result.forEach((branch: SiteLibraryBranch) => {
+      data.result.forEach((branch: SiteLibraryBranchObject) => {
         this.listLibraryBranch.push({
           name: branch.name,
           city: branch.city,

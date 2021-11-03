@@ -7,6 +7,8 @@ import {HttpClient} from "@angular/common/http";
 import {PageObject, ViewPageObject} from "../../site-object/page-object";
 import {PageService} from "../service/page.service";
 import {TypeComponentObject} from "../../site-object/typeComponent-object";
+import {ArticleService} from "../service/article.service";
+import {TypeArticleObject, ViewArticleObject} from "../../site-object/article-object";
 
 
 @Component({
@@ -20,7 +22,10 @@ export class AdminPagesComponent implements OnInit {
   private _listViewContactBranch: ViewContactObject[] = [];
   private _listViewPages: ViewPageObject[] = [];
   private _listTypeComponent: TypeComponentObject[] = [];
+  private _listViewArticle: ViewArticleObject[] = [];
+  private _listTypeAticle: TypeArticleObject[] = [];
   private _selectedPage: PageObject | null = null;
+  private _selectedTypeArticle: TypeArticleObject | null = null;
   private _selectedTypeComponent: string | null = null;
   private _lang: string = "ru";
 
@@ -56,12 +61,36 @@ export class AdminPagesComponent implements OnInit {
     this._listTypeComponent = value;
   }
 
+  get listViewArticle(): ViewArticleObject[] {
+    return this._listViewArticle;
+  }
+
+  set listViewArticle(value: ViewArticleObject[]) {
+    this._listViewArticle = value;
+  }
+
+  get listTypeAticle(): TypeArticleObject[] {
+    return this._listTypeAticle;
+  }
+
+  set listTypeAticle(value: TypeArticleObject[]) {
+    this._listTypeAticle = value;
+  }
+
   get selectedPage(): PageObject | null {
     return this._selectedPage;
   }
 
   set selectedPage(value: PageObject | null) {
     this._selectedPage = value;
+  }
+
+  get selectedTypeArticle(): TypeArticleObject | null {
+    return this._selectedTypeArticle;
+  }
+
+  set selectedTypeArticle(value: TypeArticleObject | null) {
+    this._selectedTypeArticle = value;
   }
 
   get selectedTypeComponent(): string | null {
@@ -82,6 +111,7 @@ export class AdminPagesComponent implements OnInit {
 
   constructor(private virtualExhibitionService: VirtualExhibitionService,
               private contactService: ContactService,
+              private articleService: ArticleService,
               private httpClient: HttpClient,
               private pageService: PageService) {
   }
@@ -91,6 +121,7 @@ export class AdminPagesComponent implements OnInit {
     this.getCategories();
     this.getContacts();
     this.getPages();
+    this.getListTypeAticle();
   }
 
   getListTypeComponent(): void {
@@ -140,6 +171,48 @@ export class AdminPagesComponent implements OnInit {
     }, error => {
       console.log(error)
     });
+  }
+
+  getListTypeAticle(): void {
+    this.articleService.getListTypeArticle().subscribe(data => {
+      data.result.forEach(item => {
+        this.listTypeAticle.push({
+          id: item.id,
+          nameType: item.nameType,
+          codeType: item.codeType,
+          description: item.description
+        });
+      });
+      this.selectedTypeArticle = this.listTypeAticle[0];
+      this.getListArticle();
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getListArticle(): void {
+    this.listViewArticle = [];
+    this.articleService.getListArticle(19, this.selectedTypeArticle!.id).subscribe(data => {
+      data.result.forEach(item => {
+        this.listViewArticle.push({
+          id: item.id,
+          name: item.name,
+          lastModifiedDate: item.lastModifiedDate,
+          showOnPage: item.showOnPage,
+          typeComponent: item.typeComponent,
+          typeArticle: item.typeArticle
+        });
+      })
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  selectType(typeId: any): void {
+    const type = this.listTypeAticle.filter(item => item.id === typeId)[0];
+    this.selectedTypeArticle = type;
+    // this.selectedArticle = null;
+    this.getListArticle();
   }
 
 

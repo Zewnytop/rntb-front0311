@@ -41,7 +41,7 @@ export interface SitePageComponentObject {
   codeType: string
 }
 
-export interface SiteBook {
+export interface SiteBookObject {
   author: string,
   name: string,
   isbn: string,
@@ -49,8 +49,16 @@ export interface SiteBook {
   idImageCover: number
 }
 
-export interface SiteLibraryBranch {
+export interface SiteLibraryBranchObject {
   name: string,
   city: string,
   domen: string
+}
+
+export interface SiteArticleObject {
+  topic: string,
+  title: string,
+  mainText: string,
+  idCoverArticle: number,
+  codeType: string
 }
