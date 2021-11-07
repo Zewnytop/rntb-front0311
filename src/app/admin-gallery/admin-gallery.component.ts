@@ -93,7 +93,8 @@ export class AdminGalleryComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.virtualExhibitionService.getCategories(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.virtualExhibitionService.getCategories(idBranch).subscribe(data => {
       data.result.forEach(category => {
         this.listCategoryVirtualExhibition.push({
           id: category.id,
@@ -122,7 +123,8 @@ export class AdminGalleryComponent implements OnInit {
   }
 
   getBooks(): void {
-    this.bookService.getBooks(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.bookService.getBooks(idBranch).subscribe(data => {
       data.result.forEach(viewBook => {
         this.listViewBook.push({
           id: viewBook.id,
@@ -205,7 +207,8 @@ export class AdminGalleryComponent implements OnInit {
   }
 
   createCategory(): void {
-    this.virtualExhibitionService.createCategory(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.virtualExhibitionService.createCategory(idBranch).subscribe(data => {
       const category = data.result;
       this.listCategoryVirtualExhibition.unshift({
         id: category.id,

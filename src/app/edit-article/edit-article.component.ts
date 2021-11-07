@@ -104,8 +104,9 @@ export class EditArticleComponent implements OnInit {
   }
 
   getListArticle(): void {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     this.listViewArticle = [];
-    this.articleService.getListArticle(19, this.selectedTypeArticle!.id).subscribe(data => {
+    this.articleService.getListArticle(idBranch, this.selectedTypeArticle!.id).subscribe(data => {
       data.result.forEach(item => {
         this.listViewArticle.push({
           id: item.id,
@@ -122,7 +123,8 @@ export class EditArticleComponent implements OnInit {
   }
 
   createArticle(): void {
-    this.articleService.createArticle(19, this.selectedTypeArticle!.id).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.articleService.createArticle(idBranch, this.selectedTypeArticle!.id).subscribe(data => {
       const newArticle = data.result;
       this.listViewArticle.push({
         id: newArticle.id,
@@ -184,7 +186,8 @@ export class EditArticleComponent implements OnInit {
   }
 
   getFiles(): void {
-    this.articleService.getFileArticle(19).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.articleService.getFileArticle(idBranch).subscribe(data => {
       data.result.forEach(viewFile => {
         this.listViewFile.push({
           id: viewFile.id,

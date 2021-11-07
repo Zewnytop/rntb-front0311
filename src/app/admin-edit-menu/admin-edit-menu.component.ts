@@ -72,14 +72,15 @@ export class AdminEditMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMainitemsMenu(parseInt(localStorage.getItem("BranchId")!!));
+    this.getMainitemsMenu();
     this.getTypeItemMenu();
     this.getPages();
   }
 
   createItemMenu(idParent: number | null = null, index: number | null = null): void {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     if (index === null && idParent === null) {
-      this.menuService.createItemMenu(parseInt(localStorage.getItem("BranchId")!!), idParent).subscribe(data => {
+      this.menuService.createItemMenu(idBranch, idParent).subscribe(data => {
         console.log(data)
         const itemMenu = data.result;
         this.listMainItemMenu.push({
@@ -104,7 +105,7 @@ export class AdminEditMenuComponent implements OnInit {
         console.log(error)
       });
     } else {
-      this.menuService.createItemMenu(parseInt(localStorage.getItem("BranchId")!!), idParent).subscribe(data => {
+      this.menuService.createItemMenu(idBranch, idParent).subscribe(data => {
         console.log(data)
         const itemMenu = data.result;
         this.listMainItemMenu[index!].childerItemMenu.push({
@@ -132,7 +133,8 @@ export class AdminEditMenuComponent implements OnInit {
   }
 
   getPages(): void { //TODO
-    this.pageService.getListPage(10).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.pageService.getListPage(idBranch).subscribe(data => {
       data.result.forEach(page => {
         this.listViewPages.push({
           id: page.id,
@@ -147,7 +149,8 @@ export class AdminEditMenuComponent implements OnInit {
     });
   }
 
-  getMainitemsMenu(idBranch: number): void {
+  getMainitemsMenu(): void {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     this.menuService.getMainitemsMenu(idBranch).subscribe(data => {
       console.log(data);
       this.listMainItemMenu = this.setListItemMenu(data.result);

@@ -165,7 +165,8 @@ export class AdminPagesComponent implements OnInit {
   }
 
   getCategories(): void {
-    this.virtualExhibitionService.getCategories(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.virtualExhibitionService.getCategories(idBranch).subscribe(data => {
       data.result.forEach(category => {
         this.listCategoryVirtualExhibition.push({
           id: category.id,
@@ -184,7 +185,8 @@ export class AdminPagesComponent implements OnInit {
   }
 
   getContacts(): void {
-    this.contactService.getListContact(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.contactService.getListContact(idBranch).subscribe(data => {
       data.result.forEach((value) => this.listViewContactBranch.push({
         id: value.id,
         name: value.name,
@@ -216,7 +218,8 @@ export class AdminPagesComponent implements OnInit {
 
   getListArticle(): void {
     this.listViewArticle = [];
-    this.articleService.getListArticle(19, this.selectedTypeArticle!.id).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.articleService.getListArticle(idBranch, this.selectedTypeArticle!.id).subscribe(data => {
       data.result.forEach(item => {
         this.listViewArticle.push({
           id: item.id,
@@ -241,7 +244,8 @@ export class AdminPagesComponent implements OnInit {
 
 
   createPage(): void {
-    this.pageService.createPage(19).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.pageService.createPage(idBranch).subscribe(data => {
       this.listViewPages.push({
         id: data.result.id,
         nameRu: data.result.nameRu,
@@ -255,7 +259,8 @@ export class AdminPagesComponent implements OnInit {
   }
 
   getPages(): void { //TODO
-    this.pageService.getListPage(19).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.pageService.getListPage(idBranch).subscribe(data => {
       data.result.forEach(page => {
         this.listViewPages.push({
           id: page.id,

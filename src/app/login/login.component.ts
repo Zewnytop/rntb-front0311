@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Route, Router} from "@angular/router";
+import {UserService} from "../service/user.service";
+import {UserStoreObject} from "../../site-object/user-object";
 
 @Component({
   selector: 'app-login',
@@ -30,15 +32,27 @@ export class LoginComponent implements OnInit {
     this._password = value;
   }
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient, private router: Router, private userService: UserService) {
   }
 
   ngOnInit(): void {
   }
 
   fake(): void {
-    localStorage.setItem("BranchId", "19");
-    this.router.navigate(['/admin-panel']);
+    this.userService.getUser(this.login).subscribe(data => {
+      console.log(data);
+      const user: UserStoreObject = {
+        id: data.result.id,
+        fio: data.result.fio,
+        role: data.result.role,
+        libraryBranch: data.result.libraryBranch
+      };
+      localStorage.setItem("user", JSON.stringify(user))
+      console.log(JSON.parse(localStorage.getItem('user')!));
+      // this.router.navigate(['/admin-panel']);
+    }, error => {
+      console.log(error);
+    });
   }
 
   loginInSystem(): void {
@@ -87,4 +101,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  clear() {
+    localStorage.removeItem('user');
+  }
 }

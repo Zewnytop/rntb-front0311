@@ -75,7 +75,8 @@ export class AdminBookComponent implements OnInit {
   }
 
   getBooks(): void {
-    this.bookService.getBooks(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.bookService.getBooks(idBranch).subscribe(data => {
       data.result.forEach(viewBook => {
         this.listViewBook.push({
           id: viewBook.id,
@@ -97,7 +98,8 @@ export class AdminBookComponent implements OnInit {
   }
 
   getFiles(): void {
-    this.bookService.getFiles(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.bookService.getFiles(idBranch).subscribe(data => {
       data.result.forEach(viewFile => {
         this.listViewFile.push({
           id: viewFile.id,
@@ -114,7 +116,8 @@ export class AdminBookComponent implements OnInit {
   }
 
   createBook(): void {
-    this.bookService.createBook(parseInt(localStorage.getItem("BranchId")!!)).subscribe(data => {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.bookService.createBook(idBranch).subscribe(data => {
       const book = data.result;
       this.listViewBook.unshift({
         id: book.id,
