@@ -295,44 +295,4 @@ export class EditArticleComponent implements OnInit {
       ]
     },
   }
-  public configTwo = {
-    toolbar: {
-      items: [
-        // 'heading',
-        // '|',
-        // 'bold',
-        // 'italic',
-        // 'underline',
-        // 'alignment',
-        // '|',
-        // 'link',
-        // 'bulletedList',
-        // 'numberedList',
-        // '|',
-        // 'blockQuote',
-        // 'fontColor',
-        // 'highlight',
-        // 'undo',
-        // 'redo'
-      ]
-    },
-    language: {
-      ui: 'ru',
-      content: 'ru'
-    },
-    image: {
-      toolbar: [
-        'imageTextAlternative',
-        'imageStyle:inline',
-        'imageStyle:block',
-        'imageStyle:alignLeft',
-        'imageStyle:alignRight'
-      ],
-      styles: [
-        'full',
-        'alignLeft',
-        'alignRight'
-      ]
-    }
-  }
 }

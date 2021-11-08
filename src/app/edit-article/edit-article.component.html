@@ -94,16 +94,7 @@
             <input type="text" placeholder="Заголовок" *ngIf="lang === 'kz'"
                    [(ngModel)]="selectedArticle.topicKz" name="topicKz">
           </form>
-          <form>
-            <label><b>Описание:</b></label>
-            <ckeditor [(ngModel)]="selectedArticle.titleRu" [editor]="Editor" [config]="configTwo" *ngIf="lang === 'ru'"
-                      name="titleRu"></ckeditor>
-            <ckeditor [(ngModel)]="selectedArticle.titleEn" [editor]="Editor" [config]="configTwo" *ngIf="lang === 'eng'"
-                      name="titleEn"></ckeditor>
-            <ckeditor [(ngModel)]="selectedArticle.titleKz" [editor]="Editor" [config]="configTwo" *ngIf="lang === 'kz'"
-                      name="titleKz"></ckeditor>
-          </form>
-          <p><b>Основной текст:</b></p>
+          <p><b>Текст:</b></p>
           <ckeditor [(ngModel)]="selectedArticle.mainTextRu" [editor]="Editor" [config]="config"
                     *ngIf="lang === 'ru'" name="mainTextRu"></ckeditor>
           <ckeditor [(ngModel)]="selectedArticle.mainTextEn" [editor]="Editor" [config]="config"
