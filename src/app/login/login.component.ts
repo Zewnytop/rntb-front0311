@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Route, Router} from "@angular/router";
 import {UserService} from "../service/user.service";
 import {UserStoreObject} from "../../site-object/user-object";
+import {CookieService} from "../service/cookie.service";
 
 @Component({
   selector: 'app-login',
@@ -32,14 +33,14 @@ export class LoginComponent implements OnInit {
     this._password = value;
   }
 
-  constructor(private httpClient: HttpClient, private router: Router, private userService: UserService) {
+  constructor(private httpClient: HttpClient, private router: Router, private userService: UserService, private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
   }
 
   fake(): void {
-    this.userService.getUser(this.login).subscribe(data => {
+    this.userService.getUserStore(this.login).subscribe(data => {
       console.log(data);
       const user: UserStoreObject = {
         id: data.result.id,
@@ -56,27 +57,24 @@ export class LoginComponent implements OnInit {
   }
 
   loginInSystem(): void {
-    // const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(this.login + ":" + this.password)});
-    // const url = `/api/auth/user`;
-    // this.httpClient.get<any>(url, {headers: headers}).subscribe(data => {
-    //   this.httpClient.get(`/api/auth/admin`).subscribe(data => {
-    //     console.log(data);
-    //   });
-    //   // localStorage.setItem("BranchId", data);
-    //   // this.router.navigate(['/admin-panel'])
-    //   console.log(data);
-    // }, error => {
-    //   console.log(error);
-    // });
     const body = {
       login: this.login,
       password: this.password
     };
     this.httpClient.post<any>(`/api/auth/login`, body).subscribe(data => {
-      console.log(data);
-      this.token = data.token;
-      // console.log("good");
-      // localStorage.setItem("BranchId", "3");
+      document.cookie = "Authorization=" + data.token + "; samesite=strict";
+      this.userService.getUserStore(this.login).subscribe(data => {
+        const user: UserStoreObject = {
+          id: data.result.id,
+          fio: data.result.fio,
+          role: data.result.role,
+          libraryBranch: data.result.libraryBranch
+        };
+        localStorage.setItem("user", JSON.stringify(user))
+        this.router.navigate(['/admin-panel']);
+      }, error => {
+        console.log(error);
+      });
       // this.router.navigate(['/admin-panel']);
     }, error => {
       console.log(error);

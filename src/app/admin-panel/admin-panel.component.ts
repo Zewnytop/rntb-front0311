@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {CookieService} from "../service/cookie.service";
 
 @Component({
   selector: 'login',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private cookieService: CookieService) {
+  }
 
   ngOnInit(): void {
   }
 
+  exit() {
+    this.cookieService.deleteCookie();
+    localStorage.removeItem('user');
+    this.router.navigateByUrl('/login');
+  }
 }

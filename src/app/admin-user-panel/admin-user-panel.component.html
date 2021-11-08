@@ -2,14 +2,21 @@
   <table class="file-table" style="width: 300px;">
     <thead>
     <tr>
-      <th>Название филиала</th>
+      <th>Филиал</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-      <td>Астанинский</td>
+      <td>
+        <select [ngModel]="selectedBranch?.id" (ngModelChange)="setBranch($event)">
+          <option [value]="branch.id" *ngFor="let branch of listBranch; let i=index">{{branch.nameRu}}</option>
+        </select>
+      </td>
     </tr>
     </tbody>
+    <div>
+      <p>{{errormessage}}</p>
+    </div>
   </table>
 
   <table class="file-table">
@@ -19,26 +26,45 @@
       <th>Логин</th>
       <th>Пароль</th>
       <th>Доступ</th>
-      <th>Редактирование</th>
-      <th>Удалить</th>
+      <th>
+        <div class="edit-button">
+          <button (click)="addUser()">
+            <img alt="Редактирование" src="/assets/icons/plus-circle.svg">
+          </button>
+        </div>
+      </th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Иван Иванов</td>
-      <td>IvanIvanov</td>
-      <td>123456789</td>
-      <td>Открыт</td>
-      <td>
-        <div class="edit-button">
-          <button>
-            <img alt="Редактирование" src="assets/icons/edit-2.svg">
-          </button>
-        </div>
+    <tr *ngFor="let user of listUser; let i=index">
+      <td *ngIf="!user.isEdit">{{user.fio}}</td>
+      <td *ngIf="user.isEdit">
+        <input type="text" [(ngModel)]="user.fio">
+      </td>
+      <td *ngIf="!user.isEdit">{{user.login}}</td>
+      <td *ngIf="user.isEdit">
+        <input type="text" [(ngModel)]="user.login">
+      </td>
+      <td *ngIf="!user.isEdit">Скрыт</td>
+      <td *ngIf="user.isEdit">
+        <input *ngIf="user.id == null" type="text" [(ngModel)]="user.password">
+      </td>
+      <td *ngIf="!user.isEdit">{{[user.branchAccess ? 'Разрешен' : 'Запрещен']}}</td>
+      <td *ngIf="user.isEdit">
+        <input type="checkbox" [(ngModel)]="user.branchAccess">
       </td>
       <td>
         <div class="edit-button">
-          <button>
+          <button (click)="changeEditStatus(user)" *ngIf="!user.isEdit">
+            <img alt="Редактирование" src="assets/icons/edit-2.svg">
+          </button>
+          <button *ngIf="user.isEdit && user.id" (click)="updateUser(user, i)">
+            <img src="assets/icons/save.svg" alt="Сохранить">
+          </button>
+          <button *ngIf="user.isEdit && user.id == null " (click)="createUser(user, i)">
+            <img src="assets/icons/save.svg" alt="Сохранить">
+          </button>
+          <button (click)="deleteUser(user?.id, i)">
             <img alt="Удалить" src="assets/icons/trash-2.svg">
           </button>
         </div>
@@ -46,23 +72,4 @@
     </tr>
     </tbody>
   </table>
-</div>
-<hr>
-<div class="user-languages">
-  <h4>Отключение языков</h4>
-  <div>
-    <label>
-      <input type="checkbox"  value="ru">
-      RU
-    </label>
-    <label>
-      <input type="checkbox"  value="kz">
-      KZ
-    </label>
-    <label>
-      <input type="checkbox"  value="eng">
-      ENG
-    </label>
-  </div>
-  <button style="margin-top: 15px;">Сохранить локализацию</button>
 </div>
