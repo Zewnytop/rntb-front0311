@@ -196,6 +196,11 @@
   <!--  <button (click)="savePage()">Сохранить</button>-->
   <hr>
   <div *ngIf="selectedPage && selectedPage.components">
+    <div class="title">
+      <span class="title-span">{{selectedPage?.nameRu}}</span>
+      <hr class="title-hr-first">
+      <hr class="title-hr-second">
+    </div>
     <ng-template ngFor let-component [ngForOf]="selectedPage.components">
       <app-gallery *ngIf="component.typeComponent.code === 'VirtExhibition'" [id]="component.idComponent"></app-gallery>
       <app-contacts *ngIf="component.typeComponent.code ===  'Contact'" [id]="component.idComponent"></app-contacts>

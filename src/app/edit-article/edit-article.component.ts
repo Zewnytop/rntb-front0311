@@ -23,6 +23,25 @@ export class EditArticleComponent implements OnInit {
   private _selectedTypeArticle: TypeArticleObject | null = null;
   private _selectedArticle: ArticleObject | null = null;
   private _lang: string = "ru";
+  private _close: boolean = false;
+  private _edit: boolean = false;
+
+
+  get edit(): boolean {
+    return this._edit;
+  }
+
+  set edit(value: boolean) {
+    this._edit = value;
+  }
+
+  get close(): boolean {
+    return this._close;
+  }
+
+  set close(value: boolean) {
+    this._close = value;
+  }
 
   get listViewArticle(): ViewArticleObject[] {
     return this._listViewArticle;
@@ -275,45 +294,5 @@ export class EditArticleComponent implements OnInit {
         'tableProperties'
       ]
     },
-  }
-  public configTwo = {
-    toolbar: {
-      items: [
-        'heading',
-        '|',
-        'bold',
-        'italic',
-        'underline',
-        'alignment',
-        '|',
-        'link',
-        'bulletedList',
-        'numberedList',
-        '|',
-        'blockQuote',
-        'fontColor',
-        'highlight',
-        'undo',
-        'redo'
-      ]
-    },
-    language: {
-      ui: 'ru',
-      content: 'ru'
-    },
-    image: {
-      toolbar: [
-        'imageTextAlternative',
-        'imageStyle:inline',
-        'imageStyle:block',
-        'imageStyle:alignLeft',
-        'imageStyle:alignRight'
-      ],
-      styles: [
-        'full',
-        'alignLeft',
-        'alignRight'
-      ]
-    }
   }
 }

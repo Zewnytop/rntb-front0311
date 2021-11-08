@@ -1,148 +1,158 @@
 <div>
   <p><b>Редактирование статей</b></p>
 </div>
-<button (click)="log()">dsfdsfds</button>
 <div class="edit-article">
-  <div class="edit-article-head">
-    <div class="add-button">
-      <button *ngFor="let type of listTypeAticle; let i=index" (click)="selectType(type)">{{type.nameType}}</button>
-    </div>
-  </div>
-  <hr>
-  <div class="edit-article-table">
-    <table class="file-table">
-      <caption><strong>Статьи News</strong></caption>
-      <thead>
-      <tr>
-        <th>Заголовок</th>
-        <th>Последнее изменение</th>
-        <th>Тип</th>
-        <th *ngIf="selectedTypeArticle?.codeType === 'News'">Отображения</th>
-        <th>
-          <div class="add-button">
-            <button (click)="createArticle()">Создать статью</button>
-          </div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let article of listViewArticle; let i=index">
-        <td>{{article.name}}</td>
-        <td>{{article.lastModifiedDate}}</td>
-        <td>{{article.typeArticle.nameType}}</td>
-        <td *ngIf="selectedTypeArticle?.codeType === 'News'">{{[article.showOnPage ? 'Отображать' : 'Скрыть']}}</td>
-        <td class="edit-button">
-          <button (click)="getArticle(article.id)">
-            <img src="assets/icons/edit-2.svg" alt="Редактировать">
-          </button>
-          <button (click)="deleteArticle(article.id, i)">
-            <img src="assets/icons/trash-2.svg" alt="Удалить">
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="edit-article-space" *ngIf="selectedArticle">
-    <div class="edit-article-text">
-      <div class="edit-article-image">
-        <p><strong>Обложка</strong></p>
-        <div>
-          <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
-               style="width: 350px ; height: 230px">
-        </div>
-        <!--350x250-->
-      </div>
-      <div class="image-button">
-        <button (click)="clearFileArticle()">Очистить изображение</button>
-        <button>Выбрать изображение</button>
-      </div>
-
-      <div class="select-language">
-        <label>
-          <input type="radio" [(ngModel)]="lang" value="ru">
-          RU
-        </label>
-        <label>
-          <input type="radio" [(ngModel)]="lang" value="eng">
-          ENG
-        </label>
-        <label>
-          <input type="radio" [(ngModel)]="lang" value="kz">
-          KZ
-        </label>
-      </div>
-      <div>
-        <form>
-          <label><b>Заголовок:</b></label>
-          <input type="text" placeholder="Заголовок" *ngIf="lang === 'ru'"
-                 [(ngModel)]="selectedArticle.topicRu" name="topicRu">
-          <input type="text" placeholder="Заголовок" *ngIf="lang === 'eng'"
-                 [(ngModel)]="selectedArticle.topicEn" name="topicEn">
-          <input type="text" placeholder="Заголовок" *ngIf="lang === 'kz'"
-                 [(ngModel)]="selectedArticle.topicKz" name="topicKz">
-        </form>
-        <form *ngIf="selectedArticle.typeArticle.codeType === 'News'">
-          <label for="show"><b>Отображать на сранице:</b></label>
-          <input type="checkbox" id="show" [(ngModel)]="selectedArticle.showOnPage" name="showOnPage">
-        </form>
-        <form>
-          <label><b>Описание:</b></label>
-          <ckeditor [(ngModel)]="selectedArticle.titleRu" [editor]="Editor" [config]="configTwo" *ngIf="lang === 'ru'"
-                    name="titleRu"></ckeditor>
-          <ckeditor [(ngModel)]="selectedArticle.titleEn" [editor]="Editor" [config]="configTwo" *ngIf="lang === 'eng'"
-                    name="titleEn"></ckeditor>
-          <ckeditor [(ngModel)]="selectedArticle.titleKz" [editor]="Editor" [config]="configTwo" *ngIf="lang === 'kz'"
-                    name="titleKz"></ckeditor>
-        </form>
-        <p><b>Основной текст:</b></p>
-        <ckeditor [(ngModel)]="selectedArticle.mainTextRu" [editor]="Editor" [config]="config"
-                  *ngIf="lang === 'ru'" name="mainTextRu"></ckeditor>
-        <ckeditor [(ngModel)]="selectedArticle.mainTextEn" [editor]="Editor" [config]="config"
-                  *ngIf="lang === 'eng'" name="mainTextEn"></ckeditor>
-        <ckeditor [(ngModel)]="selectedArticle.mainTextKz" [editor]="Editor" [config]="config"
-                  *ngIf="lang === 'kz'" name="mainTextKz"></ckeditor>
+  <ng-template [ngIf]="edit==false">
+    <div class="edit-article-head">
+      <div class="add-button">
+        <button *ngFor="let type of listTypeAticle; let i=index" (click)="selectType(type)">{{type.nameType}}</button>
       </div>
     </div>
-    <div class="add-button">
-      <button (click)="updateArticle()">Сохранить</button>
-    </div>
-  </div>
-
-  <div class="file-popup-content-area">
-    <div class="file-popup-table">
-      <table>
+    <hr>
+  </ng-template>
+  <ng-template [ngIf]="edit==false">
+    <div class="edit-article-table">
+      <table class="file-table">
+        <caption><strong>{{selectedTypeArticle?.nameType}}</strong></caption>
         <thead>
         <tr>
-          <th>Название</th>
-          <th>Дата</th>
-          <th>Выбрать</th>
+          <th>Заголовок</th>
+          <th>Последнее изменение</th>
+          <th>Тип</th>
+          <th *ngIf="selectedTypeArticle?.codeType === 'News'">Отображения</th>
+          <th>
+            <div class="add-button">
+              <button (click)="createArticle()">Создать статью</button>
+            </div>
+          </th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let viewFile of listViewFile; let i = index">
-          <td>{{viewFile.nameFile}}</td>
-          <td>{{viewFile.createdDate}}</td>
-          <td>
-            <div class="edit-button">
-              <button (click)="setCoverArticle(viewFile)">
-                <img alt="Обложка" src="assets/icons/corner-right-up.svg">
-              </button>
-            </div>
+        <tr *ngFor="let article of listViewArticle; let i=index">
+          <td>{{article.name}}</td>
+          <td>{{article.lastModifiedDate}}</td>
+          <td>{{article.typeArticle.nameType}}</td>
+          <td *ngIf="selectedTypeArticle?.codeType === 'News'">{{[article.showOnPage ? 'Отображать' : 'Скрыть']}}</td>
+          <td class="edit-button">
+            <button (click)="getArticle(article.id); edit=true">
+              <img src="assets/icons/edit-2.svg" alt="Редактировать">
+            </button>
+            <button (click)="deleteArticle(article.id, i)">
+              <img src="assets/icons/trash-2.svg" alt="Удалить">
+            </button>
           </td>
         </tr>
         </tbody>
       </table>
     </div>
-    <div *ngIf="selectedArticle">
-      <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
-           style="width: 200px ; height: 300px">
-    </div>
-  </div>
-  <!--  <div class="ck-content" [InsertHtml]="tst">-->
+  </ng-template>
 
-  <!--  </div>-->
-  <!--  <div>-->
-  <!--    {{tst}}-->
-  <!--  </div>-->
+  <ng-template [ngIf]="edit==true">
+    <div class="edit-button">
+      <button (click)="edit=false"><img src="assets/icons/arrow-left.svg"></button>
+    </div>
+    <div class="edit-article-space" *ngIf="selectedArticle">
+      <div class="edit-article-text">
+        <div class="edit-article-image">
+          <form *ngIf="selectedArticle.typeArticle.codeType === 'News'">
+            <label for="show"><b>Отображать на сранице:</b></label>
+            <input type="checkbox" id="show" [(ngModel)]="selectedArticle.showOnPage" name="showOnPage">
+          </form>
+          <p><strong>Обложка: </strong></p>
+          <div>
+            <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
+                 style="width: 350px ; height: 230px">
+          </div>
+          <!--350x250-->
+        </div>
+        <div class="image-button">
+          <button (click)="clearFileArticle()">Очистить изображение</button>
+          <button (click)="close = true">Выбрать изображение</button>
+        </div>
+
+        <div class="select-language">
+          <label>
+            <input type="radio" [(ngModel)]="lang" value="ru">
+            RU
+          </label>
+          <label>
+            <input type="radio" [(ngModel)]="lang" value="eng">
+            ENG
+          </label>
+          <label>
+            <input type="radio" [(ngModel)]="lang" value="kz">
+            KZ
+          </label>
+        </div>
+        <div>
+          <form>
+            <label><b>Заголовок:</b></label>
+            <input type="text" placeholder="Заголовок" *ngIf="lang === 'ru'"
+                   [(ngModel)]="selectedArticle.topicRu" name="topicRu">
+            <input type="text" placeholder="Заголовок" *ngIf="lang === 'eng'"
+                   [(ngModel)]="selectedArticle.topicEn" name="topicEn">
+            <input type="text" placeholder="Заголовок" *ngIf="lang === 'kz'"
+                   [(ngModel)]="selectedArticle.topicKz" name="topicKz">
+          </form>
+          <p><b>Текст:</b></p>
+          <ckeditor [(ngModel)]="selectedArticle.mainTextRu" [editor]="Editor" [config]="config"
+                    *ngIf="lang === 'ru'" name="mainTextRu"></ckeditor>
+          <ckeditor [(ngModel)]="selectedArticle.mainTextEn" [editor]="Editor" [config]="config"
+                    *ngIf="lang === 'eng'" name="mainTextEn"></ckeditor>
+          <ckeditor [(ngModel)]="selectedArticle.mainTextKz" [editor]="Editor" [config]="config"
+                    *ngIf="lang === 'kz'" name="mainTextKz"></ckeditor>
+        </div>
+      </div>
+      <div class="add-button">
+        <button (click)="updateArticle(); edit=false">Сохранить</button>
+      </div>
+    </div>
+  </ng-template>
+
+
+  <div class="file-popup" *ngIf="close">
+    <div class="file-popup-content">
+      <div class="file-popup-header">
+        <div>
+          <p><strong>Выберите обложку</strong></p>
+        </div>
+        <div class="edit-button">
+          <button (click)="close=false"><img src="assets/icons/x.svg"></button>
+        </div>
+      </div>
+      <div class="file-popup-content-area">
+        <div class="file-popup-table">
+          <table>
+            <thead>
+            <tr>
+              <th>Название</th>
+              <th>Дата</th>
+              <th>Выбрать</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let viewFile of listViewFile; let i = index">
+              <td>{{viewFile.nameFile}}</td>
+              <td>{{viewFile.createdDate}}</td>
+              <td>
+                <div class="edit-button">
+                  <button (click)="setCoverArticle(viewFile)">
+                    <img alt="Обложка" src="assets/icons/corner-right-up.svg">
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div *ngIf="selectedArticle">
+          <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
+               style="width: 350px ; height: 230px">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
 </div>

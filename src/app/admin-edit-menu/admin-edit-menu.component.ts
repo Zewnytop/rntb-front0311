@@ -77,6 +77,7 @@ export class AdminEditMenuComponent implements OnInit {
     this.getPages();
   }
 
+
   createItemMenu(idParent: number | null = null, index: number | null = null): void {
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     if (index === null && idParent === null) {
@@ -135,6 +136,8 @@ export class AdminEditMenuComponent implements OnInit {
   getPages(): void { //TODO
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     this.pageService.getListPage(idBranch).subscribe(data => {
+      console.log("sfddf")
+      console.log(data)
       data.result.forEach(page => {
         this.listViewPages.push({
           id: page.id,
