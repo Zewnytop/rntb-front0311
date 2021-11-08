@@ -5,7 +5,7 @@
       <div class="article-div" *ngIf="article && article.idCoverArticle">
         <img [src]="previewCover(article.idCoverArticle)" alt="Обложка" class="article-img">
       </div>
-      <div class="article-p" *ngIf="article && article.title" [InsertHtml]="article.title"></div>
+<!--      <div class="article-p" *ngIf="article && article.title" [InsertHtml]="article.title"></div>-->
       <div class="ck-content" *ngIf="article && article.mainText" [InsertHtml]="article.mainText"></div>
     </ng-template>
     <ng-template [ngIf]="article?.codeType === 'Preview'">

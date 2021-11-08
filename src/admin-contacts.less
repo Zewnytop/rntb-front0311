@@ -1,23 +1,26 @@
 .admin-contacts {
   .admin-contacts-edit {
+    //display: flex;
+    //flex-direction: row;
+    //flex-wrap: wrap;
+    //
+    //div {
+    //  flex: 1 1 400px;
+    //}
+.edit-input {
+  input[type=text], select {
+    width: 70%;
+    padding: 8px 10px;
+    margin: 8px 0;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+}
 
-    div {
-      flex: 1 1 400px;
-    }
 
-    input[type=text], select {
-      width: 90%;
-      padding: 8px 10px;
-      margin: 8px 0;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-    }
 
     #ckeditor {
       width: 100%;

@@ -6,7 +6,6 @@
   <div class="admin-edit-menu-tables">
     <div class="add-button">
       <button (click)="createItemMenu()">Добавить пункт меню</button>
-      <button (click)="log()">Доasfasfasfю</button>
     </div>
     <ul *ngFor="let itemMenu of listMainItemMenu; let i = index">
       <li>
@@ -74,7 +73,7 @@
             </td>
             <td>{{itemMenu.lastModifiedDate}}</td>
             <td *ngIf="itemMenu.isEdit === true">
-              <select *ngIf="itemMenu.typeItemMenu.codeType == 'page'" [ngModel]="itemMenu?.page?.id"
+              <select *ngIf="itemMenu.typeItemMenu.codeType == 'Page'" [ngModel]="itemMenu?.page?.id"
                       (ngModelChange)="setPage($event, i)">
                 <option [value]="null">Пусто</option>
                 <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
@@ -136,7 +135,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let childerItem of itemMenu.childerItemMenu; let iChildren = index">
+          <tr *ngFor="let childerItem of itemMenu.childerItemMenu; let iChildren = index" class="edit-input2">
             <td *ngIf="lang === 'ru' && childerItem.isEdit === false">{{childerItem.nameRu}}</td>
             <td *ngIf="lang === 'ru' && childerItem.isEdit === true"><input type="text"
                                                                             [(ngModel)]="childerItem.nameRu">
@@ -149,8 +148,8 @@
             <td *ngIf="lang === 'kz' && childerItem.isEdit === true"><input type="text"
                                                                             [(ngModel)]="childerItem.nameKz">
             <td>{{childerItem.lastModifiedDate}}</td>
-            <td *ngIf="childerItem.isEdit === true">
-              <select *ngIf="childerItem.typeItemMenu.codeType == 'page'" [ngModel]="childerItem?.page?.id"
+            <td *ngIf="childerItem.isEdit">
+              <select *ngIf="childerItem.typeItemMenu.codeType == 'Page'" [ngModel]="childerItem?.page?.id"
                       (ngModelChange)="setPage($event, i, iChildren)">
                 <option [value]="null">Пусто</option>
                 <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>

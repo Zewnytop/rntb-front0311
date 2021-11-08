@@ -15,7 +15,16 @@ export class AdminContactsComponent implements OnInit {
   private _lang: string = "ru";
   private _errorMessage: string | null = null;
   private _blockCheckBox: boolean = false;
+  private _edit: boolean = false;
 
+
+  get edit(): boolean {
+    return this._edit;
+  }
+
+  set edit(value: boolean) {
+    this._edit = value;
+  }
 
   regKrt(e: Event): any {
     // @ts-ignore
