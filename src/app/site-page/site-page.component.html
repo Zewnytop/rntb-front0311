@@ -5,7 +5,7 @@
     <hr class="title-hr-first">
     <hr class="title-hr-second">
   </div>
-</div>
+
 <ng-template ngFor let-component [ngForOf]="page?.components" let-i="index">
   <app-contacts *ngIf="component.codeType === 'Contact'" [id]="component.idComponent"></app-contacts>
   <app-article *ngIf="component.codeType === 'Article'" [id]="component.idComponent"></app-article>
@@ -13,3 +13,4 @@
   <app-gallery *ngIf="component.codeType === 'VirtExhibition'" [id]="component.idComponent"></app-gallery>
 </ng-template>
 <!--<app-footer></app-footer>-->
+</div>

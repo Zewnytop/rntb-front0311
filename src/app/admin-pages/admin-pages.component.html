@@ -1,5 +1,7 @@
+<div>
+  <p><b>Настройка страниц</b></p>
+</div>
 <div class="pages">
-  <h4>Настройка страниц</h4>
   <div>
     <label>
       <input type="radio" [(ngModel)]="lang" value="ru">
@@ -14,9 +16,7 @@
       KZ
     </label>
   </div>
-  <select [(ngModel)]="selectedTypeComponent">
-    <option *ngFor="let type of listTypeComponent; let i=index" [value]="type.code">{{type.name}}</option>
-  </select>
+
   <div style="display: flex;">
     <table class="file-table">
       <thead>
@@ -51,8 +51,9 @@
       <tr>
         <th>Страницы</th>
         <th>
-          <button (click)="createPage()">Создать</button>
-          <button (click)="log()">log</button>
+          <div class="add-button">
+            <button (click)="createPage()">Создать</button>
+          </div>
         </th>
       </tr>
       </thead>
@@ -78,7 +79,7 @@
             <button (click)="updateInfoPage(page)" *ngIf="page.isEdit">
               <img src="/assets/icons/save.svg" alt="Сохранить">
             </button>
-            <button (click)="getPage(page.id)"><img src="/assets/icons/plus-circle.svg" alt="Выбрать"></button>
+            <button (click)="getPage(page.id)"><img src="/assets/icons/folder-plus.svg" alt="Выбрать"></button>
             <button (click)="deletePage(page.id, i)"><img src="/assets/icons/trash-2.svg" alt="Удалить"></button>
           </div>
         </td>
@@ -90,7 +91,13 @@
     <table class="file-table" *ngIf="selectedTypeComponent === 'VirtExhibition'">
       <thead>
       <tr>
-        <th>Виртуальная выставка</th>
+        <th>
+          <div class="edit-input2">
+            <select [(ngModel)]="selectedTypeComponent">
+              <option *ngFor="let type of listTypeComponent; let i=index" [value]="type.code">{{type.name}}</option>
+            </select>
+          </div>
+        </th>
         <th>Добавить</th>
       </tr>
       </thead>
@@ -110,7 +117,7 @@
             <button (click)="addComponentOnPage(category.id, category.typeComponent)"
                     [disabled]="blockButtonAddComponent(category.id)">
               <img
-                [src]="[blockButtonAddComponent(category.id)? 'assets/icons/alert-circle.svg' : '/assets/icons/plus-circle.svg']"
+                [src]="[blockButtonAddComponent(category.id)? 'assets/icons/check.svg' : '/assets/icons/plus-circle.svg']"
                 alt="Выбрать">
             </button>
           </div>
@@ -121,7 +128,13 @@
     <table class="file-table" *ngIf="selectedTypeComponent === 'Contact'">
       <thead>
       <tr>
-        <th>контакты</th>
+        <th>
+          <div class="edit-input2">
+            <select [(ngModel)]="selectedTypeComponent">
+              <option *ngFor="let type of listTypeComponent; let i=index" [value]="type.code">{{type.name}}</option>
+            </select>
+          </div>
+        </th>
         <th>Добавить</th>
       </tr>
       </thead>
@@ -133,7 +146,7 @@
             <button (click)="addComponentOnPage(contactBranch.id, contactBranch.typeComponent)"
                     [disabled]="blockButtonAddComponent(contactBranch.id)">
               <img
-                [src]="[blockButtonAddComponent(contactBranch.id)? 'assets/icons/alert-circle.svg' : '/assets/icons/plus-circle.svg']"
+                [src]="[blockButtonAddComponent(contactBranch.id)? 'assets/icons/check.svg' : '/assets/icons/plus-circle.svg']"
                 alt="Выбрать">
             </button>
           </div>
@@ -144,10 +157,15 @@
     <table class="file-table" *ngIf="selectedTypeComponent === 'Article'">
       <thead>
       <tr>
-        <th>Статья
-          <select [ngModel]="selectedTypeArticle?.id" (ngModelChange)="selectType($event)">
-            <option [ngValue]="type.id" *ngFor="let type of listTypeAticle; let i= index">{{type.nameType}}</option>
-          </select>
+        <th>
+          <div class="edit-input2">
+            <select [(ngModel)]="selectedTypeComponent">
+              <option *ngFor="let type of listTypeComponent; let i=index" [value]="type.code">{{type.name}}</option>
+            </select>
+            <select [ngModel]="selectedTypeArticle?.id" (ngModelChange)="selectType($event)">
+              <option [ngValue]="type.id" *ngFor="let type of listTypeAticle; let i= index">{{type.nameType}}</option>
+            </select>
+          </div>
         </th>
         <th>Добавить</th>
       </tr>
@@ -160,7 +178,7 @@
             <button (click)="addComponentOnPage(article.id, article.typeComponent)"
                     [disabled]="blockButtonAddComponent(article.id)">
               <img
-                [src]="[blockButtonAddComponent(article.id)? 'assets/icons/alert-circle.svg' : '/assets/icons/plus-circle.svg']"
+                [src]="[blockButtonAddComponent(article.id)? 'assets/icons/check.svg' : '/assets/icons/plus-circle.svg']"
                 alt="Выбрать">
             </button>
           </div>
@@ -171,7 +189,13 @@
     <table class="file-table" *ngIf="selectedTypeComponent === 'BranchesMap'">
       <thead>
       <tr>
-        <th>Карта филиалов</th>
+        <th>
+          <div class="edit-input2">
+            <select [(ngModel)]="selectedTypeComponent">
+              <option *ngFor="let type of listTypeComponent; let i=index" [value]="type.code">{{type.name}}</option>
+            </select>
+          </div>
+        </th>
         <th>Добавить</th>
       </tr>
       </thead>
@@ -183,7 +207,7 @@
             <button (click)="addComponentOnPage(map.id, map.typeComponent)"
                     [disabled]="blockButtonAddComponent(map.id)">
               <img
-                [src]="[blockButtonAddComponent(map.id)? 'assets/icons/alert-circle.svg' : '/assets/icons/plus-circle.svg']"
+                [src]="[blockButtonAddComponent(map.id)? 'assets/icons/check.svg' : '/assets/icons/plus-circle.svg']"
                 alt="Выбрать">
             </button>
           </div>
