@@ -10,7 +10,7 @@
               <ng-template ngFor let-item [ngForOf]="listSiteItemMenu">
                 <li class="navbar-li">
                   <a class="li-a" [routerLink]="['sp', item?.pageId]">{{item.name}}
-                    <div class="li-svg"></div>
+                    <div class="li-svg" *ngIf="item.childrenItem.length"></div>
                   </a>
                   <div class="navbar-li-dropdown" *ngIf="item.childrenItem.length">
                     <ng-template ngFor let-iternalItem [ngForOf]="item.childrenItem">

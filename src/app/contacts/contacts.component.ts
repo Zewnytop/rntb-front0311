@@ -52,7 +52,7 @@ export class ContactsComponent implements OnInit {
         paramsRoter[1] = 'ru';
       }
     }
-    this.sitePageService.getContact(this.id!, paramsRoter[1]).subscribe(data => {
+    this.sitePageService.getContact(this.id!, null).subscribe(data => {
       this.branchContact = data.result;
     }, error => {
       console.log(error);

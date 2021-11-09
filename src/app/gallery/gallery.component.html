@@ -10,7 +10,7 @@
       <span class="small-title">{{categoryVirtualExhibition?.name}}</span>
     </div>
 
-    <div class="gallery-carousel" [id]="'virtualExhibition' +  id">
+    <div class="gallery-carousel" [id]="[id? ('virtualExhibition' +  id) : 'virtualExhibition']">
       <ng-template ngFor let-book [ngForOf]="categoryVirtualExhibition?.books" let-iBook="index">
         <div [class]="[iBook === 0 ? 'carousel-block-first' : 'carousel-block']" (click)="getBook(book.idBook, iBook)">
           <img class="img-carousel" *ngIf="book.idCoverImage" [src]="previewCover(book.idCoverImage)" alt="Обложка">

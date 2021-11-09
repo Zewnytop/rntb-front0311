@@ -160,12 +160,20 @@ export class GalleryComponent implements OnInit {
   }
 
   nextPageBooks(): void {
-    const divVirtualExhibition = document.getElementById("virtualExhibition" + this.id!.toString()) as HTMLElement;
+    if (this.id) {
+      const divVirtualExhibition = document.getElementById("virtualExhibition" + this.id!.toString()) as HTMLElement;
+      divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft + 1111.7;
+    }
+    const divVirtualExhibition = document.getElementById("virtualExhibition") as HTMLElement;
     divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft + 1111.7;
   }
 
   previousPageBooks(): void {
-    const divVirtualExhibition = document.getElementById("virtualExhibition" + this.id!.toString()) as HTMLElement;
+    if (this.id) {
+      const divVirtualExhibition = document.getElementById("virtualExhibition" + this.id!.toString()) as HTMLElement;
+      divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft - 1111.7;
+    }
+    const divVirtualExhibition = document.getElementById("virtualExhibition") as HTMLElement;
     divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft - 1111.7;
   }
 
