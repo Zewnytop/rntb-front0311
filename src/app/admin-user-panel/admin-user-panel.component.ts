@@ -16,6 +16,16 @@ export class AdminUserPanelComponent implements OnInit {
   private _listBranch: LibraryBranchObject[] = [];
   private _selectedBranch: LibraryBranchObject | null = null;
   private _errormessage: string | null = null;
+  private _edit: boolean = false;
+
+
+  get edit(): boolean {
+    return this._edit;
+  }
+
+  set edit(value: boolean) {
+    this._edit = value;
+  }
 
   get listUser(): UserObject[] {
     return this._listUser;
