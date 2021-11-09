@@ -55,6 +55,9 @@
       </td>
       <td>
         <div class="edit-button">
+          <button (click)="edit=true">
+            <img alt="Сменить пароль" src="assets/icons/key.svg">
+          </button>
           <button (click)="changeEditStatus(user)" *ngIf="!user.isEdit">
             <img alt="Редактирование" src="assets/icons/edit-2.svg">
           </button>
@@ -72,4 +75,40 @@
     </tr>
     </tbody>
   </table>
+
+  <div class="file-popup" *ngIf="edit==true">
+    <div class="file-popup-content">
+      <div class="file-popup-header">
+        <div>
+          <p><strong>Смена пароля</strong></p>
+        </div>
+        <div class="edit-button">
+          <button (click)="edit=false"><img src="assets/icons/x.svg"></button>
+        </div>
+      </div>
+      <div class="file-popup-content-area-login">
+        <div class="edit-input">
+          <form>
+            <label for="login"><b>Логин:</b></label>
+            <input placeholder="Логин" type="text" id="login">
+          </form>
+          <form>
+            <label for="lastPass"><b>Старый пароль:</b></label>
+            <input placeholder="Старый пароль" type="password" id="lastPass" minlength="4">
+          </form>
+          <form>
+            <label for="newPass"><b>Новый пароль:</b></label>
+            <input placeholder="Новый пароль" type="password" id="newPass" minlength="4">
+          </form>
+          <form>
+            <label for="confirmPass"><b>Подтвердите новый пароль:</b></label>
+            <input placeholder="Подтвердите пароль" type="password" id="confirmPass" minlength="4">
+          </form>
+          <div class="edit-button">
+            <button (click)="edit=false">Подтвердить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
