@@ -1,6 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SitePageService} from "../service/site-page.service";
-import {SiteBookObject, SiteVirtualExhibitionObject} from "../../site-object/site-component-object";
+import {
+  SiteBookObject,
+  SiteVirtualExhibitionObject,
+  ViewBookVirtualExhibitionObject
+} from "../../site-object/site-component-object";
 import {Router} from "@angular/router";
 
 @Component({
@@ -11,6 +15,7 @@ import {Router} from "@angular/router";
 export class GalleryComponent implements OnInit {
 
   private _id: number | null = null;
+  private _main: boolean | null = null;
   private _categoryVirtualExhibition: SiteVirtualExhibitionObject | null = null;
   private _bookVirtualExhibition: SiteBookObject | null = null;
   private _indexSelectedBook: number | null = null;
@@ -31,6 +36,15 @@ export class GalleryComponent implements OnInit {
   @Input()
   set id(value: number | null) {
     this._id = value;
+  }
+
+  get main(): boolean | null {
+    return this._main;
+  }
+
+  @Input()
+  set main(value: boolean | null) {
+    this._main = value;
   }
 
   get categoryVirtualExhibition(): SiteVirtualExhibitionObject | null {
@@ -64,6 +78,20 @@ export class GalleryComponent implements OnInit {
     this.getCategory();
   }
 
+  getLastBook(): void {
+    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    const baseURI = urlWithSlash.replace('/', '');
+    this.sitePageService.getLastBook(baseURI).subscribe(data => {
+      const books: SiteVirtualExhibitionObject = {
+        name: "Новое поступени",
+        books: data.result
+      };
+      this.categoryVirtualExhibition = books;
+    }, error => {
+      console.log(error);
+    })
+  }
+
   getCategory(): void {
     let paramsRoter: any[];
     paramsRoter = this.router.url.trim().split("/");
@@ -78,12 +106,16 @@ export class GalleryComponent implements OnInit {
         paramsRoter[1] = 'ru';
       }
     }
-    this.sitePageService.getCategoriesVirtualExhibition(this.id!, document.baseURI.split("/")[3]).subscribe(data => {
-      this.categoryVirtualExhibition = data.result;
-      console.log(this.categoryVirtualExhibition);
-    }, error => {
-      console.log(error);
-    });
+    if (this.main) {
+      this.getLastBook();
+    } else {
+      this.sitePageService.getCategoriesVirtualExhibition(this.id!, document.baseURI.split("/")[3]).subscribe(data => {
+        this.categoryVirtualExhibition = data.result;
+        console.log(this.categoryVirtualExhibition);
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
   getBook(idBook: number, index: number): void {

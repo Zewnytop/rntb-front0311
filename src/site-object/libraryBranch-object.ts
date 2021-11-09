@@ -9,3 +9,10 @@ export interface LibraryBranchObject {
   cityKz: string,
   showOnPage: boolean
 }
+
+export interface LocalizationObject {
+  id: number,
+  nameLanguage: string,
+  code: string,
+  enableLanguage: boolean
+}

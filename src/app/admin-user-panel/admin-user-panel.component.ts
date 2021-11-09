@@ -15,8 +15,10 @@ export class AdminUserPanelComponent implements OnInit {
   private _listUser: UserObject[] = [];
   private _listBranch: LibraryBranchObject[] = [];
   private _selectedBranch: LibraryBranchObject | null = null;
+  private _selectedUser: UserObject | null = null;
   private _errormessage: string | null = null;
   private _edit: boolean = false;
+  private _newPassword: string | null = null;
 
 
   get edit(): boolean {
@@ -51,12 +53,28 @@ export class AdminUserPanelComponent implements OnInit {
     this._selectedBranch = value;
   }
 
+  get selectedUser(): UserObject | null {
+    return this._selectedUser;
+  }
+
+  set selectedUser(value: UserObject | null) {
+    this._selectedUser = value;
+  }
+
   get errormessage(): string | null {
     return this._errormessage;
   }
 
   set errormessage(value: string | null) {
     this._errormessage = value;
+  }
+
+  get newPassword(): string | null {
+    return this._newPassword;
+  }
+
+  set newPassword(value: string | null) {
+    this._newPassword = value;
   }
 
   constructor(private userService: UserService, private branchService: BranchService) {
@@ -191,6 +209,31 @@ export class AdminUserPanelComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  saveNewPassword(): void {
+    if (this.newPassword && this.newPassword !== "") {
+      const body = {
+        id: this.selectedUser?.id,
+        password: this.newPassword
+      };
+      this.userService.changePassword(body).subscribe(data => {
+        this.selectedUser = null;
+        this.edit = false;
+      }, error => {
+        console.log(error);
+      });
+    }
+  }
+
+  selectUser(user: UserObject): void {
+    this.selectedUser = user;
+    this.edit = true;
+  }
+
+  closePoup(): void {
+    this.selectedUser = null;
+    this.edit = false;
   }
 
   deleteUser(idUser: number | null | undefined, index: number): void {

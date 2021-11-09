@@ -71,9 +71,9 @@
         <button *ngIf="branch.isEdit" (click)="updateInfoBranch(i)">
           <img src="assets/icons/save.svg" alt="Сохранить">
         </button>
-        <button (click)="deleteBranch(branch.id,i)">
-          <img src="assets/icons/trash-2.svg" alt="Удалить">
-        </button>
+        <!--        <button (click)="deleteBranch(branch.id,i)">-->
+        <!--          <img src="assets/icons/trash-2.svg" alt="Удалить">-->
+        <!--        </button>-->
       </div>
     </td>
   </tr>
@@ -82,18 +82,10 @@
 <div class="user-languages">
   <h4>Отключение языков</h4>
   <div>
-    <label>
-      <input type="checkbox"  value="ru">
-      RU
-    </label>
-    <label>
-      <input type="checkbox"  value="kz">
-      KZ
-    </label>
-    <label>
-      <input type="checkbox"  value="eng">
-      ENG
+    <label *ngFor="let lang of listLocalization;let i=index">
+      <input type="checkbox" [(ngModel)]="lang.enableLanguage" value="ru">
+      {{lang.nameLanguage}}
     </label>
   </div>
-  <button style="margin-top: 15px;">Сохранить локализацию</button>
+  <button style="margin-top: 15px;" (click)="updateLang()">Сохранить локализацию</button>
 </div>

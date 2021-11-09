@@ -27,9 +27,8 @@
               </div>
             </div>
             <div class="languages">
-              <a class="ru" (click)="changeLanguage('ru')">RU</a>
-              <a class="eng" (click)="changeLanguage('en')">ENG</a>
-              <a class="kz" (click)="changeLanguage('kz')">KZ</a>
+              <a *ngFor="let lang of listLanguage; let i =index" class="ru"
+                 (click)="changeLanguage(lang.code)">{{lang.name}}</a>
             </div>
           </div>
           <span class="filial-name">{{branchName}}</span> <!-- Название филиала -->

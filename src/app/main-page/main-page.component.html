@@ -1,2 +1,11 @@
-<app-map></app-map>
-<app-article></app-article>
+<div class="container">
+  <div class="title">
+    <span class="title-span">Новости</span>
+    <hr class="title-hr-first">
+    <hr class="title-hr-second">
+  </div>
+</div>
+<ng-template ngFor let-articleNews [ngForOf]="news" let-i="index">
+  <app-article [id]="articleNews.idComponent"></app-article>
+</ng-template>
+<app-gallery [id]="null" [main]="true"></app-gallery>

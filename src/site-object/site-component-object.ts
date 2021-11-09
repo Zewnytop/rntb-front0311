@@ -62,3 +62,8 @@ export interface SiteArticleObject {
   idCoverArticle: number,
   codeType: string
 }
+
+export interface SiteLocalizationObject {
+  name: string,
+  code: string
+}

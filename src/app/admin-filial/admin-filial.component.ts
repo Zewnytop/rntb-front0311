@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LibraryBranchObject} from "../../site-object/libraryBranch-object";
+import {LibraryBranchObject, LocalizationObject} from "../../site-object/libraryBranch-object";
 import {BranchService} from "../service/branch.service";
 import {SiteMenuObject} from "../../site-object/site-component-object";
 
@@ -11,6 +11,7 @@ import {SiteMenuObject} from "../../site-object/site-component-object";
 export class AdminFilialComponent implements OnInit {
 
   private _listLibraryBranch: any[] = [];
+  private _listLocalization: LocalizationObject[] = [];
   private _lang: string = "ru";
 
   get listLibraryBranch(): any[] {
@@ -19,6 +20,14 @@ export class AdminFilialComponent implements OnInit {
 
   set listLibraryBranch(value: any[]) {
     this._listLibraryBranch = value;
+  }
+
+  get listLocalization(): LocalizationObject[] {
+    return this._listLocalization;
+  }
+
+  set listLocalization(value: LocalizationObject[]) {
+    this._listLocalization = value;
   }
 
   get lang(): string {
@@ -33,6 +42,7 @@ export class AdminFilialComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getListLang();
     this.getBranches();
   }
 
@@ -125,13 +135,45 @@ export class AdminFilialComponent implements OnInit {
     return listItem;
   }
 
-  deleteBranch(idBranch: number, index: number): void {
-    this.branchService.deleteBranch(idBranch).subscribe(data => {
-      this.listLibraryBranch.splice(index, 1);
+  getListLang(): void {
+    this.listLocalization = [];
+    this.branchService.getListLang().subscribe(data => {
+      data.result.forEach(item => {
+        this.listLocalization.push({
+          id: item.id,
+          nameLanguage: item.nameLanguage,
+          code: item.code,
+          enableLanguage: item.enableLanguage
+        });
+      });
     }, error => {
       console.log(error);
     });
   }
+
+  updateLang(): void {
+    let mass: any[] = [];
+    this.listLocalization.forEach(item => {
+      mass.push({
+        id: item.id,
+        enableLanguage: item.enableLanguage
+      });
+    });
+    this.branchService.updateLang(mass).subscribe(() => {
+
+    }, error => {
+      console.log(error);
+      this.getListLang();
+    });
+  }
+
+  // deleteBranch(idBranch: number, index: number): void {
+  //   this.branchService.deleteBranch(idBranch).subscribe(data => {
+  //     this.listLibraryBranch.splice(index, 1);
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
 
   changeStatusEdit(item: any): void {
     item.isEdit = true;

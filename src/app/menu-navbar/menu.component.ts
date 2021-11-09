@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuObject} from "../../site-object/menu-object";
 import {HttpClient} from "@angular/common/http";
-import {SiteMenuObject} from "../../site-object/site-component-object";
+import {SiteLocalizationObject, SiteMenuObject} from "../../site-object/site-component-object";
 import {SitePageService} from "../service/site-page.service";
 import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 
@@ -13,6 +13,7 @@ import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from "@an
 export class MenuComponent implements OnInit {
 
   private _listSiteItemMenu: SiteMenuObject[] = [];
+  private _listLanguage: SiteLocalizationObject[] = [];
   private _branchName: string = ""
   private pathArray: any;
 
@@ -22,6 +23,14 @@ export class MenuComponent implements OnInit {
 
   set listSiteItemMenu(value: SiteMenuObject[]) {
     this._listSiteItemMenu = value;
+  }
+
+  get listLanguage(): SiteLocalizationObject[] {
+    return this._listLanguage;
+  }
+
+  set listLanguage(value: SiteLocalizationObject[]) {
+    this._listLanguage = value;
   }
 
   get branchName(): string {
@@ -37,6 +46,7 @@ export class MenuComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getLanguage();
     this.getNameBranch();
     this.getItemMenu();
   }
@@ -66,7 +76,8 @@ export class MenuComponent implements OnInit {
     paramsRoter = this.router.url.trim().split("/");
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getNameBranch(baseURI, document.baseURI.split("/")[3]).subscribe(data => {
+    // document.baseURI.split("/")[3]
+    this.sitePageService.getNameBranch(baseURI, null).subscribe(data => {
       this.branchName = data.result;
     }, error => {
       console.log(error);
@@ -78,7 +89,7 @@ export class MenuComponent implements OnInit {
     paramsRoter = this.router.url.trim().split("/");
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getSiteMenu(baseURI, document.baseURI.split("/")[3]).subscribe(data => {
+    this.sitePageService.getSiteMenu(baseURI, null).subscribe(data => {
       this.listSiteItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);
@@ -103,6 +114,20 @@ export class MenuComponent implements OnInit {
       }, this);
     }
     return listItemMenu;
+  }
+
+
+  getLanguage(): void {
+    this.sitePageService.getLanguages().subscribe(data => {
+      data.result.forEach(item => {
+        this.listLanguage.push({
+          name: item.name,
+          code: item.code
+        });
+      });
+    }, error => {
+      console.log(error);
+    });
   }
 
   // setListItemMenu(itemsMenu: MenuObject[]): any[] {

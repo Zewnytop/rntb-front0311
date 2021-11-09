@@ -57,6 +57,15 @@ export class UserService {
     return this.httpClient.put<DataSingleObject>(url, user, {headers: header});
   }
 
+  changePassword(password: Object): Observable<DataSingleObject> {
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: this.cookieService.getCookie()!
+    });
+    const url = `/api/user/pass`;
+    return this.httpClient.put<DataSingleObject>(url, password, {headers: header});
+  }
+
   deleteUser(idUser: number): Observable<DataSingleObject> {
     const header = new HttpHeaders({
       'Content-Type': 'application/json',

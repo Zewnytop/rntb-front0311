@@ -48,12 +48,31 @@ export class BranchService {
     return this.httpClient.put<DataSingleObject>(url, body, {headers: header});
   }
 
-  deleteBranch(idBranch: number): Observable<DataSingleObject> {
+  getListLang(): Observable<DataObject> {
     const header = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: this.cookieService.getCookie()!
     });
-    const url = `/api/branch/remove/${idBranch}`;
-    return this.httpClient.delete<DataSingleObject>(url, {headers: header});
+    const url = `/api/branch/lang`;
+    return this.httpClient.get<DataObject>(url, {headers: header});
   }
+
+  updateLang(body: any[]): Observable<DataSingleObject> {
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: this.cookieService.getCookie()!
+    });
+    const url = `/api/branch/update/lang`;
+    return this.httpClient.put<DataSingleObject>(url, body, {headers: header});
+  }
+
+
+  // deleteBranch(idBranch: number): Observable<DataSingleObject> {
+  //   const header = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     Authorization: this.cookieService.getCookie()!
+  //   });
+  //   const url = `/api/branch/remove/${idBranch}`;
+  //   return this.httpClient.delete<DataSingleObject>(url, {headers: header});
+  // }
 }
