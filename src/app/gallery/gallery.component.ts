@@ -134,7 +134,7 @@ export class GalleryComponent implements OnInit {
     }
     this.indexSelectedBook = index;
     this.close = true;
-    this.sitePageService.getBook(idBook, document.baseURI.split("/")[3]).subscribe(data => {
+    this.sitePageService.getBook(idBook, null).subscribe(data => {
       this.bookVirtualExhibition = data.result;
     }, error => {
       console.log(error);
