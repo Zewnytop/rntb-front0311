@@ -83,7 +83,7 @@ export class GalleryComponent implements OnInit {
     const baseURI = urlWithSlash.replace('/', '');
     this.sitePageService.getLastBook(baseURI).subscribe(data => {
       const books: SiteVirtualExhibitionObject = {
-        name: "Новое поступени",
+        name: "Новое поступление",
         books: data.result
       };
       this.categoryVirtualExhibition = books;
