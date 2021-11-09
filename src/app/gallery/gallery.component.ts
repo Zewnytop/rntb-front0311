@@ -109,7 +109,7 @@ export class GalleryComponent implements OnInit {
     if (this.main) {
       this.getLastBook();
     } else {
-      this.sitePageService.getCategoriesVirtualExhibition(this.id!, document.baseURI.split("/")[3]).subscribe(data => {
+      this.sitePageService.getCategoriesVirtualExhibition(this.id!, null).subscribe(data => {
         this.categoryVirtualExhibition = data.result;
         console.log(this.categoryVirtualExhibition);
       }, error => {
