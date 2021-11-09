@@ -51,7 +51,7 @@ export class ArticleComponent implements OnInit {
         paramsRoter[1] = 'ru';
       }
     }
-    this.sitePageService.getArticle(this.id!, paramsRoter[1]).subscribe(data => {
+    this.sitePageService.getArticle(this.id!, document.baseURI.split("/")[3]).subscribe(data => {
       console.log("data");
       console.log(data);
       this.article = data.result;
