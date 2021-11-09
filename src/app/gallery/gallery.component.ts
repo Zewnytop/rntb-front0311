@@ -78,7 +78,7 @@ export class GalleryComponent implements OnInit {
         paramsRoter[1] = 'ru';
       }
     }
-    this.sitePageService.getCategoriesVirtualExhibition(this.id!, paramsRoter[1]).subscribe(data => {
+    this.sitePageService.getCategoriesVirtualExhibition(this.id!, document.baseURI.split("/")[3]).subscribe(data => {
       this.categoryVirtualExhibition = data.result;
       console.log(this.categoryVirtualExhibition);
     }, error => {
@@ -102,7 +102,7 @@ export class GalleryComponent implements OnInit {
     }
     this.indexSelectedBook = index;
     this.close = true;
-    this.sitePageService.getBook(idBook, paramsRoter[1]).subscribe(data => {
+    this.sitePageService.getBook(idBook, document.baseURI.split("/")[3]).subscribe(data => {
       this.bookVirtualExhibition = data.result;
     }, error => {
       console.log(error);

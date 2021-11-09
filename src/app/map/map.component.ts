@@ -42,7 +42,7 @@ export class MapComponent implements OnInit {
         paramsRoter[1] = 'ru';
       }
     }
-    this.sitePageService.getLibraryBranches(paramsRoter[1]).subscribe(data => {
+    this.sitePageService.getLibraryBranches(document.baseURI.split("/")[3]).subscribe(data => {
       data.result.forEach((branch: SiteLibraryBranchObject) => {
         this.listLibraryBranch.push({
           name: branch.name,

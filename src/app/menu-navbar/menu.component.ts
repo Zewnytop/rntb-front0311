@@ -66,7 +66,7 @@ export class MenuComponent implements OnInit {
     paramsRoter = this.router.url.trim().split("/");
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getNameBranch(baseURI, paramsRoter[1]).subscribe(data => {
+    this.sitePageService.getNameBranch(baseURI, document.baseURI.split("/")[3]).subscribe(data => {
       this.branchName = data.result;
     }, error => {
       console.log(error);
@@ -78,7 +78,7 @@ export class MenuComponent implements OnInit {
     paramsRoter = this.router.url.trim().split("/");
     const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getSiteMenu(baseURI, paramsRoter[1]).subscribe(data => {
+    this.sitePageService.getSiteMenu(baseURI, document.baseURI.split("/")[3]).subscribe(data => {
       this.listSiteItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);

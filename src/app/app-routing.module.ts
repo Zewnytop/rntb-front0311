@@ -23,21 +23,9 @@ import {SitePageComponent} from "./site-page/site-page.component";
 import {AdminFilialComponent} from "./admin-filial/admin-filial.component";
 import {MainPageComponent} from "./main-page/main-page.component";
 
-function defLang(): string {
-  // const langs = ['ru', 'kz', 'en'];
-  // const shift = navigator.languages.filter(value => value.length === 2).shift();
-  // if (shift != null && langs.indexOf(shift))
-  // {
-  //   return shift;
-  // }
-  return 'ru';
-}
-
 const pages: Routes = [
   {path: '', component: MainPageComponent},
-  {path: 'sp/:id', component: SitePageComponent},
-
-  {path: '**', redirectTo: '/ru'},
+  {path: 'sp/:id', component: SitePageComponent}
 ];
 
 const admin: Routes = [
@@ -49,30 +37,19 @@ const admin: Routes = [
   {path: 'user-panel', component: AdminUserPanelComponent},
   {path: 'admin-book', component: AdminBookComponent},
   {path: 'pages', component: AdminPagesComponent},
-  {path: 'filial', component: AdminFilialComponent},
-  {
-    path: 'login', component: LoginComponent
-  },
+  {path: 'filial', component: AdminFilialComponent}
 ];
 
-const routesLang: Routes = [
-  {path: '', redirectTo: defLang(), pathMatch: 'full'},
-  {path: 'ru', component: GeneralComponent, children: pages},
-  {path: 'en', component: GeneralComponent, children: pages},
-  {path: 'kz', component: GeneralComponent, children: pages},
+const routes: Routes = [
+  {path: '', component: GeneralComponent, children: pages},
   {path: 'admin-panel', component: AdminPanelComponent, children: admin},
   {path: 'login', component: LoginComponent},
-  {path: '**', redirectTo: '/' + defLang()}
+  {path: '**', redirectTo: ''}
 ];
 
-// const adminRoutes: Routes = [
-//   {path: 'admin-panel', component: AdminPanelComponent},
-//   {path: 'admin-panel', component: AdminPanelComponent},
-// ]
-// const routesLang: Routes = []
 
 @NgModule({
-  imports: [BrowserModule, RouterModule.forRoot(routesLang, {useHash: true})],
+  imports: [BrowserModule, RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
