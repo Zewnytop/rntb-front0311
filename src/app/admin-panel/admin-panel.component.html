@@ -14,10 +14,10 @@
           <li class="li-arrow" routerLink="./admin-gallery"><a>Выставка</a></li>
           <li class="li-arrow" routerLink="./admin-book"><a>Книги</a></li>
           <li routerLink="./admin-contacts"><a>Контакты</a></li>
-          <li routerLink="./filial"><a>Филиалы</a></li>
+          <li routerLink="./filial" *ngIf="roleCode === 'ADMIN'"><a>Филиалы</a></li>
           <li routerLink="./edit-article"><a>Статьи</a></li>
           <li routerLink="./admin-file-edit"><a>Файлы</a></li>
-          <li routerLink="./user-panel"><a>Пользователи</a></li>
+          <li routerLink="./user-panel" *ngIf="roleCode === 'ADMIN'"><a>Пользователи</a></li>
           <li routerLink="./pages"><a>Страницы</a></li>
         </ul>
       </div>

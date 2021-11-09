@@ -85,7 +85,7 @@
     </table>
   </ng-template>
 </div>
-<div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0" id="asdsdas">
+<div class="gallery-carousel" *ngIf="virtualExhibition && virtualExhibition.books.length !== 0" id="virtualExhibition" >
   <ng-template ngFor let-book [ngForOf]="virtualExhibition.books" let-iBook="index">
     <!--    <div class="carousel-block" *ngFor="let book of virtualExhibition.books; let iBook = index">-->
     <div [class]="iBook === 0 ? 'carousel-block-first' : 'carousel-block'">
@@ -100,10 +100,9 @@
     </div>
   </ng-template>
 </div>
-
 <div class="carousel-circle">
-  <button class="carousel-button"></button>
-  <button class="carousel-button"></button>
+  <button class="carousel-button" (click)="previousPageBooks()"></button>
+  <button class="carousel-button" (click)="nextPageBooks()"></button>
 </div>
 <hr class="carousel-hr">
 
@@ -122,12 +121,12 @@
     </div>
     <div class="popup-text">
       <p>
-        <strong>
-          {{selectedBook.authorRu}}
-        </strong>
-        <br>
+<!--        <strong>-->
+<!--          {{selectedBook.authorRu}}-->
+<!--        </strong>-->
+<!--        <br>-->
         <strong>{{selectedBook.nameBookRu}}</strong>
-        <strong>{{selectedBook.isbn}}</strong>
+<!--        <strong>{{selectedBook.isbn}}</strong>-->
       </p>
       <p>
         {{selectedBook.descriptionRu}}

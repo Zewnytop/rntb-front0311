@@ -9,10 +9,21 @@ import {CookieService} from "../service/cookie.service";
 })
 export class AdminPanelComponent implements OnInit {
 
+  private _roleCode: string | null = null;
+
+  get roleCode(): string | null {
+    return this._roleCode;
+  }
+
+  set roleCode(value: string | null) {
+    this._roleCode = value;
+  }
+
   constructor(private router: Router, private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
+    this._roleCode = JSON.parse(localStorage.getItem('user')!).role.codeType;
   }
 
   exit() {

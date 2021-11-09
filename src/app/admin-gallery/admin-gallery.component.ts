@@ -195,7 +195,7 @@ export class AdminGalleryComponent implements OnInit {
           descriptionEn: book.descriptionEn,
           descriptionKz: book.descriptionKz,
           lastModifiedDate: book.lastModifiedDate,
-          serialNumber: book,
+          serialNumber: book.serialNumber,
           typeComponent: book.typeComponent,
           libraryBranch: book.libraryBranch,
           file: book.file
@@ -307,6 +307,16 @@ export class AdminGalleryComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  nextPageBooks(): void {
+    const divVirtualExhibition = document.getElementById("virtualExhibition") as HTMLElement;
+    divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft + 1111.7;
+  }
+
+  previousPageBooks(): void {
+    const divVirtualExhibition = document.getElementById("virtualExhibition") as HTMLElement;
+    divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft - 1111.7;
   }
 
   previewCover(idFile: number): string {
