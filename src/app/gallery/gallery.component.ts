@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
 export class GalleryComponent implements OnInit {
 
   private _id: number | null = null;
-  private _main: boolean | null = null;
+  private _isMainPage: boolean | null = null;
   private _categoryVirtualExhibition: SiteVirtualExhibitionObject | null = null;
   private _bookVirtualExhibition: SiteBookObject | null = null;
   private _indexSelectedBook: number | null = null;
@@ -38,13 +38,13 @@ export class GalleryComponent implements OnInit {
     this._id = value;
   }
 
-  get main(): boolean | null {
-    return this._main;
+  get isMainPage(): boolean | null {
+    return this._isMainPage;
   }
 
   @Input()
-  set main(value: boolean | null) {
-    this._main = value;
+  set isMainPage(value: boolean | null) {
+    this._isMainPage = value;
   }
 
   get categoryVirtualExhibition(): SiteVirtualExhibitionObject | null {
@@ -83,7 +83,7 @@ export class GalleryComponent implements OnInit {
     const baseURI = urlWithSlash.replace('/', '');
     this.sitePageService.getLastBook(baseURI).subscribe(data => {
       const books: SiteVirtualExhibitionObject = {
-        name: "Новое поступление",
+        name: "",
         books: data.result
       };
       this.categoryVirtualExhibition = books;
@@ -106,7 +106,7 @@ export class GalleryComponent implements OnInit {
         paramsRoter[1] = 'ru';
       }
     }
-    if (this.main) {
+    if (this.isMainPage) {
       this.getLastBook();
     } else {
       this.sitePageService.getCategoriesVirtualExhibition(this.id!, null).subscribe(data => {
@@ -160,21 +160,23 @@ export class GalleryComponent implements OnInit {
   }
 
   nextPageBooks(): void {
-    if (this.id) {
+    if (!this.isMainPage) {
       const divVirtualExhibition = document.getElementById("virtualExhibition" + this.id!.toString()) as HTMLElement;
       divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft + 1111.7;
+    } else {
+      const divVirtualExhibition = document.getElementById("virtualExhibition") as HTMLElement;
+      divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft + 1111.7;
     }
-    const divVirtualExhibition = document.getElementById("virtualExhibition") as HTMLElement;
-    divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft + 1111.7;
   }
 
   previousPageBooks(): void {
-    if (this.id) {
+    if (!this.isMainPage) {
       const divVirtualExhibition = document.getElementById("virtualExhibition" + this.id!.toString()) as HTMLElement;
       divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft - 1111.7;
+    } else {
+      const divVirtualExhibition = document.getElementById("virtualExhibition") as HTMLElement;
+      divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft - 1111.7;
     }
-    const divVirtualExhibition = document.getElementById("virtualExhibition") as HTMLElement;
-    divVirtualExhibition!.scrollLeft = divVirtualExhibition!.scrollLeft - 1111.7;
   }
 
   clearBookAndClose(): void {
