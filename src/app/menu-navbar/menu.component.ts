@@ -130,6 +130,12 @@ export class MenuComponent implements OnInit {
     });
   }
 
+  setScrollTop() {
+    if (document.scrollingElement) {
+      document.scrollingElement.scrollTop = 960;
+    }
+  }
+
   // setListItemMenu(itemsMenu: MenuObject[]): any[] {
   //   let listItemMenu: any[] = [];
   //   itemsMenu.forEach((item) => {

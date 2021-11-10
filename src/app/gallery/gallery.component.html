@@ -46,9 +46,8 @@
 <!--            <br>-->
 <!--            <strong>ISBN {{bookVirtualExhibition.isbn}}</strong>-->
           </p>
-          <p>
-            {{bookVirtualExhibition.description}}
-          </p>
+          <div class="ck-content" [InsertHtml]="bookVirtualExhibition.description">
+          </div>
         </div>
       </div>
       <div class="popup-bottom" *ngIf="bookVirtualExhibition">

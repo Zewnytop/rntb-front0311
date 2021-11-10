@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {BookService} from "../service/book.service";
 import {BookObject, ViewBookObject} from "../../site-object/book-object";
 import {DestinationObject, FileObject} from "../../site-object/file-object";
+// @ts-ignore
+import * as CustomEditor from '../../ckeditor5custom/build/ckeditor';
 
 @Component({
   selector: 'app-admin-book',
@@ -16,6 +18,7 @@ export class AdminBookComponent implements OnInit {
   private _lang: string = "ru";
   private _close: boolean = false;
   private _edit: boolean = false;
+  public Editor = CustomEditor;
 
 
   get edit(): boolean {
@@ -172,4 +175,16 @@ export class AdminBookComponent implements OnInit {
       console.log(error);
     });
   }
+
+  public config = {
+    toolbar: {
+      items: [
+        'bold',
+        'italic',
+        'underline',
+      ]
+    },
+    language: 'ru',
+  }
+
 }
