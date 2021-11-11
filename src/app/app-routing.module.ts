@@ -22,10 +22,13 @@ import {AdminPagesComponent} from "./admin-pages/admin-pages.component";
 import {SitePageComponent} from "./site-page/site-page.component";
 import {AdminFilialComponent} from "./admin-filial/admin-filial.component";
 import {MainPageComponent} from "./main-page/main-page.component";
+import {AdminParameterComponent} from "./admin-parameter/admin-parameter.component";
+import {ArticleOpenComponent} from "./article-open/article-open.component";
 
 const pages: Routes = [
   {path: '', component: MainPageComponent},
-  {path: 'sp/:id', component: SitePageComponent}
+  {path: 'sp/:id', component: SitePageComponent},
+  {path: 'ap', component: ArticleOpenComponent},
 ];
 
 const admin: Routes = [
@@ -37,7 +40,8 @@ const admin: Routes = [
   {path: 'user-panel', component: AdminUserPanelComponent},
   {path: 'admin-book', component: AdminBookComponent},
   {path: 'pages', component: AdminPagesComponent},
-  {path: 'filial', component: AdminFilialComponent}
+  {path: 'filial', component: AdminFilialComponent},
+  {path: 'parameter', component: AdminParameterComponent}
 ];
 
 const routes: Routes = [

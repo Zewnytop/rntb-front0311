@@ -19,6 +19,7 @@
           <li routerLink="./admin-file-edit"><a>Файлы</a></li>
           <li routerLink="./user-panel" *ngIf="roleCode === 'ADMIN'"><a>Пользователи</a></li>
           <li routerLink="./pages"><a>Страницы</a></li>
+          <li routerLink="./parameter" *ngIf="roleCode === 'ADMIN'"><a>Параметры</a></li>
         </ul>
       </div>
       <div class="admin-panel-left-menu-return-link">
