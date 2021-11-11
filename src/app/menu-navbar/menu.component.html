@@ -14,7 +14,8 @@
                   </a>
                   <div class="navbar-li-dropdown" *ngIf="item.childrenItem.length">
                     <ng-template ngFor let-iternalItem [ngForOf]="item.childrenItem">
-                      <a class="dropdown-a" [routerLink]="['sp', iternalItem?.pageId]" (click)="setScrollTop()">{{iternalItem.name}}</a>
+                      <a class="dropdown-a" [routerLink]="['sp', iternalItem?.pageId]"
+                         (click)="setScrollTop()">{{iternalItem.name}}</a>
                     </ng-template>
                   </div>
                 </li>
@@ -34,9 +35,9 @@
           <span class="filial-name">{{branchName}}</span> <!-- Название филиала -->
         </div>
         <div class="media">
-          <a href="/" class="instagram"></a>
-          <a href="/" class="facebook"></a>
-          <a href="/" class="telegram"></a>
+          <a [href]="urlInstagram" target="_blank" class="instagram"></a>
+          <a [href]="urlFacebook" target="_blank" class="facebook"></a>
+          <a [href]="urlTelegram" target="_blank" class="telegram"></a>
         </div>
       </div>
     </div>

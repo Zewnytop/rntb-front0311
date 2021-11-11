@@ -6,15 +6,15 @@
         <div class="info">
           <div class="info-span-first">
             <div class="span-first-img"></div>
-            <div class="info-text">rntb@rntb.kz</div>
+            <div class="info-text">{{mainContact?.email}}</div>
           </div>
           <div class="info-span-second">
             <div class="span-second-img"></div>
-            <div class="info-text">+7 727 378 41 95</div>
+            <div class="info-text">{{mainContact?.phone}}</div>
           </div>
           <div class="info-span-third">
             <div class="span-third-img"></div>
-            <div class="info-text">г. Алматы, ул.Муканова 223Б</div>
+            <div class="info-text">{{mainContact?.address}}</div>
           </div>
         </div>
         <div class="wrapper-hr-90"></div>
@@ -26,9 +26,9 @@
             </li>
             <ng-template ngFor let-item [ngForOf]="listItemMenu">
               <li class="link-li">
-                <button class="link-li-button-open">
+                <button class="link-li-button-open" (click)="changeStatus(item)">
                   <img src="/assets/images/Vector.svg" alt="Vector"
-                       [ngClass]="{}" (click)="changeStatus(item)"></button>
+                       [ngClass]="{}"></button>
                 <a [routerLink]="['/sp', item?.pageId]" (click)="setScrollTop()">{{item.name}}</a>
                 <ul class="link-li-content" *ngIf="item.isShow">
                   <ng-template ngFor let-iternalItem [ngForOf]="item.childrenItem">
@@ -54,7 +54,7 @@
             </div>
             <div class="top-time">
               <div class="worktime-img"></div>
-              09:00-18:30
+              {{timeWork}}
             </div>
           </div>
 

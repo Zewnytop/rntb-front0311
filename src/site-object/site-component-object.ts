@@ -67,3 +67,14 @@ export interface SiteLocalizationObject {
   name: string,
   code: string
 }
+
+export interface SiteMainContact {
+  address: string,
+  phone: string,
+  email: string
+}
+
+export interface SiteParameter {
+  code: string,
+  value: string
+}
