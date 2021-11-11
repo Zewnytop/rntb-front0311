@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuObject} from "../../site-object/menu-object";
 import {HttpClient} from "@angular/common/http";
-import {SiteLocalizationObject, SiteMenuObject} from "../../site-object/site-component-object";
+import {SiteLocalizationObject, SiteMenuObject, SiteParameter} from "../../site-object/site-component-object";
 import {SitePageService} from "../service/site-page.service";
 import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
 
@@ -14,7 +14,11 @@ export class MenuComponent implements OnInit {
 
   private _listSiteItemMenu: SiteMenuObject[] = [];
   private _listLanguage: SiteLocalizationObject[] = [];
-  private _branchName: string = ""
+  private _listParameter: SiteParameter[] = [];
+  private _branchName: string = "";
+  private _urlTelegram: string = "";
+  private _urlInstagram: string = "";
+  private _urlFacebook: string = "";
   private pathArray: any;
 
   get listSiteItemMenu(): SiteMenuObject[] {
@@ -33,12 +37,44 @@ export class MenuComponent implements OnInit {
     this._listLanguage = value;
   }
 
+  get listParameter(): SiteParameter[] {
+    return this._listParameter;
+  }
+
+  set listParameter(value: SiteParameter[]) {
+    this._listParameter = value;
+  }
+
   get branchName(): string {
     return this._branchName;
   }
 
   set branchName(value: string) {
     this._branchName = value;
+  }
+
+  get urlTelegram(): string {
+    return this._urlTelegram;
+  }
+
+  set urlTelegram(value: string) {
+    this._urlTelegram = value;
+  }
+
+  get urlInstagram(): string {
+    return this._urlInstagram;
+  }
+
+  set urlInstagram(value: string) {
+    this._urlInstagram = value;
+  }
+
+  get urlFacebook(): string {
+    return this._urlFacebook;
+  }
+
+  set urlFacebook(value: string) {
+    this._urlFacebook = value;
   }
 
   constructor(private sitePageService: SitePageService, private router: Router) {
@@ -48,6 +84,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.getLanguage();
     this.getNameBranch();
+    this.getParameters();
     this.getItemMenu();
   }
 
@@ -69,6 +106,28 @@ export class MenuComponent implements OnInit {
     paramsRoter = this.router.url.trim().split("/");
     const newNavigateUrl = "/" + paramsRoter[1];
     this.router.navigate([newNavigateUrl]);
+  }
+
+  getParameters(): void {
+    this.sitePageService.getParameters().subscribe(data => {
+      data.result.forEach(item => {
+        this.listParameter.push({
+          code: item.code,
+          value: item.value
+        });
+      });
+      for (let siteParameter of this.listParameter) {
+        if (siteParameter.code === 'Telegram') {
+          this.urlTelegram = siteParameter.value;
+        } else if (siteParameter.code === 'Facebook') {
+          this.urlFacebook = siteParameter.value;
+        } else if (siteParameter.code === 'Instagram') {
+          this.urlInstagram = siteParameter.value;
+        }
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
   getNameBranch(): void {

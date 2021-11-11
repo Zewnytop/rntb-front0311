@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MenuObject} from "../../site-object/menu-object";
 import {HttpClient} from "@angular/common/http";
 import {SitePageService} from "../service/site-page.service";
-import {SiteMenuObject} from "../../site-object/site-component-object";
+import {SiteMainContact, SiteMenuObject, SiteParameter} from "../../site-object/site-component-object";
 
 @Component({
   selector: 'app-footer',
@@ -12,6 +12,9 @@ import {SiteMenuObject} from "../../site-object/site-component-object";
 export class FooterComponent implements OnInit {
 
   private _listItemMenu: any[] = [];
+  private _listParameter: SiteParameter[] = [];
+  private _mainContact: SiteMainContact | null = null;
+  private _timeWork: string = "";
 
   get listItemMenu(): any[] {
     return this._listItemMenu;
@@ -21,11 +24,65 @@ export class FooterComponent implements OnInit {
     this._listItemMenu = value;
   }
 
+  get listParameter(): SiteParameter[] {
+    return this._listParameter;
+  }
+
+  set listParameter(value: SiteParameter[]) {
+    this._listParameter = value;
+  }
+
+  get mainContact(): SiteMainContact | null {
+    return this._mainContact;
+  }
+
+  set mainContact(value: SiteMainContact | null) {
+    this._mainContact = value;
+  }
+
+  get timeWork(): string {
+    return this._timeWork;
+  }
+
+  set timeWork(value: string) {
+    this._timeWork = value;
+  }
+
   constructor(private sitePageService: SitePageService) {
   }
 
   ngOnInit(): void {
+    this.getParameters();
     this.getItemMenu();
+    this.geMainContact();
+  }
+
+  getParameters(): void {
+    this.sitePageService.getParameters().subscribe(data => {
+      data.result.forEach(item => {
+        this.listParameter.push({
+          code: item.code,
+          value: item.value
+        });
+      });
+      for (let siteParameter of this.listParameter) {
+        if (siteParameter.code === 'TimeWork') {
+          this.timeWork = siteParameter.value;
+        }
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  geMainContact(): void {
+    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    const baseURI = urlWithSlash.replace('/', '');
+    this.sitePageService.getMainComponent(baseURI, null).subscribe(data => {
+      this.mainContact = data.result;
+    }, error => {
+      console.log(error);
+    });
   }
 
   getItemMenu(): void {

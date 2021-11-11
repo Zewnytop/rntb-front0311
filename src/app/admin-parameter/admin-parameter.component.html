@@ -11,17 +11,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td></td>
+    <tr *ngFor="let parameter of listParameter; let i=index">
+      <td>{{parameter.name}}</td>
       <td>
         <div class="edit-input2">
-          <input placeholder="123" type="text">
+          <input placeholder="Значение или ссылка" type="text" [(ngModel)]="parameter.value">
         </div>
       </td>
       <td>
         <div class="edit-button">
-          <button>
-            <img src="assets/icons/save.svg">
+          <button (click)="updateParameter(i)">
+            <img src="assets/icons/save.svg" alt="save">
           </button>
         </div>
       </td>

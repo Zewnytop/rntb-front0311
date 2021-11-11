@@ -62,6 +62,16 @@ export class SitePageService {
     return this.httpClient.get<DataObject>(url);
   }
 
+  getMainComponent(domenBranch: String, lang: string | null): Observable<DataSingleObject> {
+    const url = `/api/site/main/contact/${domenBranch}/${lang}`;
+    return this.httpClient.get<DataSingleObject>(url);
+  }
+
+  getParameters(): Observable<DataObject>{
+    const url = `/api/site/parameter`;
+    return this.httpClient.get<DataSingleObject>(url);
+  }
+
   getLibraryBranches(lang: string | null): Observable<DataSingleObject> {
     const url = `/api/site/branch/${lang}`;
     return this.httpClient.get<DataSingleObject>(url);
