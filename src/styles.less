@@ -5,6 +5,7 @@
   font-family: "Monsterrat";
   src: url("assets/fonts/Montserrat-Regular.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Montserrat-bold";
   src: url("assets/fonts/Montserrat-Bold.ttf") format("truetype");
@@ -28,6 +29,7 @@ html, body {
     margin: auto;
     min-width: 1084px;
   }
+
   .title {
     padding-top: 40px;
     display: block;
@@ -132,10 +134,11 @@ html, body {
     margin-bottom: 20px;
     padding-top: 5px;
 
-    .book-description{
+    .book-description {
       width: 500px;
       height: 486px;
     }
+
     thead th {
       font-weight: bold;
       text-align: left;
@@ -225,6 +228,7 @@ html, body {
       border-radius: 4px;
       box-sizing: border-box;
     }
+
     textarea {
       width: 100%;
       min-height: 200px;
@@ -241,131 +245,158 @@ html, body {
   }
 
 
-.select-language {
-  padding: 10px 0px 10px 0px;
-}
+  .select-language {
+    padding: 10px 0px 10px 0px;
+  }
 
-//Нужно потом перенести эти(снизу) стили в глобальный файл!!!!!
-.gallery-popup {
-  display: block; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: hidden; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-  z-index: 3;
-
-  .div-close{
-    position: absolute;
+  //Нужно потом перенести эти(снизу) стили в глобальный файл!!!!!
+  .gallery-popup {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
-  .popup-close-button {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-    //width: 100%;
-    //margin-top: -0.7vh;
-    //
-    //td {
-    //  float: right;
-    //}
-  }
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+    z-index: 3;
 
-  .popup-content {
-    padding: 30px 20px;
-    margin: auto;
-    width: 100%;
-    max-width: 800px;
-    border-radius: 6px;
-    background: #efefef;
-    display: flex;
-    flex-direction: row;
-    align-content: flex-start;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-    z-index: 333;
+    .div-close {
+      position: absolute;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
 
-    .popup-img {
-      flex: 1 1 270px;
-      width: 30%;
+    .popup-close-button {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      //width: 100%;
+      //margin-top: -0.7vh;
+      //
+      //td {
+      //  float: right;
+      //}
+    }
 
-      img {
-        width: 100%;
-        height: auto;
-        max-width: 400px;
+    .popup-content {
+      padding: 30px 20px;
+      margin: auto;
+      width: 100%;
+      max-width: 800px;
+      border-radius: 6px;
+      background: #efefef;
+      display: flex;
+      flex-direction: row;
+      align-content: flex-start;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      z-index: 333;
+
+      .popup-img {
+        flex: 1 1 270px;
+        width: 30%;
+
+        img {
+          width: 100%;
+          height: auto;
+          max-width: 400px;
+          max-height: 505px;
+          overflow: auto;
+        }
+      }
+
+      .popup-text {
+        font-size: 0.875rem;
+        flex: 1 1 333.3px;
+        width: 70%;
         max-height: 505px;
-        overflow: auto;
+        overflow: scroll;
+        padding-left: 20px;
       }
     }
 
-    .popup-text {
-      font-size: 0.875rem;
-      flex: 1 1 333.3px;
-      width: 70%;
-      max-height: 505px;
-      overflow: scroll;
-      padding-left: 20px;
+    .popup-bottom {
+      display: flex;
+      align-items: center;
+
+      margin: auto;
+
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+
     }
+
+    .popup-button {
+      display: flex;
+      justify-content: space-between;
+      width: 8%;
+
+      button, input[type="submit"], input[type="reset"] {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+      }
+      img{
+        display: flex;
+      }
+    }
+
+    .bottom-book-name {
+      padding-left: 15px;
+    }
+
+
+    .popup-content, .popup-bottom {
+      -webkit-animation-name: zoom;
+      -webkit-animation-duration: 0.6s;
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+
+    @-webkit-keyframes zoom {
+      from {
+        -webkit-transform: scale(0)
+      }
+      to {
+        -webkit-transform: scale(1)
+      }
+    }
+
+    @keyframes zoom {
+      from {
+        transform: scale(0)
+      }
+      to {
+        transform: scale(1)
+      }
+    }
+
+    @media only screen and (max-width: 700px) {
+      .popup-content {
+        width: 100%;
+      }
+    }
+
   }
 
-  .popup-bottom {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
+
+  .proverkaa:after ~ .popup-content {
+    transition: width 2s, height 4s;
   }
-
-
-  .popup-content, .popup-bottom {
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-  }
-
-  @-webkit-keyframes zoom {
-    from {
-      -webkit-transform: scale(0)
-    }
-    to {
-      -webkit-transform: scale(1)
-    }
-  }
-
-  @keyframes zoom {
-    from {
-      transform: scale(0)
-    }
-    to {
-      transform: scale(1)
-    }
-  }
-
-  @media only screen and (max-width: 700px) {
-    .popup-content {
-      width: 100%;
-    }
-  }
-
-}
-
-
-.proverkaa:after ~ .popup-content {
-  transition: width 2s, height 4s;
-}
 }

@@ -19,6 +19,7 @@
         </div>
       </ng-template>
     </div>
+    <div class="overflow-block"></div>
 
     <div class="carousel-circle">
       <button class="carousel-button-left" (click)="previousPageBooks()"></button>
@@ -53,21 +54,11 @@
         </div>
       </div>
       <div class="popup-bottom" *ngIf="bookVirtualExhibition">
-        <td>
-          <div class="edit-button">
-            <button (click)="previewPreviousBook()">
-              <img src="assets/icons/arrow-left.svg">
-            </button>
-            <button (click)="previewNextBook()">
-              <img src="assets/icons/arrow-right.svg">
-            </button>
+          <div class="popup-button">
+            <button (click)="previewPreviousBook()"><img src="assets/icons/arrow-left.svg"></button>
+            <button (click)="previewNextBook()"><img src="assets/icons/arrow-right.svg"></button>
           </div>
-        </td>
-        <td>
-        <span>
-          {{bookVirtualExhibition.name}}
-        </span>
-        </td>
+        <span class="bottom-book-name">{{bookVirtualExhibition.name}}</span>
       </div>
     </div>
   </div>
