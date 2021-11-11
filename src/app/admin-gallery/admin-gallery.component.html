@@ -101,8 +101,8 @@
   </ng-template>
 </div>
 <div class="carousel-circle">
-  <button class="carousel-button" (click)="previousPageBooks()"></button>
-  <button class="carousel-button" (click)="nextPageBooks()"></button>
+  <button class="carousel-button-left" (click)="previousPageBooks()"></button>
+  <button class="carousel-button-right" (click)="nextPageBooks()"></button>
 </div>
 <hr class="carousel-hr">
 
@@ -134,16 +134,10 @@
     </div>
   </div>
   <div class="popup-bottom">
-    <td>
-      <div class="edit-button">
+      <div class="popup-button">
         <button><img src="assets/icons/arrow-left.svg"></button>
         <button><img src="assets/icons/arrow-right.svg"></button>
       </div>
-    </td>
-    <td>
-        <span>
-          {{selectedBook?.nameBookRu}}
-        </span>
-    </td>
+        <span class="bottom-book-name">{{selectedBook?.nameBookRu}}</span>
   </div>
 </div>
