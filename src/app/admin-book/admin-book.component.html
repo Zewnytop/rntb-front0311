@@ -119,14 +119,14 @@
                             [editor]="Editor" [config]="config"
                             [(ngModel)]="book.descriptionRu" *ngIf="lang === 'ru'" id="descriptionRu"
                             name="descriptionRu"></ckeditor>
-                  <textarea style="min-width: 500px; max-width: 500px; max-height: 486px; min-height: 486px;"
-                            type="text" [(ngModel)]="book.descriptionEn" *ngIf="lang === 'eng'" id="descriptionEn"
-                            name="descriptionEn"
-                            placeholder="descriptionEn" size="50"></textarea>
-                  <textarea style="min-width: 500px; max-width: 500px; max-height: 486px; min-height: 486px;"
-                            type="text" [(ngModel)]="book.descriptionKz" *ngIf="lang === 'kz'" id="descriptionKz"
-                            name="descriptionKz"
-                            placeholder="descriptionKz" size="50"></textarea>
+                  <ckeditor style="min-width: 500px; max-width: 500px; max-height: 770px; height: 470px;"
+                            [editor]="Editor" [config]="config"
+                            [(ngModel)]="book.descriptionEn" *ngIf="lang === 'eng'" id="descriptionEn"
+                            name="descriptionEn"></ckeditor>
+                  <ckeditor style="min-width: 500px; max-width: 500px; max-height: 770px; height: 470px;"
+                            [editor]="Editor" [config]="config"
+                            [(ngModel)]="book.descriptionKz" *ngIf="lang === 'kz'" id="descriptionKz"
+                            name="descriptionKz"></ckeditor>
                 </label>
               </form>
             </td>

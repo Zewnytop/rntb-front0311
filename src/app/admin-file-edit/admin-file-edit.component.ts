@@ -21,8 +21,8 @@ export class AdminFileEditComponent implements OnInit {
   private _listDestination: DestinationObject[] = [];
   private _close: boolean = false;
   edit: boolean = false;
-  previewImg1:string='assets/icons/layout.svg';
-  previewImg2:string='assets/icons/x.svg';
+  previewImg1: string = 'assets/icons/layout.svg';
+  previewImg2: string = 'assets/icons/x.svg';
 
 
   get close(): boolean {
@@ -249,5 +249,12 @@ export class AdminFileEditComponent implements OnInit {
     console.log(this.selectedFile);
     console.log(this._listDestination);
     console.log(this.listFiles);
+  }
+
+  closePopup() {
+    this.selectedFile = [];
+    this.message = [];
+    this.progressInfos = [];
+    this.close = false
   }
 }

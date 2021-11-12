@@ -1,6 +1,9 @@
 <div>
   <p><b>Загрузка файлов</b></p>
 </div>
+<div class="add-button">
+  <button (click)="close=true">Загрузить файл</button>
+</div>
 <div class="file-edit">
   <div class="file-edit-space">
     <div class="item1">
@@ -44,10 +47,6 @@
       <img [src]="previewImage()">
     </div>
   </div>
-
-</div>
-<div class="add-button">
-  <button (click)="close=true">Загрузить файл</button>
 </div>
 <div class="file-popup" *ngIf="close">
   <div class="file-popup-content">
@@ -56,14 +55,13 @@
         <p><strong>Загрузите файл</strong></p>
       </div>
       <div class="edit-button">
-        <button (click)="close=false"><img src="assets/icons/x.svg"></button>
+        <button (click)="closePopup()"><img src="assets/icons/x.svg"></button>
       </div>
     </div>
-
     <div class="file-popup-content-area">
       <div>
         <label>
-          <input type="file" accept="image/*" multiple (change)="selectFiles($event)"/>
+          <input type="file" accept="image/*" multiple (change)=" selectFiles($event)"/>
         </label>
         <table class="file-popup-table">
           <thead>
@@ -104,8 +102,6 @@
           </tbody>
         </table>
       </div>
-
-
     </div>
     <div class="file-popup-save">
       <button [disabled]="!selectedFile" (click)="uploadFiles()">Загрузить</button>
