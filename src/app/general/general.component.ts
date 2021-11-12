@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+declare const show: any;
 
 @Component({
   selector: 'app-general',
@@ -7,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneralComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   public a = "http://localhost:8080/ru/#/sfdsfsd/asd"
 
   ngOnInit(): void {
+    show();
     console.log("baseURI");
     console.log("http://localhost:8080/ru/");
     console.log("location");

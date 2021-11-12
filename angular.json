@@ -38,7 +38,7 @@
             "styles": [
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": ["src/aa.js"]
           },
           "configurations": {
             "en": {
@@ -114,7 +114,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["src/aa.js"]
           }
         }
       }
