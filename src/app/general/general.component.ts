@@ -15,10 +15,13 @@ export class GeneralComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("baseURI");
-    console.log("http://localhost:8080/ru/");
+    console.log("https://localhost:8080/ru/");
     console.log("location");
-    console.log(location.href);
+    console.log(location);
+    console.log(document.baseURI);
     console.log(this.a.indexOf("ru"))
+    console.log(this.a.split("/"))
+    console.log(this.a.split("/")[2])
     console.log(this.a.split("/")[3])
   }
 

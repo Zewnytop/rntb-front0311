@@ -76,9 +76,11 @@ export class FooterComponent implements OnInit {
   }
 
   geMainContact(): void {
-    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getMainComponent(baseURI, null).subscribe(data => {
+    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    // const baseURI = urlWithSlash.replace('/', '');
+    const domen = document.baseURI.split("/")[2];
+    const lang = document.baseURI.split("/")[3];
+    this.sitePageService.getMainComponent(domen, lang).subscribe(data => {
       this.mainContact = data.result;
     }, error => {
       console.log(error);
@@ -86,10 +88,12 @@ export class FooterComponent implements OnInit {
   }
 
   getItemMenu(): void {
-    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    const baseURI = urlWithSlash.replace('/', '');
+    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    // const baseURI = urlWithSlash.replace('/', '');
     // document.baseURI.split("/")[3]
-    this.sitePageService.getSiteMenu(baseURI, null).subscribe(data => {
+    const domen = document.baseURI.split("/")[2];
+    const lang = document.baseURI.split("/")[3];
+    this.sitePageService.getSiteMenu(domen, lang).subscribe(data => {
       this.listItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);
