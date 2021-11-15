@@ -145,13 +145,14 @@
             </tbody>
           </table>
         </div>
-        <div *ngIf="selectedArticle">
-          <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
-               style="width: 350px ; height: 230px">
-        </div>
-        <div>
-          <label for="file">Загрузить картинку</label>
-          <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">
+        <div class="image-preview">
+          <div *ngIf="selectedArticle">
+            <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
+                 style="width: 300px ; max-height: 230px">
+          </div>
+          <div>
+            <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">
+          </div>
         </div>
       </div>
     </div>
