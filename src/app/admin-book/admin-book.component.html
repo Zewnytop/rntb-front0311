@@ -148,12 +148,13 @@
           </tbody>
         </table>
       </div>
-      <div *ngIf="book">
-        <img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="width: 200px ; height: 300px">
-      </div>
-      <div>
-        <label for="file">Загрузить картинку</label>
-        <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">
+      <div class="image-preview">
+        <div *ngIf="book">
+          <img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="max-width: 300px; max-height: 300px">
+        </div>
+        <div>
+          <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">
+        </div>
       </div>
     </div>
   </div>
