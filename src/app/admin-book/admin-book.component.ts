@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {BookService} from "../service/book.service";
 import {BookObject, ViewBookObject} from "../../site-object/book-object";
-import {DestinationObject, FileObject} from "../../site-object/file-object";
+import {DestinationObject, FileObject, SelectedFileObject} from "../../site-object/file-object";
 // @ts-ignore
 import * as CustomEditor from '../../ckeditor5custom/build/ckeditor';
+import {FileService} from "../service/file.service";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-admin-book',
@@ -14,6 +16,7 @@ export class AdminBookComponent implements OnInit {
 
   private _listViewBook: ViewBookObject[] = [];
   private _listViewFile: FileObject[] = [];
+  private _listDestination: DestinationObject[] = [];
   private _book: BookObject | null = null;
   private _lang: string = "ru";
   private _close: boolean = false;
@@ -53,6 +56,14 @@ export class AdminBookComponent implements OnInit {
     this._listViewFile = value;
   }
 
+  get listDestination(): DestinationObject[] {
+    return this._listDestination;
+  }
+
+  set listDestination(value: DestinationObject[]) {
+    this._listDestination = value;
+  }
+
   get book(): BookObject | null {
     return this._book;
   }
@@ -69,10 +80,11 @@ export class AdminBookComponent implements OnInit {
     this._lang = value;
   }
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService, private fileService: FileService) {
   }
 
   ngOnInit(): void {
+    this.getFileTypesDestionation();
     this.getBooks();
     this.getFiles();
   }
@@ -174,6 +186,48 @@ export class AdminBookComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  getFileTypesDestionation(): void {
+    this.fileService.getTypesDestination().subscribe(data => {
+      data.result.forEach(destination => this.listDestination.push({
+        idTypeDestination: destination.idTypeDestination,
+        nameDestination: destination.nameDestination,
+        codeDestination: destination.codeDestination,
+        description: destination.description
+      }));
+    })
+  }
+
+  uploadImage(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.item(0);
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    const typeDestination = this.listDestination.filter(item => item.codeDestination === 'CoverBook')[0];
+    const body: SelectedFileObject = {
+      file: file!,
+      destination: typeDestination
+    };
+    this.fileService.uploadFile(body, idBranch).subscribe((event: any) => {
+      if (event instanceof HttpResponse) {
+        const result = event.body.result;
+        this.listViewFile.unshift({
+          id: result.id,
+          nameFile: result.nameFile,
+          typeFile: result.typeFile,
+          createdDate: result.createdDate,
+          destination: {
+            idTypeDestination: result.destination.idTypeDestination,
+            nameDestination: result.destination.nameDestination,
+            codeDestination: result.destination.codeDestination,
+            description: result.destination.description
+          }
+        });
+        this.setCoverBook(result);
+      }
+    }, error => {
+      console.log(error);
+    });
+    console.log("image")
   }
 
   public config = {

@@ -151,6 +151,10 @@
       <div *ngIf="book">
         <img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="width: 200px ; height: 300px">
       </div>
+      <div>
+        <label for="file">Загрузить картинку</label>
+        <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">
+      </div>
     </div>
   </div>
 </div>

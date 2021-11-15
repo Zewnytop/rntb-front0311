@@ -71,8 +71,8 @@ export class AdminFileEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getListfiles();
     this.getFileTypesDestionation();
+    this.getListfiles();
   }
 
   getListfiles(): void {
@@ -117,7 +117,7 @@ export class AdminFileEditComponent implements OnInit {
       for (let i = 0; i < files.length; i++) {
         this.selectedFile.push({
           file: files.item(i)!,
-          destination: this.listDestination[3]
+          destination: this.listDestination[0]
         });
       }
     }

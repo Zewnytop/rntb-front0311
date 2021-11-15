@@ -149,6 +149,10 @@
           <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
                style="width: 350px ; height: 230px">
         </div>
+        <div>
+          <label for="file">Загрузить картинку</label>
+          <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">
+        </div>
       </div>
     </div>
 

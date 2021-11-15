@@ -6,7 +6,9 @@ import {ArticleService} from "../service/article.service";
 import {ArticleObject, TypeArticleObject, ViewArticleObject} from "../../site-object/article-object";
 import {TypeComponentObject} from "../../site-object/typeComponent-object";
 import {LibraryBranchObject} from "../../site-object/libraryBranch-object";
-import {FileObject} from "../../site-object/file-object";
+import {DestinationObject, FileObject, SelectedFileObject} from "../../site-object/file-object";
+import {FileService} from "../service/file.service";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-edit-article',
@@ -15,11 +17,10 @@ import {FileObject} from "../../site-object/file-object";
 })
 export class EditArticleComponent implements OnInit {
   public Editor = CustomEditor;
-  public tst = '';
-  public tst1 = '';
   private _listViewArticle: ViewArticleObject[] = [];
   private _listTypeAticle: TypeArticleObject[] = [];
   private _listViewFile: FileObject[] = [];
+  private _listDestination: DestinationObject[] = [];
   private _selectedTypeArticle: TypeArticleObject | null = null;
   private _selectedArticle: ArticleObject | null = null;
   private _lang: string = "ru";
@@ -67,6 +68,14 @@ export class EditArticleComponent implements OnInit {
     this._listViewFile = value;
   }
 
+  get listDestination(): DestinationObject[] {
+    return this._listDestination;
+  }
+
+  set listDestination(value: DestinationObject[]) {
+    this._listDestination = value;
+  }
+
   get selectedTypeArticle(): TypeArticleObject | null {
     return this._selectedTypeArticle;
   }
@@ -91,10 +100,11 @@ export class EditArticleComponent implements OnInit {
     this._lang = value;
   }
 
-  constructor(private articleService: ArticleService) {
+  constructor(private articleService: ArticleService, private fileService: FileService) {
   }
 
   ngOnInit(): void {
+    this.getFileTypesDestionation();
     this.getListTypeAticle();
     this.getFiles();
   }
@@ -219,6 +229,48 @@ export class EditArticleComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  getFileTypesDestionation(): void {
+    this.fileService.getTypesDestination().subscribe(data => {
+      data.result.forEach(destination => this.listDestination.push({
+        idTypeDestination: destination.idTypeDestination,
+        nameDestination: destination.nameDestination,
+        codeDestination: destination.codeDestination,
+        description: destination.description
+      }));
+    })
+  }
+
+  uploadImage(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.item(0);
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    const typeDestination = this.listDestination.filter(item => item.codeDestination === 'CoverBook')[0];
+    const body: SelectedFileObject = {
+      file: file!,
+      destination: typeDestination
+    };
+    this.fileService.uploadFile(body, idBranch).subscribe((event: any) => {
+      if (event instanceof HttpResponse) {
+        const result = event.body.result;
+        this.listViewFile.unshift({
+          id: result.id,
+          nameFile: result.nameFile,
+          typeFile: result.typeFile,
+          createdDate: result.createdDate,
+          destination: {
+            idTypeDestination: result.destination.idTypeDestination,
+            nameDestination: result.destination.nameDestination,
+            codeDestination: result.destination.codeDestination,
+            description: result.destination.description
+          }
+        });
+        this.setCoverArticle(result);
+      }
+    }, error => {
+      console.log(error);
+    });
+    console.log("image")
   }
 
   clearFileArticle(): void {
