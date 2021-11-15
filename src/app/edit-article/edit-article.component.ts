@@ -245,7 +245,7 @@ export class EditArticleComponent implements OnInit {
   uploadImage(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.item(0);
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
-    const typeDestination = this.listDestination.filter(item => item.codeDestination === 'CoverBook')[0];
+    const typeDestination = this.listDestination.filter(item => item.codeDestination === 'CoverArticle')[0];
     const body: SelectedFileObject = {
       file: file!,
       destination: typeDestination
