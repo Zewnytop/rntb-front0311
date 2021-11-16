@@ -334,6 +334,7 @@ export class AdminGalleryComponent implements OnInit {
   deleteCategory(idCategory: number, index: number): void {
     this.virtualExhibitionService.deleteCategory(idCategory).subscribe(data => {
       this.listCategoryVirtualExhibition.splice(index, 1);
+      this.virtualExhibition = null;
     }, error => {
       console.log(error);
     });

@@ -131,12 +131,14 @@ export class MenuComponent implements OnInit {
   }
 
   getNameBranch(): void {
-    let paramsRoter: any[];
-    paramsRoter = this.router.url.trim().split("/");
-    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    const baseURI = urlWithSlash.replace('/', '');
+    // let paramsRoter: any[];
+    // paramsRoter = this.router.url.trim().split("/");
+    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    // const baseURI = urlWithSlash.replace('/', '');
     // document.baseURI.split("/")[3]
-    this.sitePageService.getNameBranch(baseURI, null).subscribe(data => {
+    const domen = document.baseURI.split("/")[2];
+    const lang = document.baseURI.split("/")[3];
+    this.sitePageService.getNameBranch(domen, lang).subscribe(data => {
       this.branchName = data.result;
     }, error => {
       console.log(error);
@@ -144,11 +146,13 @@ export class MenuComponent implements OnInit {
   }
 
   getItemMenu(): void {
-    let paramsRoter: any[];
-    paramsRoter = this.router.url.trim().split("/");
-    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getSiteMenu(baseURI, null).subscribe(data => {
+    // let paramsRoter: any[];
+    // paramsRoter = this.router.url.trim().split("/");
+    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    // const baseURI = urlWithSlash.replace('/', '');
+    const domen = document.baseURI.split("/")[2];
+    const lang = document.baseURI.split("/")[3];
+    this.sitePageService.getSiteMenu(domen, lang).subscribe(data => {
       this.listSiteItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);
