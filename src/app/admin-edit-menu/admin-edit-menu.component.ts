@@ -13,6 +13,7 @@ import {ViewPageObject} from "../../site-object/page-object";
 export class AdminEditMenuComponent implements OnInit {
 
   private _listMainItemMenu: MenuObject[] = [];
+  private _listStaticItemMenu: MenuObject[] = [];
   private _listTypeItemMenu: TypeMenuItemObject[] = [];
   private _listViewPages: ViewPageObject[] = [];
   private _mainItemMenu: MenuObject | null = null;
@@ -26,6 +27,14 @@ export class AdminEditMenuComponent implements OnInit {
 
   set listMainItemMenu(value: MenuObject[]) {
     this._listMainItemMenu = value;
+  }
+
+  get listStaticItemMenu(): MenuObject[] {
+    return this._listStaticItemMenu;
+  }
+
+  set listStaticItemMenu(value: MenuObject[]) {
+    this._listStaticItemMenu = value;
   }
 
   get listTypeItemMenu(): TypeMenuItemObject[] {
@@ -72,8 +81,8 @@ export class AdminEditMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getMainitemsMenu();
     this.getTypeItemMenu();
+    this.getMainitemsMenu();
     this.getPages();
   }
 
@@ -156,7 +165,12 @@ export class AdminEditMenuComponent implements OnInit {
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     this.menuService.getMainitemsMenu(idBranch).subscribe(data => {
       console.log(data);
-      this.listMainItemMenu = this.setListItemMenu(data.result);
+      this.listMainItemMenu = this.setListItemMenu(
+        data.result.filter(item => item.typeItemMenu.codeType !== "Static").filter(item => item.typeItemMenu.codeType !== "StaticLink")
+      );
+      this.listStaticItemMenu = this.setListItemMenu(
+        data.result.filter(item => item.typeItemMenu.codeType !== "Page").filter(item => item.typeItemMenu.codeType !== "Link")
+      );
       console.log("dasdasdas");
       console.log(this.listMainItemMenu);
     }, error => {

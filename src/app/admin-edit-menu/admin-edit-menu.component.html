@@ -3,6 +3,68 @@
 </div>
 <div>
 
+  <table class="file-table">
+    <thead>
+    <tr>
+      <th>Вложения</th>
+      <th>Последнее изменение</th>
+      <th>Страница</th>
+      <th>Тип пункта</th>
+      <th>Отображать</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let staticItem of listStaticItemMenu; let i = index">
+      <td *ngIf="lang === 'ru' && staticItem.isEdit === false">{{staticItem.nameRu}}</td>
+      <td *ngIf="lang === 'ru' && staticItem.isEdit === true"><input type="text" [(ngModel)]="staticItem.nameRu">
+      </td>
+      <td *ngIf="lang === 'eng' && staticItem.isEdit === false">{{staticItem.nameEn}}</td>
+      <td *ngIf="lang === 'eng' && staticItem.isEdit === true"><input type="text" [(ngModel)]="staticItem.nameEn">
+      </td>
+      <td *ngIf="lang === 'kz' && staticItem.isEdit === false">{{staticItem.nameKz}}</td>
+      <td *ngIf="lang === 'kz' && staticItem.isEdit === true"><input type="text" [(ngModel)]="staticItem.nameKz">
+      </td>
+      <td>{{staticItem.lastModifiedDate}}</td>
+      <td *ngIf="staticItem.isEdit === true">
+        <select *ngIf="staticItem.typeItemMenu.codeType == 'Page'" [ngModel]="staticItem?.page?.id"
+                (ngModelChange)="setPage($event, i)">
+          <option [value]="null">Пусто</option>
+          <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
+        </select>
+      </td>
+      <td *ngIf="staticItem.isEdit === false">
+        {{[staticItem?.page ? staticItem?.page?.nameRu : 'Пусто']}}
+      </td>
+      <td *ngIf="staticItem.isEdit === true">
+        <select [ngModel]="staticItem.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i)">
+          <option [ngValue]="typeItem.id"
+                  *ngFor="let typeItem of listTypeItemMenu; let iType = index">{{typeItem.nameType}}</option>
+        </select>
+      </td>
+      <td
+        *ngIf="staticItem.isEdit === false">{{[staticItem.typeItemMenu === null ? 'Не выбран' : staticItem.typeItemMenu.nameType]}}</td>
+      <td *ngIf="staticItem.isEdit === true">
+        <div class="edit-button">
+          <input [(ngModel)]="staticItem.showItem" type="checkbox">
+        </div>
+      </td>
+      <td *ngIf="staticItem.isEdit === false">{{[staticItem.showItem === true ? 'Показывать' : 'Скрыть']}}</td>
+      <td>
+        <div class="td-right">
+          <div class="edit-button">
+            <button (click)="updateItemMenu(staticItem)" *ngIf="staticItem.isEdit"><img alt=""
+                                                                                    src="assets/icons/save.svg">
+            </button>
+            <button (click)="changeEditStatus(staticItem)" *ngIf="!staticItem.isEdit"><img alt=""
+                                                                                       src="assets/icons/edit-2.svg">
+            </button>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
   <div class="admin-edit-menu-tables">
     <div class="add-button">
       <button (click)="createItemMenu()">Добавить пункт меню</button>

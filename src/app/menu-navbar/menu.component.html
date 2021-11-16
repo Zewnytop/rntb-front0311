@@ -29,7 +29,7 @@
             </div>
             <div class="languages">
               <a *ngFor="let lang of listLanguage; let i =index" class="ru"
-                 (click)="changeLanguage(lang.code)">{{lang.name}}</a>
+                 [href]="'/' + lang.code + '/#'+ '/login' ">{{lang.name}}</a>
             </div>
           </div>
           <span class="filial-name">{{branchName}}</span> <!-- Название филиала -->
