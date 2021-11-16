@@ -21,13 +21,13 @@
         <div class="links">
           <ul class="link-ul">
             <li class="link-li-first">
-              <button class="link-li-button-open"><img src="/assets/images/Vector.svg" alt="Vector"></button>
+              <button class="link-li-button-open"><img src="./assets/images/Vector.svg" alt="Vector"></button>
               <a href="/" i18n="@@ButtonFooterMain">Главная</a>
             </li>
             <ng-template ngFor let-item [ngForOf]="listItemMenu">
               <li class="link-li">
                 <button class="link-li-button-open" (click)="changeStatus(item)">
-                  <img src="/assets/images/Vector.svg" alt="Vector"
+                  <img src="./assets/images/Vector.svg" alt="Vector"
                        [ngClass]="{}"></button>
                 <a [routerLink]="['/sp', item?.pageId]" (click)="setScrollTop()">{{item.name}}</a>
                 <ul class="link-li-content" *ngIf="item.isShow">
