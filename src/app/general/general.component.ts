@@ -23,6 +23,11 @@ export class GeneralComponent implements OnInit {
     console.log(this.a.split("/"))
     console.log(this.a.split("/")[2])
     console.log(this.a.split("/")[3])
+    this.zadarma()
   }
 
+  zadarma(): void{
+    let zadarmaElement = document.getElementById("myZadarmaCallmeWidget10726") as HTMLElement;
+    zadarmaElement.classList.add('zadarma');
+  }
 }
