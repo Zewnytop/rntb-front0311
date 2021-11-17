@@ -14,14 +14,14 @@ var myZadarmaCallmeWidgetFn10726 = function () {
     "sipId": "781277",
     "domElement": "myZadarmaCallmeWidget10726"
   }, {
-    "shape": "circle",
+    "shape": "square",
     "language": "ru",
     "width": "0",
     "dtmf": false,
     "font": "'Trebuchet MS','Helvetica CY',sans-serif",
     "color_call": "rgb(255, 255, 255)",
-    "color_bg_call": "rgb(248,109,34)",
-    "color_border_call": "rgb(239,170,132)",
+    "color_bg_call": "rgb(1,76,122)",
+    "color_border_call": "rgb(150,191,217)",
     "color_connection": "rgb(255, 255, 255)",
     "color_bg_connection": "rgb(3,195,0)",
     "color_border_connection": "rgb(161,230,159)",
