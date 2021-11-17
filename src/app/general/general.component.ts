@@ -23,7 +23,7 @@ export class GeneralComponent implements OnInit {
     console.log(this.a.split("/"))
     console.log(this.a.split("/")[2])
     console.log(this.a.split("/")[3])
-    this.zadarma()
+    // this.zadarma()
   }
 
   zadarma(): void{
