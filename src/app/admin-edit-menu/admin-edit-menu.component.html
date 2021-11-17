@@ -2,7 +2,20 @@
   <p><b>Редактирование меню</b></p>
 </div>
 <div>
-
+  <div class="admin-edit-menu-language">
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="ru">
+      RU
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="eng">
+      ENG
+    </label>
+    <label>
+      <input type="radio" [(ngModel)]="lang" value="kz">
+      KZ
+    </label>
+  </div>
   <table class="file-table">
     <thead>
     <tr>
@@ -15,7 +28,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let staticItem of listStaticItemMenu; let i = index">
+    <tr *ngFor="let staticItem of listStaticItemMenu; let i = index" class="edit-input2">
       <td *ngIf="lang === 'ru' && staticItem.isEdit === false">{{staticItem.nameRu}}</td>
       <td *ngIf="lang === 'ru' && staticItem.isEdit === true"><input type="text" [(ngModel)]="staticItem.nameRu">
       </td>
@@ -27,19 +40,24 @@
       </td>
       <td>{{staticItem.lastModifiedDate}}</td>
       <td *ngIf="staticItem.isEdit === true">
-        <select *ngIf="staticItem.typeItemMenu.codeType == 'Page'" [ngModel]="staticItem?.page?.id"
-                (ngModelChange)="setPage($event, i)">
+        <select *ngIf="staticItem.typeItemMenu.codeType == 'StaticPageLink'" [ngModel]="staticItem?.page?.id"
+                (ngModelChange)="setStaticPage($event, i)">
           <option [value]="null">Пусто</option>
           <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
+        </select>
+        <select *ngIf="staticItem.typeItemMenu.codeType == 'StaticFileLink'" [ngModel]="staticItem?.file?.id"
+                (ngModelChange)="setStaticFile($event, i)">
+          <option [value]="null">Пусто</option>
+          <option [value]="file.id" *ngFor="let file of listFiles; let i = index">{{file.nameFile}}</option>
         </select>
       </td>
       <td *ngIf="staticItem.isEdit === false">
         {{[staticItem?.page ? staticItem?.page?.nameRu : 'Пусто']}}
       </td>
       <td *ngIf="staticItem.isEdit === true">
-        <select [ngModel]="staticItem.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i)">
+        <select [ngModel]="staticItem.typeItemMenu.id" (ngModelChange)="setStaticTypeItemMenu($event, i)">
           <option [ngValue]="typeItem.id"
-                  *ngFor="let typeItem of listTypeItemMenu; let iType = index">{{typeItem.nameType}}</option>
+                  *ngFor="let typeItem of listTypeStaticItemMenu; let iType = index">{{typeItem.nameType}}</option>
         </select>
       </td>
       <td
@@ -54,10 +72,10 @@
         <div class="td-right">
           <div class="edit-button">
             <button (click)="updateItemMenu(staticItem)" *ngIf="staticItem.isEdit"><img alt=""
-                                                                                    src="assets/icons/save.svg">
+                                                                                        src="assets/icons/save.svg">
             </button>
             <button (click)="changeEditStatus(staticItem)" *ngIf="!staticItem.isEdit"><img alt=""
-                                                                                       src="assets/icons/edit-2.svg">
+                                                                                           src="assets/icons/edit-2.svg">
             </button>
           </div>
         </div>
@@ -74,22 +92,7 @@
         <table class="file-table">
           <thead *ngIf="i === 0">
           <tr>
-            <td>
-              <div class="admin-edit-menu-language">
-                <label>
-                  <input type="radio" [(ngModel)]="lang" value="ru">
-                  RU
-                </label>
-                <label>
-                  <input type="radio" [(ngModel)]="lang" value="eng">
-                  ENG
-                </label>
-                <label>
-                  <input type="radio" [(ngModel)]="lang" value="kz">
-                  KZ
-                </label>
-              </div>
-            </td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -139,6 +142,11 @@
                       (ngModelChange)="setPage($event, i)">
                 <option [value]="null">Пусто</option>
                 <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
+              </select>
+              <select *ngIf="itemMenu.typeItemMenu.codeType == 'FileLink'" [ngModel]="itemMenu?.file?.id"
+                      (ngModelChange)="setFile($event, i)">
+                <option [value]="null">Пусто</option>
+                <option [value]="file.id" *ngFor="let file of listFiles; let i = index">{{file.nameFile}}</option>
               </select>
             </td>
             <td *ngIf="itemMenu.isEdit === false">
