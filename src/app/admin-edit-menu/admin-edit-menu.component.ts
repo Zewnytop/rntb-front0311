@@ -293,12 +293,13 @@ export class AdminEditMenuComponent implements OnInit {
     };
     console.log(body);
     this.menuService.updateItemsMenu(body).subscribe(data => {
+      console.log(data)
       itemMenu!.isEdit = false;
       const item = data.result;
       itemMenu!.nameRu = item.nameRu;
       itemMenu!.nameEn = item.nameEn;
       itemMenu!.nameKz = item.nameKz;
-      itemMenu!.page = item.page;
+      // itemMenu!.page = item.page;
       itemMenu!.file = item.file;
       itemMenu!.linkResource = item.linkResource;
       itemMenu!.lastModifiedDate = item.lastModifiedDate;
@@ -408,6 +409,11 @@ export class AdminEditMenuComponent implements OnInit {
           if (childerItemMenu.page && itemMenu.id !== childerItemMenu.id && childerItemMenu.page.id == itemMenu.page.id) {
             childerItemMenu.page = null;
           }
+        }
+      }
+      for (let mainItemMenu of this.listStaticItemMenu) {
+        if (mainItemMenu.page && itemMenu.id !== mainItemMenu.id && mainItemMenu.page.id == itemMenu.page.id) {
+          mainItemMenu.page = null;
         }
       }
     }
