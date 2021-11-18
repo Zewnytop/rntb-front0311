@@ -13,6 +13,7 @@ import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router, RouterSta
 export class MenuComponent implements OnInit {
 
   private _listSiteItemMenu: SiteMenuObject[] = [];
+  private _listSiteStaticItemMenu: SiteMenuObject[] = [];
   private _listLanguage: SiteLocalizationObject[] = [];
   private _listParameter: SiteParameter[] = [];
   private _branchName: string = "";
@@ -27,6 +28,14 @@ export class MenuComponent implements OnInit {
 
   set listSiteItemMenu(value: SiteMenuObject[]) {
     this._listSiteItemMenu = value;
+  }
+
+  get listSiteStaticItemMenu(): SiteMenuObject[] {
+    return this._listSiteStaticItemMenu;
+  }
+
+  set listSiteStaticItemMenu(value: SiteMenuObject[]) {
+    this._listSiteStaticItemMenu = value;
   }
 
   get listLanguage(): SiteLocalizationObject[] {
@@ -168,7 +177,12 @@ export class MenuComponent implements OnInit {
     const domen = location.hostname;
     const lang = location.pathname.replace(/\//g, "");
     this.sitePageService.getSiteMenu(domen, lang).subscribe(data => {
-      this.listSiteItemMenu = this.getListItemMenu(data.result);
+      this.listSiteItemMenu = this.getListItemMenu(data.result.filter(item => item.codeTypeItemMenu === 'Page')
+        .filter(item => item.codeTypeItemMenu === 'ResourceLink')
+        .filter(item => item.codeTypeItemMenu === 'FileLink'));
+      this.listSiteStaticItemMenu = this.getListItemMenu(data.result.filter(item => item.codeTypeItemMenu === 'StaticResourceLink')
+        .filter(item => item.codeTypeItemMenu === 'StaticPageLink')
+        .filter(item => item.codeTypeItemMenu === 'StaticFileLink'));
     }, error => {
       console.log(error);
     });
@@ -179,9 +193,11 @@ export class MenuComponent implements OnInit {
     if (listItem && listItem.length) {
       listItem.forEach((item) => {
         let itemMenu: { [k: string]: any } = {
+          id: item.id,
           name: item.name,
           pageId: item.pageId,
           fileId: item.fileId,
+          linkResource: item.linkResource,
           codeTypeItemMenu: item.codeTypeItemMenu,
           childrenItem: []
         };

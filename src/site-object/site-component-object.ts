@@ -1,7 +1,9 @@
 export interface SiteMenuObject {
+  id: number,
   name: string,
   pageId: number,
   fileId: number,
+  linkResource: string,
   codeTypeItemMenu: string,
   childrenItem: SiteMenuObject[]
 }
