@@ -2,24 +2,24 @@
   <p><b>Редактирование статей</b></p>
 </div>
 <div class="edit-article">
-  <ng-template [ngIf]="edit==false">
-    <div class="edit-article-head">
-      <div class="add-button">
-        <button *ngFor="let type of listTypeAticle; let i=index" (click)="selectType(type)">{{type.nameType}}</button>
-      </div>
-    </div>
-    <hr>
-  </ng-template>
+  <!--  <ng-template [ngIf]="edit==false">-->
+  <!--    <div class="edit-article-head">-->
+  <!--      <div class="add-button">-->
+  <!--        <button *ngFor="let type of listTypeAticle; let i=index" (click)="selectType(type)">{{type.nameType}}</button>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--    <hr>-->
+  <!--  </ng-template>-->
   <ng-template [ngIf]="edit==false">
     <div class="edit-article-table">
       <table class="file-table">
-        <caption><strong>{{selectedTypeArticle?.nameType}}</strong></caption>
+        <!--        <caption><strong>{{selectedTypeArticle?.nameType}}</strong></caption>-->
         <thead>
         <tr>
           <th>Заголовок</th>
           <th>Последнее изменение</th>
           <th>Тип</th>
-          <th *ngIf="selectedTypeArticle?.codeType === 'News'">Отображения</th>
+          <th>Видимость</th>
           <th>
             <div class="add-button">
               <button (click)="createArticle()">Создать статью</button>
@@ -32,7 +32,7 @@
           <td>{{article.name}}</td>
           <td>{{article.lastModifiedDate}}</td>
           <td>{{article.typeArticle.nameType}}</td>
-          <td *ngIf="selectedTypeArticle?.codeType === 'News'">{{[article.showOnPage ? 'Отображать' : 'Скрыть']}}</td>
+          <td>{{[article.showOnPage ? 'Отображать' : 'Скрывать']}}</td>
           <td class="edit-button">
             <button (click)="getArticle(article.id); edit=true">
               <img src="assets/icons/edit-2.svg" alt="Редактировать">
@@ -54,6 +54,10 @@
     <div class="edit-article-space" *ngIf="selectedArticle">
       <div class="edit-article-text">
         <div class="edit-article-image">
+          <select [ngModel]="selectedArticle?.typeArticle?.id"
+                            (ngModelChange)="setTypeArticle($event)">
+            <option [value]="typeArticle.id" *ngFor="let typeArticle of listTypeAticle; let i = index">{{typeArticle.nameType}}</option>
+          </select>
           <form *ngIf="selectedArticle.typeArticle.codeType === 'News'">
             <label for="show"><b>Отображать на сранице:</b></label>
             <input type="checkbox" id="show" [(ngModel)]="selectedArticle.showOnPage" name="showOnPage">
@@ -151,7 +155,7 @@
                  style="width: 300px ; max-height: 230px">
           </div>
           <div>
-            <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">
+            <input type="file" id="file" accept="image/*" (change)="uploadImage($event)">
           </div>
         </div>
       </div>
