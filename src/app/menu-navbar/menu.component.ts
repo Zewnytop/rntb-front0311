@@ -106,7 +106,7 @@ export class MenuComponent implements OnInit {
     let route: RouterStateSnapshot;
     route = this.router.routerState.snapshot;
     // paramsRoter[1] = lang;
-    let newNavigateUrl = location.protocol + "//" + location.host + "/" + lang + "/#" + route;
+    let newNavigateUrl = location.origin + "/" + lang + "/" + location.hash;
     this.router.navigate([newNavigateUrl]);
   }
 
