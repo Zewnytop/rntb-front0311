@@ -51,8 +51,10 @@ export class ArticleComponent implements OnInit {
     //     paramsRoter[1] = 'ru';
     //   }
     // }
-    const domen = document.baseURI.split("/")[2];
-    const lang = document.baseURI.split("/")[3];
+    // const domen = document.baseURI.split("/")[2];
+    // const lang = document.baseURI.split("/")[3];
+    // const domen = location.hostname;
+    const lang = location.pathname.replace(/\//g, "");
     this.sitePageService.getArticle(this.id!, lang).subscribe(data => {
       console.log("data");
       console.log(data);

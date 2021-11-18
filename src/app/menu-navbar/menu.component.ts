@@ -3,7 +3,7 @@ import {MenuObject} from "../../site-object/menu-object";
 import {HttpClient} from "@angular/common/http";
 import {SiteLocalizationObject, SiteMenuObject, SiteParameter} from "../../site-object/site-component-object";
 import {SitePageService} from "../service/site-page.service";
-import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from "@angular/router";
+import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router, RouterStateSnapshot} from "@angular/router";
 
 @Component({
   selector: 'app-menu',
@@ -88,16 +88,25 @@ export class MenuComponent implements OnInit {
     this.getItemMenu();
   }
 
+  // changeLanguage(lang: string): void {
+  //   let paramsRoter: any[];
+  //   paramsRoter = this.router.url.trim().split("/");
+  //   paramsRoter[1] = lang;
+  //   let newNavigateUrl = "";
+  //   paramsRoter.forEach((param: any) => {
+  //     if (param !== "") {
+  //       newNavigateUrl += "/" + param;
+  //     }
+  //   });
+  //   this.router.navigate([newNavigateUrl]);
+  // }
+
   changeLanguage(lang: string): void {
     let paramsRoter: any[];
-    paramsRoter = this.router.url.trim().split("/");
-    paramsRoter[1] = lang;
-    let newNavigateUrl = "";
-    paramsRoter.forEach((param: any) => {
-      if (param !== "") {
-        newNavigateUrl += "/" + param;
-      }
-    });
+    let route: RouterStateSnapshot;
+    route = this.router.routerState.snapshot;
+    // paramsRoter[1] = lang;
+    let newNavigateUrl = location.protocol + "//" + location.host + "/" + lang + "/#" + route;
     this.router.navigate([newNavigateUrl]);
   }
 
@@ -136,8 +145,10 @@ export class MenuComponent implements OnInit {
     // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     // const baseURI = urlWithSlash.replace('/', '');
     // document.baseURI.split("/")[3]
-    const domen = document.baseURI.split("/")[2];
-    const lang = document.baseURI.split("/")[3];
+    // const domen = document.baseURI.split("/")[2];
+    // const lang = document.baseURI.split("/")[3];
+    const domen = location.hostname;
+    const lang = location.pathname.replace(/\//g, "");
     this.sitePageService.getNameBranch(domen, lang).subscribe(data => {
       this.branchName = data.result;
     }, error => {
@@ -150,8 +161,10 @@ export class MenuComponent implements OnInit {
     // paramsRoter = this.router.url.trim().split("/");
     // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
     // const baseURI = urlWithSlash.replace('/', '');
-    const domen = document.baseURI.split("/")[2];
-    const lang = document.baseURI.split("/")[3];
+    // const domen = document.baseURI.split("/")[2];
+    // const lang = document.baseURI.split("/")[3];
+    const domen = location.hostname;
+    const lang = location.pathname.replace(/\//g, "");
     this.sitePageService.getSiteMenu(domen, lang).subscribe(data => {
       this.listSiteItemMenu = this.getListItemMenu(data.result);
     }, error => {

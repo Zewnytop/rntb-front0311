@@ -52,8 +52,10 @@ export class ContactsComponent implements OnInit {
     //     paramsRoter[1] = 'ru';
     //   }
     // }
-    const domen = document.baseURI.split("/")[2];
-    const lang = document.baseURI.split("/")[3];
+    // const domen = document.baseURI.split("/")[2];
+    // const lang = document.baseURI.split("/")[3];
+    // const domen = location.hostname;
+    const lang = location.pathname.replace(/\//g, "");
     this.sitePageService.getContact(this.id!, lang).subscribe(data => {
       this.branchContact = data.result;
     }, error => {

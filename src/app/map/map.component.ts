@@ -43,7 +43,8 @@ export class MapComponent implements OnInit {
     //   }
     // }
     // document.baseURI.split("/")[3]
-    this.sitePageService.getLibraryBranches(null).subscribe(data => {
+    const lang = location.pathname.replace(/\//g, "");
+    this.sitePageService.getLibraryBranches(lang).subscribe(data => {
       data.result.forEach((branch: SiteLibraryBranchObject) => {
         this.listLibraryBranch.push({
           name: branch.name,
@@ -54,6 +55,12 @@ export class MapComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  getUrlFilial(domen: string): string {
+    const lang = location.pathname.replace(/\//g, "");
+    const newUrl = location.protocol + "//" + domen + "/" + lang + "/#/";
+    return newUrl;
   }
 
 }

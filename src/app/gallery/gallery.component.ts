@@ -93,23 +93,24 @@ export class GalleryComponent implements OnInit {
   }
 
   getCategory(): void {
-    let paramsRoter: any[];
-    paramsRoter = this.router.url.trim().split("/");
-    if (paramsRoter.length >= 1) {
-      if (paramsRoter[1].trim() === "ru") {
-        paramsRoter[1] = 'ru';
-      } else if (paramsRoter[1].trim() === "en") {
-        paramsRoter[1] = 'en';
-      } else if (paramsRoter[1].trim() === "kz") {
-        paramsRoter[1] = 'kz';
-      } else {
-        paramsRoter[1] = 'ru';
-      }
-    }
+    // let paramsRoter: any[];
+    // paramsRoter = this.router.url.trim().split("/");
+    // if (paramsRoter.length >= 1) {
+    //   if (paramsRoter[1].trim() === "ru") {
+    //     paramsRoter[1] = 'ru';
+    //   } else if (paramsRoter[1].trim() === "en") {
+    //     paramsRoter[1] = 'en';
+    //   } else if (paramsRoter[1].trim() === "kz") {
+    //     paramsRoter[1] = 'kz';
+    //   } else {
+    //     paramsRoter[1] = 'ru';
+    //   }
+    // }
     if (this.isMainPage) {
       this.getLastBook();
     } else {
-      this.sitePageService.getCategoriesVirtualExhibition(this.id!, null).subscribe(data => {
+      const lang = location.pathname.replace(/\//g, "");
+      this.sitePageService.getCategoriesVirtualExhibition(this.id!, lang).subscribe(data => {
         this.categoryVirtualExhibition = data.result;
         console.log(this.categoryVirtualExhibition);
       }, error => {
@@ -119,22 +120,23 @@ export class GalleryComponent implements OnInit {
   }
 
   getBook(idBook: number, index: number): void {
-    let paramsRoter: any[];
-    paramsRoter = this.router.url.trim().split("/");
-    if (paramsRoter.length >= 1) {
-      if (paramsRoter[1].trim() === "ru") {
-        paramsRoter[1] = 'ru';
-      } else if (paramsRoter[1].trim() === "en") {
-        paramsRoter[1] = 'en';
-      } else if (paramsRoter[1].trim() === "kz") {
-        paramsRoter[1] = 'kz';
-      } else {
-        paramsRoter[1] = 'ru';
-      }
-    }
+    // let paramsRoter: any[];
+    // paramsRoter = this.router.url.trim().split("/");
+    // if (paramsRoter.length >= 1) {
+    //   if (paramsRoter[1].trim() === "ru") {
+    //     paramsRoter[1] = 'ru';
+    //   } else if (paramsRoter[1].trim() === "en") {
+    //     paramsRoter[1] = 'en';
+    //   } else if (paramsRoter[1].trim() === "kz") {
+    //     paramsRoter[1] = 'kz';
+    //   } else {
+    //     paramsRoter[1] = 'ru';
+    //   }
+    // }
+    const lang = location.pathname.replace(/\//g, "");
     this.indexSelectedBook = index;
     this.close = true;
-    this.sitePageService.getBook(idBook, null).subscribe(data => {
+    this.sitePageService.getBook(idBook, lang).subscribe(data => {
       this.bookVirtualExhibition = data.result;
     }, error => {
       console.log(error);

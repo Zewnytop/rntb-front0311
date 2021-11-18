@@ -33,9 +33,10 @@ export class SitePageComponent implements OnInit {
   }
 
   getPage(): void {
-    let paramsRoter: any[];
-    paramsRoter = this.router.url.trim().split("/");
-    this.sitePageService.getPage(this.id!).subscribe(data => {
+    // let paramsRoter: any[];
+    // paramsRoter = this.router.url.trim().split("/");
+    const lang = location.pathname.replace(/\//g, "");
+    this.sitePageService.getPage(this.id!, lang).subscribe(data => {
       this.page = data.result;
       console.log(this._page);
     }, error => {

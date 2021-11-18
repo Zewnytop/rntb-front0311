@@ -20,7 +20,7 @@
     </div>
     <table class="map-table">
       <tr *ngFor="let branch of listLibraryBranch; let i =index">
-        <td class="first-th"><a [href]="'http://' + branch.domen" target="_blank">{{branch.name}}</a></td>
+        <td class="first-th"><a [href]="getUrlFilial(branch.domen)" target="_blank">{{branch.name}}</a></td>
         <td class="second-th">{{branch.city}}</td>
       </tr>
     </table>
