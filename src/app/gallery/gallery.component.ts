@@ -79,9 +79,11 @@ export class GalleryComponent implements OnInit {
   }
 
   getLastBook(): void {
-    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getLastBook(baseURI).subscribe(data => {
+    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    // const baseURI = urlWithSlash.replace('/', '');
+    const domen = location.hostname;
+    const lang = location.pathname.replace(/\//g, "");
+    this.sitePageService.getLastBook(domen).subscribe(data => {
       const books: SiteVirtualExhibitionObject = {
         name: "",
         books: data.result
