@@ -4,6 +4,8 @@ import {MenuObject, TypeMenuItemObject} from "../../site-object/menu-object";
 import {DataObject} from "../../site-object/data-object";
 import {PageService} from "../service/page.service";
 import {ViewPageObject} from "../../site-object/page-object";
+import {FileObject} from "../../site-object/file-object";
+import {FileService} from "../service/file.service";
 
 @Component({
   selector: 'app-admin-edit-menu',
@@ -15,7 +17,9 @@ export class AdminEditMenuComponent implements OnInit {
   private _listMainItemMenu: MenuObject[] = [];
   private _listStaticItemMenu: MenuObject[] = [];
   private _listTypeItemMenu: TypeMenuItemObject[] = [];
+  private _listTypeStaticItemMenu: TypeMenuItemObject[] = [];
   private _listViewPages: ViewPageObject[] = [];
+  private _listFiles: FileObject[] = [];
   private _mainItemMenu: MenuObject | null = null;
   private _lang: string = "ru";
 
@@ -45,12 +49,28 @@ export class AdminEditMenuComponent implements OnInit {
     this._listTypeItemMenu = value;
   }
 
+  get listTypeStaticItemMenu(): TypeMenuItemObject[] {
+    return this._listTypeStaticItemMenu;
+  }
+
+  set listTypeStaticItemMenu(value: TypeMenuItemObject[]) {
+    this._listTypeStaticItemMenu = value;
+  }
+
   get listViewPages(): ViewPageObject[] {
     return this._listViewPages;
   }
 
   set listViewPages(value: ViewPageObject[]) {
     this._listViewPages = value;
+  }
+
+  get listFiles(): FileObject[] {
+    return this._listFiles;
+  }
+
+  set listFiles(value: FileObject[]) {
+    this._listFiles = value;
   }
 
   get mainItemMenu(): MenuObject | null {
@@ -77,13 +97,14 @@ export class AdminEditMenuComponent implements OnInit {
     this._lang = value;
   }
 
-  constructor(private menuService: MenuService, private pageService: PageService) {
+  constructor(private menuService: MenuService, private pageService: PageService, private fileService: FileService) {
   }
 
   ngOnInit(): void {
     this.getTypeItemMenu();
     this.getMainitemsMenu();
     this.getPages();
+    this.getListfiles();
   }
 
 
@@ -161,15 +182,39 @@ export class AdminEditMenuComponent implements OnInit {
     });
   }
 
+  getListfiles(): void {
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.fileService.getFiles(idBranch).subscribe(data => {
+      console.log(data);
+      data.result.forEach(file => this.listFiles.push({
+          id: file.id,
+          nameFile: file.nameFile,
+          typeFile: file.typeFile,
+          createdDate: file.createdDate,
+          destination: {
+            idTypeDestination: file.destination.idTypeDestination,
+            nameDestination: file.destination.nameDestination,
+            codeDestination: file.destination.codeDestination,
+            description: file.destination.description
+          }
+        })
+      );
+      // this.listFiles = data.result;
+      // console.log(this._listFiles)
+    }, error => {
+      console.log(error);
+    });
+  }
+
   getMainitemsMenu(): void {
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     this.menuService.getMainitemsMenu(idBranch).subscribe(data => {
       console.log(data);
       this.listMainItemMenu = this.setListItemMenu(
-        data.result.filter(item => item.typeItemMenu.codeType !== "Static").filter(item => item.typeItemMenu.codeType !== "StaticLink")
+        data.result.filter(item => item.typeItemMenu.codeType !== "StaticResourceLink").filter(item => item.typeItemMenu.codeType !== "StaticPageLink").filter(item => item.typeItemMenu.codeType !== "StaticFileLink")
       );
       this.listStaticItemMenu = this.setListItemMenu(
-        data.result.filter(item => item.typeItemMenu.codeType !== "Page").filter(item => item.typeItemMenu.codeType !== "Link")
+        data.result.filter(item => item.typeItemMenu.codeType !== "Page").filter(item => item.typeItemMenu.codeType !== "FileLink").filter(item => item.typeItemMenu.codeType !== "ResourceLink")
       );
       console.log("dasdasdas");
       console.log(this.listMainItemMenu);
@@ -255,7 +300,7 @@ export class AdminEditMenuComponent implements OnInit {
         itemMenu!.typeItemMenu.nameType = item.typeItemMenu.nameType;
         itemMenu!.typeItemMenu.description = item.typeItemMenu.description;
       }
-      this.checkSelectedPage(itemMenu);
+      this.checkSelectedPage(itemMenu);// проверяет привязана ли эта страница на другие пункты меню, если  да то они очищаються
       itemMenu!.showItem = item.showItem;
     }, error => {
       this.menuService.getItemMenu(itemMenu!.id).subscribe(data => {
@@ -283,7 +328,13 @@ export class AdminEditMenuComponent implements OnInit {
   getTypeItemMenu(): void {
     this.menuService.getTypesItemMenu().subscribe(data => {
       console.log(data)
-      data.result.forEach(type => this.listTypeItemMenu.push({
+      data.result.filter(item => item.codeType !== 'StaticResourceLink').filter(item => item.codeType !== 'StaticPageLink').filter(item => item.codeType !== 'StaticFileLink').forEach(type => this.listTypeItemMenu.push({
+        id: type.id,
+        nameType: type.nameType,
+        codeType: type.codeType,
+        description: type.description
+      }));
+      data.result.filter(item => item.codeType !== 'Page').filter(item => item.codeType !== 'FileLink').filter(item => item.codeType !== 'ResourceLink').forEach(type => this.listTypeStaticItemMenu.push({
         id: type.id,
         nameType: type.nameType,
         codeType: type.codeType,
@@ -303,6 +354,11 @@ export class AdminEditMenuComponent implements OnInit {
     }
   }
 
+  setStaticTypeItemMenu(e: any, index: number): void {
+    let type = this.listTypeStaticItemMenu.filter(type => type.id === parseInt(e))[0];
+    this.listStaticItemMenu[index].typeItemMenu = type;
+  }
+
   setPage(e: any, index: number, childIndex: number | null = null): void {
     let page = this.listViewPages.filter(page => page.id === parseInt(e))[0];
     if (childIndex === null) {
@@ -310,6 +366,25 @@ export class AdminEditMenuComponent implements OnInit {
     } else {
       this.listMainItemMenu[index].childerItemMenu[childIndex].page = page;
     }
+  }
+
+  setFile(e: any, index: number, childIndex: number | null = null): void {
+    let file = this.listFiles.filter(file => file.id === parseInt(e))[0];
+    if (childIndex === null) {
+      this.listMainItemMenu[index].file = file;
+    } else {
+      this.listMainItemMenu[index].childerItemMenu[childIndex].file = file;
+    }
+  }
+
+  setStaticPage(e: any, index: number): void {
+    let page = this.listViewPages.filter(page => page.id === parseInt(e))[0];
+    this.listStaticItemMenu[index].page = page;
+  }
+
+  setStaticFile(e: any, index: number): void {
+    let file = this.listFiles.filter(file => file.id === parseInt(e))[0];
+    this.listStaticItemMenu[index].file = file;
   }
 
   checkSelectedPage(itemMenu: MenuObject | null): void {

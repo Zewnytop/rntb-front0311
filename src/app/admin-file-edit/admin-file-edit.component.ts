@@ -93,8 +93,10 @@ export class AdminFileEditComponent implements OnInit {
         })
       );
       // this.listFiles = data.result;
-      console.log(this._listFiles)
-    })
+      // console.log(this._listFiles)
+    }, error => {
+      console.log(error);
+    });
   }
 
   getFileTypesDestionation(): void {
