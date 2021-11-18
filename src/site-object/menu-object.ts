@@ -19,7 +19,8 @@ export interface MenuObject {
   libraryBranch: LibraryBranchObject,
   childerItemMenu: MenuObject[],
   typeItemMenu: TypeMenuItemObject
-  page: ViewPageObject | null
+  page: ViewPageObject | null,
+  linkResource: string
 }
 
 export interface TypeMenuItemObject {

@@ -21,9 +21,9 @@
     <tr>
       <th>Вложения</th>
       <th>Последнее изменение</th>
-      <th>Страница</th>
+      <th>Данные</th>
       <th>Тип пункта</th>
-      <th>Отображать</th>
+      <th>Видимость</th>
       <th></th>
     </tr>
     </thead>
@@ -50,9 +50,17 @@
           <option [value]="null">Пусто</option>
           <option [value]="file.id" *ngFor="let file of listFiles; let i = index">{{file.nameFile}}</option>
         </select>
+        <input type="text" [(ngModel)]="staticItem.linkResource"
+               *ngIf="staticItem.typeItemMenu.codeType == 'StaticResourceLink'">
       </td>
-      <td *ngIf="staticItem.isEdit === false">
-        {{[staticItem?.page ? staticItem?.page?.nameRu : 'Пусто']}}
+      <td *ngIf="staticItem.isEdit === false && staticItem.typeItemMenu.codeType == 'StaticPageLink'">
+        {{[staticItem?.page ? staticItem?.page?.nameRu : 'Отсутствует']}}
+      </td>
+      <td *ngIf="staticItem.isEdit === false && staticItem.typeItemMenu.codeType == 'StaticFileLink'">
+        {{[staticItem?.file ? staticItem?.file?.nameFile : 'Отсутствует']}}
+      </td>
+      <td *ngIf="staticItem.isEdit === false && staticItem.typeItemMenu.codeType == 'StaticResourceLink'">
+        {{[staticItem?.linkResource !== '' ? staticItem?.linkResource : 'Отсутствует']}}
       </td>
       <td *ngIf="staticItem.isEdit === true">
         <select [ngModel]="staticItem.typeItemMenu.id" (ngModelChange)="setStaticTypeItemMenu($event, i)">
@@ -67,7 +75,7 @@
           <input [(ngModel)]="staticItem.showItem" type="checkbox">
         </div>
       </td>
-      <td *ngIf="staticItem.isEdit === false">{{[staticItem.showItem === true ? 'Показывать' : 'Скрыть']}}</td>
+      <td *ngIf="staticItem.isEdit === false">{{[staticItem.showItem === true ? 'Отображать' : 'Скрывать']}}</td>
       <td>
         <div class="td-right">
           <div class="edit-button">
@@ -85,7 +93,7 @@
   </table>
   <div class="admin-edit-menu-tables">
     <div class="add-button">
-      <button (click)="createItemMenu()">Добавить пункт меню</button>
+      <button (click)="createItemMenu()" [disabled]="listMainItemMenu.length >= 5">Добавить пункт меню</button>
     </div>
     <ul *ngFor="let itemMenu of listMainItemMenu; let i = index">
       <li>
@@ -106,9 +114,9 @@
           <tr>
             <th>Вложения</th>
             <th>Последнее изменение</th>
-            <th>Страница</th>
+            <th>Данные</th>
             <th>Тип пункта</th>
-            <th>Отображать</th>
+            <th>Видимость</th>
             <th>
               <div class="info">
                 <img src="assets/icons/info.svg">
@@ -148,9 +156,17 @@
                 <option [value]="null">Пусто</option>
                 <option [value]="file.id" *ngFor="let file of listFiles; let i = index">{{file.nameFile}}</option>
               </select>
+              <input type="text" [(ngModel)]="itemMenu.linkResource"
+                     *ngIf="itemMenu.typeItemMenu.codeType == 'ResourceLink'">
             </td>
-            <td *ngIf="itemMenu.isEdit === false">
-              {{[itemMenu?.page ? itemMenu?.page?.nameRu : 'Пусто']}}
+            <td *ngIf="itemMenu.isEdit === false && itemMenu.typeItemMenu.codeType == 'Page'">
+              {{[itemMenu?.page ? itemMenu?.page?.nameRu : 'Отсутствует']}}
+            </td>
+            <td *ngIf="itemMenu.isEdit === false && itemMenu.typeItemMenu.codeType == 'FileLink'">
+              {{[itemMenu?.file ? itemMenu?.file?.nameFile : 'Отсутствует']}}
+            </td>
+            <td *ngIf="itemMenu.isEdit === false && itemMenu.typeItemMenu.codeType == 'ResourceLink'">
+              {{[itemMenu?.linkResource !== '' ? itemMenu?.linkResource : 'Отсутствует']}}
             </td>
             <td *ngIf="itemMenu.isEdit === true">
               <select [ngModel]="itemMenu.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i)">
@@ -165,7 +181,7 @@
                 <input [(ngModel)]="itemMenu.showItem" type="checkbox">
               </div>
             </td>
-            <td *ngIf="itemMenu.isEdit === false">{{[itemMenu.showItem === true ? 'Показывать' : 'Скрыть']}}</td>
+            <td *ngIf="itemMenu.isEdit === false">{{[itemMenu.showItem === true ? 'Отображать' : 'Скрывать']}}</td>
             <td>
               <div class="td-right">
                 <div class="edit-button">
@@ -224,9 +240,22 @@
                 <option [value]="null">Пусто</option>
                 <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
               </select>
+              <select *ngIf="childerItem.typeItemMenu.codeType == 'FileLink'" [ngModel]="childerItem?.file?.id"
+                      (ngModelChange)="setFile($event, i, iChildren)">
+                <option [value]="null">Пусто</option>
+                <option [value]="file.id" *ngFor="let file of listFiles; let i = index">{{file.nameFile}}</option>
+              </select>
+              <input type="text" [(ngModel)]="childerItem.linkResource"
+                     *ngIf="childerItem.typeItemMenu.codeType == 'ResourceLink'">
             </td>
-            <td *ngIf="childerItem.isEdit === false">
-              {{[childerItem?.page ? childerItem?.page?.nameRu : 'Пусто']}}
+            <td *ngIf="childerItem.isEdit === false && childerItem.typeItemMenu.codeType == 'Page'">
+              {{[childerItem?.page ? childerItem?.page?.nameRu : 'Отсутствует']}}
+            </td>
+            <td *ngIf="childerItem.isEdit === false && childerItem.typeItemMenu.codeType == 'FileLink'">
+              {{[childerItem?.file ? childerItem?.file?.nameFile : 'Отсутствует']}}
+            </td>
+            <td *ngIf="childerItem.isEdit === false && childerItem.typeItemMenu.codeType == 'ResourceLink'">
+              {{[childerItem?.linkResource !== '' ? childerItem?.linkResource : 'Отсутствует']}}
             </td>
             <td *ngIf="childerItem.isEdit === true">
               <select [ngModel]="childerItem.typeItemMenu.id" (ngModelChange)="setTypeItemMenu($event, i, iChildren)">
@@ -241,7 +270,8 @@
                 <input [(ngModel)]="childerItem.showItem" type="checkbox">
               </div>
             </td>
-            <td *ngIf="childerItem.isEdit === false">{{[childerItem.showItem === true ? 'Показывать' : 'Скрыть']}}</td>
+            <td
+              *ngIf="childerItem.isEdit === false">{{[childerItem.showItem === true ? 'Отображать' : 'Скрывать']}}</td>
             <td>
               <div class="td-right">
                 <div class="edit-button">
