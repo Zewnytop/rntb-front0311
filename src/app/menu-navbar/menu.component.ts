@@ -101,21 +101,22 @@ export class MenuComponent implements OnInit {
   //   this.router.navigate([newNavigateUrl]);
   // }
 
-  changeLanguage(lang: string): void {
+  changeLanguage(lang: string): string {
     let paramsRoter: any[];
     let route: RouterStateSnapshot;
     route = this.router.routerState.snapshot;
     // paramsRoter[1] = lang;
     let newNavigateUrl = location.origin + "/" + lang + "/" + location.hash;
-    this.router.navigate([newNavigateUrl]);
+    return newNavigateUrl;
   }
 
-  navigateHome(): void {
+  navigateHome(): string {
     // let paramsRoter: any[];
     // paramsRoter = this.router.url.trim().split("/");
     const lang = location.pathname.replace(/\//g, "");
-    let newNavigateUrl = location.origin + "/" + lang + "/#/"
-    this.router.navigate([newNavigateUrl]);
+    let newNavigateUrl = location.origin + "/" + lang + "/#/";
+    return newNavigateUrl;
+    // this.router.navigate([newNavigateUrl]);
   }
 
   getParameters(): void {

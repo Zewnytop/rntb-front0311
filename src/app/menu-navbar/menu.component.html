@@ -2,7 +2,7 @@
   <div class="container-menu">
     <div class="logo-navbar">
       <!-- Лого -->
-      <a class="logo" (click)="navigateHome()"></a>
+      <a class="logo" [href]="navigateHome()"></a>
       <div class="navbar-media">
         <div class="navbar-filial">
           <div class="navbar">
@@ -33,7 +33,7 @@
             </div>
             <div class="languages">
               <a *ngFor="let lang of listLanguage; let i =index" class="ru"
-                 (click)="changeLanguage(lang.code)">{{lang.name}}</a>
+                 [href]="changeLanguage(lang.code)">{{lang.name}}</a>
             </div>
           </div>
           <span class="filial-name">{{branchName}}</span> <!-- Название филиала -->
