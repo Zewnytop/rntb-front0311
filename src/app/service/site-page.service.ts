@@ -37,8 +37,8 @@ export class SitePageService {
     return this.httpClient.get<DataSingleObject>(url);
   }
 
-  getPage(idPage: number): Observable<DataSingleObject> {
-    const url = `/api/site/page/${idPage}`;
+  getPage(idPage: number,lang: string | null): Observable<DataSingleObject> {
+    const url = `/api/site/page/${idPage}/${lang}`;
     return this.httpClient.get<DataSingleObject>(url);
   }
 

@@ -130,7 +130,8 @@ export class AdminEditMenuComponent implements OnInit {
           libraryBranch: itemMenu.libraryBranch,
           childerItemMenu: [],
           typeItemMenu: itemMenu.typeItemMenu,
-          page: itemMenu.page
+          page: itemMenu.page,
+          linkResource: itemMenu.linkResource
         })
       }, error => {
         console.log(error)
@@ -155,7 +156,8 @@ export class AdminEditMenuComponent implements OnInit {
           libraryBranch: itemMenu.libraryBranch,
           childerItemMenu: [],
           typeItemMenu: itemMenu.typeItemMenu,
-          page: itemMenu.page
+          page: itemMenu.page,
+          linkResource: itemMenu.linkResource
         })
       }, error => {
         console.log(error)
@@ -240,6 +242,7 @@ export class AdminEditMenuComponent implements OnInit {
         file: item.file,
         typeComponent: item.typeComponent,
         libraryBranch: item.libraryBranch,
+        linkResource: item.linkResource,
         // childerItemMenu: MenuObject[],
         typeItemMenu: item.typeItemMenu,
         page: item.page
@@ -284,7 +287,9 @@ export class AdminEditMenuComponent implements OnInit {
       nameKz: itemMenu?.nameKz,
       visible: itemMenu!.showItem,
       typeItemMenu: itemMenu?.typeItemMenu?.id,
-      pageId: itemMenu?.page?.id
+      pageId: itemMenu?.page?.id,
+      fileId: itemMenu?.file?.id,
+      linkResource: itemMenu?.linkResource
     };
     console.log(body);
     this.menuService.updateItemsMenu(body).subscribe(data => {
@@ -293,6 +298,9 @@ export class AdminEditMenuComponent implements OnInit {
       itemMenu!.nameRu = item.nameRu;
       itemMenu!.nameEn = item.nameEn;
       itemMenu!.nameKz = item.nameKz;
+      itemMenu!.page = item.page;
+      itemMenu!.file = item.file;
+      itemMenu!.linkResource = item.linkResource;
       itemMenu!.lastModifiedDate = item.lastModifiedDate;
       if (item.typeItemMenu !== null) {
         itemMenu!.typeItemMenu.id = item.typeItemMenu.id;
@@ -300,7 +308,7 @@ export class AdminEditMenuComponent implements OnInit {
         itemMenu!.typeItemMenu.nameType = item.typeItemMenu.nameType;
         itemMenu!.typeItemMenu.description = item.typeItemMenu.description;
       }
-      this.checkSelectedPage(itemMenu);// проверяет привязана ли эта страница на другие пункты меню, если  да то они очищаються
+      this.checkSelectedPage(itemMenu);// проверяет привязана ли эта страница на другие пункты меню, если  да то они очищаются
       itemMenu!.showItem = item.showItem;
     }, error => {
       this.menuService.getItemMenu(itemMenu!.id).subscribe(data => {
@@ -310,6 +318,9 @@ export class AdminEditMenuComponent implements OnInit {
         itemMenu!.nameEn = item.nameEn;
         itemMenu!.nameKz = item.nameKz;
         itemMenu!.lastModifiedDate = item.lastModifiedDate;
+        itemMenu!.page = item.page;
+        itemMenu!.file = item.file;
+        itemMenu!.linkResource = item.linkResource;
         if (item.typeItemMenu !== null) {
           itemMenu!.typeItemMenu.id = item.typeItemMenu.id;
           itemMenu!.typeItemMenu.codeType = item.typeItemMenu.codeType;

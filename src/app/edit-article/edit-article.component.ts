@@ -135,7 +135,7 @@ export class EditArticleComponent implements OnInit {
   getListArticle(): void {
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     this.listViewArticle = [];
-    this.articleService.getListArticle(idBranch, this.selectedTypeArticle!.id).subscribe(data => {
+    this.articleService.getArticles(idBranch).subscribe(data => {
       data.result.forEach(item => {
         this.listViewArticle.push({
           id: item.id,
@@ -155,7 +155,7 @@ export class EditArticleComponent implements OnInit {
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
     this.articleService.createArticle(idBranch, this.selectedTypeArticle!.id).subscribe(data => {
       const newArticle = data.result;
-      this.listViewArticle.push({
+      this.listViewArticle.unshift({
         id: newArticle.id,
         name: newArticle.topicRu,
         lastModifiedDate: newArticle.lastModifiedDate,
@@ -190,13 +190,15 @@ export class EditArticleComponent implements OnInit {
       mainTextEn: this.selectedArticle?.mainTextEn,
       mainTextKz: this.selectedArticle?.mainTextKz,
       showOnPage: this.selectedArticle?.showOnPage,
-      fileId: this.selectedArticle?.file?.id
+      fileId: this.selectedArticle?.file?.id,
+      typeId: this.selectedArticle?.typeArticle?.id
     };
     this.articleService.updateArticle(body).subscribe(data => {
       const itemViewArticle = this.listViewArticle.filter(item => item.id === this.selectedArticle?.id)[0];
       itemViewArticle.name = data.result.name;
       itemViewArticle.lastModifiedDate = data.result.lastModifiedDate;
       itemViewArticle.showOnPage = data.result.showOnPage;
+      itemViewArticle.typeArticle = data.result.typeArticle;
     }, error => {
       console.log(error);
       this.getArticle(this.selectedArticle!.id)
@@ -240,6 +242,12 @@ export class EditArticleComponent implements OnInit {
         description: destination.description
       }));
     })
+  }
+
+  setTypeArticle(e: any): void {
+    let type = this.listTypeAticle.filter(type => type.id === parseInt(e))[0];
+    // this.listViewArticle[index].typeArticle = type;
+    this.selectedArticle!.typeArticle = type;
   }
 
   uploadImage(event: Event): void {

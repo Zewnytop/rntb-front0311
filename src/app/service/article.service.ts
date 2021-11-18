@@ -30,6 +30,15 @@ export class ArticleService {
     return this.httpClient.get<DataObject>(url, {headers: header});
   }
 
+  getArticles(idBranch: number): Observable<DataObject> {
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: this.cookieService.getCookie()!
+    });
+    const url = `/api/article/alllist/${idBranch}`;
+    return this.httpClient.get<DataObject>(url, {headers: header});
+  }
+
   getArticle(idArticle: number): Observable<DataSingleObject> {
     const header = new HttpHeaders({
       'Content-Type': 'application/json',
