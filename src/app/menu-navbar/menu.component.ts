@@ -114,7 +114,7 @@ export class MenuComponent implements OnInit {
     // let paramsRoter: any[];
     // paramsRoter = this.router.url.trim().split("/");
     const lang = location.pathname.replace(/\//g, "");
-    let newNavigateUrl = location.protocol + "//" + location.host + "/" + lang + "/#/"
+    let newNavigateUrl = location.origin + "/" + lang + "/#/"
     this.router.navigate([newNavigateUrl]);
   }
 
