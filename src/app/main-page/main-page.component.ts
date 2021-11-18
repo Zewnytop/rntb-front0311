@@ -27,9 +27,11 @@ export class MainPageComponent implements OnInit {
   }
 
   getNews(): void {
-    const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
-    const baseURI = urlWithSlash.replace('/', '');
-    this.sitePageService.getNew(baseURI).subscribe(data => {
+    // const urlWithSlash = document.baseURI.replace(/.*\/\//, '');
+    // const baseURI = urlWithSlash.replace('/', '');
+    const domen = location.hostname;
+    const lang = location.pathname.replace(/\//g, "");
+    this.sitePageService.getNew(domen).subscribe(data => {
       console.log(data);
       data.result.forEach(item => {
         this.news.push({
