@@ -22,6 +22,11 @@ export class SitePageService {
     return this.httpClient.get<DataObject>(url);
   }
 
+  getSiteStaticMenu(lang: string | null): Observable<DataObject>{
+    const url = `/api/site/static/menu/${lang}`;
+    return this.httpClient.get<DataObject>(url);
+  }
+
   getNameBranch(domenBranch: String, lang: string | null): Observable<DataSingleObject> {
     const url = `/api/site/name/${domenBranch}/${lang}`;
     return this.httpClient.get<DataSingleObject>(url);

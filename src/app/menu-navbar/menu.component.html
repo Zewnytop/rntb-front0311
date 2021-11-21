@@ -56,27 +56,14 @@
 <div class="irbis">
   <div class="container">
     <div class="irbis-sections">
-      <a class="sections" target="_blank"
-         href="http://89.218.44.250/CGI/irbis64r_14/cgiirbis_64.exe?LNG=&C21COM=F&I21DBN=RNTB&P21DBN=RNTB">
-        <img src="./assets/images/section-one.svg" alt="1">
-        <div class="text">Электронный каталог</div>
-      </a>
-      <div class="irbis-sections-hr"></div> <!--      //полоска под 90-->
-      <a class="sections" target="_blank"
-         href="http://89.218.44.250/CGI/irbis64r_14/cgiirbis_64.exe?LNG=&C21COM=F&I21DBN=RNTB&P21DBN=RNTB">
-        <img src="./assets/images/section-two.svg" alt="1">
-        <div class="text">Электронная библиотека РНТБ</div>
-      </a>
-      <div class="irbis-sections-hr"></div> <!--      //полоска под 90-->
-      <a class="sections" target="_blank" href="/">
-        <img src="./assets/images/section-three.svg" alt="1">
-        <div class="text">Система автоматизации библиотек "ИРБИС"</div>
-      </a>
-      <div class="irbis-sections-hr"></div> <!--      //полоска под 90-->
-      <a class="sections" target="_blank" href="/">
-        <img src="./assets/images/section-four.svg" alt="1">
-        <div class="text">Школа профессионального развития</div>
-      </a>
+      <ng-template ngFor let-staticItem [ngForOf]="listSiteStaticItemMenu" let-i="index">
+        <div class="irbis-sections-hr" *ngIf="i!==0"></div> <!--      //полоска под 90-->
+        <a class="sections" target="_blank"
+           href="http://89.218.44.250/CGI/irbis64r_14/cgiirbis_64.exe?LNG=&C21COM=F&I21DBN=RNTB&P21DBN=RNTB">
+          <img [src]="getIconStaticItem(staticItem.id)" alt="1">
+          <div class="text">{{staticItem.name}}</div>
+        </a>
+      </ng-template>
     </div>
   </div>
 </div>

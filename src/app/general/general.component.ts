@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -23,6 +24,9 @@ export class GeneralComponent implements OnInit {
     console.log(this.a.split("/"))
     console.log(this.a.split("/")[2])
     console.log(this.a.split("/")[3])
+    // this.hht.get(`/api/site/static/menu/ru`).subscribe(data => {
+    //   console.log(data);
+    // })
     // this.zadarma()
   }
 

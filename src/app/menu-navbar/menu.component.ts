@@ -95,6 +95,7 @@ export class MenuComponent implements OnInit {
     this.getNameBranch();
     this.getParameters();
     this.getItemMenu();
+    this.getStaticItemMenu();
   }
 
   // changeLanguage(lang: string): void {
@@ -177,12 +178,17 @@ export class MenuComponent implements OnInit {
     const domen = location.hostname;
     const lang = location.pathname.replace(/\//g, "");
     this.sitePageService.getSiteMenu(domen, lang).subscribe(data => {
-      this.listSiteItemMenu = this.getListItemMenu(data.result.filter(item => item.codeTypeItemMenu === 'Page')
-        .filter(item => item.codeTypeItemMenu === 'ResourceLink')
-        .filter(item => item.codeTypeItemMenu === 'FileLink'));
-      this.listSiteStaticItemMenu = this.getListItemMenu(data.result.filter(item => item.codeTypeItemMenu === 'StaticResourceLink')
-        .filter(item => item.codeTypeItemMenu === 'StaticPageLink')
-        .filter(item => item.codeTypeItemMenu === 'StaticFileLink'));
+      this.listSiteItemMenu = this.getListItemMenu(data.result);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  getStaticItemMenu(): void {
+    const domen = location.hostname;
+    const lang = location.pathname.replace(/\//g, "");
+    this.sitePageService.getSiteStaticMenu(lang).subscribe(data => {
+      this.listSiteStaticItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);
     });
@@ -222,6 +228,19 @@ export class MenuComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  getIconStaticItem(id: number): string {
+    if (id === 250) {
+      return "./assets/images/section-one.svg";
+    } else if (id === 251) {
+      return "./assets/images/section-two.svg";
+    } else if (id === 252) {
+      return "./assets/images/section-three.svg";
+    } else if (id === 253) {
+      return "./assets/images/section-four.svg";
+    }
+    return ""
   }
 
   setScrollTop() {
