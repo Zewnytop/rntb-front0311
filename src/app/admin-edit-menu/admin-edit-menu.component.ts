@@ -4,7 +4,7 @@ import {MenuObject, TypeMenuItemObject} from "../../site-object/menu-object";
 import {DataObject} from "../../site-object/data-object";
 import {PageService} from "../service/page.service";
 import {ViewPageObject} from "../../site-object/page-object";
-import {FileObject} from "../../site-object/file-object";
+import {DestinationObject, FileObject, ViewDestinationObject} from "../../site-object/file-object";
 import {FileService} from "../service/file.service";
 
 @Component({
@@ -20,7 +20,9 @@ export class AdminEditMenuComponent implements OnInit {
   private _listTypeStaticItemMenu: TypeMenuItemObject[] = [];
   private _listViewPages: ViewPageObject[] = [];
   private _listFiles: FileObject[] = [];
-  private _mainItemMenu: MenuObject | null = null;
+  private _listViewDestination: ViewDestinationObject[] = [];
+  private _selectedMenu: MenuObject | null = null;
+  private _close: boolean = false;
   private _lang: string = "ru";
 
   private _edit: boolean = false;
@@ -73,12 +75,20 @@ export class AdminEditMenuComponent implements OnInit {
     this._listFiles = value;
   }
 
-  get mainItemMenu(): MenuObject | null {
-    return this._mainItemMenu;
+  get listViewDestination(): ViewDestinationObject[] {
+    return this._listViewDestination;
   }
 
-  set mainItemMenu(value: MenuObject | null) {
-    this._mainItemMenu = value;
+  set listViewDestination(value: ViewDestinationObject[]) {
+    this._listViewDestination = value;
+  }
+
+  get selectedMenu(): MenuObject | null {
+    return this._selectedMenu;
+  }
+
+  set selectedMenu(value: MenuObject | null) {
+    this._selectedMenu = value;
   }
 
   get edit(): boolean {
@@ -87,6 +97,14 @@ export class AdminEditMenuComponent implements OnInit {
 
   set edit(value: boolean) {
     this._edit = value;
+  }
+
+  get close(): boolean {
+    return this._close;
+  }
+
+  set close(value: boolean) {
+    this._close = value;
   }
 
   get lang(): string {
@@ -102,9 +120,9 @@ export class AdminEditMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTypeItemMenu();
+    this.getFileTypesDestionation();
     this.getMainitemsMenu();
     this.getPages();
-    this.getListfiles();
   }
 
 
@@ -184,11 +202,12 @@ export class AdminEditMenuComponent implements OnInit {
     });
   }
 
-  getListfiles(): void {
+  getListfiles(idType: number, index: number): void {
+    this.listViewDestination[index].files = [];
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
-    this.fileService.getFiles(idBranch, 10).subscribe(data => {
+    this.fileService.getFiles(idBranch, idType).subscribe(data => {
       console.log(data);
-      data.result.forEach(file => this.listFiles.push({
+      data.result.forEach(file => this.listViewDestination[index].files.push({
           id: file.id,
           nameFile: file.nameFile,
           typeFile: file.typeFile,
@@ -206,6 +225,61 @@ export class AdminEditMenuComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  getFileTypesDestionation(): void {
+    this.fileService.getTypesDestination().subscribe(data => {
+      data.result.forEach(destination => this.listViewDestination.push({
+        idTypeDestination: destination.idTypeDestination,
+        nameDestination: destination.nameDestination,
+        isOpen: false,
+        files: []
+      }));
+    });
+  }
+
+  changeStatusFolder(folder: ViewDestinationObject, index: number): void {
+    folder.isOpen = !folder.isOpen;
+    if (folder.isOpen) {
+      this.getListfiles(folder.idTypeDestination, index);
+    }
+  }
+
+  showPopUp(item: MenuObject): void {
+    this.selectedMenu = item;
+    this.close = true;
+  }
+
+  setFileItem(file: FileObject): void {
+    if (this.selectedMenu) {
+      if (this.selectedMenu.typeItemMenu.codeType === "Page" ||
+        this.selectedMenu.typeItemMenu.codeType === "ResourceLink" ||
+        this.selectedMenu.typeItemMenu.codeType === "FileLink") {
+        const navBarItem = this.listMainItemMenu.filter(item => item.id === this.selectedMenu?.id)[0];
+        if (navBarItem) {
+          navBarItem.file = file;
+        } else {
+          for (let listMainItemMenu1 of this.listMainItemMenu) {
+            for (let childerItemMenu of listMainItemMenu1.childerItemMenu) {
+              if (childerItemMenu.id === this.selectedMenu?.id) {
+                childerItemMenu.file = file;
+              }
+            }
+          }
+        }
+      }
+      if (this.selectedMenu.typeItemMenu.codeType === "StaticResourceLink" ||
+        this.selectedMenu.typeItemMenu.codeType === "StaticPageLink" ||
+        this.selectedMenu.typeItemMenu.codeType === "StaticFileLink") {
+        this.listStaticItemMenu.filter(item => item.id === this.selectedMenu?.id)[0].file = file;
+      }
+      // this.close = false;
+    }
+  }
+
+  closePopUp(): void {
+    this.selectedMenu = null;
+    this.close = false;
   }
 
   getMainitemsMenu(): void {
@@ -509,6 +583,11 @@ export class AdminEditMenuComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  previewImage(file: FileObject): string {
+    const src = `/api/files/get/${file.id}`
+    return src;
   }
 
   log() {

@@ -45,11 +45,10 @@
           <option [value]="null">Пусто</option>
           <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
         </select>
-        <select *ngIf="staticItem.typeItemMenu.codeType == 'StaticFileLink'" [ngModel]="staticItem?.file?.id"
-                (ngModelChange)="setStaticFile($event, i)">
-          <option [value]="null">Пусто</option>
-          <option [value]="file.id" *ngFor="let file of listFiles; let i = index">{{file.nameFile}}</option>
-        </select>
+        <p *ngIf="staticItem.typeItemMenu.codeType == 'StaticFileLink'">{{staticItem.file.nameFile}}
+        </p>
+        <button *ngIf="staticItem.typeItemMenu.codeType == 'StaticFileLink'" (click)="showPopUp(staticItem)">Выбрать
+        </button>
         <input type="text" [(ngModel)]="staticItem.linkResource"
                *ngIf="staticItem.typeItemMenu.codeType == 'StaticResourceLink'">
       </td>
@@ -151,11 +150,11 @@
                 <option [value]="null">Пусто</option>
                 <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
               </select>
-              <select *ngIf="itemMenu.typeItemMenu.codeType == 'FileLink'" [ngModel]="itemMenu?.file?.id"
-                      (ngModelChange)="setFile($event, i)">
-                <option [value]="null">Пусто</option>
-                <option [value]="file.id" *ngFor="let file of listFiles; let i = index">{{file.nameFile}}</option>
-              </select>
+              <p *ngIf="itemMenu.typeItemMenu.codeType == 'FileLink'">{{itemMenu.file.nameFile}}
+              </p>
+              <button *ngIf="itemMenu.typeItemMenu.codeType == 'FileLink'" (click)="showPopUp(itemMenu)">
+                Выбрать
+              </button>
               <input type="text" [(ngModel)]="itemMenu.linkResource"
                      *ngIf="itemMenu.typeItemMenu.codeType == 'ResourceLink'">
             </td>
@@ -214,7 +213,7 @@
           <tr>
             <th>Вложения2</th>
             <th>Последнее изменение</th>
-            <th>Страница</th>
+            <th>Данные</th>
             <th>Тип пункта</th>
             <th>Отображать</th>
             <th></th>
@@ -240,11 +239,11 @@
                 <option [value]="null">Пусто</option>
                 <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
               </select>
-              <select *ngIf="childerItem.typeItemMenu.codeType == 'FileLink'" [ngModel]="childerItem?.file?.id"
-                      (ngModelChange)="setFile($event, i, iChildren)">
-                <option [value]="null">Пусто</option>
-                <option [value]="file.id" *ngFor="let file of listFiles; let i = index">{{file.nameFile}}</option>
-              </select>
+              <p *ngIf="childerItem.typeItemMenu.codeType == 'FileLink'">{{childerItem.file.nameFile}}
+              </p>
+              <button *ngIf="childerItem.typeItemMenu.codeType == 'FileLink'" (click)="showPopUp(childerItem)">
+                Выбрать
+              </button>
               <input type="text" [(ngModel)]="childerItem.linkResource"
                      *ngIf="childerItem.typeItemMenu.codeType == 'ResourceLink'">
             </td>
@@ -300,5 +299,39 @@
       <hr>
     </ul>
 
+  </div>
+</div>
+
+<div class="file-popup" *ngIf="close">
+  <div class="file-popup-content">
+    <div class="file-popup-header">
+      <div>
+        <p><strong>Выберите обложку</strong></p>
+      </div>
+      <div class="edit-button">
+        <button (click)="close=false"><img src="assets/icons/x.svg"></button>
+      </div>
+    </div>
+    <div *ngFor="let folder of listViewDestination; let i=index">
+      <button (click)="changeStatusFolder(folder, i)">Раскрыть</button>
+      <ul>{{folder.nameDestination}}
+        <ng-container *ngIf="folder.isOpen">
+          <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
+            <li>{{file.nameFile}}</li>
+            <div class="edit-button">
+              <button (click)="setFileItem(file)">
+                <img alt="Обложка" src="assets/icons/corner-right-up.svg">
+              </button>
+            </div>
+          </ng-template>
+        </ng-container>
+      </ul>
+    </div>
+    <div class="image-preview">
+      <div *ngIf="selectedMenu">
+        <img *ngIf="selectedMenu.file" [src]="previewImage(selectedMenu.file)" alt="Обложка"
+             style="max-width: 300px; max-height: 300px">
+      </div>
+    </div>
   </div>
 </div>
