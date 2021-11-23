@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 export class ArticleComponent implements OnInit {
 
   private _id: number | null = null;
+  private _idPage: number | null = null;
   private _article: SiteArticleObject | null = null;
 
   get id(): number | null {
@@ -20,6 +21,15 @@ export class ArticleComponent implements OnInit {
   @Input()
   set id(value: number | null) {
     this._id = value;
+  }
+
+  get idPage(): number | null {
+    return this._idPage;
+  }
+
+  @Input()
+  set idPage(value: number | null) {
+    this._idPage = value;
   }
 
   get article(): SiteArticleObject | null {

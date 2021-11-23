@@ -81,4 +81,10 @@ export class SitePageService {
     const url = `/api/site/branch/${lang}`;
     return this.httpClient.get<DataSingleObject>(url);
   }
+
+  getNamePageForArticle(idPage: number, lang: string | null): Observable<DataSingleObject> {
+    const url = `/api/site/namepage/${idPage}/${lang}`;
+    return this.httpClient.get<DataSingleObject>(url);
+  }
+
 }

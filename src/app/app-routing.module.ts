@@ -28,7 +28,7 @@ import {ArticleOpenComponent} from "./article-open/article-open.component";
 const pages: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'sp/:id', component: SitePageComponent},
-  {path: 'ap', component: ArticleOpenComponent},
+  {path: 'ap/:id1/:id2', component: ArticleOpenComponent},
 ];
 
 const admin: Routes = [

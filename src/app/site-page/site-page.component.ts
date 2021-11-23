@@ -11,8 +11,12 @@ import {SitePageObject} from "../../site-object/site-component-object";
 })
 export class SitePageComponent implements OnInit {
 
-  private id: number | null = null;
+  private _id: number | null = null;
   private _page: SitePageObject | null = null;
+
+  get id(): number | null {
+    return this._id;
+  }
 
   get page(): SitePageObject | null {
     return this._page;
@@ -27,7 +31,7 @@ export class SitePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.id = params['id'];
+      this._id = params['id'];
       this.getPage();
     });
   }
@@ -36,7 +40,7 @@ export class SitePageComponent implements OnInit {
     // let paramsRoter: any[];
     // paramsRoter = this.router.url.trim().split("/");
     const lang = location.pathname.replace(/\//g, "");
-    this.sitePageService.getPage(this.id!, lang).subscribe(data => {
+    this.sitePageService.getPage(this._id!, lang).subscribe(data => {
       this.page = data.result;
       console.log(this._page);
     }, error => {

@@ -1,21 +1,18 @@
 <div class="container">
   <div class="title">
-    <span class="title-span">123asdopen</span>
+    <span class="title-span">{{namePage}}</span>
     <hr class="title-hr-first">
     <hr class="title-hr-second">
   </div>
+
   <div class="article">
-    <span class="article-span">Topuic</span>
-    <div class="article-div">
-<!--      <img [src]="previewCover(article.idCoverArticle)" alt="Обложка" class="article-img">-->
+    <span class="article-span">{{article?.topic}}</span>
+    <div class="article-div" *ngIf="article && article.idCoverArticle">
+      <img [src]="previewCover(article.idCoverArticle)" alt="Обложка" class="article-img">
     </div>
+    <!--      <div class="article-p" *ngIf="article && article.title" [InsertHtml]="article.title"></div>-->
     <div class="article-p">
-<!--      <div class="ck-content" *ngIf="article && article.mainText" [InsertHtml]="article.mainText"></div>-->
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel feugiat purus. Cras nec turpis id magna accumsan pretium. Sed libero augue, feugiat sed placerat quis, sollicitudin vel ante. Sed et ipsum leo. Donec a iaculis mi, suscipit pellentesque tortor. Nunc et venenatis arcu. Vivamus turpis felis, facilisis non condimentum quis, iaculis et nibh. Vivamus lobortis elit ex. Nullam pretium finibus tincidunt. Fusce varius tellus vel ante egestas pretium. Fusce maximus consectetur nunc a venenatis.
-
-      Vivamus congue posuere mauris, eget vulputate nisl condimentum eget. Donec aliquam urna non bibendum ullamcorper. Duis vel lectus id nisl varius condimentum. Quisque interdum lectus feugiat, porttitor massa quis, rutrum lorem. Maecenas et odio ac erat mollis cursus. Donec ornare enim sit amet enim condimentum vulputate. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc arcu ligula, pharetra eget placerat a, euismod varius diam. Curabitur ut consequat lectus. Nunc ut urna vel est finibus feugiat. In aliquet massa suscipit est fringilla vestibulum. Nam in tortor risus. Praesent orci ipsum, rutrum ut eros gravida, egestas sollicitudin dolor. Cras pellentesque, nunc sit amet pretium luctus, felis elit ultricies purus, at luctus arcu turpis vel turpis. Duis blandit tincidunt vulputate. Nam aliquam maximus enim, ut suscipit risus laoreet vitae.
-
-
+      <div class="ck-content" *ngIf="article && article.mainText" [InsertHtml]="article.mainText"></div>
     </div>
   </div>
 </div>
