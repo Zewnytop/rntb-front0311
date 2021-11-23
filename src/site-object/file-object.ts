@@ -17,6 +17,7 @@ export interface ViewDestinationObject {
   idTypeDestination: number,
   nameDestination: string,
   isOpen: boolean,
+  isEdit: boolean,
   files: FileObject[]
 }
 

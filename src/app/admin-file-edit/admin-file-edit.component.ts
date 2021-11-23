@@ -108,12 +108,27 @@ export class AdminFileEditComponent implements OnInit {
     });
   }
 
+  createFolder() {
+    this.fileService.createFolder().subscribe(data => {
+      this.listViewDestination.unshift({
+        idTypeDestination: data.result.idTypeDestination,
+        nameDestination: data.result.nameDestination,
+        isOpen: true,
+        isEdit: true,
+        files: []
+      });
+    }, error => {
+      console.log(error);
+    });
+  }
+
   getFileTypesDestionation(): void {
     this.fileService.getTypesDestination().subscribe(data => {
       data.result.forEach(destination => this.listViewDestination.push({
         idTypeDestination: destination.idTypeDestination,
         nameDestination: destination.nameDestination,
         isOpen: false,
+        isEdit: false,
         files: []
       }));
       data.result.forEach(destination => this.listDestination.push({
@@ -123,6 +138,17 @@ export class AdminFileEditComponent implements OnInit {
         description: destination.description
       }));
     });
+  }
+
+  changeEditStatus(folder: ViewDestinationObject): void {
+    if (folder.isEdit) {
+      this.fileService.updatedFolder(folder.idTypeDestination, folder.nameDestination).subscribe(data => {
+
+      }, error => {
+        console.log(error);
+      });
+    }
+    folder.isEdit = !folder.isEdit;
   }
 
   selectFiles(event: Event, folder: ViewDestinationObject): void {
@@ -295,4 +321,5 @@ export class AdminFileEditComponent implements OnInit {
     this.progressInfos = [];
     this.close = false
   }
+
 }

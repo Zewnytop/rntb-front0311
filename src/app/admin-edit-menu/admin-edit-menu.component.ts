@@ -233,6 +233,7 @@ export class AdminEditMenuComponent implements OnInit {
         idTypeDestination: destination.idTypeDestination,
         nameDestination: destination.nameDestination,
         isOpen: false,
+        isEdit: false,
         files: []
       }));
     });

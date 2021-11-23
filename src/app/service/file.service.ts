@@ -68,6 +68,24 @@ export class FileService {
     return this.httpClient.delete(url, {headers: header});
   }
 
+  createFolder(): Observable<DataSingleObject> {
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: this.cookieService.getCookie()!
+    });
+    const url = `/api/files/folder`;
+    return this.httpClient.post<DataSingleObject>(url, null, {headers: header});
+  }
+
+  updatedFolder(idFolder: number, name: string): Observable<DataSingleObject> {
+    const header = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: this.cookieService.getCookie()!
+    });
+    const url = `/api/files/namefolder/${idFolder}/${name}`;
+    return this.httpClient.put<DataSingleObject>(url, null, {headers: header});
+  }
+
   getFile(id: number): Observable<any> {
     const header = new HttpHeaders({
       'Content-Type': 'application/json',

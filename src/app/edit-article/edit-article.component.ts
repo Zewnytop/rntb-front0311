@@ -251,6 +251,7 @@ export class EditArticleComponent implements OnInit {
         idTypeDestination: destination.idTypeDestination,
         nameDestination: destination.nameDestination,
         isOpen: false,
+        isEdit: false,
         files: []
       }));
       data.result.forEach(destination => this.listDestination.push({
