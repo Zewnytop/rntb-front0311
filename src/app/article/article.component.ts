@@ -13,6 +13,7 @@ export class ArticleComponent implements OnInit {
   private _id: number | null = null;
   private _idPage: number | null = null;
   private _article: SiteArticleObject | null = null;
+  private _namePage: string = "";
 
   get id(): number | null {
     return this._id;
@@ -38,6 +39,15 @@ export class ArticleComponent implements OnInit {
 
   set article(value: SiteArticleObject | null) {
     this._article = value;
+  }
+
+  get namePage(): string {
+    return this._namePage;
+  }
+
+  @Input()
+  set namePage(value: string) {
+    this._namePage = value;
   }
 
   constructor(private sitePageService: SitePageService, private router: Router) {

@@ -8,7 +8,8 @@
 
   <ng-template ngFor let-component [ngForOf]="page?.components" let-i="index">
     <app-contacts *ngIf="component.codeType === 'Contact'" [id]="component.idComponent"></app-contacts>
-    <app-article *ngIf="component.codeType === 'Article'" [id]="component.idComponent" [idPage]="id"></app-article>
+    <app-article *ngIf="component.codeType === 'Article'" [id]="component.idComponent" [idPage]="id"
+                 [namePage]="page!.name"></app-article>
     <app-map *ngIf="component.codeType === 'BranchesMap'"></app-map>
     <app-gallery *ngIf="component.codeType === 'VirtExhibition'" [id]="component.idComponent"
                  [isMainPage]="false"></app-gallery>
