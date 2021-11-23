@@ -97,7 +97,7 @@ export class FooterComponent implements OnInit {
     // const lang = document.baseURI.split("/")[3];
     const domen = location.hostname;
     const lang = location.pathname.replace(/\//g, "");
-    this.sitePageService.getSiteMenu("rntb.timir.kz", "ru").subscribe(data => {
+    this.sitePageService.getSiteMenu(domen, lang).subscribe(data => {
       this.listItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);
