@@ -1,6 +1,6 @@
 <div class="article">
   <ng-template [ngIf]="article?.codeType === 'News' || article?.codeType === 'FullSize'">
-    <span class="article-span" *ngIf="article?.topic.trim() !== namePage.trim()">{{article?.topic}}</span>
+    <span class="article-span" *ngIf="article!.topic.trim() !== namePage.trim()">{{article?.topic}}</span>
     <div class="article-div" *ngIf="article && article.idCoverArticle">
       <img [src]="previewCover(article.idCoverArticle)" alt="Обложка" class="article-img">
     </div>
