@@ -6,13 +6,14 @@
 </div>
 <br>
 <div *ngFor="let folder of listViewDestination; let i=index">
+  <br>
   <div class="add-button">
     <input type="file" accept="image/*" multiple (change)=" selectFiles($event, folder)"/>
   </div>
   <button (click)="changeStatusFolder(folder, i)">Раскрыть</button>
   <button (click)="changeEditStatus(folder)">Редактировать</button>
-  <ng-template [ngIf]="!folder.isEdit" [ngIfElse]="inputName">
-    <ul>{{folder.nameDestination}}
+    <a *ngIf="!folder.isEdit">{{folder.nameDestination}}</a>
+    <input *ngIf="folder.isEdit" [(ngModel)]="folder.nameDestination" type="text">
       <ng-container *ngIf="!folder.isOpen">
         <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
           <li>{{file.nameFile}}</li>
@@ -25,23 +26,7 @@
           </button>
         </ng-template>
       </ng-container>
-    </ul>
-  </ng-template>
-  <ng-template #inputName>
-    <input [(ngModel)]="folder.nameDestination" type="text">
-        <ng-container *ngIf="folder.isOpen">
-          <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
-            <li>{{file.nameFile}}</li>
-            <button (click)="setIdAndTypeFile(file.id, file.typeFile)"><img alt="Предпросмотр"
-                                                                            [src]="idFile!==file.id? previewImg1:previewImg2"
-                                                                            title="Предпросмотр">
-            </button>
-            <button (click)="deleteFile(file.id, i, iFile)" [disabled]="edit"><img alt="Удалить"
-                                                                                   [src]=" edit===false? 'assets/icons/trash-2.svg': 'assets/icons/loader.svg' ">
-            </button>
-          </ng-template>
-        </ng-container>
-  </ng-template>
+  <br>
 </div>
 <div class="file-edit">
   <div class="file-edit-space">
