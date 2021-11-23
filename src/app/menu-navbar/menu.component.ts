@@ -16,6 +16,7 @@ export class MenuComponent implements OnInit {
   private _listSiteStaticItemMenu: SiteMenuObject[] = [];
   private _listLanguage: SiteLocalizationObject[] = [];
   private _listParameter: SiteParameter[] = [];
+  private _showName: boolean = true;
   private _branchName: string = "";
   private _urlTelegram: string = "";
   private _urlInstagram: string = "";
@@ -52,6 +53,14 @@ export class MenuComponent implements OnInit {
 
   set listParameter(value: SiteParameter[]) {
     this._listParameter = value;
+  }
+
+  get showName(): boolean {
+    return this._showName;
+  }
+
+  set showName(value: boolean) {
+    this._showName = value;
   }
 
   get branchName(): string {
@@ -162,7 +171,8 @@ export class MenuComponent implements OnInit {
     const domen = location.hostname;
     const lang = location.pathname.replace(/\//g, "");
     this.sitePageService.getNameBranch(domen, lang).subscribe(data => {
-      this.branchName = data.result;
+      this.branchName = data.result.name;
+      this.showName = data.result.show;
     }, error => {
       console.log(error);
     });

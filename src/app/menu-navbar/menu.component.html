@@ -52,8 +52,8 @@
                  [href]="changeLanguage(lang.code)">{{lang.name}}</a>
             </div>
           </div>
-          <!--          ЕСЛИ ЧТО РАСКОМЕНТИТЬ-->
-          <!--          <span class="filial-name">{{branchName}}</span> &lt;!&ndash; Название филиала &ndash;&gt;-->
+          <!--                    ЕСЛИ ЧТО РАСКОМЕНТИТЬ-->
+          <span class="filial-name">{{[showName ? branchName : '']}}</span> <!-- Название филиала -->
         </div>
         <div class="media">
           <a [href]="urlInstagram" target="_blank" class="instagram"></a>
