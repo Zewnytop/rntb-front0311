@@ -24,6 +24,7 @@ export class AdminEditMenuComponent implements OnInit {
   private _selectedMenu: MenuObject | null = null;
   private _close: boolean = false;
   private _lang: string = "ru";
+  private _roleCode: string | null = null;
 
   private _edit: boolean = false;
 
@@ -115,10 +116,19 @@ export class AdminEditMenuComponent implements OnInit {
     this._lang = value;
   }
 
+  get roleCode(): string | null {
+    return this._roleCode;
+  }
+
+  set roleCode(value: string | null) {
+    this._roleCode = value;
+  }
+
   constructor(private menuService: MenuService, private pageService: PageService, private fileService: FileService) {
   }
 
   ngOnInit(): void {
+    this._roleCode = JSON.parse(localStorage.getItem('user')!).role.codeType;
     this.getTypeItemMenu();
     this.getFileTypesDestionation();
     this.getMainitemsMenu();
