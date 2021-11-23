@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {FileService} from "../service/file.service";
-import {DestinationObject, FileObject, SelectedFileObject} from "../../site-object/file-object";
+import {DestinationObject, FileObject, SelectedFileObject, ViewDestinationObject} from "../../site-object/file-object";
 import {BrowserModule} from '@angular/platform-browser';
 
 @Component({
@@ -19,6 +19,7 @@ export class AdminFileEditComponent implements OnInit {
   private _idFile: number | null = null;
   private _typeFile: string | null = null;
   private _listDestination: DestinationObject[] = [];
+  private _listViewDestination: ViewDestinationObject[] = [];
   private _close: boolean = false;
   edit: boolean = false;
   previewImg1: string = 'assets/icons/layout.svg';
@@ -66,20 +67,28 @@ export class AdminFileEditComponent implements OnInit {
     this._listDestination = value;
   }
 
+  get listViewDestination(): ViewDestinationObject[] {
+    return this._listViewDestination;
+  }
+
+  set listViewDestination(value: ViewDestinationObject[]) {
+    this._listViewDestination = value;
+  }
+
   constructor(private fileService: FileService) {
   }
 
 
   ngOnInit(): void {
     this.getFileTypesDestionation();
-    this.getListfiles();
   }
 
-  getListfiles(): void {
+  getListfiles(idType: number, index: number): void {
+    this.listViewDestination[index].files = [];
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
-    this.fileService.getFiles(idBranch).subscribe(data => {
+    this.fileService.getFiles(idBranch, idType).subscribe(data => {
       console.log(data);
-      data.result.forEach(file => this.listFiles.push({
+      data.result.forEach(file => this.listViewDestination[index].files.push({
           id: file.id,
           nameFile: file.nameFile,
           typeFile: file.typeFile,
@@ -101,16 +110,23 @@ export class AdminFileEditComponent implements OnInit {
 
   getFileTypesDestionation(): void {
     this.fileService.getTypesDestination().subscribe(data => {
+      data.result.forEach(destination => this.listViewDestination.push({
+        idTypeDestination: destination.idTypeDestination,
+        nameDestination: destination.nameDestination,
+        isOpen: false,
+        files: []
+      }));
       data.result.forEach(destination => this.listDestination.push({
         idTypeDestination: destination.idTypeDestination,
         nameDestination: destination.nameDestination,
         codeDestination: destination.codeDestination,
         description: destination.description
       }));
-    })
+    });
   }
 
-  selectFiles(event: Event): void {
+  selectFiles(event: Event, folder: ViewDestinationObject): void {
+    let type = this.listDestination.filter(type => type.idTypeDestination === folder.idTypeDestination)[0];
     this.message = [];
     this.progressInfos = [];
     const files = (event.target as HTMLInputElement).files;
@@ -119,10 +135,11 @@ export class AdminFileEditComponent implements OnInit {
       for (let i = 0; i < files.length; i++) {
         this.selectedFile.push({
           file: files.item(i)!,
-          destination: this.listDestination[0]
+          destination: type
         });
       }
     }
+    this.close = true;
   }
 
   uploadFiles(): void {
@@ -148,7 +165,7 @@ export class AdminFileEditComponent implements OnInit {
           } else if (event instanceof HttpResponse) {
             const msg = 'Файл успешно загружен: ' + selectFile.file.name;
             const result = event.body.result;
-            this.listFiles.unshift({
+            this.listViewDestination.filter(folder => folder.idTypeDestination === result.destination.idTypeDestination)[0].files.unshift({
               id: result.id,
               nameFile: result.nameFile,
               typeFile: result.typeFile,
@@ -159,7 +176,19 @@ export class AdminFileEditComponent implements OnInit {
                 codeDestination: result.destination.codeDestination,
                 description: result.destination.description
               }
-            })
+            });
+            // this.listFiles.unshift({
+            //   id: result.id,
+            //   nameFile: result.nameFile,
+            //   typeFile: result.typeFile,
+            //   createdDate: result.createdDate,
+            //   destination: {
+            //     idTypeDestination: result.destination.idTypeDestination,
+            //     nameDestination: result.destination.nameDestination,
+            //     codeDestination: result.destination.codeDestination,
+            //     description: result.destination.description
+            //   }
+            // })
             // this.listFiles = [];
             // this.getListfiles();
             console.log(event.body.result)
@@ -208,10 +237,10 @@ export class AdminFileEditComponent implements OnInit {
   // }
 
 
-  deleteFile(id: number, index: number): void {
+  deleteFile(id: number, indexFolder: number, indexFile: number): void {
     this.edit = true;
     this.fileService.deleteFile(id).subscribe(data => {
-      this.listFiles.splice(index, 1);
+      this.listViewDestination[indexFolder].files.splice(indexFile, 1);
       this.edit = false;
     }, error => {
       this.edit = false;
@@ -228,6 +257,13 @@ export class AdminFileEditComponent implements OnInit {
       }
     }
     return
+  }
+
+  changeStatusFolder(folder: ViewDestinationObject, index: number): void {
+    folder.isOpen = !folder.isOpen;
+    if (folder.isOpen) {
+      this.getListfiles(folder.idTypeDestination, index);
+    }
   }
 
   previewPDF() {

@@ -1,8 +1,25 @@
 <div>
   <p><b>Загрузка файлов</b></p>
 </div>
-<div class="add-button">
-  <button (click)="close=true">Загрузить файл</button>
+<div *ngFor="let folder of listViewDestination; let i=index">
+  <div class="add-button">
+    <input type="file" accept="image/*" multiple (change)=" selectFiles($event, folder)"/>
+  </div>
+  <button (click)="changeStatusFolder(folder, i)">Раскрыть</button>
+  <ul>{{folder.nameDestination}}
+    <ng-container *ngIf="folder.isOpen">
+      <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
+        <li>{{file.nameFile}}</li>
+        <button (click)="setIdAndTypeFile(file.id, file.typeFile)"><img alt="Предпросмотр"
+                                                                        [src]="idFile!==file.id? previewImg1:previewImg2"
+                                                                        title="Предпросмотр">
+        </button>
+        <button (click)="deleteFile(file.id, i, iFile)" [disabled]="edit"><img alt="Удалить"
+                                                                               [src]=" edit===false? 'assets/icons/trash-2.svg': 'assets/icons/loader.svg' ">
+        </button>
+      </ng-template>
+    </ng-container>
+  </ul>
 </div>
 <div class="file-edit">
   <div class="file-edit-space">
@@ -34,9 +51,9 @@
           </td>
           <td>
             <div class="edit-button">
-              <button (click)="deleteFile(file.id, i)" [disabled]="edit"><img alt="Удалить"
-                                                                              [src]=" edit===false? 'assets/icons/trash-2.svg': 'assets/icons/loader.svg' ">
-              </button>
+              <!--              <button (click)="deleteFile(file.id, i)" [disabled]="edit"><img alt="Удалить"-->
+              <!--                                                                              [src]=" edit===false? 'assets/icons/trash-2.svg': 'assets/icons/loader.svg' ">-->
+              <!--              </button>-->
             </div>
           </td>
         </tr>
@@ -60,14 +77,14 @@
     </div>
     <div class="file-popup-content-area">
       <div>
-        <label>
-          <input type="file" accept="image/*" multiple (change)=" selectFiles($event)"/>
-        </label>
+        <!--        <label>-->
+        <!--          <input type="file" accept="image/*" multiple (change)=" selectFiles($event)"/>-->
+        <!--        </label>-->
         <table class="file-popup-table">
           <thead>
           <tr>
             <th>Название файла</th>
-            <th>Тип</th>
+            <th>Папка</th>
             <th>Прогресс</th>
             <th></th>
           </tr>

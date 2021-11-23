@@ -186,7 +186,7 @@ export class AdminEditMenuComponent implements OnInit {
 
   getListfiles(): void {
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
-    this.fileService.getFiles(idBranch).subscribe(data => {
+    this.fileService.getFiles(idBranch, 10).subscribe(data => {
       console.log(data);
       data.result.forEach(file => this.listFiles.push({
           id: file.id,

@@ -13,6 +13,13 @@ export interface DestinationObject {
   description: string
 }
 
+export interface ViewDestinationObject {
+  idTypeDestination: number,
+  nameDestination: string,
+  isOpen: boolean,
+  files: FileObject[]
+}
+
 export interface SelectedFileObject {
   file: File,
   destination: DestinationObject

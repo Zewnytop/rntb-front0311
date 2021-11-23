@@ -13,12 +13,12 @@ export class FileService {
   constructor(private httpClient: HttpClient, private cookieService: CookieService) {
   }
 
-  getFiles(branch: number): Observable<DataObject> {
+  getFiles(branch: number, idType: number): Observable<DataObject> {
     const header = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: this.cookieService.getCookie()!
     });
-    const url = `/api/files/list/${branch}`;
+    const url = `/api/files/list/${branch}/${idType}`;
     return this.httpClient.get<DataObject>(url, {headers: header});
   }
 
