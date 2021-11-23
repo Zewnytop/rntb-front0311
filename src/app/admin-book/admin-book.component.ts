@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BookService} from "../service/book.service";
 import {BookObject, ViewBookObject} from "../../site-object/book-object";
-import {DestinationObject, FileObject, SelectedFileObject} from "../../site-object/file-object";
+import {DestinationObject, FileObject, SelectedFileObject, ViewDestinationObject} from "../../site-object/file-object";
 // @ts-ignore
 import * as CustomEditor from '../../ckeditor5custom/build/ckeditor';
 import {FileService} from "../service/file.service";
@@ -17,6 +17,7 @@ export class AdminBookComponent implements OnInit {
   private _listViewBook: ViewBookObject[] = [];
   private _listViewFile: FileObject[] = [];
   private _listDestination: DestinationObject[] = [];
+  private _listViewFolder: ViewDestinationObject[] = [];
   private _book: BookObject | null = null;
   private _lang: string = "ru";
   private _close: boolean = false;
@@ -62,6 +63,14 @@ export class AdminBookComponent implements OnInit {
 
   set listDestination(value: DestinationObject[]) {
     this._listDestination = value;
+  }
+
+  get listViewFolder(): ViewDestinationObject[] {
+    return this._listViewFolder;
+  }
+
+  set listViewFolder(value: ViewDestinationObject[]) {
+    this._listViewFolder = value;
   }
 
   get book(): BookObject | null {
@@ -190,6 +199,12 @@ export class AdminBookComponent implements OnInit {
 
   getFileTypesDestionation(): void {
     this.fileService.getTypesDestination().subscribe(data => {
+      data.result.forEach(destination => this.listViewFolder.push({
+        idTypeDestination: destination.idTypeDestination,
+        nameDestination: destination.nameDestination,
+        isOpen: false,
+        files: []
+      }));
       data.result.forEach(destination => this.listDestination.push({
         idTypeDestination: destination.idTypeDestination,
         nameDestination: destination.nameDestination,
@@ -199,10 +214,35 @@ export class AdminBookComponent implements OnInit {
     })
   }
 
-  uploadImage(event: Event): void {
+  getListfiles(idType: number, index: number): void {
+    this.listViewFolder[index].files = [];
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.fileService.getFiles(idBranch, idType).subscribe(data => {
+      console.log(data);
+      data.result.forEach(file => this.listViewFolder[index].files.push({
+          id: file.id,
+          nameFile: file.nameFile,
+          typeFile: file.typeFile,
+          createdDate: file.createdDate,
+          destination: {
+            idTypeDestination: file.destination.idTypeDestination,
+            nameDestination: file.destination.nameDestination,
+            codeDestination: file.destination.codeDestination,
+            description: file.destination.description
+          }
+        })
+      );
+      // this.listFiles = data.result;
+      // console.log(this._listFiles)
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  uploadImage(event: Event, folder: ViewDestinationObject, index: number): void {
     const file = (event.target as HTMLInputElement).files?.item(0);
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
-    const typeDestination = this.listDestination.filter(item => item.codeDestination === 'CoverBook')[0];
+    const typeDestination = this.listDestination.filter(item => item.idTypeDestination === folder.idTypeDestination)[0];
     const body: SelectedFileObject = {
       file: file!,
       destination: typeDestination
@@ -210,7 +250,7 @@ export class AdminBookComponent implements OnInit {
     this.fileService.uploadFile(body, idBranch).subscribe((event: any) => {
       if (event instanceof HttpResponse) {
         const result = event.body.result;
-        this.listViewFile.unshift({
+        this.listViewFolder[index].files.unshift({
           id: result.id,
           nameFile: result.nameFile,
           typeFile: result.typeFile,
@@ -229,6 +269,14 @@ export class AdminBookComponent implements OnInit {
     });
     console.log("image")
   }
+
+  changeStatusFolder(folder: ViewDestinationObject, index: number): void {
+    folder.isOpen = !folder.isOpen;
+    if (folder.isOpen) {
+      this.getListfiles(folder.idTypeDestination, index);
+    }
+  }
+
 
   public config = {
     toolbar: {

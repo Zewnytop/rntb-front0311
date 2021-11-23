@@ -6,7 +6,7 @@ import {ArticleService} from "../service/article.service";
 import {ArticleObject, TypeArticleObject, ViewArticleObject} from "../../site-object/article-object";
 import {TypeComponentObject} from "../../site-object/typeComponent-object";
 import {LibraryBranchObject} from "../../site-object/libraryBranch-object";
-import {DestinationObject, FileObject, SelectedFileObject} from "../../site-object/file-object";
+import {DestinationObject, FileObject, SelectedFileObject, ViewDestinationObject} from "../../site-object/file-object";
 import {FileService} from "../service/file.service";
 import {HttpResponse} from "@angular/common/http";
 
@@ -20,6 +20,7 @@ export class EditArticleComponent implements OnInit {
   private _listViewArticle: ViewArticleObject[] = [];
   private _listTypeAticle: TypeArticleObject[] = [];
   private _listViewFile: FileObject[] = [];
+  private _listViewFolder: ViewDestinationObject[] = [];
   private _listDestination: DestinationObject[] = [];
   private _selectedTypeArticle: TypeArticleObject | null = null;
   private _selectedArticle: ArticleObject | null = null;
@@ -68,6 +69,14 @@ export class EditArticleComponent implements OnInit {
     this._listViewFile = value;
   }
 
+  get listViewFolder(): ViewDestinationObject[] {
+    return this._listViewFolder;
+  }
+
+  set listViewFolder(value: ViewDestinationObject[]) {
+    this._listViewFolder = value;
+  }
+
   get listDestination(): DestinationObject[] {
     return this._listDestination;
   }
@@ -106,7 +115,7 @@ export class EditArticleComponent implements OnInit {
   ngOnInit(): void {
     this.getFileTypesDestionation();
     this.getListTypeAticle();
-    this.getFiles();
+    // this.getFiles();
   }
 
   log(): void {
@@ -114,6 +123,9 @@ export class EditArticleComponent implements OnInit {
     console.log(this.selectedTypeArticle);
     console.log(this.selectedArticle);
   }
+
+
+
 
   getListTypeAticle(): void {
     this.articleService.getListTypeArticle().subscribe(data => {
@@ -216,25 +228,31 @@ export class EditArticleComponent implements OnInit {
     });
   }
 
-  getFiles(): void {
-    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
-    this.articleService.getFileArticle(idBranch).subscribe(data => {
-      data.result.forEach(viewFile => {
-        this.listViewFile.push({
-          id: viewFile.id,
-          nameFile: viewFile.nameFile,
-          typeFile: viewFile.typeFile,
-          createdDate: viewFile.createdDate,
-          destination: viewFile.destination
-        });
-      });
-    }, error => {
-      console.log(error);
-    });
-  }
+  // getFiles(): void {
+  //   const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+  //   this.articleService.getFileArticle(idBranch).subscribe(data => {
+  //     data.result.forEach(viewFile => {
+  //       this.listViewFile.push({
+  //         id: viewFile.id,
+  //         nameFile: viewFile.nameFile,
+  //         typeFile: viewFile.typeFile,
+  //         createdDate: viewFile.createdDate,
+  //         destination: viewFile.destination
+  //       });
+  //     });
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
 
   getFileTypesDestionation(): void {
     this.fileService.getTypesDestination().subscribe(data => {
+      data.result.forEach(destination => this.listViewFolder.push({
+        idTypeDestination: destination.idTypeDestination,
+        nameDestination: destination.nameDestination,
+        isOpen: false,
+        files: []
+      }));
       data.result.forEach(destination => this.listDestination.push({
         idTypeDestination: destination.idTypeDestination,
         nameDestination: destination.nameDestination,
@@ -244,16 +262,35 @@ export class EditArticleComponent implements OnInit {
     })
   }
 
-  setTypeArticle(e: any): void {
-    let type = this.listTypeAticle.filter(type => type.id === parseInt(e))[0];
-    // this.listViewArticle[index].typeArticle = type;
-    this.selectedArticle!.typeArticle = type;
+  getListfiles(idType: number, index: number): void {
+    this.listViewFolder[index].files = [];
+    const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
+    this.fileService.getFiles(idBranch, idType).subscribe(data => {
+      console.log(data);
+      data.result.forEach(file => this.listViewFolder[index].files.push({
+          id: file.id,
+          nameFile: file.nameFile,
+          typeFile: file.typeFile,
+          createdDate: file.createdDate,
+          destination: {
+            idTypeDestination: file.destination.idTypeDestination,
+            nameDestination: file.destination.nameDestination,
+            codeDestination: file.destination.codeDestination,
+            description: file.destination.description
+          }
+        })
+      );
+      // this.listFiles = data.result;
+      // console.log(this._listFiles)
+    }, error => {
+      console.log(error);
+    });
   }
 
-  uploadImage(event: Event): void {
+  uploadImage(event: Event, folder: ViewDestinationObject, index: number): void {
     const file = (event.target as HTMLInputElement).files?.item(0);
     const idBranch = JSON.parse(localStorage.getItem('user')!).libraryBranch.id;
-    const typeDestination = this.listDestination.filter(item => item.codeDestination === 'CoverArticle')[0];
+    const typeDestination = this.listDestination.filter(item => item.idTypeDestination === folder.idTypeDestination)[0];
     const body: SelectedFileObject = {
       file: file!,
       destination: typeDestination
@@ -261,7 +298,7 @@ export class EditArticleComponent implements OnInit {
     this.fileService.uploadFile(body, idBranch).subscribe((event: any) => {
       if (event instanceof HttpResponse) {
         const result = event.body.result;
-        this.listViewFile.unshift({
+        this.listViewFolder[index].files.unshift({
           id: result.id,
           nameFile: result.nameFile,
           typeFile: result.typeFile,
@@ -280,6 +317,20 @@ export class EditArticleComponent implements OnInit {
     });
     console.log("image")
   }
+
+  changeStatusFolder(folder: ViewDestinationObject, index: number): void {
+    folder.isOpen = !folder.isOpen;
+    if (folder.isOpen) {
+      this.getListfiles(folder.idTypeDestination, index);
+    }
+  }
+
+  setTypeArticle(e: any): void {
+    let type = this.listTypeAticle.filter(type => type.id === parseInt(e))[0];
+    // this.listViewArticle[index].typeArticle = type;
+    this.selectedArticle!.typeArticle = type;
+  }
+
 
   clearFileArticle(): void {
     this.selectedArticle!.file = null;

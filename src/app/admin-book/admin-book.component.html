@@ -111,7 +111,6 @@
 
 </div>
 
-
 <div class="file-popup" *ngIf="close">
   <div class="file-popup-content">
     <div class="file-popup-header">
@@ -122,40 +121,78 @@
         <button (click)="close=false"><img src="assets/icons/x.svg"></button>
       </div>
     </div>
-
-    <div class="file-popup-content-area">
-      <div class="file-popup-table">
-        <table>
-          <thead>
-          <tr>
-            <th>Название</th>
-            <th>Дата</th>
-            <th>Выбрать</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let viewFile of listViewFile; let i = index">
-            <td>{{viewFile.nameFile}}</td>
-            <td>{{viewFile.createdDate}}</td>
-            <td>
-              <div class="edit-button">
-                <button (click)="setCoverBook(viewFile)">
-                  <img alt="Обложка" src="assets/icons/corner-right-up.svg">
-                </button>
-              </div>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+    <div *ngFor="let folder of listViewFolder; let i=index">
+      <div>
+        <input type="file" id="file" accept="image/*" (change)="uploadImage($event, folder, i)">
       </div>
-      <div class="image-preview">
-        <div *ngIf="book">
-          <img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="max-width: 300px; max-height: 300px">
-        </div>
-        <div>
-          <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">
-        </div>
+      <button (click)="changeStatusFolder(folder, i)">Раскрыть</button>
+      <ul>{{folder.nameDestination}}
+        <ng-container *ngIf="folder.isOpen">
+          <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
+            <li>{{file.nameFile}}</li>
+            <div class="edit-button">
+              <button (click)="setCoverBook(file)">
+                <img alt="Обложка" src="assets/icons/corner-right-up.svg">
+              </button>
+            </div>
+          </ng-template>
+        </ng-container>
+      </ul>
+    </div>
+    <div class="image-preview">
+      <div *ngIf="book">
+        <img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка"
+             style="max-width: 300px; max-height: 300px">
       </div>
     </div>
   </div>
 </div>
+
+
+<!--<div class="file-popup" *ngIf="close">-->
+<!--  <div class="file-popup-content">-->
+<!--    <div class="file-popup-header">-->
+<!--      <div>-->
+<!--        <p><strong>Выберите обложку</strong></p>-->
+<!--      </div>-->
+<!--      <div class="edit-button">-->
+<!--        <button (click)="close=false"><img src="assets/icons/x.svg"></button>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="file-popup-content-area">-->
+<!--      <div class="file-popup-table">-->
+<!--        <table>-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th>Название</th>-->
+<!--            <th>Дата</th>-->
+<!--            <th>Выбрать</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let viewFile of listViewFile; let i = index">-->
+<!--            <td>{{viewFile.nameFile}}</td>-->
+<!--            <td>{{viewFile.createdDate}}</td>-->
+<!--            <td>-->
+<!--              <div class="edit-button">-->
+<!--                <button (click)="setCoverBook(viewFile)">-->
+<!--                  <img alt="Обложка" src="assets/icons/corner-right-up.svg">-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--      <div class="image-preview">-->
+<!--        <div *ngIf="book">-->
+<!--          <img *ngIf="book.file" [src]="previewImage(book.file)" alt="Обложка" style="max-width: 300px; max-height: 300px">-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <input type="file"  id="file" accept="image/*" (change)="uploadImage($event)">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
