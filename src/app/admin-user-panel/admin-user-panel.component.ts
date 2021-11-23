@@ -102,7 +102,8 @@ export class AdminUserPanelComponent implements OnInit {
           cityRu: item.cityRu,
           cityEn: item.cityEn,
           cityKz: item.cityKz,
-          showOnPage: item.showOnPage
+          showOnPage: item.showOnPage,
+          showName: item.showName
         });
       });
       this.selectedBranch = this.listBranch[0];

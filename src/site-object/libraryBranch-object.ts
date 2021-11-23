@@ -8,6 +8,7 @@ export interface LibraryBranchObject {
   cityEn: string,
   cityKz: string,
   showOnPage: boolean
+  showName: boolean
 }
 
 export interface LocalizationObject {

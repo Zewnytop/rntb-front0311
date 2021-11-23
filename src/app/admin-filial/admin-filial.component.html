@@ -22,6 +22,7 @@
     <th>Домен</th>
     <th>Город</th>
     <th>Отображать на сайте</th>
+    <th>Отображать название на сайте</th>
     <th>
       <div class="add-button">
         <button (click)="addNewBranch()">
@@ -64,6 +65,10 @@
     <td *ngIf=" !branch.isEdit">{{[branch.showOnPage ? 'Отображать' : 'Скрыть']}}</td>
     <td *ngIf="branch.isEdit">
       <input type="checkbox" [(ngModel)]="branch.showOnPage">
+    </td>
+    <td *ngIf=" !branch.isEdit">{{[branch.showName ? 'Отображать' : 'Скрыть']}}</td>
+    <td *ngIf="branch.isEdit">
+      <input type="checkbox" [(ngModel)]="branch.showName">
     </td>
     <td>
       <div class="edit-button">

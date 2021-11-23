@@ -65,7 +65,8 @@ export class AdminFilialComponent implements OnInit {
       cityRu: branch.cityRu,
       cityEn: branch.cityEn,
       cityKz: branch.cityKz,
-      showOnPage: branch.showOnPage
+      showOnPage: branch.showOnPage,
+      showName: branch.showName
     };
     this.branchService.updateInfoLibararyBranch(body).subscribe(data => {
       branch.isEdit = false;
@@ -87,7 +88,8 @@ export class AdminFilialComponent implements OnInit {
       branch.cityRu = bdBranch.cityRu;
       branch.cityEn = bdBranch.cityEn;
       branch.cityKz = bdBranch.cityKz;
-      branch.showOnPage = bdBranch.showOnPage
+      branch.showOnPage = bdBranch.showOnPage;
+      branch.showName = bdBranch.showName;
     }, error => {
       console.log(error);
     });
@@ -106,6 +108,7 @@ export class AdminFilialComponent implements OnInit {
         cityEn: bdBranch.cityEn,
         cityKz: bdBranch.cityKz,
         showOnPage: bdBranch.showOnPage,
+        showName: bdBranch.showName,
         isEdit: true
       });
     }, error => {
@@ -127,6 +130,7 @@ export class AdminFilialComponent implements OnInit {
           cityEn: item.cityEn,
           cityKz: item.cityKz,
           showOnPage: item.showOnPage,
+          showName: item.showName,
           isEdit: false
         };
         listItem.push(itemMenu);
