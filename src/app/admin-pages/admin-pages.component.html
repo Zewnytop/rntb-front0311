@@ -33,13 +33,13 @@
         <td>
           <div class="edit-button">
             <button (click)="changePositionUp(i)" *ngIf="i !== 0">
-              <img src="/assets/icons/arrow-up.svg" alt="Элемент вверх">
+              <img src="./assets/icons/arrow-up.svg" alt="Элемент вверх">
             </button>
             <button (click)="changePositionDown(i)" *ngIf="i !== (selectedPage!.components.length - 1)">
-              <img src="/assets/icons/arrow-down.svg" alt="Элемент вниз">
+              <img src="./assets/icons/arrow-down.svg" alt="Элемент вниз">
             </button>
             <button (click)="deleteComponentOnPage(component.id, i)">
-              <img src="/assets/icons/trash-2.svg" alt="Удалить">
+              <img src="./assets/icons/trash-2.svg" alt="Удалить">
             </button>
           </div>
         </td>
@@ -74,13 +74,13 @@
         <td>
           <div class="edit-button">
             <button (click)="changeEditStatus(page)" *ngIf="!page.isEdit">
-              <img src="/assets/icons/edit-2.svg" alt="Редактировать">
+              <img src="./assets/icons/edit-2.svg" alt="Редактировать">
             </button>
             <button (click)="updateInfoPage(page)" *ngIf="page.isEdit">
-              <img src="/assets/icons/save.svg" alt="Сохранить">
+              <img src="./assets/icons/save.svg" alt="Сохранить">
             </button>
-            <button (click)="getPage(page.id)"><img src="/assets/icons/folder-plus.svg" alt="Выбрать"></button>
-            <button (click)="deletePage(page.id, i)"><img src="/assets/icons/trash-2.svg" alt="Удалить"></button>
+            <button (click)="getPage(page.id)"><img src="./assets/icons/folder-plus.svg" alt="Выбрать"></button>
+            <button (click)="deletePage(page.id, i)"><img src="./assets/icons/trash-2.svg" alt="Удалить"></button>
           </div>
         </td>
       </tr>
@@ -117,7 +117,7 @@
             <button (click)="addComponentOnPage(category.id, category.typeComponent)"
                     [disabled]="blockButtonAddComponent(category.id)">
               <img
-                [src]="[blockButtonAddComponent(category.id)? 'assets/icons/check.svg' : '/assets/icons/plus-circle.svg']"
+                [src]="[blockButtonAddComponent(category.id)? './assets/icons/check.svg' : './assets/icons/plus-circle.svg']"
                 alt="Выбрать">
             </button>
           </div>
@@ -146,7 +146,7 @@
             <button (click)="addComponentOnPage(contactBranch.id, contactBranch.typeComponent)"
                     [disabled]="blockButtonAddComponent(contactBranch.id)">
               <img
-                [src]="[blockButtonAddComponent(contactBranch.id)? 'assets/icons/check.svg' : '/assets/icons/plus-circle.svg']"
+                [src]="[blockButtonAddComponent(contactBranch.id)? './assets/icons/check.svg' : './assets/icons/plus-circle.svg']"
                 alt="Выбрать">
             </button>
           </div>
@@ -178,7 +178,7 @@
             <button (click)="addComponentOnPage(article.id, article.typeComponent)"
                     [disabled]="blockButtonAddComponent(article.id)">
               <img
-                [src]="[blockButtonAddComponent(article.id)? 'assets/icons/check.svg' : '/assets/icons/plus-circle.svg']"
+                [src]="[blockButtonAddComponent(article.id)? './assets/icons/check.svg' : './assets/icons/plus-circle.svg']"
                 alt="Выбрать">
             </button>
           </div>
@@ -207,7 +207,7 @@
             <button (click)="addComponentOnPage(map.id, map.typeComponent)"
                     [disabled]="blockButtonAddComponent(map.id)">
               <img
-                [src]="[blockButtonAddComponent(map.id)? 'assets/icons/check.svg' : '/assets/icons/plus-circle.svg']"
+                [src]="[blockButtonAddComponent(map.id)? './assets/icons/check.svg' : './assets/icons/plus-circle.svg']"
                 alt="Выбрать">
             </button>
           </div>
