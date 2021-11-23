@@ -22,18 +22,28 @@
           <ul class="link-ul">
             <li class="link-li-first">
               <button class="link-li-button-open"><img src="./assets/images/Vector.svg" alt="Vector"></button>
-              <a href="/" i18n="@@ButtonFooterMain">Главная</a>
+              <a [href]="navigateHome()" i18n="@@ButtonFooterMain">Главная</a>
             </li>
             <ng-template ngFor let-item [ngForOf]="listItemMenu">
               <li class="link-li">
                 <button class="link-li-button-open" (click)="changeStatus(item)">
                   <img src="./assets/images/Vector.svg" alt="Vector"
                        [ngClass]="{}"></button>
-                <a [routerLink]="['/sp', item?.pageId]" (click)="setScrollTop()">{{item.name}}</a>
+                <a *ngIf="item.codeTypeItemMenu === 'Page'" [routerLink]="['/sp', item?.pageId]"
+                   (click)="setScrollTop()">{{item.name}}</a>
+                <a *ngIf="item.codeTypeItemMenu === 'ResourceLink'" [href]="item.linkResource"
+                   target="_blank">{{item.name}}</a>
+                <a *ngIf="item.codeTypeItemMenu === 'FileLink'" [href]="viewFile(item.fileId)"
+                   target="_blank">{{item.name}}</a>
                 <ul class="link-li-content" *ngIf="item.isShow">
                   <ng-template ngFor let-iternalItem [ngForOf]="item.childrenItem">
                     <li class="li-content">
-                      <a [routerLink]="['/sp', iternalItem?.pageId]" (click)="setScrollTop()">{{iternalItem.name}}</a>
+                      <a *ngIf="iternalItem.codeTypeItemMenu === 'Page'" [routerLink]="['/sp', iternalItem?.pageId]"
+                         (click)="setScrollTop()">{{iternalItem.name}}</a>
+                      <a *ngIf="iternalItem.codeTypeItemMenu === 'ResourceLink'"
+                         [href]="iternalItem.linkResource" target="_blank">{{iternalItem.name}}</a>
+                      <a *ngIf="iternalItem.codeTypeItemMenu === 'FileLink'"
+                         [href]="viewFile(iternalItem.fileId)" target="_blank">{{iternalItem.name}}</a>
                     </li>
                   </ng-template>
                 </ul>

@@ -97,7 +97,7 @@ export class FooterComponent implements OnInit {
     // const lang = document.baseURI.split("/")[3];
     const domen = location.hostname;
     const lang = location.pathname.replace(/\//g, "");
-    this.sitePageService.getSiteMenu(domen, lang).subscribe(data => {
+    this.sitePageService.getSiteMenu("rntb.timir.kz", "ru").subscribe(data => {
       this.listItemMenu = this.getListItemMenu(data.result);
     }, error => {
       console.log(error);
@@ -112,6 +112,7 @@ export class FooterComponent implements OnInit {
           name: item.name,
           pageId: item.pageId,
           fileId: item.fileId,
+          linkResource: item.linkResource,
           isShow: false,
           codeTypeItemMenu: item.codeTypeItemMenu,
           childrenItem: []
@@ -123,6 +124,19 @@ export class FooterComponent implements OnInit {
       }, this);
     }
     return listItemMenu;
+  }
+
+  navigateHome(): string {
+    // let paramsRoter: any[];
+    // paramsRoter = this.router.url.trim().split("/");
+    const lang = location.pathname.replace(/\//g, "");
+    let newNavigateUrl = location.origin + "/" + lang + "/#/";
+    return newNavigateUrl;
+    // this.router.navigate([newNavigateUrl]);
+  }
+
+  viewFile(idFile: number): string {
+    return "/api/site/file/" + idFile;
   }
 
   // setListItemMenu(itemsMenu: [any]): any[] {

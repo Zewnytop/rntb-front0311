@@ -249,6 +249,10 @@ export class MenuComponent implements OnInit {
     }
   }
 
+  viewFile(idFile: number): string {
+    return "/api/site/file/" + idFile;
+  }
+
   // setListItemMenu(itemsMenu: MenuObject[]): any[] {
   //   let listItemMenu: any[] = [];
   //   itemsMenu.forEach((item) => {
