@@ -2,6 +2,34 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="ru" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="MoreDetails" datatype="html">
+        <source>Подробнее..</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/article/article.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="PositionLabel" datatype="html">
+        <source>Должность</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/contacts/contacts.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="FullNameLabel" datatype="html">
+        <source>ФИО</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/contacts/contacts.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="TelephoneLabel" datatype="html">
+        <source>Телефон</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/contacts/contacts.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="ButtonFooterMain" datatype="html">
         <source>Главная</source>
         <context-group purpose="location">
@@ -13,49 +41,86 @@
         <source> Понедельник Вторник Среда Четверг Пятница </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/footer/footer.component.html</context>
-          <context context-type="linenumber">49,54</context>
+          <context context-type="linenumber">59,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Weekends" datatype="html">
         <source> Суббота Воскресенье </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/footer/footer.component.html</context>
-          <context context-type="linenumber">63,65</context>
+          <context context-type="linenumber">73,75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="LabelDayOff" datatype="html">
         <source><x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div class=&quot;worktime-img&quot;&gt;"/><x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/> Выходной день </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/footer/footer.component.html</context>
-          <context context-type="linenumber">67,69</context>
+          <context context-type="linenumber">77,79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Footer" datatype="html">
         <source>© 2021. Республиканская научно-техническая библиотека</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/footer/footer.component.html</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">87</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="VirtualExhibitionLabel" datatype="html">
+        <source>Виртуальная Выставка</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/gallery/gallery.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NewArrival" datatype="html">
+        <source>Новое поступление</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/gallery/gallery.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="NewsLabel" datatype="html">
+        <source>Новости</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/main-page/main-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1969553326677560168" datatype="html">
+        <source>Название филиала</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/map/map.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">BranchNameLabel</note>
+      </trans-unit>
+      <trans-unit id="7192435205018626985" datatype="html">
+        <source>Город</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/map/map.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">TownLabel</note>
       </trans-unit>
       <trans-unit id="WelcomeLineOne" datatype="html">
         <source>Всегда только самая</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/menu-navbar/menu.component.html</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="WelcomeLineTwo" datatype="html">
         <source>актуальная и достоверная информация</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/menu-navbar/menu.component.html</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="WelcomeLineThree" datatype="html">
         <source>для науки, Образования, Производства</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/menu-navbar/menu.component.html</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
     </body>
