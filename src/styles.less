@@ -55,12 +55,14 @@ html, body {
       margin-top: 20px;
     }
   }
-  .zadarma{
+
+  .zadarma {
     position: fixed;
     z-index: 999;
     bottom: 30px;
     right: 100px;
   }
+
   .container-menu {
     display: block;
     margin: auto;
@@ -135,6 +137,7 @@ html, body {
   .admin-heading {
     display: flex;
     flex-direction: row;
+
     div {
       max-width: 50px;
     }
@@ -257,10 +260,65 @@ html, body {
 
   }
 
+  .upload {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+
+    button, input[type="file"] {
+      display: none;
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+    }
+  }
+
 
   .select-language {
     padding: 10px 0px 10px 0px;
   }
+
+  .file-edit-space {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .file-folder-tables {
+      flex: 0 1 auto;
+      width: calc(100% - 600px);
+      padding-right: 20px;
+      //display: flex;
+      //flex-direction: row;
+      //border: 1px solid red;
+      .file-table {
+        table-layout: unset;
+      }
+
+      ul {
+        list-style: none;
+      }
+      .inherit-table {
+        padding-left: 20px;
+      }
+    }
+
+    .file-edit-preview {
+      flex: 1 0 auto;
+      max-width: 380px;
+      height: auto;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
 
   //Нужно потом перенести эти(снизу) стили в глобальный файл!!!!!
   .gallery-popup {

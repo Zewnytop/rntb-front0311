@@ -4,11 +4,11 @@
     <div class="gallery-title">
       <div class="big-title">
         <hr class="title-hr">
-        <span class="b-title">Виртуальная Выставка</span>
+        <span class="b-title" i18n="@@VirtualExhibitionLabel">Виртуальная Выставка</span>
         <hr class="title-hr">
       </div>
       <span class="small-title" *ngIf="!isMainPage">{{categoryVirtualExhibition?.name}}</span>
-      <span class="small-title" *ngIf="isMainPage" i18n>Новое поступление</span>
+      <span class="small-title" *ngIf="isMainPage" i18n="@@NewArrival">Новое поступление</span>
     </div>
 
     <div class="gallery-carousel" [id]="[isMainPage? 'virtualExhibition' :  ('virtualExhibition' +  id) ]"

@@ -20,7 +20,7 @@
         <div class="ck-content" *ngIf="article && article.mainText" [InsertHtml]="article.mainText"></div>
       </div>
       <div class="article-close">
-        <button class="article-button" [routerLink]="['/ap', idPage, id]">Подробнее..</button>
+        <button class="article-button" [routerLink]="['/ap', idPage, id]" i18n="@@MoreDetails">Подробнее..</button>
       </div>
     </div>
   </ng-template>

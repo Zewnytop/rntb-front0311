@@ -66,7 +66,7 @@
           <p><strong>Обложка: </strong></p>
           <div>
             <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
-                 style="width: 350px ; height: 230px">
+                 style="max-width: 350px ; height: 230px">
           </div>
           <!--350x250-->
         </div>
@@ -124,28 +124,68 @@
           <button (click)="close=false"><img src="assets/icons/x.svg"></button>
         </div>
       </div>
-      <div *ngFor="let folder of listViewFolder; let i=index">
-        <div>
-          <input type="file" id="file" accept="image/*" (change)="uploadImage($event, folder, i)">
+      <div class="file-edit-space">
+        <div class="file-folder-tables">
+          <ul>
+            <li *ngFor="let folder of listViewFolder; let i=index">
+              <table class="file-table">
+                <thead *ngIf="i===0">
+                <tr>
+                  <th colspan="2">Папка</th>
+                  <th style="width: 40px;"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td style="width: 25px;">
+                    <div class="edit-button">
+                      <button (click)="changeStatusFolder(folder, i)"><img src="./assets/icons/plus.svg"></button>
+                    </div>
+                  </td>
+                  <td style="width: 400px;">
+                    {{folder.nameDestination}}
+                  </td>
+                  <td style="width: 40px; display: flex; flex-direction: row;">
+                    <div class="upload">
+                      <label for="upload"><img src="./assets/icons/upload.svg"></label>
+                      <input type="file" id="upload" accept="image/*" (change)="uploadImage($event, folder, i)">
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <ng-container *ngIf="folder.isOpen">
+                <ul>
+                  <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
+                    <li>
+                      <table class="inherit-table">
+                        <tbody>
+                        <tr>
+                          <td style="width: 200px;">{{file.nameFile}}</td>
+                          <td>
+                            <div class="edit-button">
+                              <button (click)="setCoverArticle(file)">
+                                <img alt="Обложка" src="./assets/icons/corner-right-up.svg">
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </li>
+                    <br>
+                  </ng-template>
+                </ul>
+              </ng-container>
+            </li>
+          </ul>
         </div>
-        <button (click)="changeStatusFolder(folder, i)">Раскрыть</button>
-        <ul>{{folder.nameDestination}}
-          <ng-container *ngIf="folder.isOpen">
-            <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
-              <li>{{file.nameFile}}</li>
-              <div class="edit-button">
-                <button (click)="setCoverArticle(file)">
-                  <img alt="Обложка" src="assets/icons/corner-right-up.svg">
-                </button>
-              </div>
-            </ng-template>
-          </ng-container>
-        </ul>
-      </div>
-      <div class="image-preview">
-        <div *ngIf="selectedArticle">
-          <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
-               style="width: 300px ; max-height: 230px">
+
+        <div class="image-preview">
+          <div *ngIf="selectedArticle">
+            <img *ngIf="selectedArticle.file" [src]="previewImage(selectedArticle.file)" alt="Обложка"
+                 style="max-width: 300px ; max-height: 350px">
+          </div>
         </div>
       </div>
     </div>
