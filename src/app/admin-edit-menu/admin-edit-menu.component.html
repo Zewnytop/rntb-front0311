@@ -45,12 +45,17 @@
           <option [value]="null">Пусто</option>
           <option [value]="page.id" *ngFor="let page of listViewPages; let i = index">{{page.nameRu}}</option>
         </select>
+        <div class="add-button">
         <p *ngIf="staticItem.typeItemMenu.codeType == 'StaticFileLink'">{{staticItem.file.nameFile}}
         </p>
-        <button *ngIf="staticItem.typeItemMenu.codeType == 'StaticFileLink'" (click)="showPopUp(staticItem)">Выбрать
-        </button>
-        <input type="text" [(ngModel)]="staticItem.linkResource"
-               *ngIf="staticItem.typeItemMenu.codeType == 'StaticResourceLink'">
+          <button *ngIf="staticItem.typeItemMenu.codeType == 'StaticFileLink'" (click)="showPopUp(staticItem)">Выбрать
+          </button>
+        </div>
+        <div class="edit-input2">
+          <input type="text" [(ngModel)]="staticItem.linkResource"
+                 *ngIf="staticItem.typeItemMenu.codeType == 'StaticResourceLink'">
+        </div>
+
       </td>
       <td *ngIf="staticItem.isEdit === false && staticItem.typeItemMenu.codeType == 'StaticPageLink'">
         {{[staticItem?.page ? staticItem?.page?.nameRu : 'Отсутствует']}}
@@ -312,25 +317,60 @@
         <button (click)="close=false"><img src="assets/icons/x.svg"></button>
       </div>
     </div>
-    <div *ngFor="let folder of listViewDestination; let i=index">
-      <button (click)="changeStatusFolder(folder, i)">Раскрыть</button>
-      <ul>{{folder.nameDestination}}
-        <ng-container *ngIf="folder.isOpen">
-          <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
-            <li>{{file.nameFile}}</li>
-            <div class="edit-button">
-              <button (click)="setFileItem(file)">
-                <img alt="Обложка" src="assets/icons/corner-right-up.svg">
-              </button>
-            </div>
-          </ng-template>
-        </ng-container>
-      </ul>
-    </div>
-    <div class="image-preview">
-      <div *ngIf="selectedMenu">
-        <img *ngIf="selectedMenu.file" [src]="previewImage(selectedMenu.file)" alt="Обложка"
-             style="max-width: 300px; max-height: 300px">
+    <div class="file-edit-space">
+      <div class="file-folder-tables">
+        <ul>
+          <li *ngFor="let folder of listViewDestination; let i=index">
+            <table class="file-table">
+              <thead *ngIf="i===0">
+              <tr>
+                <th colspan="2">Папка</th>
+                <th style="width: 40px;"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td style="width: 25px;">
+                  <div class="edit-button">
+                    <button (click)="changeStatusFolder(folder, i)"><img src="./assets/icons/plus.svg"></button>
+                  </div>
+                </td>
+                <td style="width: 400px;">{{folder.nameDestination}}</td>
+                <td></td>
+              </tr>
+              </tbody>
+            </table>
+            <ng-container *ngIf="folder.isOpen">
+              <ul>
+                <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
+                  <li>
+                    <table class="inherit-table">
+                      <tbody>
+                      <tr>
+                        <td style="width: 200px;">{{file.nameFile}}</td>
+                        <td>
+                          <div class="edit-button">
+                            <button (click)="setFileItem(file)">
+                              <img alt="Обложка" src="./assets/icons/corner-right-up.svg">
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                </ng-template>
+              </ul>
+            </ng-container>
+          </li>
+        </ul>
+      </div>
+
+      <div class="image-preview">
+        <div *ngIf="selectedMenu">
+          <img *ngIf="selectedMenu.file" [src]="previewImage(selectedMenu.file)" alt="Обложка"
+               style="max-width: 300px; max-height: 300px">
+        </div>
       </div>
     </div>
   </div>
