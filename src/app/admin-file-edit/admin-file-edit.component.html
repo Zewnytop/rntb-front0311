@@ -5,28 +5,77 @@
   <button (click)="createFolder()">Создать папку</button>
 </div>
 <br>
-<div *ngFor="let folder of listViewDestination; let i=index">
-  <br>
-  <div class="add-button">
-    <input type="file" accept="image/*" multiple (change)=" selectFiles($event, folder)"/>
-  </div>
-  <button (click)="changeStatusFolder(folder, i)">Раскрыть</button>
-  <button (click)="changeEditStatus(folder)">Редактировать</button>
-    <a *ngIf="!folder.isEdit">{{folder.nameDestination}}</a>
-    <input *ngIf="folder.isEdit" [(ngModel)]="folder.nameDestination" type="text">
-      <ng-container *ngIf="!folder.isOpen">
-        <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
-          <li>{{file.nameFile}}</li>
-          <button (click)="setIdAndTypeFile(file.id, file.typeFile)"><img alt="Предпросмотр"
-                                                                          [src]="idFile!==file.id? previewImg1:previewImg2"
-                                                                          title="Предпросмотр">
-          </button>
-          <button (click)="deleteFile(file.id, i, iFile)" [disabled]="edit"><img alt="Удалить"
-                                                                                 [src]=" edit===false? 'assets/icons/trash-2.svg': 'assets/icons/loader.svg' ">
-          </button>
-        </ng-template>
-      </ng-container>
-  <br>
+<div class="file-edit-space">
+<div class="file-folder-tables">
+<ul>
+  <li *ngFor="let folder of listViewDestination; let i=index">
+    <table class="file-table">
+      <thead *ngIf="i===0">
+      <tr>
+        <th colspan="2">Папка</th>
+        <th style="width: 40px;"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td style="width: 25px;">
+          <div class="edit-button">
+            <button (click)="changeStatusFolder(folder, i)"><img src="./assets/icons/plus.svg"></button>
+          </div>
+        </td>
+        <td style="width: 400px;" class="edit-input2">
+          <a *ngIf="!folder.isEdit">{{folder.nameDestination}}</a>
+          <input *ngIf="folder.isEdit" [(ngModel)]="folder.nameDestination" type="text">
+        </td>
+        <td style="width: 40px; display: flex; flex-direction: row;">
+            <div class="edit-button">
+              <button (click)="changeEditStatus(folder)"><img src="./assets/icons/edit-2.svg"></button>
+            </div>
+            <div class="upload">
+              <label for="upload"><img src="./assets/icons/upload.svg"></label>
+              <input type="file" accept="image/*" id="upload" multiple (change)=" selectFiles($event, folder)"/>
+            </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <ng-container *ngIf="!folder.isOpen">
+      <ul>
+      <ng-template ngFor let-file [ngForOf]="folder.files" let-iFile="index">
+          <li>
+            <table class="inherit-table">
+              <tbody>
+              <tr>
+                <td style="width: 300px;">{{file.nameFile}}</td>
+                <td style="display: flex; flex-direction: row; width: 50px;">
+                  <div class="edit-button">
+                    <button (click)="setIdAndTypeFile(file.id, file.typeFile)"><img alt="Предпросмотр"
+                                                                                    [src]="idFile!==file.id? previewImg1:previewImg2"
+                                                                                    title="Предпросмотр">
+                    </button>
+                  </div>
+                  <div class="edit-button">
+                    <button (click)="deleteFile(file.id, i, iFile)" [disabled]="edit"><img alt="Удалить"
+                                                                                           [src]=" edit===false? './assets/icons/trash-2.svg': './assets/icons/loader.svg' ">
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </li>
+        <br>
+      </ng-template>
+      </ul>
+    </ng-container>
+
+
+  </li>
+</ul>
+</div>
+<div class="file-edit-preview" *ngIf="idFile !== null">
+  <img [src]="previewImage()">
+</div>
 </div>
 <div class="file-edit">
   <div class="file-edit-space">
@@ -67,9 +116,7 @@
     <!--        </tbody>-->
     <!--      </table>-->
     <!--    </div>-->
-    <div class="file-edit-preview" *ngIf="idFile !== null">
-      <img [src]="previewImage()">
-    </div>
+
   </div>
 </div>
 <div class="file-popup" *ngIf="close">
