@@ -19,7 +19,8 @@
       "i18n": {
         "sourceLocale": "ru",
         "locales": {
-          "en": "src/locale/messages.en.xlf"
+          "en": "src/locale/messages.en.xlf",
+          "kz": "src/locale/messages.kz.xlf"
         }
       },
       "architect": {
@@ -43,6 +44,9 @@
           "configurations": {
             "en": {
               "localize": ["en"]
+            },
+            "kz": {
+              "localize": ["kz"]
             },
             "production": {
               "budgets": [
@@ -90,6 +94,9 @@
             },
             "en": {
               "browserTarget": "rntb-front:build:en"
+            },
+            "kz": {
+              "browserTarget": "rntb-front:build:kz"
             }
           },
           "defaultConfiguration": "development"
