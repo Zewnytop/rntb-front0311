@@ -31,7 +31,7 @@ export class GeneralComponent implements OnInit {
   }
 
   zadarma(): void{
-    let zadarmaElement = document.getElementById("myZadarmaCallmeWidget10726") as HTMLElement;
+    let zadarmaElement = document.getElementById("myZadarmaCallmeWidget10822") as HTMLElement;
     zadarmaElement.classList.add('zadarma');
   }
 }
