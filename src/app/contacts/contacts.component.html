@@ -1,15 +1,15 @@
 <div class="contact">
   <div class="container">
     <div class="contact-map-box">
-      <div class="contact-map" *ngIf="branchContact">
-        <iframe [src]="getMapSrc(branchContact.navigationMap)" *ngIf="branchContact.navigationMap"
-                width="1084" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-      </div>
       <div class="contact-box">
         <div class="contact-box-title">{{branchContact?.nameContact}}</div>
         <div class="contact-box-context">{{branchContact?.address}}
           <div class="contact-box-e-mail">e-mail: {{branchContact?.email}}</div>
         </div>
+      </div>
+      <div class="contact-map" *ngIf="branchContact">
+        <iframe [src]="getMapSrc(branchContact.navigationMap)" *ngIf="branchContact.navigationMap"
+                width="684" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
     </div>
     <ng-template [ngIf]="branchContact">
