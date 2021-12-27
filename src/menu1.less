@@ -1,0 +1,274 @@
+.app-menu1 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background: url("./assets/images/menu-back-new.png") no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 390px;
+
+
+  .menu-area {
+    background: url("./assets/images/menu-backsvg-new.svg") center no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 400px;
+
+    .search-area {
+      padding: 35px 0px 0px 0px;
+      //display: grid;
+      //grid-template-columns: 730px 350px 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      .search {
+        background: #ffffff;
+        border-radius: 10px;
+        border: 1px solid #1D488C;
+        box-shadow: none;
+        width: 400px;
+        height: 28px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-right: 10px;
+
+        .search-svg {
+          color: #2d2d2d;
+          //width: 14px;
+          //height: 14px;
+          margin-left: 10px;
+          //margin-right: 5px;
+        }
+
+        .search-input {
+          font-size: 14px;
+          text-align: center;
+
+
+          ::placeholder {
+            color: #4d4d4d;
+            font-size: 14px;
+            font-style: italic;
+          }
+
+          input {
+            width: 340px;
+            margin-left: 10px;
+            height: 22px;
+            background-color: @white;
+            border: 0px;
+          }
+
+          :focus-visible {
+            outline: none;
+          }
+
+        }
+
+      }
+
+      .media-area {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 120px;
+
+        .instagram {
+          background: url("./assets/images/instagram-new.svg") center no-repeat;
+          width: 30px;
+          height: 30px;
+        }
+
+        .facebook {
+          background: url("./assets/images/facebook-new.svg") center no-repeat;
+          width: 30px;
+          height: 30px;
+        }
+
+        .telegram {
+          background: url("./assets/images/telegram-new.svg") center no-repeat;
+          //background-size: contain;
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+
+    .navbar-area {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+
+      .navbar-ul {
+        background-color: #FFFFFF;
+        border-radius: 5px;
+        height: 30px;
+        display: flex;
+        list-style: none;
+        padding-right: 5px;
+        padding-left: 30px;
+        align-items: center;
+
+        .navbar-li {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          padding-right: 15px;
+
+          .li-a {
+            white-space: nowrap;
+            color: #727271;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+
+            .li-svg {
+              background: url("./assets/images/dropdown.svg") center no-repeat;
+              width: 15px;
+              height: 9px;
+              margin-left: 5px;
+              margin-top: 2px;
+            }
+          }
+
+
+          a {
+            color: #727271;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+          }
+
+          a:hover {
+            transition-duration: 0.2s;
+            color: #2b1c1c;
+          }
+
+
+          .navbar-li-dropdown {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+
+            //margin-top: 38px;
+            padding: 15px 15px 20px;
+            border-radius: 0px 0px 5px 5px;
+
+            background: #ffffff;
+            min-width: 160px;
+            width: auto;
+            z-index: 10;
+          }
+
+          .dropdown-a {
+            margin-top: 5px;
+          }
+        }
+
+        //.navbar-li-dropdown a:hover {
+        //  background-color: #555555;
+        //}
+        .navbar-li:hover .navbar-li-dropdown {
+          display: flex;
+        }
+
+        .navbar-li:hover .li-hr {
+          background-color: #e74623;
+          border: 1px solid #e74623;
+          border-radius: 6px;
+          height: 2px;
+        }
+
+        .languages {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          font-weight: bold;
+          font-size: 14px;
+          line-height: 22px;
+
+          .ru {
+            text-decoration: none;
+            color: #393185;
+            padding-right: 5px;
+          }
+
+          a:hover {
+            transition-duration: 0.2s;
+            color: #E74623;
+          }
+        }
+
+
+      }
+    }
+
+    .menu-appendix {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .appendix {
+        background-color: #FFFFFF;
+        border: 3px solid #393185;
+        border-radius: 5px;
+        height: 170px;
+        width: 170px;
+        margin: 0px 20px;
+        position: relative;
+        -webkit-box-shadow: 0px 9px 13px 8px rgba(34, 60, 80, 0.2);
+        -moz-box-shadow: 0px 9px 13px 8px rgba(34, 60, 80, 0.2);
+        box-shadow: 0px 9px 13px 8px rgba(34, 60, 80, 0.2);
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+
+        .appendix-bottom {
+          position: absolute;
+          bottom: 0;
+          background-color: #393185;
+          width: 100%;
+          height: 40px;
+
+          .appendix-bottom-textarea {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-image: url("./assets/images/appendix-bottom-textarea.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 160px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            .appendix-bottom-textarea-text {
+              padding: 10px 10px;
+              font-weight: bold;
+              text-transform: uppercase;
+              color: #FFFFFF;
+              font-size: 12px;
+            }
+
+          }
+        }
+      }
+
+      .appendix:hover {
+        transition-duration: 0.3s;
+        height: 180px;
+        width: 180px;
+
+      }
+    }
+  }
+}
+

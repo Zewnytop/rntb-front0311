@@ -242,20 +242,22 @@ export class MenuComponent implements OnInit {
 
   getIconStaticItem(id: number): string {
     if (id === 250) {
-      return "./assets/images/section-one.svg";
+      return "./assets/images/001.png";
     } else if (id === 251) {
-      return "./assets/images/section-two.svg";
+      return "./assets/images/002.png";
     } else if (id === 252) {
-      return "./assets/images/section-three.svg";
+      return "./assets/images/003.png";
     } else if (id === 253) {
-      return "./assets/images/section-four.svg";
+      return "./assets/images/004.png";
+    }else if (id === 414) {
+      return "./assets/images/005.png";
     }
     return ""
   }
 
   setScrollTop() {
     if (document.scrollingElement) {
-      document.scrollingElement.scrollTop = 960;
+      document.scrollingElement.scrollTop = 420;
     }
   }
 

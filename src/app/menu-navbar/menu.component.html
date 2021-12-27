@@ -1,97 +1,200 @@
-<div class="app-menu">
-  <div class="container-menu">
-    <div class="logo-navbar">
-      <!-- Лого -->
-      <a class="logo" [href]="navigateHome()"></a>
-      <div class="navbar-media">
-        <div class="navbar-filial">
-          <div class="navbar">
-            <ul class="navbar-ul">
-              <ng-template ngFor let-item [ngForOf]="listSiteItemMenu">
-                <li class="navbar-li">
-                  <a class="li-a" *ngIf="item.codeTypeItemMenu === 'Page'" [routerLink]="['sp', item?.pageId]"
-                     (click)="setScrollTop()">{{item.name}}
-                    <div class="li-svg" *ngIf="item.childrenItem.length"></div>
-                  </a>
-                  <a class="li-a" *ngIf="item.codeTypeItemMenu === 'ResourceLink'" [href]="item.linkResource"
-                     target="_blank">{{item.name}}
-                    <div class="li-svg" *ngIf="item.childrenItem.length"></div>
-                  </a>
-                  <a class="li-a" *ngIf="item.codeTypeItemMenu === 'FileLink'" target="_blank"
-                     [href]="viewFile(item.fileId)">{{item.name}}
-                    <div class="li-svg" *ngIf="item.childrenItem.length"></div>
-                  </a>
-                  <div class="navbar-li-dropdown" *ngIf="item.childrenItem.length">
-                    <ng-template ngFor let-iternalItem [ngForOf]="item.childrenItem">
-                      <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'Page'"
-                         [routerLink]="['sp', iternalItem?.pageId]"
-                         (click)="setScrollTop()">{{iternalItem.name}}</a>
-                      <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'ResourceLink'"
-                         [href]="iternalItem.linkResource"
-                         target="_blank">{{iternalItem.name}}</a>
-                      <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'FileLink'"
-                         [href]="viewFile(iternalItem.fileId)"
-                         target="_blank">{{iternalItem.name}}</a>
-                    </ng-template>
-                  </div>
-                </li>
-              </ng-template>
-            </ul>
-            <div class="search">
-              <div class="search-svg">
-                <div class="edit-button">
-                  <button><img src="assets/icons/search.svg"></button>
-                </div>
-              </div>
-              <div class="search-input">
-                <input type="text" placeholder="Поиск.." class="search-input">
-              </div>
-            </div>
-            <div class="languages">
-              <a *ngFor="let lang of listLanguage; let i =index" class="ru"
-                 [href]="changeLanguage(lang.code)">{{lang.name}}</a>
+<!--<div class="app-menu">-->
+<!--  <div class="container-menu">-->
+<!--    <div class="logo-navbar">-->
+<!--      &lt;!&ndash; Лого &ndash;&gt;-->
+<!--      <a class="logo" [href]="navigateHome()"></a>-->
+<!--      <div class="navbar-media">-->
+<!--        <div class="navbar-filial">-->
+<!--          <div class="navbar">-->
+<!--            <ul class="navbar-ul">-->
+<!--              <ng-template ngFor let-item [ngForOf]="listSiteItemMenu">-->
+<!--                <li class="navbar-li">-->
+<!--                  <a class="li-a" *ngIf="item.codeTypeItemMenu === 'Page'" [routerLink]="['sp', item?.pageId]"-->
+<!--                     (click)="setScrollTop()">{{item.name}}-->
+<!--                    <div class="li-svg" *ngIf="item.childrenItem.length"></div>-->
+<!--                  </a>-->
+<!--                  <a class="li-a" *ngIf="item.codeTypeItemMenu === 'ResourceLink'" [href]="item.linkResource"-->
+<!--                     target="_blank">{{item.name}}-->
+<!--                    <div class="li-svg" *ngIf="item.childrenItem.length"></div>-->
+<!--                  </a>-->
+<!--                  <a class="li-a" *ngIf="item.codeTypeItemMenu === 'FileLink'" target="_blank"-->
+<!--                     [href]="viewFile(item.fileId)">{{item.name}}-->
+<!--                    <div class="li-svg" *ngIf="item.childrenItem.length"></div>-->
+<!--                  </a>-->
+<!--                  <div class="navbar-li-dropdown" *ngIf="item.childrenItem.length">-->
+<!--                    <ng-template ngFor let-iternalItem [ngForOf]="item.childrenItem">-->
+<!--                      <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'Page'"-->
+<!--                         [routerLink]="['sp', iternalItem?.pageId]"-->
+<!--                         (click)="setScrollTop()">{{iternalItem.name}}</a>-->
+<!--                      <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'ResourceLink'"-->
+<!--                         [href]="iternalItem.linkResource"-->
+<!--                         target="_blank">{{iternalItem.name}}</a>-->
+<!--                      <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'FileLink'"-->
+<!--                         [href]="viewFile(iternalItem.fileId)"-->
+<!--                         target="_blank">{{iternalItem.name}}</a>-->
+<!--                    </ng-template>-->
+<!--                  </div>-->
+<!--                </li>-->
+<!--              </ng-template>-->
+<!--            </ul>-->
+<!--            <div class="search">-->
+<!--              <div class="search-svg">-->
+<!--                <div class="edit-button">-->
+<!--                  <button><img src="assets/icons/search.svg"></button>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="search-input">-->
+<!--                <input type="text" placeholder="Поиск.." class="search-input">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="languages">-->
+<!--              <a *ngFor="let lang of listLanguage; let i =index" class="ru"-->
+<!--                 [href]="changeLanguage(lang.code)">{{lang.name}}</a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          &lt;!&ndash;                    ЕСЛИ ЧТО РАСКОМЕНТИТЬ&ndash;&gt;-->
+<!--          <span class="filial-name">{{[showName ? branchName : '']}}</span> &lt;!&ndash; Название филиала &ndash;&gt;-->
+<!--        </div>-->
+<!--        <div class="media">-->
+<!--          <a [href]="urlInstagram" target="_blank" class="instagram"></a>-->
+<!--          <a [href]="urlFacebook" target="_blank" class="facebook"></a>-->
+<!--          <a [href]="urlTelegram" target="_blank" class="telegram"></a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="container">-->
+<!--      <div class="title-menu" i18n="@@WelcomeLineOne">-->
+<!--        <span>только самая актуальная и достоверная информация</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; Ирибис &ndash;&gt;-->
+<!--<div class="irbis">-->
+<!--  <div class="container">-->
+<!--    <div class="irbis-sections">-->
+<!--      <ng-template ngFor let-staticItem [ngForOf]="listSiteStaticItemMenu" let-i="index">-->
+<!--        <div class="irbis-sections-hr" *ngIf="i!==0"></div> &lt;!&ndash;      //полоска под 90&ndash;&gt;-->
+<!--        <a class="sections" *ngIf="staticItem.codeTypeItemMenu === 'StaticPageLink'"-->
+<!--           [routerLink]="['sp', staticItem?.pageId]"-->
+<!--           (click)="setScrollTop()">-->
+<!--          <img [src]="getIconStaticItem(staticItem.id)" alt="1">-->
+<!--          <div class="text">{{staticItem.name}}</div>-->
+<!--        </a>-->
+<!--        <a class="sections" *ngIf="staticItem.codeTypeItemMenu === 'StaticResourceLink'" target="_blank"-->
+<!--           [href]="staticItem.linkResource">-->
+<!--          <img [src]="getIconStaticItem(staticItem.id)" alt="1">-->
+<!--          <div class="text">{{staticItem.name}}</div>-->
+<!--        </a>-->
+<!--        <a class="sections" *ngIf="staticItem.codeTypeItemMenu === 'StaticFileLink'" target="_blank"-->
+<!--           [href]="viewFile(staticItem.fileId)">-->
+<!--          <img [src]="getIconStaticItem(staticItem.id)" alt="1">-->
+<!--          <div class="text">{{staticItem.name}}</div>-->
+<!--        </a>-->
+<!--      </ng-template>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="app-menu1">
+  <div class="menu-area">
+    <div class="container">
+
+      <div class="search-area">
+        <div class="search">
+          <div class="search-input">
+            <input type="text" placeholder="Поиск на сайте" class="search-input">
+          </div>
+          <div class="search-svg">
+            <div class="edit-button">
+              <button><img src="assets/icons/search.svg"></button>
             </div>
           </div>
-          <!--                    ЕСЛИ ЧТО РАСКОМЕНТИТЬ-->
-          <span class="filial-name">{{[showName ? branchName : '']}}</span> <!-- Название филиала -->
         </div>
-        <div class="media">
+        <div class="media-area">
           <a [href]="urlInstagram" target="_blank" class="instagram"></a>
           <a [href]="urlFacebook" target="_blank" class="facebook"></a>
           <a [href]="urlTelegram" target="_blank" class="telegram"></a>
         </div>
       </div>
-    </div>
-    <div class="container">
-      <div class="title-menu" i18n="@@WelcomeLineOne">
-        <span>только самая актуальная и достоверная информация</span>
+      <div class="navbar-area">
+        <a [href]="navigateHome()">
+          <div class="logo">
+            <img src="assets/images/Menulogo-new.svg">
+          </div>
+        </a>
+        <ul class="navbar-ul">
+          <ng-template ngFor let-item [ngForOf]="listSiteItemMenu">
+            <li class="navbar-li">
+              <a class="li-a" *ngIf="item.codeTypeItemMenu === 'Page'" [routerLink]="['sp', item?.pageId]"
+                 (click)="setScrollTop()">{{item.name}}
+                <div class="li-svg" *ngIf="item.childrenItem.length"></div>
+              </a>
+              <a class="li-a" *ngIf="item.codeTypeItemMenu === 'ResourceLink'" [href]="item.linkResource"
+                 target="_blank">{{item.name}}
+                <div class="li-svg" *ngIf="item.childrenItem.length"></div>
+              </a>
+              <a class="li-a" *ngIf="item.codeTypeItemMenu === 'FileLink'" target="_blank"
+                 [href]="viewFile(item.fileId)">{{item.name}}
+                <div class="li-svg" *ngIf="item.childrenItem.length"></div>
+              </a>
+              <div class="li-hr"></div>
+              <div class="navbar-li-dropdown" *ngIf="item.childrenItem.length">
+                <ng-template ngFor let-iternalItem [ngForOf]="item.childrenItem">
+                  <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'Page'"
+                     [routerLink]="['sp', iternalItem?.pageId]"
+                     (click)="setScrollTop()">{{iternalItem.name}}</a>
+                  <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'ResourceLink'"
+                     [href]="iternalItem.linkResource"
+                     target="_blank">{{iternalItem.name}}</a>
+                  <a class="dropdown-a" *ngIf="iternalItem.codeTypeItemMenu === 'FileLink'"
+                     [href]="viewFile(iternalItem.fileId)"
+                     target="_blank">{{iternalItem.name}}</a>
+                </ng-template>
+              </div>
+            </li>
+          </ng-template>
+          <div class="languages">
+            <a *ngFor="let lang of listLanguage; let i =index" class="ru"
+               [href]="changeLanguage(lang.code)">{{lang.name}}</a>
+          </div>
+        </ul>
       </div>
-    </div>
-  </div>
-</div>
-<!-- Ирибис -->
-<div class="irbis">
-  <div class="container">
-    <div class="irbis-sections">
-      <ng-template ngFor let-staticItem [ngForOf]="listSiteStaticItemMenu" let-i="index">
-        <div class="irbis-sections-hr" *ngIf="i!==0"></div> <!--      //полоска под 90-->
-        <a class="sections" *ngIf="staticItem.codeTypeItemMenu === 'StaticPageLink'"
-           [routerLink]="['sp', staticItem?.pageId]"
-           (click)="setScrollTop()">
-          <img [src]="getIconStaticItem(staticItem.id)" alt="1">
-          <div class="text">{{staticItem.name}}</div>
-        </a>
-        <a class="sections" *ngIf="staticItem.codeTypeItemMenu === 'StaticResourceLink'" target="_blank"
-           [href]="staticItem.linkResource">
-          <img [src]="getIconStaticItem(staticItem.id)" alt="1">
-          <div class="text">{{staticItem.name}}</div>
-        </a>
-        <a class="sections" *ngIf="staticItem.codeTypeItemMenu === 'StaticFileLink'" target="_blank"
-           [href]="viewFile(staticItem.fileId)">
-          <img [src]="getIconStaticItem(staticItem.id)" alt="1">
-          <div class="text">{{staticItem.name}}</div>
-        </a>
-      </ng-template>
+
+      <div class="menu-appendix">
+        <ng-template ngFor let-staticItem [ngForOf]="listSiteStaticItemMenu" let-i="index">
+          <div class="appendix">
+            <img [src]="getIconStaticItem(staticItem.id)" alt="1">
+            <div class="appendix-bottom">
+              <a *ngIf="staticItem.codeTypeItemMenu === 'StaticPageLink'"
+                 [routerLink]="['sp', staticItem?.pageId]"
+                 (click)="setScrollTop()">
+                <div class="appendix-bottom-textarea">
+                  <div class="appendix-bottom-textarea-text">
+                    {{staticItem.name}}
+                  </div>
+                </div>
+              </a>
+              <a *ngIf="staticItem.codeTypeItemMenu === 'StaticResourceLink'" target="_blank"
+                 [href]="staticItem.linkResource">
+                <div class="appendix-bottom-textarea">
+                  <div class="appendix-bottom-textarea-text">
+                    {{staticItem.name}}
+                  </div>
+                </div>
+              </a>
+              <a *ngIf="staticItem.codeTypeItemMenu === 'StaticFileLink'" target="_blank"
+                 [href]="viewFile(staticItem.fileId)">
+                <div class="appendix-bottom-textarea">
+                  <div class="appendix-bottom-textarea-text">
+                    {{staticItem.name}}
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>
